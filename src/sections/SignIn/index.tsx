@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
@@ -80,7 +81,7 @@ export function SignInView() {
       <Stack spacing={1.5}>
         <Link
           component={RouterLink}
-          href="#"
+          href={paths.resetPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
