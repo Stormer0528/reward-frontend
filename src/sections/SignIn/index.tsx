@@ -81,7 +81,7 @@ export function SignInView() {
       <Stack spacing={1.5}>
         <Link
           component={RouterLink}
-          href={paths.resetPassword}
+          href={paths.forgotPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}

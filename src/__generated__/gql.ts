@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation ResetTokenVerify($data: TokenInput!) {\n    resetTokenVerify(data: $data) {\n      email\n      token\n    }\n  }\n": types.ResetTokenVerifyDocument,
     "\n  query fetchMe {\n    memberMe {\n      id\n      username\n      fullName\n      email\n      primaryAddress\n      secondaryAddress\n      assetId\n      mobile\n      city\n      state\n      zipCode\n      sponsorId\n      sponsor {\n        id\n        username\n        fullName\n        email\n        primaryAddress\n        secondaryAddress\n        mobile\n        assetId\n      }\n      sales {\n        id\n        invoiceNo\n        memberId\n        packageId\n        paymentMethod\n        status\n        orderedAt\n      }\n      memberWallets {\n        createdAt\n        updatedAt\n        deletedAt\n        id\n        memberId\n        payoutId\n        address\n        percent\n        payout {\n          id\n          method\n          status\n          name\n          display\n          createdAt\n          updatedAt\n          deletedAt\n        }\n      }\n      createdAt\n      updatedAt\n      deletedAt\n    }\n  }\n": types.FetchMeDocument,
     "\n  query FetchMemberStats($inactiveFilter: JSONObject) {\n    all: members {\n      total\n    }\n    inactive: members(filter: $inactiveFilter) {\n      total\n    }\n  }\n": types.FetchMemberStatsDocument,
     "\n  query FetchMembers($page: String, $filter: JSONObject, $sort: String) {\n    members(page: $page, filter: $filter, sort: $sort) {\n      members {\n        id\n        username\n        fullName\n        email\n        primaryAddress\n        secondaryAddress\n        assetId\n        mobile\n        city\n        state\n        zipCode\n        sponsorId\n        sponsor {\n          id\n          username\n          fullName\n          email\n          primaryAddress\n          secondaryAddress\n          mobile\n          assetId\n        }\n        sales {\n          id\n          invoiceNo\n          memberId\n          packageId\n          paymentMethod\n          status\n          orderedAt\n        }\n        memberWallets {\n          createdAt\n          updatedAt\n          deletedAt\n          id\n          memberId\n          payoutId\n          address\n          percent\n          payout {\n            id\n            method\n            status\n            name\n            display\n            createdAt\n            updatedAt\n            deletedAt\n          }\n        }\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n": types.FetchMembersDocument,
@@ -61,6 +62,10 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation ResetTokenVerify($data: TokenInput!) {\n    resetTokenVerify(data: $data) {\n      email\n      token\n    }\n  }\n"): (typeof documents)["\n  mutation ResetTokenVerify($data: TokenInput!) {\n    resetTokenVerify(data: $data) {\n      email\n      token\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router';
 import { lazy, Suspense } from 'react';
 
 import { AuthSplitLayout } from 'src/layouts/auth-split';
@@ -9,33 +10,50 @@ import { GuestGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const LoginPage = lazy(() => import('src/pages/SignIn'));
-const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword'));
+const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
+const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
 
-// ----------------------------------------------------------------------
+const signIn = {
+  path: 'sign-in',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome Minetxc' }}>
+        <LoginPage />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
+
+const forgotPassword = {
+  path: 'forgot-password',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome Minetxc' }}>
+        <ForgotPasswordPage />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
+
+const resetPassword = {
+  path: 'reset-password',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome Minetxc' }}>
+        <ResetPasswordPage />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
 
 export const authRoutes = [
   {
-    path: 'sign-in',
+    path: '',
     element: (
       <Suspense fallback={<SplashScreen />}>
-        <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Hi, Welcome back' }}>
-            <LoginPage />
-          </AuthSplitLayout>
-        </GuestGuard>
+        <Outlet />
       </Suspense>
     ),
-  },
-  {
-    path: 'reset-password',
-    element: (
-      <Suspense fallback={<SplashScreen />}>
-        <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Reset Password' }}>
-            <ResetPasswordPage />
-          </AuthSplitLayout>
-        </GuestGuard>
-      </Suspense>
-    ),
+    children: [signIn, forgotPassword, resetPassword],
   },
 ];
