@@ -56,7 +56,7 @@ export default function Page() {
       </Helmet>
 
       {isOpen ? (
-        <SplitUpdatePasswordView token={token!} />
+        <SplitUpdatePasswordView token={data?.resetTokenVerify.token!} />
       ) : (
         <LoadingButton loading size="large" loadingIndicator={<CircularProgress />} />
       )}
