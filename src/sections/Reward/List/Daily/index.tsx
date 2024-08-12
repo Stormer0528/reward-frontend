@@ -1,4 +1,3 @@
-import type { Member } from 'src/__generated__/graphql';
 import type {
   IStatisticsTableFilters,
   IStatisticsPrismaFilter,
@@ -47,11 +46,7 @@ const defaultFilter: IStatisticsTableFilters = {
   search: '',
 };
 
-interface Props {
-  me: Member;
-}
-
-export default function StatisticsTable({ me }: Props) {
+export default function StatisticsTable() {
   const [from, setFrom] = useState<any>(dayjs('2024-04-01'));
   const [to, setTo] = useState<any>(dayjs());
 
