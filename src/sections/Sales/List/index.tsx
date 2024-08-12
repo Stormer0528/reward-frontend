@@ -50,12 +50,12 @@ const STATUS_OPTIONS: { value: SaleRole; label: string; color: LabelColor }[] = 
 
 const TABLE_HEAD = [
   { id: 'invoiceNo', label: 'Invoice No', width: 130, sortable: true },
-  { id: 'mobile', label: 'Mobile', width: 150, sortable: true },
-  { id: 'assetId', label: 'Asset ID', width: 90, sortable: true },
-  { id: 'productName', label: 'Product Name', sortable: true },
+  { id: 'member.mobile', label: 'Mobile', width: 150, sortable: true },
+  { id: 'member.assetId', label: 'Asset ID', width: 120, sortable: true },
+  { id: 'package.productName', label: 'Product Name', sortable: true },
   { id: 'paymentMethod', label: 'Payment Method', sortable: true },
-  { id: 'amount', label: 'Amount', width: 100, sortable: true },
-  { id: 'hashPower', label: 'Hash Power', width: 120, sortable: true },
+  { id: 'package.amount', label: 'Amount', width: 100, sortable: true },
+  { id: 'package.hashPower', label: 'Hash Power', width: 150, sortable: true },
   { id: 'orderedAt', label: 'Ordered At', width: 150, sortable: true },
 ];
 
@@ -211,9 +211,11 @@ export default function SaleListView() {
                 headLabel={TABLE_HEAD}
                 rowCount={loading ? 0 : tableData!.sales!.length}
                 onSort={(id) => {
-                  const isAsc = sort && sort[id] === 'asc';
-                  const newSort = { [id]: isAsc ? 'desc' : ('asc' as SortOrder) };
-                  setQuery({ ...query, sort: newSort });
+                  if (id !== 'action') {
+                    const isAsc = sort && sort[id] === 'asc';
+                    const newSort = { [id]: isAsc ? 'desc' : ('asc' as SortOrder) };
+                    setQuery({ ...query, sort: newSort });
+                  }
                 }}
               />
               {loading ? (
