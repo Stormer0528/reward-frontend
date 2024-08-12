@@ -350,7 +350,7 @@ export type Mutation = {
   removeManyStatisticsSales: ManySuccessResponse;
   removeMember: SuccessResponse;
   removeMemberStatisticsByStaitisId: ManySuccessResponse;
-  removePackage: Package;
+  removePackage: SuccessResponse;
   removeSale: SuccessResponse;
   removeStatisticsSalesByStaitisId: ManySuccessResponse;
   resetPasswordByToken: SuccessResponse;

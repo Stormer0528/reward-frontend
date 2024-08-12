@@ -23,8 +23,6 @@ const ProfilePage = lazy(() => import('src/pages/Profile'));
 
 // ----------------------------------------------------------------------
 const RewardPage = lazy(() => import('src/pages/Reward/List'));
-const RewardCreatePage = lazy(() => import('src/pages/Reward/Create'));
-const RewardEditPage = lazy(() => import('src/pages/Reward/Edit'));
 const StatisticsDetailPage = lazy(() => import('src/pages/Reward/Statistics/Detail'));
 // ----------------------------------------------------------------------
 
@@ -54,13 +52,6 @@ export const dashboardRoutes = [
         path: 'reward',
         children: [
           { index: true, element: <RewardPage /> },
-          {
-            path: 'new',
-            children: [
-              { index: true, element: <RewardCreatePage /> },
-              { path: ':id', element: <RewardEditPage /> },
-            ],
-          },
           {
             path: 'statistics',
             children: [{ path: ':id', element: <StatisticsDetailPage /> }],
