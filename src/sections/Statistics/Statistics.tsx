@@ -57,8 +57,11 @@ export default function StatisticsTable({ status = false }: Props) {
         width: 100,
         sortable: false,
         filterable: false,
-        renderCell: (params) =>
-          (params.row.newBlocks * 254 * 10 ** 8 - params.row.txcShared) / 10 ** 8,
+        renderCell: (params) => {
+          const diff = params.row.newBlocks * 254 - (params.row.txcShared ?? 0) / 10 ** 8;
+
+          return diff.toFixed(8).endsWith('0') ? diff : diff.toFixed(8);
+        },
       },
       {
         field: 'from',
