@@ -219,16 +219,17 @@ export default function MemberGeneral({ me }: Props) {
               <Field.Text name="assetId" label="Asset ID" />
             </Box>
           </Card>
-          <Stack alignItems="flex-start" sx={{ mt: 2 }}>
-            <LoadingButton type="submit" variant="contained" loading={loading}>
-              Save Changes
-            </LoadingButton>
-          </Stack>
         </Grid>
         <Grid md={12} xl={6}>
           <MemberWallets payouts={payouts} wallets={me?.memberWallets ?? []} />
         </Grid>
       </Grid>
+
+      <Stack alignItems="flex-start" sx={{ mt: 2 }}>
+        <LoadingButton type="submit" variant="contained" loading={loading}>
+          Save Changes
+        </LoadingButton>
+      </Stack>
     </Form>
   );
 }

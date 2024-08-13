@@ -60,9 +60,9 @@ export default function MemberWallets({ payouts, wallets }: Props) {
   };
 
   return (
-    <Card sx={{ p: 3 }}>
+    <Card sx={{ p: 3, maxHeight: '495px', overflowY: 'auto' }}>
       {forms?.map((item, index) => (
-        <Stack key={item.id} alignItems="flex-end" spacing={0.5} sx={{ mb: 1 }}>
+        <Stack key={item.id} spacing={0.5} sx={{ mb: 1 }}>
           <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
             <Field.Select
               name={`memberWallets[${index}].payoutId`}
