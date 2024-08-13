@@ -67,6 +67,11 @@ export type BlocksResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type ConfirmStatistics = {
+  id: Scalars['ID']['input'];
+  transactionId: Scalars['ID']['input'];
+};
+
 export type CreateAdminInput = {
   avatar?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
@@ -375,7 +380,7 @@ export type MutationAdminLoginArgs = {
 
 
 export type MutationConfirmStatisticsArgs = {
-  data: IdInput;
+  data: ConfirmStatistics;
 };
 
 
@@ -770,6 +775,7 @@ export type Statistics = {
   totalBlocks: Scalars['Float']['output'];
   totalHashPower: Scalars['Float']['output'];
   totalMembers: Scalars['Float']['output'];
+  transactionId?: Maybe<Scalars['ID']['output']>;
   txcShared: Scalars['BigInt']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };
@@ -879,6 +885,7 @@ export type UpdateSaleInput = {
 export type UpdateStatisticsInput = {
   id: Scalars['ID']['input'];
   status?: InputMaybe<Scalars['Boolean']['input']>;
+  transactionId?: InputMaybe<Scalars['ID']['input']>;
   txcShared?: InputMaybe<Scalars['Float']['input']>;
 };
 
