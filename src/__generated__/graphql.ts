@@ -100,6 +100,7 @@ export type CreateMemberInput = {
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   mobile: Scalars['String']['input'];
+  placementParentId?: InputMaybe<Scalars['ID']['input']>;
   primaryAddress: Scalars['String']['input'];
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorId?: InputMaybe<Scalars['ID']['input']>;
@@ -224,6 +225,9 @@ export type Member = {
   introduceMembers?: Maybe<Array<Maybe<Member>>>;
   memberWallets?: Maybe<Array<Maybe<MemberWallet>>>;
   mobile: Scalars['String']['output'];
+  placementChildren?: Maybe<Array<Maybe<Member>>>;
+  placementParent?: Maybe<Member>;
+  placementParentId?: Maybe<Scalars['ID']['output']>;
   primaryAddress: Scalars['String']['output'];
   sales?: Maybe<Array<Maybe<Sale>>>;
   secondaryAddress?: Maybe<Scalars['String']['output']>;
@@ -839,6 +843,7 @@ export type UpdateMemberInput = {
   fullName?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   mobile?: InputMaybe<Scalars['String']['input']>;
+  placementParentId?: InputMaybe<Scalars['ID']['input']>;
   primaryAddress?: InputMaybe<Scalars['String']['input']>;
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorId?: InputMaybe<Scalars['ID']['input']>;

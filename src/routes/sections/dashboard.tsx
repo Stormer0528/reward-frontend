@@ -26,6 +26,11 @@ const RewardPage = lazy(() => import('src/pages/Reward/List'));
 const StatisticsDetailPage = lazy(() => import('src/pages/Reward/Statistics/Detail'));
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+const ResourcePage = lazy(() => import('src/pages/Resource/List'));
+const ResourceDetailPage = lazy(() => import('src/pages/Resource/Detail'));
+// ----------------------------------------------------------------------
+
 export const dashboardRoutes = [
   {
     path: '',
@@ -56,6 +61,13 @@ export const dashboardRoutes = [
             path: 'statistics',
             children: [{ path: ':id', element: <StatisticsDetailPage /> }],
           },
+        ],
+      },
+      {
+        path: 'resource',
+        children: [
+          { index: true, element: <ResourcePage /> },
+          { path: ':slug', children: [{ index: true, element: <ResourceDetailPage /> }] },
         ],
       },
       { path: 'profile', element: <ProfilePage /> },
