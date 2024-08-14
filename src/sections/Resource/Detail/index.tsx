@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
@@ -77,15 +78,18 @@ export default function Detail() {
       </Grid>
 
       <Stack sx={{ mb: 3 }}>
-        {current.summaryText?.map((item: any, index: number) => (
-          <Typography sx={{ mb: 2 }} variant={index === 0 ? 'h5' : 'body1'}>
+        {current.summaryText?.map((item: any) => (
+          <Typography sx={{ mb: 2 }} variant={item.style}>
             {item?.children[0].text}
           </Typography>
         ))}
       </Stack>
+
+      <Divider flexItem sx={{ mb: 2, borderWidth: 2, background: '#000000' }} />
+
       <Stack>
-        {current.fullTranscript?.map((item: any, index: number) => (
-          <Typography sx={{ mb: 2 }} variant={index === 0 ? 'h5' : 'body1'}>
+        {current.fullTranscript?.map((item: any) => (
+          <Typography sx={{ mb: 2 }} variant={item.style}>
             {item?.children[0].text}
           </Typography>
         ))}
