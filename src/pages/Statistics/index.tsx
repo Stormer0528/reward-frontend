@@ -6,7 +6,7 @@ export default function StatisticsPage() {
   return (
     <>
       <Helmet>
-        <title>TexitCoin - Statistics</title>
+        <title>mineTXC Payout / Statistics</title>
       </Helmet>
 
       <StatisticsSection />

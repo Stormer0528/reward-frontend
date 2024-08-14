@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <>
       <Helmet>
-        <title>Texitcoin Dashboard</title>
+        <title>mineTXC Payout / Dashboard</title>
       </Helmet>
 
       <Dashboard />

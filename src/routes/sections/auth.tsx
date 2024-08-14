@@ -17,7 +17,7 @@ const signIn = {
   path: 'sign-in',
   element: (
     <GuestGuard>
-      <AuthSplitLayout section={{ title: 'Hi, Welcome Minetxc' }}>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }}>
         <LoginPage />
       </AuthSplitLayout>
     </GuestGuard>
@@ -28,7 +28,7 @@ const forgotPassword = {
   path: 'forgot-password',
   element: (
     <GuestGuard>
-      <AuthSplitLayout section={{ title: 'Hi, Welcome Minetxc' }}>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }}>
         <ForgotPasswordPage />
       </AuthSplitLayout>
     </GuestGuard>
@@ -39,7 +39,7 @@ const resetPassword = {
   path: 'reset-password',
   element: (
     <GuestGuard>
-      <AuthSplitLayout section={{ title: 'Hi, Welcome Minetxc' }}>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }}>
         <ResetPasswordPage />
       </AuthSplitLayout>
     </GuestGuard>

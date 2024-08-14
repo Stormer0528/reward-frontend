@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <>
       <Helmet>
-        <title>{`${CONFIG.site.name} - Sales`}</title>
+        <title>{`${CONFIG.site.name} / Sales`}</title>
       </Helmet>
 
       <SaleList />
