@@ -91,9 +91,6 @@ export default function WidgetSummary({
               {metaText}
             </Box>
           </Box>
-          <Box component="span" sx={{ typography: 'body2', color: 'text.secondary' }}>
-            last 7 days
-          </Box>
         </>
       )}
     </Box>

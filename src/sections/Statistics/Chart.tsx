@@ -52,6 +52,8 @@ export default function Chart() {
           loading={loading}
           key="hashRate"
           title="Hashrate"
+          tooltipCategory="Block"
+          unit="GH/s"
           chart={{
             series: [
               {
@@ -76,6 +78,7 @@ export default function Chart() {
           loading={loading}
           key="difficulty"
           title="Network Difficulty"
+          tooltipCategory="Block"
           chart={{
             colors: ['#ffb136'],
             categories: blocks!.blocks!.map((item) => `${item?.blockNo}`).reverse(),
