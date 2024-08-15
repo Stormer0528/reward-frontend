@@ -59,7 +59,7 @@ export default function Chart() {
               {
                 name: 'Hashrate',
                 data: blocks!
-                  .blocks!.map((item) => Number(((item?.hashRate! || 1) / 10 ** 9).toFixed(3)))
+                  .blocks!.map((item) => Number(((item?.hashRate! || 1) / 10 ** 9).toFixed(2)))
                   .reverse(),
               },
             ],
