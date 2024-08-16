@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 import { STORAGE_TOKEN_KEY } from 'src/consts';
 
@@ -55,6 +56,7 @@ export function HeaderBase({
   ...other
 }: HeaderBaseProps) {
   const theme = useTheme();
+  const router = useRouter();
 
   const token = localStorage.getItem(STORAGE_TOKEN_KEY);
 
@@ -109,7 +111,7 @@ export function HeaderBase({
                     color="inherit"
                     size="medium"
                     type="submit"
-                    href={paths.signIn}
+                    onClick={() => router.push(paths.signIn)}
                     variant="contained"
                     data-slot="login"
                   >

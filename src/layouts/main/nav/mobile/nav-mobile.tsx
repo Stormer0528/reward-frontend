@@ -5,7 +5,7 @@ import Drawer from '@mui/material/Drawer';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
-import { usePathname } from 'src/routes/hooks';
+import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { Logo } from 'src/components/logo';
 import { NavUl } from 'src/components/nav-section';
@@ -28,6 +28,7 @@ export type NavMobileProps = NavMainProps & {
 
 export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (open) {
@@ -71,7 +72,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
             color="inherit"
             size="medium"
             type="submit"
-            href={paths.signIn}
+            onClick={() => router.push(paths.signIn)}
             variant="contained"
             data-slot="login"
           >
