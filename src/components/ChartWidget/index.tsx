@@ -75,7 +75,7 @@ export default function ChartWidget({
         const legend = w.globals.seriesNames[seriesIndex];
         const color = w.globals.colors[seriesIndex];
 
-        return `<div style="background: #ffffff;">
+        return `<div style="background: #ffffff; color: #6a7987;">
           <div style="background: #f4f6f8; color: #637381; font-weight: bold; padding: 5px 10px;">${tooltipCategory ?? ''} ${category}</div>
           <div style="display: flex; padding: 10px;">
           <div style="margin-right: 8px; width: 12px; height: 12px; border-radius: 50%; background-color: ${color}; margin-top: 4px;">
