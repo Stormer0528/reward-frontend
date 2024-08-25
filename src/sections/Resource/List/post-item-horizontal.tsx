@@ -9,6 +9,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
+import { CONFIG } from 'src/config';
 import { maxLine } from 'src/theme/styles';
 
 import { Image } from 'src/components/Image';
@@ -29,7 +30,7 @@ export function PostItemHorizontal({ post, urlFor }: Props) {
 
   return (
     <Card
-      sx={{ display: 'flex', cursor: 'pointer' }}
+      sx={{ display: 'flex', cursor: 'pointer', justifyContent: 'space-between' }}
       onClick={() => router.push(paths.dashboard.resource.view(slug.current))}
     >
       <Stack spacing={1} sx={{ p: theme.spacing(3, 3, 2, 3) }}>
@@ -60,7 +61,15 @@ export function PostItemHorizontal({ post, urlFor }: Props) {
           display: { xs: 'none', sm: 'block' },
         }}
       >
-        <Image alt={title} src={urlFor(mainImage).url()} sx={{ height: 1, borderRadius: 1.5 }} />
+        <Image
+          alt={title}
+          src={
+            mainImage
+              ? urlFor(mainImage).url()
+              : `${CONFIG.site.basePath}/assets/images/default-meeting.png`
+          }
+          sx={{ height: 1, borderRadius: 1.5 }}
+        />
       </Box>
     </Card>
   );
