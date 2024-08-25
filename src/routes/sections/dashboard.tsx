@@ -31,6 +31,10 @@ const ResourcePage = lazy(() => import('src/pages/Resource/List'));
 const ResourceDetailPage = lazy(() => import('src/pages/Resource/Detail'));
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+const PlacementListPage = lazy(() => import('src/pages/Placement/List'));
+// ----------------------------------------------------------------------
+
 export const dashboardRoutes = [
   {
     path: '',
@@ -62,6 +66,10 @@ export const dashboardRoutes = [
             children: [{ path: ':id', element: <StatisticsDetailPage /> }],
           },
         ],
+      },
+      {
+        path: 'placement',
+        children: [{ index: true, element: <PlacementListPage /> }],
       },
       {
         path: 'resource',
