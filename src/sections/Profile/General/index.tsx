@@ -77,6 +77,7 @@ export default function MemberGeneral({ me }: Props) {
   const payouts = payoutsData?.payouts.payouts ?? [];
   const members = memberData?.members.members ?? [];
 
+  const [email, setEmail] = useState<string>();
   const [member, setMember] = useState<Edit>();
 
   const [submit, { loading }] = useMutation(UPDATE_MEMBER);
@@ -150,6 +151,21 @@ export default function MemberGeneral({ me }: Props) {
     }
   });
 
+  const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const { data } = await fetchMembers({
+        variables: { filter: { [event.target.name]: event.target.value } },
+      });
+
+      if (data?.members?.members?.length) {
+        if (data?.members?.members[0]?.id !== me.id)
+          toast.warning(`This ${event.target.name} is already exist`);
+      }
+    } catch (err) {
+      console.log('err => ', err);
+    }
+  };
+
   useEffect(() => {
     fetchMembers({
       variables: {
@@ -175,7 +191,17 @@ export default function MemberGeneral({ me }: Props) {
               }}
             >
               <Field.Text name="username" label="Username" />
-              <Field.Text name="email" label="Email" defaultValue={me.email} />
+              <Field.Text
+                name="email"
+                label="Email"
+                defaultValue={me.email}
+                value={email}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  handleSearchChange(event);
+
+                  setEmail(event.target.value);
+                }}
+              />
               <Field.Text
                 name="firstName"
                 label="First Name"
@@ -216,7 +242,7 @@ export default function MemberGeneral({ me }: Props) {
               <Field.Text name="city" label="City" />
               <Field.Text name="state" label="State" />
               <Field.Text name="zipCode" label="ZIP Code" />
-              <Field.Text name="assetId" label="Asset ID" />
+              <Field.Text name="assetId" label="Asset ID" disabled />
             </Box>
           </Card>
         </Grid>
