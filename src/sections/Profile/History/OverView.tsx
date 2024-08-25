@@ -30,7 +30,7 @@ export default function OverView({ me }: Props) {
         divider={<Divider orientation="vertical" flexItem sx={{ borderStyle: 'dashed' }} />}
       >
         <Stack width={1}>
-          {fNumber(data?.memberOverview.lastHashPower ?? 0)}
+          {fNumber(data?.memberOverview.currentHashPower ?? 0)}
           <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
             Hash Power
           </Box>
