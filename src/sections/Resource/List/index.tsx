@@ -66,7 +66,6 @@ export default function Resource() {
           {loading ? renderLoading : renderList}
         </Box>
       </DashboardContent>
-      ;
     </>
   );
 }
