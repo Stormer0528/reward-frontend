@@ -88,6 +88,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         state
         zipCode
         sponsorId
+        placementParentId
         sponsor {
           id
           username
