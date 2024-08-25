@@ -1,5 +1,6 @@
 // eslint-disable jsx-a11y/media-has-caption
 
+import MediaPlayer from 'react-player';
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -60,7 +61,7 @@ export default function Detail() {
 
       <Grid container sx={{ mb: 2 }}>
         <Grid xl={6}>
-          <video width="600" controls>
+          {/* <video width="600" controls>
             <source src={current.videoUrl} type="video/mp4" />
             <track
               kind="captions"
@@ -70,7 +71,8 @@ export default function Detail() {
               default
             />
             Your browser does not support the video tag.
-          </video>
+          </video> */}
+          <MediaPlayer url={current.videoUrl} controls />
         </Grid>
         <Grid xl={6}>
           <Typography sx={{ ...maxLine({ line: 10 }), mb: 3 }}>{current.quickSummary}</Typography>
