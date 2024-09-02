@@ -25,6 +25,18 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         assetId
       }
+      placementParentId
+      placementPosition
+      placementParent {
+        id
+        username
+        fullName
+        email
+        primaryAddress
+        secondaryAddress
+        mobile
+        assetId
+      }
       sales {
         id
         invoiceNo
@@ -90,6 +102,18 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         sponsorId
         placementParentId
         sponsor {
+          id
+          username
+          fullName
+          email
+          primaryAddress
+          secondaryAddress
+          mobile
+          assetId
+        }
+        placementParentId
+        placementPosition
+        placementParent {
           id
           username
           fullName
