@@ -37,6 +37,13 @@ export default function OverView({ me }: Props) {
         </Stack>
 
         <Stack width={1}>
+          {me.point}
+          <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
+            Point
+          </Box>
+        </Stack>
+
+        <Stack width={1}>
           {fNumber((data?.memberOverview.totalTXCShared ?? 0) / 10 ** 8)}
           <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
             Total TXC Reward

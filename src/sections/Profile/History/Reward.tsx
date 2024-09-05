@@ -59,7 +59,7 @@ export default function Reward({ me }: Props) {
               },
             },
           }}
-          height={462}
+          height={492}
           type="bar"
           card
         />
