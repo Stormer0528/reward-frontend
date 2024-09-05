@@ -7,6 +7,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       username
       fullName
       email
+      point
       primaryAddress
       secondaryAddress
       assetId
@@ -20,6 +21,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         username
         fullName
         email
+        point
         primaryAddress
         secondaryAddress
         mobile
@@ -32,6 +34,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         username
         fullName
         email
+        point
         primaryAddress
         secondaryAddress
         mobile
@@ -92,6 +95,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         username
         fullName
         email
+        point
         primaryAddress
         secondaryAddress
         assetId
@@ -106,6 +110,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           username
           fullName
           email
+          point
           primaryAddress
           secondaryAddress
           mobile
@@ -118,6 +123,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           username
           fullName
           email
+          point
           primaryAddress
           secondaryAddress
           mobile
@@ -183,6 +189,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         username
         fullName
         email
+        point
         mobile
         primaryAddress
         secondaryAddress

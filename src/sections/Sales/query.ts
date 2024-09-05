@@ -15,6 +15,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           username
           fullName
           email
+          point
           mobile
           assetId
           primaryAddress
@@ -46,6 +47,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           amount
           date
           token
+          point
           status
         }
         paymentMethod
@@ -99,6 +101,7 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
         productName
         amount
         status
+        point
         date
         token
       }
