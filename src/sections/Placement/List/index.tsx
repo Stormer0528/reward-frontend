@@ -62,7 +62,7 @@ export default function PlacementListView() {
     });
 
     memberProcess.forEach((member) => {
-      if (member.id !== member.placementParentId) {
+      if (memberMap[member.placementParentId] && member.id !== member.placementParentId) {
         memberMap[member.placementParentId!].children.push(memberMap[member.id]);
       }
     });
