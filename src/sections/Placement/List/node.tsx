@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -5,11 +7,16 @@ import Typography from '@mui/material/Typography';
 import { fDate } from 'src/utils/format-time';
 
 import { Label } from 'src/components/Label';
+import { Iconify } from 'src/components/Iconify';
+
+import NodeContext from './nodeContext';
 
 import type { NodeProps } from './type';
 
-export function StandardNode({ placementPosition, username, fullName, createdAt }: NodeProps) {
+export function StandardNode({ id, placementPosition, username, fullName, createdAt }: NodeProps) {
   const [firstName, lastName] = fullName ? fullName.split(' ') : ['', ''];
+
+  const { visibleMap, expandTree, collapseTree } = useContext(NodeContext);
 
   return (
     <Card
@@ -41,15 +48,31 @@ export function StandardNode({ placementPosition, username, fullName, createdAt 
           {fDate(createdAt)}
         </Typography>
 
-        {placementPosition && (
-          <Label
-            variant={placementPosition === 'LEFT' ? 'soft' : 'outlined'}
-            color="info"
-            sx={{ fontSize: 10, border: placementPosition === 'LEFT' ? 'none' : 1 }}
-          >
-            {placementPosition}
-          </Label>
-        )}
+        <Stack direction="row" columnGap={1}>
+          <Stack>
+            {placementPosition && (
+              <Label
+                variant={placementPosition === 'LEFT' ? 'soft' : 'outlined'}
+                color="info"
+                sx={{ fontSize: 10, border: placementPosition === 'LEFT' ? 'none' : 1 }}
+              >
+                {placementPosition}
+              </Label>
+            )}
+          </Stack>
+          <Stack>
+            {visibleMap[id] !== 3 && (
+              <Iconify
+                icon={`mdi:${visibleMap[id] === 1 ? 'plus' : 'minus'}-circle-outline`}
+                sx={{ mt: 0.15, cursor: 'pointer' }}
+                onClick={() => {
+                  if (visibleMap[id] === 1) expandTree(id);
+                  else if (visibleMap[id] === 2) collapseTree(id);
+                }}
+              />
+            )}
+          </Stack>
+        </Stack>
       </Stack>
     </Card>
   );
