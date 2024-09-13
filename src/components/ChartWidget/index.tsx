@@ -93,12 +93,13 @@ export default function ChartWidget({
     <>
       {loading ? (
         <Paper sx={{ p: 3 }}>
-          <Skeleton variant="text" sx={{ fontSize: 24 }} />
-          <Skeleton variant="text" sx={{ fontSize: 24 }} />
-          <Skeleton variant="text" sx={{ fontSize: 24 }} />
-          <Skeleton variant="text" sx={{ fontSize: 24 }} />
-          <Skeleton variant="text" sx={{ fontSize: 24 }} />
-          <Skeleton variant="text" sx={{ fontSize: 24 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
+          <Skeleton variant="text" sx={{ fontSize: 26 }} />
         </Paper>
       ) : (
         <Chart

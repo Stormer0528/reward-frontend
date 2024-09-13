@@ -22,3 +22,13 @@ export const FETCH_STATISTICS_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const FETCH_BLOCKS_DATA_QUERY = gql(/* GraphQL */ `
+  query Blocksdata($data: BlockStatsArgs!) {
+    blocksData(data: $data) {
+      base
+      difficulty
+      hashRate
+    }
+  }
+`);
