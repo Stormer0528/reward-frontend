@@ -54,9 +54,9 @@ export const navData = [
     items: [
       { title: 'Dashboard', path: paths.dashboard.history.root, icon: ICONS.analytics },
       { title: 'Sale', path: paths.dashboard.sales.root, icon: ICONS.sale },
-      { title: 'Reward', path: paths.dashboard.reward.root, icon: ICONS.reward },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
       { title: 'Resource', path: paths.dashboard.resource.root, icon: ICONS.folder },
+      { title: 'Reward', path: paths.dashboard.reward.root, icon: ICONS.reward },
       { title: 'Profile', path: paths.dashboard.profile.root, icon: ICONS.user },
     ],
   },
