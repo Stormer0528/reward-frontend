@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Grid from '@mui/material/Unstable_Grid2';
+import { alpha, useTheme } from '@mui/material/styles';
 
 import { useQuery } from 'src/routes/hooks';
 
@@ -22,6 +23,8 @@ const defaultFilter: IStatisticsFilters = {
 
 export default function Chart() {
   const [query] = useQuery<IStatisticsFilters>();
+
+  const theme = useTheme();
 
   const { filter = defaultFilter } = query;
 
@@ -70,6 +73,7 @@ export default function Chart() {
                 categories: blocks!.blocks!.map((item) => `${item?.blockNo}`).reverse(),
               },
             },
+            colors: [alpha(theme.palette.primary.dark, 0.8)],
           }}
         />
       </Grid>
@@ -80,7 +84,6 @@ export default function Chart() {
           title="Network Difficulty"
           tooltipCategory="Block"
           chart={{
-            colors: ['#ffb136'],
             categories: blocks!.blocks!.map((item) => `${item?.blockNo}`).reverse(),
             series: [
               {
@@ -95,6 +98,7 @@ export default function Chart() {
                 categories: blocks!.blocks!.map((item) => `${item?.blockNo}`).reverse(),
               },
             },
+            colors: [alpha(theme.palette.warning.main, 0.8)],
           }}
         />
       </Grid>

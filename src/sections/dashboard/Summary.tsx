@@ -107,7 +107,7 @@ export default function Summary() {
                   .reverse(),
               },
             },
-            colors: [theme.palette.warning.main],
+            colors: [alpha(theme.palette.warning.main, 0.8)],
           }}
         />
       </Grid>
