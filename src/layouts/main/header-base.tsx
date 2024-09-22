@@ -103,7 +103,6 @@ export function HeaderBase({
 
               {/* -- Login button -- */}
               {token ? (
-                // <Typography variant="h6">{user?.me?.username}</Typography>
                 <AccountDrawer data-slot="account" data={_account} />
               ) : (
                 settings && (

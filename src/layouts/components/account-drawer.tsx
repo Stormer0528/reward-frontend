@@ -16,6 +16,7 @@ import { useRouter, usePathname } from 'src/routes/hooks';
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
+import { PersonalLink } from 'src/components/PersonalLink';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -138,6 +139,10 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
             })}
           </Stack>
         </ScrollBar>
+
+        <Box sx={{ p: 2.5 }}>
+          <PersonalLink />
+        </Box>
 
         <Box sx={{ p: 2.5 }}>
           <SignOutButton onClose={handleCloseDrawer} />
