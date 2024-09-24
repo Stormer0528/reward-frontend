@@ -48,7 +48,7 @@ export const setTokenTimer: (token: string) => any = (token: string) => {
 
     localStorage.removeItem(STORAGE_TOKEN_KEY);
 
-    window.location.href = paths.signIn;
+    window.location.href = paths.auth.signIn;
   }, timeLeft);
 };
 

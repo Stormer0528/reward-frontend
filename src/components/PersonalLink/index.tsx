@@ -23,9 +23,7 @@ export function PersonalLink() {
   const { data } = useGraphQuery(GENERATE_REFERENCE_LINK);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(
-      data?.generateReferenceLink.link.split('reference=')[1] ?? ''
-    );
+    await navigator.clipboard.writeText(data?.generateReferenceLink.link ?? '');
     copy.onTrue();
   };
 

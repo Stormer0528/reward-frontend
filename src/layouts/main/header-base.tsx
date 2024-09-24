@@ -110,7 +110,7 @@ export function HeaderBase({
                     color="inherit"
                     size="medium"
                     type="submit"
-                    onClick={() => router.push(paths.signIn)}
+                    onClick={() => router.push(paths.auth.signIn)}
                     variant="contained"
                     data-slot="login"
                   >

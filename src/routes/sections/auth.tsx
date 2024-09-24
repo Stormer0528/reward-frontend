@@ -10,8 +10,10 @@ import { GuestGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const LoginPage = lazy(() => import('src/pages/SignIn'));
+const SignUpPage = lazy(() => import('src/pages/SignUp'));
 const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
 const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
+const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
 
 const signIn = {
   path: 'sign-in',
@@ -19,6 +21,17 @@ const signIn = {
     <GuestGuard>
       <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }}>
         <LoginPage />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
+
+const signUp = {
+  path: 'sign-up',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="620px">
+        <SignUpPage />
       </AuthSplitLayout>
     </GuestGuard>
   ),
@@ -46,6 +59,17 @@ const resetPassword = {
   ),
 };
 
+const verifyEmail = {
+  path: 'verify-email',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }}>
+        <VerifyEmail />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
+
 export const authRoutes = [
   {
     path: '',
@@ -54,6 +78,6 @@ export const authRoutes = [
         <Outlet />
       </Suspense>
     ),
-    children: [signIn, forgotPassword, resetPassword],
+    children: [signIn, signUp, verifyEmail, forgotPassword, resetPassword],
   },
 ];

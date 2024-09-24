@@ -17,9 +17,10 @@ export type AuthSplitLayoutProps = {
     imgUrl?: string;
     subtitle?: string;
   };
+  width?: string;
 };
 
-export function AuthSplitLayout({ sx, section, children }: AuthSplitLayoutProps) {
+export function AuthSplitLayout({ sx, section, children, width }: AuthSplitLayoutProps) {
   const mobileNavOpen = useBoolean();
 
   const layoutQuery: Breakpoint = 'md';
@@ -53,7 +54,7 @@ export function AuthSplitLayout({ sx, section, children }: AuthSplitLayoutProps)
        *************************************** */
       sx={sx}
       cssVars={{
-        '--layout-auth-content-width': '420px',
+        '--layout-auth-content-width': `${width ?? '420px'}`,
       }}
     >
       <Main layoutQuery={layoutQuery}>

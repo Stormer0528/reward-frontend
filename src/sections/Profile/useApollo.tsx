@@ -5,6 +5,7 @@ import {
   UPDATE_MEMBER,
   FETCH_ME_QUERY,
   FETCH_MEMBERS_QUERY,
+  FETCH_PAYOUTS_QUERY,
   FETCH_MEMBER_STATS_QUERY,
 } from './query';
 
@@ -50,4 +51,27 @@ export function useUpdateMember() {
   });
 
   return { loading, updateMember };
+}
+
+export function useFetchPayouts() {
+  const [fetchPayouts, { loading, data }] = useLazyQuery(FETCH_PAYOUTS_QUERY);
+
+  const rowCountRef = useRef(data?.payouts.total ?? 0);
+
+  const rowCount = useMemo(() => {
+    const newTotal = data?.payouts.total ?? undefined;
+
+    if (newTotal !== undefined) {
+      rowCountRef.current = newTotal;
+    }
+
+    return rowCountRef.current;
+  }, [data]);
+
+  return {
+    loading,
+    rowCount,
+    payouts: data?.payouts.payouts ?? [],
+    fetchPayouts,
+  };
 }
