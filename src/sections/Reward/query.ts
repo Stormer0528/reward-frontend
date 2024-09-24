@@ -56,6 +56,9 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           point
           mobile
           assetId
+          emailVerified
+          status
+          state
           memberWallets {
             createdAt
             updatedAt

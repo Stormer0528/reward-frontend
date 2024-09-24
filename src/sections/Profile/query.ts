@@ -13,6 +13,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       assetId
       mobile
       city
+      emailVerified
+      status
       state
       zipCode
       sponsorId
@@ -26,6 +28,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         secondaryAddress
         mobile
         assetId
+        emailVerified
+        status
+        state
       }
       placementParentId
       placementPosition
@@ -39,6 +44,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         secondaryAddress
         mobile
         assetId
+        emailVerified
+        status
+        state
       }
       sales {
         id

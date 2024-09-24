@@ -20,6 +20,8 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           assetId
           primaryAddress
           secondaryAddress
+          emailVerified
+          status
           memberWallets {
             createdAt
             updatedAt

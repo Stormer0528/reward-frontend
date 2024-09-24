@@ -1,3 +1,4 @@
+import { RHFCode } from './RHFCode';
 import { RHFRating } from './RHFRating';
 import { RHFSlider } from './RHFSlider';
 import { RHFTextField } from './RHFTextField';
@@ -13,6 +14,7 @@ import { RHFUpload, RHFUploadBox, RHFUploadAvatar, RHFSelectAvatar } from './RHF
 // ----------------------------------------------------------------------
 
 export const Field = {
+  Code: RHFCode,
   Select: RHFSelect,
   Upload: RHFUpload,
   Switch: RHFSwitch,

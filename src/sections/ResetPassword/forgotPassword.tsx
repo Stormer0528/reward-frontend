@@ -93,7 +93,7 @@ export function SplitResetPasswordView() {
 
       <Link
         component={RouterLink}
-        href={paths.signIn}
+        href={paths.auth.signIn}
         color="inherit"
         variant="subtitle2"
         sx={{ mx: 'auto', alignItems: 'center', display: 'inline-flex' }}

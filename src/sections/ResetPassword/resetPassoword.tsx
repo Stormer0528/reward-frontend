@@ -73,7 +73,7 @@ export function SplitUpdatePasswordView({ token }: Props) {
         toast.success('Successfully changed!');
 
         setTimeout(() => {
-          window.location.href = paths.signIn;
+          window.location.href = paths.auth.signIn;
         }, 1000);
       } else {
         toast.error('Failed');
