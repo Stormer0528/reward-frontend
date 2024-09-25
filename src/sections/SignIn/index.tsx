@@ -89,6 +89,16 @@ export function SignInView() {
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
 
       <Stack spacing={1.5}>
+        <Link
+          component={RouterLink}
+          href={paths.forgotPassword}
+          variant="body2"
+          color="inherit"
+          sx={{ alignSelf: 'flex-end' }}
+        >
+          Forgot password?
+        </Link>
+
         <Field.Text
           name="password"
           label="Password"
