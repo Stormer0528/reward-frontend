@@ -273,7 +273,8 @@ export default function PlacementListView() {
 
     if (!storageVisibleMap || isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
     else setVisibleMap(JSON.parse(storageVisibleMap));
-  }, [resetVisibleMap]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <DashboardContent sx={{ overflowX: 'hidden' }}>

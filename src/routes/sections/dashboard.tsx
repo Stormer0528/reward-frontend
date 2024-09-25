@@ -35,6 +35,10 @@ const ResourceDetailPage = lazy(() => import('src/pages/Resource/Detail'));
 const PlacementListPage = lazy(() => import('src/pages/Placement/List'));
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
+// ----------------------------------------------------------------------
+
 export const dashboardRoutes = [
   {
     path: '',
@@ -66,6 +70,10 @@ export const dashboardRoutes = [
             children: [{ path: ':id', element: <StatisticsDetailPage /> }],
           },
         ],
+      },
+      {
+        path: 'sponsor',
+        children: [{ index: true, element: <SponsorListPage /> }],
       },
       {
         path: 'placement',

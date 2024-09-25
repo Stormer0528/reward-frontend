@@ -34,6 +34,7 @@ const ICONS = {
   mail: icon('ic_mail'),
   menuItem: icon('ic_menu_item'),
   order: icon('ic_order'),
+  sponsor: icon('ic_sponsor'),
   product: icon('ic_product'),
   package: icon('ic_package'),
   reward: icon('ic_reward'),
@@ -54,6 +55,7 @@ export const navData = [
     items: [
       { title: 'Dashboard', path: paths.dashboard.history.root, icon: ICONS.analytics },
       { title: 'Sale', path: paths.dashboard.sales.root, icon: ICONS.sale },
+      { title: 'Sponsor', path: paths.dashboard.sponsor.root, icon: ICONS.sponsor },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
       { title: 'Resource', path: paths.dashboard.resource.root, icon: ICONS.folder },
       { title: 'Reward', path: paths.dashboard.reward.root, icon: ICONS.reward },
