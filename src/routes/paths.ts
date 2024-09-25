@@ -10,6 +10,7 @@ const ROOTS = {
   STATISTICS: '/statistics',
   SALES: '/sales',
   REWARD: '/reward',
+  SPONSOR: '/sponsor',
   PLACEMENT: '/placement',
   RESOURCE: '/resource',
   PROFILE: '/profile',
@@ -54,6 +55,7 @@ export const paths = {
       detail: (id: string) => `${ROOTS.REWARD}/${id}`,
       view: (id: string) => `${ROOTS.REWARD}/statistics/${id}`,
     },
+    sponsor: { root: ROOTS.SPONSOR },
     placement: { root: ROOTS.PLACEMENT },
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },
     profile: {
