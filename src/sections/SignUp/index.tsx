@@ -42,6 +42,7 @@ export const SignUpSchema = zod
     state: zod.string({ required_error: 'State is required' }),
     primaryAddress: zod.string({ required_error: 'Address is required' }),
     packageId: zod.string({ required_error: 'Package is required' }),
+    sponsorUserId: zod.string({ required_error: 'Reference is required' }),
     secondaryAddress: zod.string({ required_error: 'Address Line 2 is required' }),
     password: zod
       .string()
@@ -103,7 +104,7 @@ export function SignUpView() {
       const { data } = await submitSignUp({
         variables: {
           data: {
-            username: firstName.toLowerCase(),
+            username: rest.email.split('@')[0],
             fullName: `${firstName} ${lastName}`,
             ...rest,
           },
@@ -155,7 +156,7 @@ export function SignUpView() {
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text
-          name="referralID"
+          name="sponsorUserId"
           label="Reference"
           InputLabelProps={{ shrink: true }}
           value={referralID}

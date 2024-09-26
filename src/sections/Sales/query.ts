@@ -50,6 +50,9 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           date
           token
           point
+          isFreeShare
+          freePeriodFrom
+          freePeriodTo
           status
         }
         paymentMethod
@@ -79,6 +82,9 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
         deletedAt
         id
         productName
+        isFreeShare
+        freePeriodFrom
+        freePeriodTo
         amount
         status
         point
