@@ -155,7 +155,7 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="sponsorUserId" label="Reference" value={referralID} />
+        <Field.Text name="sponsorUserId" label="Reference Code" value={referralID} />
         <Field.Text name="assetId" label="AssetID" placeholder="enter the 6-digit Coin ID" />
       </Stack>
 
