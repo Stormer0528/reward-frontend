@@ -16,9 +16,11 @@ import {
   TablePaginationCustom,
 } from 'src/components/Table';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 import MemberTableRow from './MemberTableRow';
+import { useFetchMembers } from '../Profile/useApollo';
 import MemberTableFiltersResult from './MemberTableFiltersResult';
-import { useFetchMe, useFetchMembers } from '../Profile/useApollo';
 
 import type { IMemberPrismaFilter, IMemberTableFilters } from './types';
 
@@ -36,10 +38,11 @@ const defaultFilter: IMemberTableFilters = {
 export default function PlacementListViewWithReactFlowProvider() {
   const table = useTable({ defaultDense: true });
 
+  const { user } = useAuthContext();
+
   const [query, { setQueryParams: setQuery, setPage, setPageSize }] =
     useQuery<IMemberTableFilters>();
 
-  const { me, fetchMe } = useFetchMe();
   const { loading, members, rowCount, fetchMembers } = useFetchMembers();
 
   const {
@@ -66,7 +69,7 @@ export default function PlacementListViewWithReactFlowProvider() {
       filterObj.deletedAt = { not: null };
     }
 
-    filterObj.sponsorId = me?.id;
+    filterObj.sponsorId = user?.id;
 
     return filterObj;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,11 +86,6 @@ export default function PlacementListViewWithReactFlowProvider() {
   const canReset = !!filter.search;
 
   useEffect(() => {
-    fetchMe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     fetchMembers({
       variables: {
         page: page && `${page.page},${page.pageSize}`,
@@ -96,7 +94,7 @@ export default function PlacementListViewWithReactFlowProvider() {
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me, query]);
+  }, [user, query]);
 
   const notFound = (canReset && !members?.length) || !members?.length;
 
