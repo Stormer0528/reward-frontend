@@ -78,7 +78,7 @@ export function SignInView() {
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
-          Get started
+          Join Now
         </Link>
       </Stack>
     </Stack>
