@@ -98,10 +98,29 @@ export default function MemberGeneral({ me }: Props) {
 
   const { setError, handleSubmit } = methods;
 
+  const hasDuplicates = (arr: any[]) => {
+    const seen = new Set();
+
+    return arr.some((item: any) => {
+      if (seen.has(item.address)) {
+        return true;
+      }
+
+      seen.add(item.address);
+
+      return false;
+    });
+  };
+
   const onSubmit = handleSubmit(async (newMember) => {
     try {
       if (isEqual(newMember, defaultValues)) {
         toast.warning('No changes to save');
+        return;
+      }
+
+      if (hasDuplicates(newMember.memberWallets)) {
+        toast.warning('Duplicated wallet address!');
         return;
       }
 
