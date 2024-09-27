@@ -145,39 +145,29 @@ export function SignUpView() {
   const renderForm = (
     <Stack spacing={3}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="firstName" label="First Name" InputLabelProps={{ shrink: true }} />
-        <Field.Text name="lastName" label="Last Name" InputLabelProps={{ shrink: true }} />
+        <Field.Text name="firstName" label="First Name" />
+        <Field.Text name="lastName" label="Last Name" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="email" label="Email Address" InputLabelProps={{ shrink: true }} />
-        <Field.Phone name="mobile" label="Phone" InputLabelProps={{ shrink: true }} />
+        <Field.Text name="email" label="Email Address" />
+        <Field.Phone name="mobile" label="Phone" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text
-          name="sponsorUserId"
-          label="Reference"
-          InputLabelProps={{ shrink: true }}
-          value={referralID}
-        />
-        <Field.Text
-          name="assetId"
-          label="AssetID"
-          placeholder="enter the 6-digit Coin ID"
-          InputLabelProps={{ shrink: true }}
-        />
+        <Field.Text name="sponsorUserId" label="Reference" value={referralID} />
+        <Field.Text name="assetId" label="AssetID" placeholder="enter the 6-digit Coin ID" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="primaryAddress" label="Address" InputLabelProps={{ shrink: true }} />
-        <Field.Text name="secondaryAddress" label="Address 2" InputLabelProps={{ shrink: true }} />
+        <Field.Text name="primaryAddress" label="Address" />
+        <Field.Text name="secondaryAddress" label="Address 2" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="city" label="City" InputLabelProps={{ shrink: true }} />
-        <Field.Text name="state" label="State" InputLabelProps={{ shrink: true }} />
-        <Field.Text name="zipCode" label="Zip Code" InputLabelProps={{ shrink: true }} />
+        <Field.Text name="city" label="City" />
+        <Field.Text name="state" label="State" />
+        <Field.Text name="zipCode" label="Zip Code" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -189,11 +179,7 @@ export function SignUpView() {
           ))}
         </Field.Select>
 
-        <Field.Text
-          name="paymentMethod"
-          label="Payment Method"
-          InputLabelProps={{ shrink: true }}
-        />
+        <Field.Text name="paymentMethod" label="Payment Method" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -202,7 +188,6 @@ export function SignUpView() {
           label="Password"
           placeholder="6+ characters"
           type={password.value ? 'text' : 'password'}
-          InputLabelProps={{ shrink: true }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -218,7 +203,6 @@ export function SignUpView() {
           name="confirmPassword"
           label="Confirm New Password"
           type={password.value ? 'text' : 'password'}
-          InputLabelProps={{ shrink: true }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
