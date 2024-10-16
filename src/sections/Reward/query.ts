@@ -57,6 +57,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           mobile
           assetId
           emailVerified
+          totalIntroducers
           status
           state
           memberWallets {

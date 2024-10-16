@@ -21,6 +21,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           primaryAddress
           secondaryAddress
           emailVerified
+          totalIntroducers
           status
           memberWallets {
             createdAt
