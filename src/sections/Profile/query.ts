@@ -14,6 +14,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       mobile
       city
       emailVerified
+      totalIntroducers
       status
       state
       zipCode
@@ -29,6 +30,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         assetId
         emailVerified
+        totalIntroducers
         status
         state
       }
@@ -45,6 +47,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         assetId
         emailVerified
+        totalIntroducers
         status
         state
       }
@@ -110,6 +113,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         mobile
         city
         emailVerified
+        totalIntroducers
         status
         state
         zipCode
@@ -121,6 +125,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           fullName
           email
           emailVerified
+          totalIntroducers
           status
           point
           primaryAddress
@@ -136,6 +141,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           fullName
           email
           emailVerified
+          totalIntroducers
           status
           point
           primaryAddress
