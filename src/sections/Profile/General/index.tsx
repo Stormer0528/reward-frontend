@@ -216,6 +216,7 @@ export default function MemberGeneral({ me }: Props) {
               />
               <Field.Phone name="mobile" label="Mobile" />
               <Autocomplete
+                disabled
                 fullWidth
                 options={members}
                 loading={memberLoading}
