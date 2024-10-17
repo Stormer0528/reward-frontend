@@ -18,6 +18,9 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           point
           mobile
           assetId
+          emailVerified
+          totalIntroducers
+          status
           primaryAddress
           secondaryAddress
           emailVerified
@@ -52,6 +55,8 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           token
           point
           status
+          isFreeShare
+          primaryFreeShare
         }
         paymentMethod
       }
@@ -80,6 +85,8 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
         deletedAt
         id
         productName
+        isFreeShare
+        primaryFreeShare
         amount
         status
         point
