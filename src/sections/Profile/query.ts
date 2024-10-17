@@ -17,6 +17,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       totalIntroducers
       status
       state
+      emailVerified
+      totalIntroducers
+      status
       zipCode
       sponsorId
       sponsor {
@@ -25,6 +28,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         fullName
         email
         point
+        emailVerified
+        totalIntroducers
+        status
         primaryAddress
         secondaryAddress
         mobile
@@ -42,6 +48,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         fullName
         email
         point
+        emailVerified
+        totalIntroducers
+        status
         primaryAddress
         secondaryAddress
         mobile
@@ -116,6 +125,9 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         totalIntroducers
         status
         state
+        emailVerified
+        totalIntroducers
+        status
         zipCode
         sponsorId
         placementParentId
@@ -128,6 +140,9 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
+          emailVerified
+          totalIntroducers
+          status
           primaryAddress
           secondaryAddress
           mobile
@@ -144,6 +159,9 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
+          emailVerified
+          totalIntroducers
+          status
           primaryAddress
           secondaryAddress
           mobile
@@ -210,6 +228,9 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         fullName
         email
         point
+        emailVerified
+        totalIntroducers
+        status
         mobile
         primaryAddress
         secondaryAddress
