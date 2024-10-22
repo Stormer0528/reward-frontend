@@ -20,7 +20,7 @@ import { useAuthContext } from 'src/auth/hooks';
 import Sale from './Sale';
 import General from './General';
 import History from './History';
-import Commission from './Commission';
+// import Commission from './Commission';
 
 const TABS = [
   {
@@ -30,7 +30,7 @@ const TABS = [
   },
   { value: 'edit', label: 'Edit', icon: <Iconify icon="solar:pen-2-bold" width={24} /> },
   { value: 'sale', label: 'Sale', icon: <Iconify icon="bi:currency-exchange" /> },
-  { value: 'commission', label: 'Commission', icon: <Iconify icon="fluent:reward-32-regular" /> },
+  // { value: 'commission', label: 'Commission', icon: <Iconify icon="fluent:reward-32-regular" /> },
 ];
 
 // ----------------------------------------------------------------------
@@ -73,7 +73,7 @@ export default function Profile() {
 
         {tabs.value === 'sale' && <Sale me={user} />}
 
-        {tabs.value === 'commission' && <Commission me={user} />}
+        {/* {tabs.value === 'commission' && <Commission me={user} />} */}
       </DashboardContent>
     </>
   );
