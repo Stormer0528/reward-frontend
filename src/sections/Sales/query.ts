@@ -25,6 +25,9 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           secondaryAddress
           emailVerified
           totalIntroducers
+          syncWithSendy
+          preferredContact
+          preferredContactDetail
           status
           memberWallets {
             createdAt
@@ -55,8 +58,6 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           token
           point
           status
-          isFreeShare
-          primaryFreeShare
         }
         paymentMethod
       }
@@ -85,8 +86,6 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
         deletedAt
         id
         productName
-        isFreeShare
-        primaryFreeShare
         amount
         status
         point

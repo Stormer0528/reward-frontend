@@ -19,6 +19,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       state
       emailVerified
       totalIntroducers
+      syncWithSendy
+      preferredContact
+      preferredContactDetail
       status
       zipCode
       sponsorId
@@ -37,6 +40,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         assetId
         emailVerified
         totalIntroducers
+        syncWithSendy
+        preferredContact
+        preferredContactDetail
         status
         state
       }
@@ -57,6 +63,9 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         assetId
         emailVerified
         totalIntroducers
+        syncWithSendy
+        preferredContact
+        preferredContactDetail
         status
         state
       }
@@ -127,6 +136,9 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         state
         emailVerified
         totalIntroducers
+        syncWithSendy
+        preferredContact
+        preferredContactDetail
         status
         zipCode
         sponsorId
@@ -142,6 +154,9 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           point
           emailVerified
           totalIntroducers
+          syncWithSendy
+          preferredContact
+          preferredContactDetail
           status
           primaryAddress
           secondaryAddress
@@ -161,6 +176,9 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           point
           emailVerified
           totalIntroducers
+          syncWithSendy
+          preferredContact
+          preferredContactDetail
           status
           primaryAddress
           secondaryAddress
