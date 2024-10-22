@@ -61,6 +61,9 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           assetId
           emailVerified
           totalIntroducers
+          syncWithSendy
+          preferredContact
+          preferredContactDetail
           status
           state
           memberWallets {
