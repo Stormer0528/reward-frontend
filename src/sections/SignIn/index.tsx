@@ -7,7 +7,7 @@ import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -68,21 +68,21 @@ export function SignInView() {
     }
   });
 
-  const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
-      <Typography variant="h5">Sign in to your account</Typography>
+  // const renderHead = (
+  //   <Stack spacing={1.5} sx={{ mb: 5 }}>
+  //     <Typography variant="h5">Sign in to your account</Typography>
 
-      <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {`Don't have an account?`}
-        </Typography>
+  //     <Stack direction="row" spacing={0.5}>
+  //       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+  //         {`Don't have an account?`}
+  //       </Typography>
 
-        <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
-          Join Now
-        </Link>
-      </Stack>
-    </Stack>
-  );
+  //       <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
+  //         Join Now
+  //       </Link>
+  //     </Stack>
+  //   </Stack>
+  // );
 
   const renderForm = (
     <Stack spacing={3}>
@@ -133,7 +133,7 @@ export function SignInView() {
 
   return (
     <>
-      {renderHead}
+      {/* {renderHead} */}
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>
