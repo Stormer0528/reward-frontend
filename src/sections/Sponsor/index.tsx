@@ -1,184 +1,309 @@
-import { useMemo, useEffect, useCallback } from 'react';
+import _ from 'lodash';
+import { useMemo, useState, useEffect, useCallback } from 'react';
+import {
+  ReactFlow,
+  type Node,
+  type Edge,
+  ReactFlowProvider,
+  type FitViewOptions,
+} from '@xyflow/react';
 
-import { Card, Stack, Table, TableBody, TableContainer } from '@mui/material';
+import Stack from '@mui/material/Stack';
 
-import { useQuery, type SortOrder } from 'src/routes/hooks';
+import { paths } from 'src/routes/paths';
 
 import { DashboardContent } from 'src/layouts/dashboard';
+import {
+  PLACEMENTTREE_NODE_WIDTH,
+  PLACEMENTTREE_NODE_HEIGHT,
+  PLACEMENTTREE_NODE_X_SPACE,
+  PLACEMENTTREE_NODE_Y_SPACE,
+} from 'src/consts';
 
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
-import { SearchInput } from 'src/components/SearchInput';
-import {
-  useTable,
-  TableNoData,
-  TableSkeleton,
-  TableHeadCustom,
-  TablePaginationCustom,
-} from 'src/components/Table';
+import ComponentBlock from 'src/components/Component-Block';
+import { LoadingScreen } from 'src/components/loading-screen';
+
+import { useFetchMembers } from 'src/sections/Profile/useApollo';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-import MemberTableRow from './MemberTableRow';
-import { useFetchMembers } from '../Profile/useApollo';
-import MemberTableFiltersResult from './MemberTableFiltersResult';
+import { StandardNode } from './node';
+import CustomEdge from './customEdge';
+import NodeContext from './nodeContext';
 
-import type { IMemberPrismaFilter, IMemberTableFilters } from './types';
-
-const TABLE_HEAD = [
-  { id: 'username', label: 'Username', sortable: true },
-  { id: 'fullName', label: 'Full Name', sortable: true },
-  { id: 'createdAt', label: 'Created At', sortable: true },
-];
-
-const defaultFilter: IMemberTableFilters = {
-  search: '',
-  status: 'all',
+const fitViewOptions: FitViewOptions = {
+  padding: 0.2,
+  duration: 1000,
 };
 
-export default function PlacementListViewWithReactFlowProvider() {
-  const table = useTable({ defaultDense: true });
+const edgeTypes = {
+  customEdge: CustomEdge,
+};
 
-  const { user } = useAuthContext();
+function buildSponsorTree(members: any[], me: any) {
+  const memberMap: Record<string, any> = {};
+  let result: any = {};
 
-  const [query, { setQueryParams: setQuery, setPage, setPageSize }] =
-    useQuery<IMemberTableFilters>();
+  members.forEach((member) => {
+    memberMap[member.id] = { ...member, children: [] };
 
-  const { loading, members, rowCount, fetchMembers } = useFetchMembers();
+    if (member.id === me?.id) {
+      result = memberMap[member.id];
+    }
+  });
 
-  const {
-    page = { page: 1, pageSize: 10 },
-    sort = { createdAt: 'asc' },
-    filter = defaultFilter,
-  } = query;
+  members.forEach((member) => {
+    if (member.sponsorId && memberMap[member.sponsorId] && member.id !== me.id) {
+      memberMap[member.sponsorId!].children.push(memberMap[member.id]);
+    }
+  });
 
-  const graphQueryFilter = useMemo(() => {
-    const filterObj: IMemberPrismaFilter = {};
-    if (filter.search) {
-      filterObj.OR = [
-        { email: { contains: filter.search, mode: 'insensitive' } },
-        { assetId: { contains: filter.search, mode: 'insensitive' } },
-        { mobile: { contains: filter.search, mode: 'insensitive' } },
-        { username: { contains: filter.search, mode: 'insensitive' } },
-        { fullName: { contains: filter.search, mode: 'insensitive' } },
-        { primaryAddress: { contains: filter.search, mode: 'insensitive' } },
-        { memberWallets: { some: { address: { contains: filter.search, mode: 'insensitive' } } } },
-      ];
+  return result;
+}
+
+function buildTree(node: any, baseX: number, depth: number, tree: any[], visibleMap: any = null) {
+  const { children } = node;
+
+  if (children.length === 0) {
+    const element = {
+      id: node.id,
+      data: { label: <StandardNode {...node} /> },
+      position: {
+        x: baseX,
+        y: (depth - 1) * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE),
+      },
+      draggable: true,
+      style: {
+        padding: 0,
+        border: 'none',
+        borderRadius: '12px',
+        width: PLACEMENTTREE_NODE_WIDTH,
+        height: PLACEMENTTREE_NODE_HEIGHT,
+      },
+      maxX: baseX + PLACEMENTTREE_NODE_WIDTH,
+    };
+
+    if (depth !== 0) {
+      tree.push(element);
     }
 
-    if (filter.status === 'inactive') {
-      filterObj.deletedAt = { not: null };
-    }
+    return element;
+  }
 
-    filterObj.sponsorId = user?.id;
+  let maxX = baseX;
+  const positions: any[] = [];
 
-    return filterObj;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
+  if (!visibleMap || visibleMap[node.id] === 2) {
+    children.forEach((child: any, idx: number) => {
+      const { maxX: tempX, position } = buildTree(
+        child,
+        maxX + (idx === 0 ? 0 : PLACEMENTTREE_NODE_X_SPACE),
+        depth + 1,
+        tree,
+        visibleMap
+      );
+      maxX = tempX;
+      positions.push(position);
+    });
+  }
 
-  const graphQuerySort = useMemo(() => {
-    if (!sort) return undefined;
+  let resPositionX = maxX;
+  if (!visibleMap || visibleMap[node.id] === 2) {
+    resPositionX = (maxX + baseX - PLACEMENTTREE_NODE_WIDTH) / 2;
+  } else {
+    resPositionX = baseX;
+    maxX = resPositionX + PLACEMENTTREE_NODE_WIDTH;
+  }
+  const res = {
+    id: node.id,
+    data: { label: <StandardNode {...node} /> },
+    position: {
+      x: resPositionX,
+      y: (depth - 1) * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE),
+    },
+    draggable: true,
+    style: {
+      padding: 0,
+      border: 'none',
+      borderRadius: '12px',
+      width: PLACEMENTTREE_NODE_WIDTH,
+      height: PLACEMENTTREE_NODE_HEIGHT,
+    },
+    maxX,
+  };
 
-    return Object.entries(sort)
-      .map(([key, value]) => `${value === 'asc' ? '' : '-'}${key}`)
-      .join(',');
-  }, [sort]);
+  if (depth !== 0) {
+    tree.push(res);
+  }
 
-  const canReset = !!filter.search;
+  return res;
+}
+
+function getMemberIdsWithDepth(node: any, depth: number, targetDepth: number) {
+  if (depth === targetDepth) {
+    if (node.children.length) return [{ id: node.id, value: 1 }];
+    return [{ id: node.id, value: 3 }];
+  }
+  const res: any[] = [];
+  node.children.forEach((child: any) => {
+    res.push(...getMemberIdsWithDepth(child, depth + 1, targetDepth));
+  });
+
+  return res.length === 0 ? [{ id: node.id, value: 3 }] : [...res, { id: node.id, value: 2 }];
+}
+
+function PlacementListView() {
+  const { user: me } = useAuthContext();
+
+  const { fetchMembers, members, loading } = useFetchMembers();
+
+  const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
 
   useEffect(() => {
     fetchMembers({
       variables: {
-        page: page && `${page.page},${page.pageSize}`,
-        filter: graphQueryFilter,
-        sort: graphQuerySort,
+        filter: {
+          OR: [{ id: me?.id }, { sponsorId: me?.id }],
+        },
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, query]);
+  }, [me]);
 
-  const notFound = (canReset && !members?.length) || !members?.length;
+  const nodes: Node[] = useMemo(() => {
+    if (!members || members.length === 0) return [];
+    const sponsorTree = buildSponsorTree(members, me);
 
-  const handleSearchChange = useCallback(
-    (value: string) => {
-      setQuery({ ...query, filter: { ...filter, search: value } });
-    },
-    [setQuery, query, filter]
+    const resultTree: any[] = [];
+
+    buildTree(sponsorTree, 0, 0, resultTree, visibleMap);
+
+    return resultTree;
+  }, [me, members, visibleMap]);
+
+  const edges: Edge[] = useMemo(
+    () =>
+      members
+        .filter((member) => member?.sponsorId)
+        .map((member) => ({
+          id: `${member?.sponsorId}:${member?.id}`,
+          source: member?.sponsorId ?? '',
+          target: member?.id ?? '',
+          type: 'customEdge',
+        })),
+    [members]
   );
 
+  const expandTree = useCallback(
+    (id: string) => {
+      const newVisibleMap: Record<string, number> = { ...visibleMap };
+
+      members
+        .filter((mb) => mb?.sponsorId === id)
+        .forEach((mb) => {
+          if (!newVisibleMap[mb?.id ?? '']) {
+            newVisibleMap[mb?.id ?? ''] =
+              members.findIndex((mber) => mber?.sponsorId === mb?.id) === -1 ? 3 : 1;
+          }
+        });
+
+      newVisibleMap[id] = 2;
+
+      setVisibleMap(newVisibleMap);
+
+      localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
+    },
+    [members, visibleMap]
+  );
+
+  const collapseTree = useCallback(
+    (id: string) => {
+      const newVisibleMap: Record<string, number> = { ...visibleMap };
+
+      newVisibleMap[id] = 1;
+
+      setVisibleMap(newVisibleMap);
+
+      localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
+    },
+    [visibleMap]
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      visibleMap,
+      expandTree,
+      collapseTree,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [visibleMap]
+  );
+
+  const resetVisibleMap = useCallback(() => {
+    if (!members || members.length === 0) {
+      setVisibleMap({});
+
+      localStorage.setItem('sponsorVisibleMap', JSON.stringify({}));
+
+      return;
+    }
+
+    const placementTree = buildSponsorTree(members, me);
+    const maps = getMemberIdsWithDepth(placementTree, 0, 2);
+    const newVisibleMap: Record<string, number> = {};
+
+    maps.forEach((mp: any) => {
+      newVisibleMap[mp.id] = mp.value;
+    });
+
+    setVisibleMap(newVisibleMap);
+
+    localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
+  }, [me, members]);
+
+  useEffect(() => {
+    const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
+
+    if (!storageVisibleMap || _.isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
+    else setVisibleMap(JSON.parse(storageVisibleMap));
+  }, [resetVisibleMap]);
+
   return (
-    <DashboardContent>
+    <DashboardContent sx={{ overflowX: 'hidden' }}>
       <Breadcrumbs
-        heading="Miner"
-        links={[{ name: 'Sponsor' }]}
+        heading="Sponsor"
+        links={[{ name: 'Sponsor', href: paths.dashboard.placement.root }, { name: 'List' }]}
         sx={{
           mb: { xs: 1, md: 2 },
         }}
       />
 
-      <Card>
-        <Stack>
-          <SearchInput search={filter.search} onSearchChange={handleSearchChange} />
-        </Stack>
-
-        {canReset && !loading && (
-          <MemberTableFiltersResult results={rowCount} sx={{ p: 2.5, pt: 0 }} />
-        )}
-
-        <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
-          <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
-            <TableHeadCustom
-              order={sort && sort[Object.keys(sort)[0]]}
-              orderBy={sort && Object.keys(sort)[0]}
-              headLabel={TABLE_HEAD}
-              rowCount={loading ? 0 : members!.length}
-              onSort={(id) => {
-                if (id !== 'action') {
-                  const isAsc = sort && sort[id] === 'asc';
-                  const newSort = { [id]: isAsc ? 'desc' : ('asc' as SortOrder) };
-                  setQuery({ ...query, sort: newSort });
-                }
-              }}
-            />
-            {loading ? (
-              <>
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-                <TableSkeleton height={26} />
-              </>
-            ) : (
-              <TableBody>
-                {members!.map((row) => (
-                  <MemberTableRow key={row!.id} row={row!} />
-                ))}
-
-                <TableNoData notFound={notFound} />
-              </TableBody>
-            )}
-          </Table>
-        </TableContainer>
-
-        <TablePaginationCustom
-          count={loading ? 0 : rowCount!}
-          page={loading ? 0 : page!.page - 1}
-          rowsPerPage={page?.pageSize}
-          onPageChange={(_, curPage) => {
-            setPage(curPage + 1);
-          }}
-          onRowsPerPageChange={(event) => {
-            setPageSize(parseInt(event.target.value, 10));
-          }}
-          //
-          dense={table.dense}
-          onChangeDense={table.onChangeDense}
-        />
-      </Card>
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <ComponentBlock sx={{ px: 0, pb: 0 }}>
+          <Stack sx={{ overflow: 'auto', height: '600px', width: '100%' }}>
+            <NodeContext.Provider value={contextValue}>
+              <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                fitView
+                fitViewOptions={fitViewOptions}
+                edgeTypes={edgeTypes}
+              />
+            </NodeContext.Provider>
+          </Stack>
+        </ComponentBlock>
+      )}
     </DashboardContent>
+  );
+}
+
+export default function PlacementListViewWithReactFlowProvider() {
+  return (
+    <ReactFlowProvider>
+      <PlacementListView />
+    </ReactFlowProvider>
   );
 }
