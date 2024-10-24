@@ -99,27 +99,30 @@ export function SignUpView() {
   const { packages, fetchPackages } = useFetchPackages();
   const { submitSignUp } = useSignUp();
 
-  const onSubmit = handleSubmit(async ({ confirmPassword, firstName, lastName, ...rest }) => {
-    try {
-      const { data } = await submitSignUp({
-        variables: {
-          data: {
-            username: rest.email.split('@')[0],
-            fullName: `${firstName} ${lastName}`,
-            ...rest,
+  const onSubmit = handleSubmit(
+    async ({ confirmPassword, firstName, lastName, sponsorUserId, ...rest }) => {
+      try {
+        const { data } = await submitSignUp({
+          variables: {
+            data: {
+              username: rest.email.split('@')[0],
+              fullName: `${firstName} ${lastName}`,
+              sponsorUserId: sponsorUserId.length ? sponsorUserId : referralID,
+              ...rest,
+            },
           },
-        },
-      });
+        });
 
-      if (data) {
-        const searchParams = new URLSearchParams({ email: rest.email }).toString();
-        router.push(`${paths.verifyEmail}?${searchParams}`);
+        if (data) {
+          const searchParams = new URLSearchParams({ email: rest.email }).toString();
+          router.push(`${paths.verifyEmail}?${searchParams}`);
+        }
+      } catch (error) {
+        console.error(error);
+        setErrorMsg(error instanceof Error ? error.message : error);
       }
-    } catch (error) {
-      console.error(error);
-      setErrorMsg(error instanceof Error ? error.message : error);
     }
-  });
+  );
 
   useEffect(() => {
     fetchPackages({ variables: { filter: { status: true } } });
