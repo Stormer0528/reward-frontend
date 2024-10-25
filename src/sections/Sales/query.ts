@@ -5,30 +5,29 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
     sales(sort: $sort, page: $page, filter: $filter) {
       sales {
         id
-        invoiceNo
+        status
         memberId
+        invoiceNo
         packageId
         orderedAt
-        status
         member {
           id
-          username
-          fullName
           email
           point
           mobile
-          assetId
-          emailVerified
-          totalIntroducers
           status
-          primaryAddress
-          secondaryAddress
+          assetId
+          username
+          fullName
           emailVerified
-          totalIntroducers
+          emailVerified
           syncWithSendy
+          primaryAddress
+          totalIntroducers
+          secondaryAddress
+          totalIntroducers
           preferredContact
           preferredContactDetail
-          status
           memberWallets {
             createdAt
             updatedAt
@@ -52,12 +51,16 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
         }
         package {
           id
-          productName
-          amount
           date
           token
           point
+          amount
           status
+          createdAt
+          updatedAt
+          deletedAt
+          productName
+          enrollVisibility
         }
         paymentMethod
       }
@@ -81,16 +84,17 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
   query Packages($sort: String, $page: String, $filter: JSONObject) {
     packages(sort: $sort, page: $page, filter: $filter) {
       packages {
+        id
+        date
+        token
+        point
+        amount
+        status
         createdAt
         updatedAt
         deletedAt
-        id
         productName
-        amount
-        status
-        point
-        date
-        token
+        enrollVisibility
       }
       total
     }
