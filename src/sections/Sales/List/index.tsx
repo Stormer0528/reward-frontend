@@ -117,7 +117,7 @@ export default function SaleListView() {
       },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query]);
 
   return (
     <DashboardContent>
