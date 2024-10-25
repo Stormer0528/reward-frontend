@@ -19,6 +19,8 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
+import { PAYMENT_TYPE } from 'src/consts';
+
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
@@ -36,20 +38,21 @@ export const SignUpSchema = zod
     email: zod
       .string({ required_error: 'Email is required' })
       .email({ message: 'Invalid email address is provided' }),
-    mobile: zod.string({ required_error: 'Mobile is required' }),
-    city: zod.string({ required_error: 'City is required' }),
-    zipCode: zod.string({ required_error: 'ZIPCode is required' }),
-    state: zod.string({ required_error: 'State is required' }),
-    primaryAddress: zod.string({ required_error: 'Address is required' }),
-    packageId: zod.string({ required_error: 'Package is required' }),
-    sponsorUserId: zod.string({ required_error: 'Reference is required' }),
-    secondaryAddress: zod.string({ required_error: 'Address Line 2 is required' }),
+    mobile: zod.string(),
+    city: zod.string(),
+    zipCode: zod.string(),
+    state: zod.string(),
+    primaryAddress: zod.string(),
+    packageId: zod.string(),
+    sponsorUserId: zod.string(),
+    secondaryAddress: zod.string(),
+    paymentMethod: zod.string(),
     password: zod
       .string()
       .min(1, { message: 'Password is required!' })
       .min(6, { message: 'Password must be at least 6 characters!' }),
-    confirmPassword: zod.string().min(1, { message: 'Confirm password is required!' }),
-    assetId: zod.string({ required_error: 'AssetID is required' }),
+    confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
+    assetId: zod.string({ required_error: 'Coin ID is required' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match!',
@@ -105,7 +108,6 @@ export function SignUpView() {
   const onSubmit = handleSubmit(
     async ({ confirmPassword, firstName, lastName, sponsorUserId, ...rest }) => {
       try {
-
         localStorage.setItem('payout_reference', refID || sponsorUserId);
 
         const { data } = await submitSignUp({
@@ -132,7 +134,7 @@ export function SignUpView() {
 
   useEffect(() => {
     fetchPackages({ variables: { filter: { status: true } } });
-    
+
     localStorage.setItem('payout_reference', refID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -156,18 +158,23 @@ export function SignUpView() {
   const renderForm = (
     <Stack spacing={3}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="firstName" label="First Name" />
-        <Field.Text name="lastName" label="Last Name" />
+        <Field.Text name="firstName" label="First Name" required />
+        <Field.Text name="lastName" label="Last Name" required />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="email" label="Email Address" />
+        <Field.Text name="email" label="Email Address" required />
         <Field.Phone name="mobile" label="Phone" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="sponsorUserId" label="Reference Code" disabled={Boolean(refID)} />
-        <Field.Text name="assetId" label="AssetID" placeholder="enter the 6-digit Coin ID" />
+        <Field.Text name="sponsorUserId" label="Sponsor ID" disabled={Boolean(refID)} />
+        <Field.Text
+          name="assetId"
+          label="Coin ID"
+          placeholder="enter the 6-digit Coin ID"
+          required
+        />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -190,7 +197,14 @@ export function SignUpView() {
           ))}
         </Field.Select>
 
-        <Field.Text name="paymentMethod" label="Payment Method" />
+        {/* <Field.Text name="paymentMethod" label="Payment Method" /> */}
+        <Field.Select name="paymentMethod" label="Payment Method">
+          {PAYMENT_TYPE.map((option) => (
+            <MenuItem key={option.label} value={option.value}>
+              {option.value}
+            </MenuItem>
+          ))}
+        </Field.Select>
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -199,6 +213,7 @@ export function SignUpView() {
           label="Password"
           placeholder="6+ characters"
           type={password.value ? 'text' : 'password'}
+          required
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -214,6 +229,7 @@ export function SignUpView() {
           name="confirmPassword"
           label="Confirm New Password"
           type={password.value ? 'text' : 'password'}
+          required
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
