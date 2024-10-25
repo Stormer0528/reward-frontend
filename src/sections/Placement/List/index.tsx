@@ -3,8 +3,13 @@ import { useMemo, useState, useEffect, useCallback } from 'react';
 import { ReactFlow, type Node, type Edge, type FitViewOptions } from '@xyflow/react';
 
 import Stack from '@mui/material/Stack';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
+
+import { useBoolean } from 'src/hooks/useBoolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import {
@@ -14,9 +19,11 @@ import {
   PLACEMENTTREE_NODE_Y_SPACE,
 } from 'src/consts';
 
+import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/loading-screen';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { useFetchMe, useFetchMembers } from 'src/sections/Profile/useApollo';
 
@@ -33,6 +40,9 @@ const edgeTypes = {
 };
 
 export default function PlacementListView() {
+  const open = useBoolean();
+  const popover = usePopover();
+
   const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
 
   const { me, fetchMe } = useFetchMe();
@@ -268,6 +278,10 @@ export default function PlacementListView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [members]);
 
+  const reset = useCallback(async () => {}, []);
+
+  const refresh = useCallback(async () => {}, []);
+
   useEffect(() => {
     const storageVisibleMap = localStorage.getItem('placementVisibleMap');
 
@@ -284,6 +298,11 @@ export default function PlacementListView() {
         sx={{
           mb: { xs: 1, md: 2 },
         }}
+        action={
+          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+            <Iconify icon="eva:more-horizontal-fill" />
+          </IconButton>
+        }
       />
 
       {loading ? (
@@ -303,6 +322,26 @@ export default function PlacementListView() {
           </Stack>
         </ComponentBlock>
       )}
+
+      <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'right-top' } }}
+      >
+        <MenuList>
+          <MenuItem onClick={reset}>Reset</MenuItem>
+          <MenuItem onClick={refresh}>Refresh</MenuItem>
+          <MenuItem
+            onClick={() => {
+              open.onTrue();
+              popover.onClose();
+            }}
+          >
+            Individual Members
+          </MenuItem>
+        </MenuList>
+      </CustomPopover>
     </DashboardContent>
   );
 }
