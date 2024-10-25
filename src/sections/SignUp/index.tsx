@@ -62,7 +62,10 @@ export function SignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const referralID = queryParams.get('reference');
+
+  const referralID = queryParams.get('sponsor');
+  const localStorageReferralID = localStorage.getItem('payout_reference');
+  const refID = referralID || localStorageReferralID || '';
 
   const router = useRouter();
 
@@ -73,7 +76,7 @@ export function SignUpView() {
     lastName: '',
     username: '',
     mobile: '',
-    sponsorUserId: '',
+    sponsorUserId: refID,
     email: '',
     packageId: '',
     assetId: '',
@@ -102,12 +105,15 @@ export function SignUpView() {
   const onSubmit = handleSubmit(
     async ({ confirmPassword, firstName, lastName, sponsorUserId, ...rest }) => {
       try {
+
+        localStorage.setItem('payout_reference', refID || sponsorUserId);
+
         const { data } = await submitSignUp({
           variables: {
             data: {
               username: rest.email.split('@')[0],
               fullName: `${firstName} ${lastName}`,
-              sponsorUserId: sponsorUserId.length ? sponsorUserId : referralID,
+              sponsorUserId: refID || sponsorUserId,
               ...rest,
             },
           },
@@ -126,6 +132,8 @@ export function SignUpView() {
 
   useEffect(() => {
     fetchPackages({ variables: { filter: { status: true } } });
+    
+    localStorage.setItem('payout_reference', refID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -158,7 +166,7 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="sponsorUserId" label="Reference Code" value={referralID} />
+        <Field.Text name="sponsorUserId" label="Reference Code" disabled={Boolean(refID)} />
         <Field.Text name="assetId" label="AssetID" placeholder="enter the 6-digit Coin ID" />
       </Stack>
 
