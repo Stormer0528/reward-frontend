@@ -133,7 +133,7 @@ export function SignUpView() {
   );
 
   useEffect(() => {
-    fetchPackages({ variables: { filter: { status: true } } });
+    fetchPackages({ variables: { filter: { status: true, enrollVisibility: true } } });
 
     localStorage.setItem('payout_reference', refID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -189,7 +189,11 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Select name="packageId" label="Pacakage">
+        <Field.Select
+          name="packageId"
+          label="Pacakage"
+          inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+        >
           {packages.map((option) => (
             <MenuItem key={option?.id} value={option?.id}>
               {`$${option?.amount} @ ${option?.productName}`}
@@ -197,7 +201,6 @@ export function SignUpView() {
           ))}
         </Field.Select>
 
-        {/* <Field.Text name="paymentMethod" label="Payment Method" /> */}
         <Field.Select name="paymentMethod" label="Payment Method">
           {PAYMENT_TYPE.map((option) => (
             <MenuItem key={option.label} value={option.value}>
