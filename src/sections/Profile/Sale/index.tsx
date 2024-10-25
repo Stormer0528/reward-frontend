@@ -1,21 +1,15 @@
-import type { LabelColor } from 'src/components/Label';
 import type { Member } from 'src/__generated__/graphql';
 import type { SortOrder } from 'src/routes/hooks/useQuery';
 
-import { useMemo, useCallback } from 'react';
-import { useQuery as useGraphQuery } from '@apollo/client';
+import { useMemo, useEffect, useCallback } from 'react';
 
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
-import { alpha } from '@mui/material/styles';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 
 import { useQuery } from 'src/routes/hooks';
 
-import { Label } from 'src/components/Label';
 import { ScrollBar } from 'src/components/ScrollBar';
 import { SearchInput } from 'src/components/SearchInput';
 import {
@@ -26,19 +20,14 @@ import {
   TablePaginationCustom,
 } from 'src/components/Table';
 
-import { FETCH_SALES_QUERY, FETCH_SALES_STATS_QUERY } from 'src/sections/Sales/query';
+import { useFetchSales } from 'src/sections/Sales/useApollo';
 
 import SaleTableRow from './SaleTableRow';
 import SaleTableFiltersResult from './SaleTableFiltersResult';
 
-import type { SaleRole, ISalePrismaFilter, ISaleTableFilters } from './types';
+import type { ISalePrismaFilter, ISaleTableFilters } from './types';
 
 // ----------------------------------------------------------------------
-
-const STATUS_OPTIONS: { value: SaleRole; label: string; color: LabelColor }[] = [
-  { value: 'all', label: 'All', color: 'info' },
-  { value: 'inactive', label: 'Inactive', color: 'error' },
-];
 
 const TABLE_HEAD = [
   { id: 'invoiceNo', label: 'Invoice No', width: 150, sortable: true },
@@ -106,32 +95,9 @@ export default function SaleListView({ me }: Props) {
 
   const canReset = !!filter.search;
 
-  const { data: statsData } = useGraphQuery(FETCH_SALES_STATS_QUERY, {
-    variables: {
-      allFilter: { memberId: me.id },
-      inactiveFilter: { status: false, memberId: me.id },
-    },
-  });
+  const { loading, sales, rowCount, fetchSales } = useFetchSales();
 
-  const { loading, data } = useGraphQuery(FETCH_SALES_QUERY, {
-    variables: {
-      page: page && `${page.page},${page.pageSize}`,
-      filter: graphQueryFilter,
-      sort: graphQuerySort,
-    },
-  });
-
-  const tableData = data?.sales;
-
-  const notFound = (canReset && !tableData?.sales?.length) || !tableData?.sales?.length;
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: SaleRole) => {
-    setQuery({
-      ...query,
-      filter: { ...filter, status: newValue },
-      page: { page: 1, pageSize: query.page?.pageSize ?? 10 },
-    });
-  };
+  const notFound = (canReset && !sales?.length) || !sales?.length;
 
   const handleSearchChange = useCallback(
     (value: string) => {
@@ -140,38 +106,23 @@ export default function SaleListView({ me }: Props) {
     [setQuery, query, filter]
   );
 
+  useEffect(() => {
+    fetchSales({
+      variables: {
+        page: page && `${page.page},${page.pageSize}`,
+        filter: graphQueryFilter,
+        sort: graphQuerySort,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
   return (
     <Card>
-      <Tabs
-        value={filter.status}
-        onChange={handleTabChange}
-        sx={{
-          px: 2.5,
-          boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
-        }}
-      >
-        {STATUS_OPTIONS.map((tab) => (
-          <Tab
-            key={tab.value}
-            iconPosition="end"
-            value={tab.value}
-            label={tab.label}
-            icon={
-              <Label
-                variant={(tab.value === filter.status && 'filled') || 'soft'}
-                color={tab.color}
-              >
-                {statsData ? statsData[tab.value].total! : 0}
-              </Label>
-            }
-          />
-        ))}
-      </Tabs>
-
       <SearchInput search={filter.search} onSearchChange={handleSearchChange} />
 
       {canReset && !loading && (
-        <SaleTableFiltersResult results={tableData!.total!} sx={{ p: 2.5, pt: 0 }} />
+        <SaleTableFiltersResult results={rowCount!} sx={{ p: 2.5, pt: 0 }} />
       )}
 
       <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -181,7 +132,7 @@ export default function SaleListView({ me }: Props) {
               order={sort && sort[Object.keys(sort)[0]]}
               orderBy={sort && Object.keys(sort)[0]}
               headLabel={TABLE_HEAD}
-              rowCount={loading ? 0 : tableData!.sales!.length}
+              rowCount={loading ? 0 : sales!.length}
               onSort={(id) => {
                 const isAsc = sort && sort[id] === 'asc';
                 const newSort = { [id]: isAsc ? 'desc' : ('asc' as SortOrder) };
@@ -198,7 +149,7 @@ export default function SaleListView({ me }: Props) {
               </>
             ) : (
               <TableBody>
-                {tableData!.sales!.map((row) => (
+                {sales!.map((row) => (
                   <SaleTableRow key={row!.id} row={row!} />
                 ))}
 
@@ -210,7 +161,7 @@ export default function SaleListView({ me }: Props) {
       </TableContainer>
 
       <TablePaginationCustom
-        count={loading ? 0 : tableData!.total!}
+        count={loading ? 0 : rowCount!}
         page={loading ? 0 : page!.page - 1}
         rowsPerPage={page?.pageSize}
         onPageChange={(_, curPage) => {
