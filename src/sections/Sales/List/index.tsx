@@ -1,14 +1,10 @@
-import type { LabelColor } from 'src/components/Label';
 import type { SortOrder } from 'src/routes/hooks/useQuery';
 
 import { useMemo, useEffect, useCallback } from 'react';
 
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Tooltip from '@mui/material/Tooltip';
-import { alpha } from '@mui/material/styles';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -20,7 +16,6 @@ import { useBoolean } from 'src/hooks/useBoolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
 import { SearchInput } from 'src/components/SearchInput';
@@ -35,17 +30,12 @@ import {
 } from 'src/components/Table';
 
 import SaleTableRow from './SaleTableRow';
+import { useFetchSales } from '../useApollo';
 import SaleTableFiltersResult from './SaleTableFiltersResult';
-import { useFetchSales, useFetchSaleStats } from '../useApollo';
 
-import type { SaleRole, ISalePrismaFilter, ISaleTableFilters } from './types';
+import type { ISalePrismaFilter, ISaleTableFilters } from './types';
 
 // ----------------------------------------------------------------------
-
-const STATUS_OPTIONS: { value: SaleRole; label: string; color: LabelColor }[] = [
-  { value: 'all', label: 'All', color: 'info' },
-  { value: 'inactive', label: 'Inactive', color: 'error' },
-];
 
 const TABLE_HEAD = [
   { id: 'invoiceNo', label: 'Invoice No', width: 130, sortable: true },
@@ -107,18 +97,9 @@ export default function SaleListView() {
 
   const canReset = !!filter.search;
 
-  const { stats, fetchSaleStats } = useFetchSaleStats();
   const { loading, sales, rowCount, fetchSales } = useFetchSales();
 
   const notFound = (canReset && !sales?.length) || !sales?.length;
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: SaleRole) => {
-    setQuery({
-      ...query,
-      filter: { ...filter, status: newValue },
-      page: { page: 1, pageSize: query.page?.pageSize ?? 10 },
-    });
-  };
 
   const handleSearchChange = useCallback(
     (value: string) => {
@@ -135,12 +116,6 @@ export default function SaleListView() {
         sort: graphQuerySort,
       },
     });
-
-    fetchSaleStats({
-      variables: {
-        inactiveFilter: { status: false },
-      },
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -155,32 +130,6 @@ export default function SaleListView() {
       />
 
       <Card>
-        <Tabs
-          value={filter.status}
-          onChange={handleTabChange}
-          sx={{
-            px: 2.5,
-            boxShadow: (theme) => `inset 0 -2px 0 0 ${alpha(theme.palette.grey[500], 0.08)}`,
-          }}
-        >
-          {STATUS_OPTIONS.map((tab) => (
-            <Tab
-              key={tab.value}
-              iconPosition="end"
-              value={tab.value}
-              label={tab.label}
-              icon={
-                <Label
-                  variant={(tab.value === filter.status && 'filled') || 'soft'}
-                  color={tab.color}
-                >
-                  {stats ? stats[tab.value].total! : 0}
-                </Label>
-              }
-            />
-          ))}
-        </Tabs>
-
         <SearchInput search={filter.search} onSearchChange={handleSearchChange} />
 
         {canReset && !loading && (

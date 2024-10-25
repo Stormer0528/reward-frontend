@@ -52,6 +52,7 @@ export function SearchInput({ search, placeholder, onSearchChange }: Props) {
     >
       <TextField
         fullWidth
+        size="small"
         value={keyword}
         onChange={handleSearchChange}
         placeholder={placeholder || 'Search ...'}
