@@ -1,6 +1,15 @@
-import { isEmpty } from 'lodash';
+import type { Member } from 'src/__generated__/graphql';
+
+import _ from 'lodash';
 import { useMemo, useState, useEffect, useCallback } from 'react';
-import { ReactFlow, type Node, type Edge, type FitViewOptions } from '@xyflow/react';
+import {
+  ReactFlow,
+  type Node,
+  type Edge,
+  useReactFlow,
+  ReactFlowProvider,
+  type FitViewOptions,
+} from '@xyflow/react';
 
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
@@ -8,8 +17,6 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
-
-import { useBoolean } from 'src/hooks/useBoolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import {
@@ -25,7 +32,9 @@ import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/loading-screen';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-import { useFetchMe, useFetchMembers } from 'src/sections/Profile/useApollo';
+import { useFetchMembers } from 'src/sections/Profile/useApollo';
+
+import { useAuthContext } from 'src/auth/hooks';
 
 import { StandardNode } from './node';
 import CustomEdge from './customEdge';
@@ -33,108 +42,50 @@ import NodeContext from './nodeContext';
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
+  duration: 1000,
 };
 
 const edgeTypes = {
   customEdge: CustomEdge,
 };
 
-export default function PlacementListView() {
-  const open = useBoolean();
-  const popover = usePopover();
+function buildPlacementTree(members: any[], me: Member) {
+  const memberMap: Record<string, any> = {};
+  const memberProcess: any[] = [];
+  let result: any = {};
 
-  const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
+  members.forEach((member) => {
+    memberMap[member.id] = { ...member, children: [] };
 
-  const { me, fetchMe } = useFetchMe();
-  const { loading, members, fetchMembers } = useFetchMembers();
-
-  useEffect(() => {
-    fetchMe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    fetchMembers({ variables: { sort: '-placementPosition' } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me]);
-
-  const buildPlacementTree = (data: any[]) => {
-    const memberMap: Record<string, any> = {};
-    const memberProcess: any[] = [];
-    let result: any = {};
-
-    data.forEach((member) => {
-      memberMap[member.id] = { ...member, children: [] };
-
-      if (member.placementParentId) {
-        memberProcess.push(member);
-      }
-
-      if (member.id === me?.id) {
-        result = memberMap[member.id];
-      }
-    });
-
-    memberProcess.forEach((member) => {
-      if (memberMap[member.placementParentId] && member.id !== member.placementParentId) {
-        memberMap[member.placementParentId!].children.push(memberMap[member.id]);
-      }
-    });
-
-    return result;
-  };
-
-  function buildTree(node: any, baseX: number, depth: number, tree: any[], vMap: any = null) {
-    const children = node.children.sort(
-      (child1: any, child2: any) =>
-        child1.placementPosition === 'LEFT' || child2.placementPosition === 'RIGHT'
-    );
-
-    if (children.length === 0) {
-      const element = {
-        id: node.id,
-        data: { label: <StandardNode {...node} /> },
-        position: { x: baseX, y: depth * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE) },
-        draggable: true,
-        style: {
-          padding: 0,
-          border: 'none',
-          borderRadius: '12px',
-          width: PLACEMENTTREE_NODE_WIDTH,
-          height: PLACEMENTTREE_NODE_HEIGHT,
-        },
-        maxX: baseX + PLACEMENTTREE_NODE_WIDTH,
-      };
-
-      tree.push(element);
-
-      return element;
+    if (member.placementParentId) {
+      memberProcess.push(member);
     }
 
-    let maxX = baseX;
-
-    if (!vMap || vMap[node.id] === 2) {
-      children
-        .filter((child: any) => child.placementPosition === 'LEFT')
-        .forEach((child: any) => {
-          const { maxX: tempX } = buildTree(
-            child,
-            maxX + PLACEMENTTREE_NODE_X_SPACE,
-            depth + 1,
-            tree,
-            vMap
-          );
-          maxX = tempX;
-        });
+    if (member.id === me.id) {
+      result = memberMap[member.id];
     }
+  });
 
-    const res = {
+  memberProcess.forEach((member) => {
+    if (memberMap[member.placementParentId] && member.id !== member.placementParentId) {
+      memberMap[member.placementParentId!].children.push(memberMap[member.id]);
+    }
+  });
+
+  return { result, memberMap };
+}
+
+function buildTree(node: any, baseX: number, depth: number, tree: any[], visibleMap: any = null) {
+  const children = node.children.sort(
+    (child1: any, child2: any) =>
+      child1.placementPosition === 'LEFT' || child2.placementPosition === 'RIGHT'
+  );
+
+  if (children.length === 0) {
+    const element = {
       id: node.id,
       data: { label: <StandardNode {...node} /> },
-      position: {
-        x: Math.max(baseX, maxX - (PLACEMENTTREE_NODE_WIDTH - PLACEMENTTREE_NODE_X_SPACE) / 2),
-        y: depth * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE),
-      },
+      position: { x: baseX, y: depth * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE) },
       draggable: true,
       style: {
         padding: 0,
@@ -143,28 +94,7 @@ export default function PlacementListView() {
         width: PLACEMENTTREE_NODE_WIDTH,
         height: PLACEMENTTREE_NODE_HEIGHT,
       },
-    };
-
-    maxX = res.position.x + (PLACEMENTTREE_NODE_WIDTH - PLACEMENTTREE_NODE_X_SPACE) / 2;
-
-    if (!vMap || vMap[node.id] === 2) {
-      children
-        .filter((child: any) => child.placementPosition === 'RIGHT')
-        .forEach((child: any) => {
-          const { maxX: tempX } = buildTree(
-            child,
-            maxX + PLACEMENTTREE_NODE_X_SPACE,
-            depth + 1,
-            tree,
-            vMap
-          );
-          maxX = tempX;
-        });
-    }
-
-    const element = {
-      ...res,
-      maxX: Math.max(maxX, res.position.x + PLACEMENTTREE_NODE_WIDTH),
+      maxX: baseX + PLACEMENTTREE_NODE_WIDTH,
     };
 
     tree.push(element);
@@ -172,22 +102,157 @@ export default function PlacementListView() {
     return element;
   }
 
-  function getMemberIdsWithDepth(node: any, depth: number, targetDepth: number) {
-    if (depth === targetDepth) {
-      if (node.children.length) return [{ id: node.id, value: 1 }];
-      return [{ id: node.id, value: 3 }];
-    }
-    const res: any[] = [];
-    node.children.forEach((child: any) => {
-      res.push(...getMemberIdsWithDepth(child, depth + 1, targetDepth));
-    });
+  let maxX = baseX;
 
-    return res.length === 0 ? [{ id: node.id, value: 3 }] : [...res, { id: node.id, value: 2 }];
+  if (!visibleMap || visibleMap[node.id] === 2) {
+    children
+      .filter((child: any) => child.placementPosition === 'LEFT')
+      .forEach((child: any, idx: number) => {
+        const { maxX: tempX } = buildTree(
+          child,
+          maxX + (idx === 0 ? 0 : PLACEMENTTREE_NODE_X_SPACE),
+          depth + 1,
+          tree,
+          visibleMap
+        );
+        maxX = tempX;
+      });
   }
+
+  const res = {
+    id: node.id,
+    data: { label: <StandardNode {...node} /> },
+    position: {
+      x: Math.max(baseX, maxX - (PLACEMENTTREE_NODE_WIDTH - PLACEMENTTREE_NODE_X_SPACE) / 2),
+      y: depth * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE),
+    },
+    draggable: true,
+    style: {
+      padding: 0,
+      border: 'none',
+      borderRadius: '12px',
+      width: PLACEMENTTREE_NODE_WIDTH,
+      height: PLACEMENTTREE_NODE_HEIGHT,
+    },
+  };
+
+  maxX = res.position.x + (PLACEMENTTREE_NODE_WIDTH - PLACEMENTTREE_NODE_X_SPACE) / 2;
+
+  if (!visibleMap || visibleMap[node.id] === 2) {
+    children
+      .filter((child: any) => child.placementPosition === 'RIGHT')
+      .forEach((child: any) => {
+        const { maxX: tempX } = buildTree(
+          child,
+          maxX + PLACEMENTTREE_NODE_X_SPACE,
+          depth + 1,
+          tree,
+          visibleMap
+        );
+        maxX = tempX;
+      });
+  }
+
+  const element = {
+    ...res,
+    maxX: Math.max(maxX, res.position.x + PLACEMENTTREE_NODE_WIDTH),
+  };
+
+  tree.push(element);
+
+  return element;
+}
+
+function getMemberIdsWithDepth(node: any, depth: number, targetDepth: number) {
+  if (depth === targetDepth) {
+    if (node.children.length) return [{ id: node.id, value: 1 }];
+    return [{ id: node.id, value: 3 }];
+  }
+  const res: any[] = [];
+  node.children.forEach((child: any) => {
+    res.push(...getMemberIdsWithDepth(child, depth + 1, targetDepth));
+  });
+
+  return res.length === 0 ? [{ id: node.id, value: 3 }] : [...res, { id: node.id, value: 2 }];
+}
+
+function getResetVisibleMap(
+  members: undefined | null | any[],
+  target: Member,
+  depth: number = 3
+): Record<string, number> {
+  if (!members || members.length === 0) {
+    return {};
+  }
+
+  const { result: placementTree } = buildPlacementTree(
+    members.filter((member) => member?.placementParentId),
+    target
+  );
+  const maps = getMemberIdsWithDepth(placementTree, 0, 3);
+  const newVisibleMap: Record<string, number> = {};
+
+  maps.forEach((mp: any) => {
+    newVisibleMap[mp.id] = mp.value;
+  });
+
+  return newVisibleMap;
+}
+
+function getNewVisibleMap(
+  members: undefined | null | any[],
+  target: Member,
+  visibleMap: Record<string, number>
+): Record<string, number> {
+  if (!members || !members.length) return {};
+
+  const { memberMap } = buildPlacementTree(
+    members.filter((member) => member?.placementParentId),
+    target
+  );
+  const newVisibleMap: Record<string, number> = {};
+  Object.entries(visibleMap).forEach(([id]) => {
+    if (memberMap[id].children.length === 0) {
+      newVisibleMap[id] = 3;
+    } else {
+      let value = 1;
+      memberMap[id].children.forEach((child: any) => {
+        if (visibleMap[child.id]) {
+          value = 2;
+        }
+      });
+      newVisibleMap[id] = visibleMap[id] === 3 ? value : visibleMap[id];
+    }
+  });
+
+  return newVisibleMap;
+}
+
+function PlacementListView() {
+  const popover = usePopover();
+
+  const { fetchMembers, members, loading, called } = useFetchMembers();
+  const { user } = useAuthContext();
+
+  const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
+  const exSetVisibleMap = useCallback((newVisibleMap: Record<string, number>) => {
+    setVisibleMap(newVisibleMap);
+    localStorage.setItem('placementVisibleMap', JSON.stringify(newVisibleMap));
+  }, []);
+
+  useEffect(() => {
+    fetchMembers({
+      variables: { sort: '-placementPosition' },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const nodes: Node[] = useMemo(() => {
     if (!members || members.length === 0) return [];
-    const placementTree = buildPlacementTree(members.filter((member) => member?.placementParentId));
+    const { result: placementTree } = buildPlacementTree(
+      members.filter((member) => member?.placementParentId),
+      user!
+    );
 
     const resultTree: any[] = [];
 
@@ -211,7 +276,7 @@ export default function PlacementListView() {
   );
 
   const expandTree = useCallback(
-    (id: string) => {
+    async (id: string) => {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
       members
@@ -223,26 +288,22 @@ export default function PlacementListView() {
           }
         });
 
-      newVisibleMap[id] = 2;
+      newVisibleMap[id] = members.findIndex((mb) => mb?.placementParentId === id) === -1 ? 3 : 2;
 
-      setVisibleMap(newVisibleMap);
-
-      localStorage.setItem('placementVisibleMap', JSON.stringify(visibleMap));
+      exSetVisibleMap(newVisibleMap);
     },
-    [members, visibleMap]
+    [members, visibleMap, exSetVisibleMap]
   );
 
   const collapseTree = useCallback(
-    (id: string) => {
+    async (id: string) => {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
-      newVisibleMap[id] = 1;
+      newVisibleMap[id] = members.findIndex((mb) => mb?.placementParentId === id) === -1 ? 3 : 1;
 
-      setVisibleMap(newVisibleMap);
-
-      localStorage.setItem('placementVisibleMap', JSON.stringify(newVisibleMap));
+      exSetVisibleMap(newVisibleMap);
     },
-    [visibleMap]
+    [members, visibleMap, exSetVisibleMap]
   );
 
   const contextValue = useMemo(
@@ -251,44 +312,75 @@ export default function PlacementListView() {
       expandTree,
       collapseTree,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleMap]
+    [visibleMap, expandTree, collapseTree]
   );
 
+  const { fitView } = useReactFlow();
+
   const resetVisibleMap = useCallback(() => {
-    if (!members || members.length === 0) {
-      setVisibleMap({});
+    const newVisibleMap = getResetVisibleMap(members, user!);
+    exSetVisibleMap(newVisibleMap);
 
-      localStorage.setItem('placementVisibleMap', JSON.stringify({}));
+    setTimeout(() => {
+      fitView({
+        ...fitViewOptions,
+        nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
+      });
+    }, 100);
+  }, [members, fitView, exSetVisibleMap, user]);
 
-      return;
-    }
-
-    const placementTree = buildPlacementTree(members.filter((member) => member?.placementParentId));
-    const maps = getMemberIdsWithDepth(placementTree, 0, 3);
-    const newVisibleMap: Record<string, number> = {};
-
-    maps.forEach((mp: any) => {
-      newVisibleMap[mp.id] = mp.value;
-    });
-
-    setVisibleMap(newVisibleMap);
-
-    localStorage.setItem('placementVisibleMap', JSON.stringify(newVisibleMap));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [members]);
-
-  const reset = useCallback(async () => {}, []);
-
-  const refresh = useCallback(async () => {}, []);
+  const reSyncVisibleMap = useCallback(() => {
+    const storageVisibleMap = localStorage.getItem('placementVisibleMap');
+    const newVisibleMap = storageVisibleMap
+      ? getNewVisibleMap(members, user!, JSON.parse(storageVisibleMap))
+      : {};
+    exSetVisibleMap(newVisibleMap);
+    setTimeout(() => {
+      fitView({
+        ...fitViewOptions,
+        nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
+      });
+    }, 100);
+  }, [members, exSetVisibleMap, fitView, user]);
 
   useEffect(() => {
+    if (!called || loading) return;
     const storageVisibleMap = localStorage.getItem('placementVisibleMap');
 
-    if (!storageVisibleMap || isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
-    else setVisibleMap(JSON.parse(storageVisibleMap));
+    if (!storageVisibleMap || _.isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
+    else reSyncVisibleMap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resetVisibleMap]);
+  }, [members, loading]);
+
+  const reset = useCallback(async () => {
+    const { data } = await fetchMembers();
+    const newVisibleMap = getResetVisibleMap(data?.members.members, user!);
+
+    exSetVisibleMap(newVisibleMap);
+
+    setTimeout(() => {
+      fitView({
+        ...fitViewOptions,
+        nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
+      });
+    }, 100);
+  }, [fetchMembers, exSetVisibleMap, fitView, user]);
+
+  const refresh = useCallback(async () => {
+    const { data } = await fetchMembers();
+    const storageVisibleMap = localStorage.getItem('placementVisibleMap');
+    const newVisibleMap = storageVisibleMap
+      ? getNewVisibleMap(data?.members.members, user!, JSON.parse(storageVisibleMap))
+      : {};
+    exSetVisibleMap(newVisibleMap);
+
+    setTimeout(() => {
+      fitView({
+        ...fitViewOptions,
+        nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
+      });
+    }, 100);
+  }, [fetchMembers, exSetVisibleMap, fitView, user]);
 
   return (
     <DashboardContent sx={{ overflowX: 'hidden' }}>
@@ -299,9 +391,11 @@ export default function PlacementListView() {
           mb: { xs: 1, md: 2 },
         }}
         action={
-          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-            <Iconify icon="eva:more-horizontal-fill" />
-          </IconButton>
+          <Stack direction="row" columnGap={1}>
+            <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+              <Iconify icon="eva:more-horizontal-fill" />
+            </IconButton>
+          </Stack>
         }
       />
 
@@ -330,10 +424,32 @@ export default function PlacementListView() {
         slotProps={{ arrow: { placement: 'right-top' } }}
       >
         <MenuList>
-          <MenuItem onClick={reset}>Reset</MenuItem>
-          <MenuItem onClick={refresh}>Refresh</MenuItem>
+          <MenuItem
+            onClick={() => {
+              reset();
+              popover.onClose();
+            }}
+          >
+            Reset
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              refresh();
+              popover.onClose();
+            }}
+          >
+            Refresh
+          </MenuItem>
         </MenuList>
       </CustomPopover>
     </DashboardContent>
+  );
+}
+
+export default function PlacementListViewWithReactFlowProvider() {
+  return (
+    <ReactFlowProvider>
+      <PlacementListView />
+    </ReactFlowProvider>
   );
 }
