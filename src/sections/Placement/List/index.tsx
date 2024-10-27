@@ -332,14 +332,6 @@ export default function PlacementListView() {
         <MenuList>
           <MenuItem onClick={reset}>Reset</MenuItem>
           <MenuItem onClick={refresh}>Refresh</MenuItem>
-          <MenuItem
-            onClick={() => {
-              open.onTrue();
-              popover.onClose();
-            }}
-          >
-            Individual Members
-          </MenuItem>
         </MenuList>
       </CustomPopover>
     </DashboardContent>
