@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useMemo, useEffect } from 'react';
 import {
   ReactFlow,
   type Node,
@@ -30,7 +29,6 @@ import { useAuthContext } from 'src/auth/hooks';
 
 import { StandardNode } from './node';
 import CustomEdge from './customEdge';
-import NodeContext from './nodeContext';
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -62,7 +60,7 @@ function buildSponsorTree(members: any[], me: any) {
   return result;
 }
 
-function buildTree(node: any, baseX: number, depth: number, tree: any[], visibleMap: any = null) {
+function buildTree(node: any, baseX: number, depth: number, tree: any[]) {
   const { children } = node;
 
   if (children.length === 0) {
@@ -84,9 +82,7 @@ function buildTree(node: any, baseX: number, depth: number, tree: any[], visible
       maxX: baseX + PLACEMENTTREE_NODE_WIDTH,
     };
 
-    if (depth !== 0) {
-      tree.push(element);
-    }
+    tree.push(element);
 
     return element;
   }
@@ -94,27 +90,18 @@ function buildTree(node: any, baseX: number, depth: number, tree: any[], visible
   let maxX = baseX;
   const positions: any[] = [];
 
-  if (!visibleMap || visibleMap[node.id] === 2) {
-    children.forEach((child: any, idx: number) => {
-      const { maxX: tempX, position } = buildTree(
-        child,
-        maxX + (idx === 0 ? 0 : PLACEMENTTREE_NODE_X_SPACE),
-        depth + 1,
-        tree,
-        visibleMap
-      );
-      maxX = tempX;
-      positions.push(position);
-    });
-  }
+  children.forEach((child: any, idx: number) => {
+    const { maxX: tempX, position } = buildTree(
+      child,
+      maxX + (idx === 0 ? 0 : PLACEMENTTREE_NODE_X_SPACE),
+      depth + 1,
+      tree
+    );
+    maxX = tempX;
+    positions.push(position);
+  });
 
-  let resPositionX = maxX;
-  if (!visibleMap || visibleMap[node.id] === 2) {
-    resPositionX = (maxX + baseX - PLACEMENTTREE_NODE_WIDTH) / 2;
-  } else {
-    resPositionX = baseX;
-    maxX = resPositionX + PLACEMENTTREE_NODE_WIDTH;
-  }
+  const resPositionX = (maxX + baseX - PLACEMENTTREE_NODE_WIDTH) / 2;
   const res = {
     id: node.id,
     data: { label: <StandardNode {...node} /> },
@@ -133,32 +120,15 @@ function buildTree(node: any, baseX: number, depth: number, tree: any[], visible
     maxX,
   };
 
-  if (depth !== 0) {
-    tree.push(res);
-  }
+  tree.push(res);
 
   return res;
-}
-
-function getMemberIdsWithDepth(node: any, depth: number, targetDepth: number) {
-  if (depth === targetDepth) {
-    if (node.children.length) return [{ id: node.id, value: 1 }];
-    return [{ id: node.id, value: 3 }];
-  }
-  const res: any[] = [];
-  node.children.forEach((child: any) => {
-    res.push(...getMemberIdsWithDepth(child, depth + 1, targetDepth));
-  });
-
-  return res.length === 0 ? [{ id: node.id, value: 3 }] : [...res, { id: node.id, value: 2 }];
 }
 
 function PlacementListView() {
   const { user: me } = useAuthContext();
 
   const { fetchMembers, members, loading } = useFetchMembers();
-
-  const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
 
   useEffect(() => {
     fetchMembers({
@@ -177,10 +147,10 @@ function PlacementListView() {
 
     const resultTree: any[] = [];
 
-    buildTree(sponsorTree, 0, 0, resultTree, visibleMap);
+    buildTree(sponsorTree, 0, 0, resultTree);
 
     return resultTree;
-  }, [me, members, visibleMap]);
+  }, [me, members]);
 
   const edges: Edge[] = useMemo(
     () =>
@@ -194,80 +164,6 @@ function PlacementListView() {
         })),
     [members]
   );
-
-  const expandTree = useCallback(
-    (id: string) => {
-      const newVisibleMap: Record<string, number> = { ...visibleMap };
-
-      members
-        .filter((mb) => mb?.sponsorId === id)
-        .forEach((mb) => {
-          if (!newVisibleMap[mb?.id ?? '']) {
-            newVisibleMap[mb?.id ?? ''] =
-              members.findIndex((mber) => mber?.sponsorId === mb?.id) === -1 ? 3 : 1;
-          }
-        });
-
-      newVisibleMap[id] = 2;
-
-      setVisibleMap(newVisibleMap);
-
-      localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
-    },
-    [members, visibleMap]
-  );
-
-  const collapseTree = useCallback(
-    (id: string) => {
-      const newVisibleMap: Record<string, number> = { ...visibleMap };
-
-      newVisibleMap[id] = 1;
-
-      setVisibleMap(newVisibleMap);
-
-      localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
-    },
-    [visibleMap]
-  );
-
-  const contextValue = useMemo(
-    () => ({
-      visibleMap,
-      expandTree,
-      collapseTree,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visibleMap]
-  );
-
-  const resetVisibleMap = useCallback(() => {
-    if (!members || members.length === 0) {
-      setVisibleMap({});
-
-      localStorage.setItem('sponsorVisibleMap', JSON.stringify({}));
-
-      return;
-    }
-
-    const placementTree = buildSponsorTree(members, me);
-    const maps = getMemberIdsWithDepth(placementTree, 0, 2);
-    const newVisibleMap: Record<string, number> = {};
-
-    maps.forEach((mp: any) => {
-      newVisibleMap[mp.id] = mp.value;
-    });
-
-    setVisibleMap(newVisibleMap);
-
-    localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
-  }, [me, members]);
-
-  useEffect(() => {
-    const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
-
-    if (!storageVisibleMap || _.isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
-    else setVisibleMap(JSON.parse(storageVisibleMap));
-  }, [resetVisibleMap]);
 
   return (
     <DashboardContent sx={{ overflowX: 'hidden' }}>
@@ -284,15 +180,13 @@ function PlacementListView() {
       ) : (
         <ComponentBlock sx={{ px: 0, pb: 0 }}>
           <Stack sx={{ overflow: 'auto', height: '600px', width: '100%' }}>
-            <NodeContext.Provider value={contextValue}>
-              <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                fitView
-                fitViewOptions={fitViewOptions}
-                edgeTypes={edgeTypes}
-              />
-            </NodeContext.Provider>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              fitView
+              fitViewOptions={fitViewOptions}
+              edgeTypes={edgeTypes}
+            />
           </Stack>
         </ComponentBlock>
       )}
