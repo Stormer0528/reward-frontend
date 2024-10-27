@@ -16,7 +16,7 @@ export function useFetchMe() {
 }
 
 export function useFetchMembers() {
-  const [fetchMembers, { loading, data }] = useLazyQuery(FETCH_MEMBERS_QUERY);
+  const [fetchMembers, { loading, data, called }] = useLazyQuery(FETCH_MEMBERS_QUERY);
 
   const rowCountRef = useRef(data?.members.total ?? 0);
 
@@ -31,6 +31,7 @@ export function useFetchMembers() {
   }, [data]);
 
   return {
+    called,
     loading,
     rowCount,
     members: data?.members.members ?? [],
