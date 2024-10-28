@@ -212,16 +212,18 @@ function getNewVisibleMap(
   );
   const newVisibleMap: Record<string, number> = {};
   Object.entries(visibleMap).forEach(([id]) => {
-    if (memberMap[id].children.length === 0) {
-      newVisibleMap[id] = 3;
-    } else {
-      let value = 1;
-      memberMap[id].children.forEach((child: any) => {
-        if (visibleMap[child.id]) {
-          value = 2;
-        }
-      });
-      newVisibleMap[id] = visibleMap[id] === 3 ? value : visibleMap[id];
+    if (memberMap[id]) {
+      if (memberMap[id].children.length === 0) {
+        newVisibleMap[id] = 3;
+      } else {
+        let value = 1;
+        memberMap[id].children.forEach((child: any) => {
+          if (visibleMap[child.id]) {
+            value = 2;
+          }
+        });
+        newVisibleMap[id] = visibleMap[id] === 3 ? value : visibleMap[id];
+      }
     }
   });
 
