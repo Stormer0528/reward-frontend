@@ -350,8 +350,8 @@ function PlacementListView() {
   return (
     <DashboardContent sx={{ overflowX: 'hidden' }}>
       <Breadcrumbs
-        heading="Placement"
-        links={[{ name: 'Placement', href: paths.dashboard.placement.root }, { name: 'List' }]}
+        heading="Sponsor"
+        links={[{ name: 'Sponsor', href: paths.dashboard.sponsor.root }, { name: 'List' }]}
         sx={{
           mb: { xs: 1, md: 2 },
         }}
