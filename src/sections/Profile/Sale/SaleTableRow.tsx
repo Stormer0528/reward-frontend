@@ -13,11 +13,10 @@ type Props = {
 };
 
 export default function SaleTableRow({ row }: Props) {
-  const { invoiceNo, member, package: product, paymentMethod, orderedAt } = row;
+  const { member, package: product, paymentMethod, orderedAt } = row;
 
   return (
     <TableRow hover>
-      <TableCell>{invoiceNo}</TableCell>
       <TableCell
         align="left"
         sx={{
@@ -36,9 +35,6 @@ export default function SaleTableRow({ row }: Props) {
             color: 'text.disabled',
           }}
         />
-      </TableCell>
-      <TableCell align="left" sx={{ whiteSpace: 'nowrap' }}>
-        {member?.mobile}
       </TableCell>
       <TableCell align="left" sx={{ whiteSpace: 'nowrap' }}>
         {member?.assetId}
