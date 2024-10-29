@@ -71,7 +71,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       }
       sales {
         id
-        invoiceNo
         memberId
         packageId
         paymentMethod
@@ -187,7 +186,6 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         }
         sales {
           id
-          invoiceNo
           memberId
           packageId
           paymentMethod
