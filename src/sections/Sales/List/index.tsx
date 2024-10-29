@@ -38,8 +38,6 @@ import type { ISalePrismaFilter, ISaleTableFilters } from './types';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'invoiceNo', label: 'Invoice No', width: 130, sortable: true },
-  { id: 'member.mobile', label: 'Mobile', width: 150, sortable: true },
   { id: 'member.assetId', label: 'Asset ID', width: 120, sortable: true },
   { id: 'package.productName', label: 'Product Name', sortable: true },
   { id: 'paymentMethod', label: 'Payment Method', sortable: true },
@@ -60,7 +58,7 @@ export default function SaleListView() {
 
   const {
     page = { page: 1, pageSize: 10 },
-    sort = { invoiceNo: 'asc' },
+    sort = { createdAt: 'asc' },
     filter = defaultFilter,
   } = query;
 
