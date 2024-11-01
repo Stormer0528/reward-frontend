@@ -61,17 +61,6 @@ export default function Detail() {
 
       <Grid container sx={{ mb: 2 }}>
         <Grid xl={6}>
-          {/* <video width="600" controls>
-            <source src={current.videoUrl} type="video/mp4" />
-            <track
-              kind="captions"
-              src="path/to/your/captions.vtt"
-              srcLang="en"
-              label="English"
-              default
-            />
-            Your browser does not support the video tag.
-          </video> */}
           <MediaPlayer url={current.videoUrl} controls />
         </Grid>
         <Grid xl={6}>
