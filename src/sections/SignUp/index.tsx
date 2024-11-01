@@ -113,7 +113,7 @@ export function SignUpView() {
         const { data } = await submitSignUp({
           variables: {
             data: {
-              username: rest.email.split('@')[0],
+              username: rest.email,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
               ...rest,
