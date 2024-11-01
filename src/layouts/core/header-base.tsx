@@ -3,6 +3,8 @@ import type { NavSectionProps } from 'src/components/nav-section';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
+import Password from 'src/components/Password';
+
 import { HeaderSection } from './header-section';
 import { MenuButton } from '../components/menu-button';
 import { AccountDrawer } from '../components/account-drawer';
@@ -85,6 +87,9 @@ export function HeaderBase({
             >
               {/* -- Settings button -- */}
               {settings && <SettingsButton data-slot="settings" />}
+
+              {/* -- Update Password button -- */}
+              {account && <Password />}
 
               {/* -- Account drawer -- */}
               {account && <AccountDrawer data-slot="account" data={data?.account} />}
