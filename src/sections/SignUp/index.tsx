@@ -133,7 +133,9 @@ export function SignUpView() {
   );
 
   useEffect(() => {
-    fetchPackages({ variables: { filter: { status: true, enrollVisibility: true } } });
+    fetchPackages({
+      variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
+    });
 
     localStorage.setItem('payout_reference', refID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
