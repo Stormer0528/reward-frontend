@@ -81,7 +81,12 @@ export function Section({
       </div>
 
       {introVideo ? (
-        <MediaPlayer url="https://www.youtube.com/watch?v=ZfOCJ0v1YMo" controls />
+        <MediaPlayer
+          url="https://www.youtube.com/watch?v=ZfOCJ0v1YMo"
+          width={360}
+          height={300}
+          controls
+        />
       ) : (
         <Box
           component="img"
