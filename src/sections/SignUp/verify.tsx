@@ -14,6 +14,7 @@ import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { useCountdownSeconds } from 'src/hooks/use-countdown';
 
+import { CREDIT_LINKS } from 'src/consts';
 import { EmailInboxIcon } from 'src/assets/icons';
 
 import { toast } from 'src/components/SnackBar';
@@ -81,8 +82,20 @@ export default function AmplifyVerifyView() {
       if (verifyResult) {
         toast.success('Successfully verified!');
 
+        const {
+          emailVerify: { packageId, paymentMethod },
+        } = verifyResult;
+
         setTimeout(() => {
-          router.push(paths.auth.signIn);
+          if (packageId && paymentMethod === 'Credit Card') {
+            CREDIT_LINKS.forEach((item) => {
+              if (item.label === packageId) {
+                window.location.href = item.link;
+              }
+            });
+          } else {
+            router.push(paths.auth.signIn);
+          }
         }, 1000);
       }
     } catch (error) {
