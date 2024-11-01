@@ -186,7 +186,6 @@ export default function StatisticsTable() {
           onRowsPerPageChange={(event) => {
             setPageSize(parseInt(event.target.value, 10));
           }}
-          //
           dense={table.dense}
           onChangeDense={table.onChangeDense}
         />
