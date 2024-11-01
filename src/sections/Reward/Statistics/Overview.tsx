@@ -40,7 +40,7 @@ export default function Overview({ data }: Props) {
         </Stack>
 
         <Stack width={1}>
-          {fNumber(data?.txcShared ?? 0)}
+          {fNumber((data?.txcShared ?? 0) / 10 ** 8)}
           <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
             Rewarded TXC
           </Box>
