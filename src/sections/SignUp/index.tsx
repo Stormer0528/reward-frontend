@@ -52,7 +52,7 @@ export const SignUpSchema = zod
       .min(1, { message: 'Password is required!' })
       .min(6, { message: 'Password must be at least 6 characters!' }),
     confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
-    assetId: zod.string({ required_error: 'Coin ID is required' }),
+    assetId: zod.string().optional().nullable(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match!',
@@ -82,7 +82,7 @@ export function SignUpView() {
     sponsorUserId: refID,
     email: '',
     packageId: '',
-    assetId: '',
+    assetId: null,
     password: '',
     paymentMethod: '',
     primaryAddress: '',
@@ -169,12 +169,7 @@ export function SignUpView() {
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="sponsorUserId" label="Sponsor ID" disabled={Boolean(refID)} />
-        <Field.Text
-          name="assetId"
-          label="Coin ID"
-          placeholder="enter the 6-digit Coin ID"
-          required
-        />
+        <Field.Text name="assetId" label="Coin ID" placeholder="enter the 6-digit Coin ID" />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
