@@ -159,7 +159,7 @@ export type CreateManyStatisticsSaleInput = {
 };
 
 export type CreateMemberInput = {
-  assetId: Scalars['String']['input'];
+  assetId?: InputMaybe<Scalars['String']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
@@ -206,7 +206,9 @@ export type CreatePayoutInput = {
 };
 
 export type CreateSaleInput = {
+  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   memberId: Scalars['ID']['input'];
+  note?: InputMaybe<Scalars['String']['input']>;
   orderedAt: Scalars['DateTimeISO']['input'];
   packageId: Scalars['ID']['input'];
   paymentMethod: Scalars['String']['input'];
@@ -328,7 +330,7 @@ export type ManySuccessResponse = {
 export type Member = {
   __typename?: 'Member';
   adminNotes?: Maybe<Array<Maybe<AdminNotes>>>;
-  assetId: Scalars['String']['output'];
+  assetId?: Maybe<Scalars['String']['output']>;
   city?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -770,6 +772,19 @@ export type MutationUpdateStatisticsArgs = {
   data: UpdateStatisticsInput;
 };
 
+export type PFile = {
+  __typename?: 'PFile';
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  id: Scalars['ID']['output'];
+  mimeType: Scalars['String']['output'];
+  originalName: Scalars['String']['output'];
+  sale?: Maybe<Sale>;
+  size: Scalars['Float']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  url: Scalars['String']['output'];
+};
+
 export type Package = {
   __typename?: 'Package';
   amount: Scalars['Float']['output'];
@@ -1060,9 +1075,11 @@ export type Sale = {
   id: Scalars['ID']['output'];
   member?: Maybe<Member>;
   memberId: Scalars['ID']['output'];
+  note?: Maybe<Scalars['String']['output']>;
   orderedAt: Scalars['DateTimeISO']['output'];
   package?: Maybe<Package>;
   packageId: Scalars['ID']['output'];
+  paymentConfirm?: Maybe<Array<Maybe<PFile>>>;
   paymentMethod: Scalars['String']['output'];
   statisticsSales?: Maybe<Array<Maybe<StatisticsSale>>>;
   status: Scalars['Boolean']['output'];
@@ -1076,7 +1093,7 @@ export type SalesResponse = {
 };
 
 export type SignupFormInput = {
-  assetId: Scalars['String']['input'];
+  assetId?: InputMaybe<Scalars['String']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
@@ -1220,8 +1237,10 @@ export type UpdatePackageInput = {
 };
 
 export type UpdateSaleInput = {
+  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   id: Scalars['ID']['input'];
   memberId?: InputMaybe<Scalars['ID']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
   orderedAt?: InputMaybe<Scalars['DateTimeISO']['input']>;
   packageId?: InputMaybe<Scalars['ID']['input']>;
   paymentMethod?: InputMaybe<Scalars['String']['input']>;
@@ -1309,7 +1328,7 @@ export type WeeklyCommissionsQueryVariables = Exact<{
 }>;
 
 
-export type WeeklyCommissionsQuery = { __typename?: 'Query', weeklyCommissions: { __typename?: 'WeeklyCommissionResponse', total?: number | null, weeklyCommissions?: Array<{ __typename?: 'WeeklyCommission', id: string, memberId: string, weekStartDate: any, beforeLeftPoint: number, beforeRightPoint: number, afterLeftPoint: number, afterRightPoint: number, calculatedLeftPoint: number, calculatedRightPoint: number, commission: number, status: Confirmation4Status, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, sponsorId?: string | null, email: string, mobile: string, assetId: string, primaryAddress: string, secondaryAddress?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, point: number, emailVerified: boolean, status: boolean, totalIntroducers: number } | null } | null> | null } };
+export type WeeklyCommissionsQuery = { __typename?: 'Query', weeklyCommissions: { __typename?: 'WeeklyCommissionResponse', total?: number | null, weeklyCommissions?: Array<{ __typename?: 'WeeklyCommission', id: string, memberId: string, weekStartDate: any, beforeLeftPoint: number, beforeRightPoint: number, afterLeftPoint: number, afterRightPoint: number, calculatedLeftPoint: number, calculatedRightPoint: number, commission: number, status: Confirmation4Status, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, sponsorId?: string | null, email: string, mobile: string, assetId?: string | null, primaryAddress: string, secondaryAddress?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, point: number, emailVerified: boolean, status: boolean, totalIntroducers: number } | null } | null> | null } };
 
 export type FetchCommissionStatsQueryVariables = Exact<{
   allFilter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1324,7 +1343,7 @@ export type FetchCommissionStatsQuery = { __typename?: 'Query', all: { __typenam
 export type FetchMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FetchMeQuery = { __typename?: 'Query', memberMe: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, assetId: string, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId: string, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, state?: string | null } | null, placementParent?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId: string, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, state?: string | null } | null, sales?: Array<{ __typename?: 'Sale', id: string, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any } | null> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } };
+export type FetchMeQuery = { __typename?: 'Query', memberMe: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, state?: string | null } | null, placementParent?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, state?: string | null } | null, sales?: Array<{ __typename?: 'Sale', id: string, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any } | null> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } };
 
 export type FetchMemberStatsQueryVariables = Exact<{
   inactiveFilter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1340,28 +1359,28 @@ export type FetchMembersQueryVariables = Exact<{
 }>;
 
 
-export type FetchMembersQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', total?: number | null, members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, assetId: string, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId: string } | null, placementParent?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId: string } | null, sales?: Array<{ __typename?: 'Sale', id: string, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any } | null> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null> | null } };
+export type FetchMembersQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', total?: number | null, members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null } | null, placementParent?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null } | null, sales?: Array<{ __typename?: 'Sale', id: string, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any } | null> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null> | null } };
 
 export type CreateMemberMutationVariables = Exact<{
   data: CreateMemberInput;
 }>;
 
 
-export type CreateMemberMutation = { __typename?: 'Mutation', createMember: { __typename?: 'Member', username: string, fullName: string, email: string, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId: string } };
+export type CreateMemberMutation = { __typename?: 'Mutation', createMember: { __typename?: 'Member', username: string, fullName: string, email: string, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null } };
 
 export type FetchMemberQueryVariables = Exact<{
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
 }>;
 
 
-export type FetchMemberQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId: string, deletedAt?: any | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null> | null } };
+export type FetchMemberQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null, deletedAt?: any | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null> | null } };
 
 export type UpdateMemberMutationVariables = Exact<{
   data: UpdateMemberInput;
 }>;
 
 
-export type UpdateMemberMutation = { __typename?: 'Mutation', updateMember: { __typename?: 'Member', id: string, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId: string, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', method: string, display: string } | null } | null> | null } };
+export type UpdateMemberMutation = { __typename?: 'Mutation', updateMember: { __typename?: 'Member', id: string, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', method: string, display: string } | null } | null> | null } };
 
 export type MemberOverviewQueryVariables = Exact<{
   data: MemberOverviewInput;
@@ -1418,7 +1437,7 @@ export type FetchMemberStatisticsQueryVariables = Exact<{
 }>;
 
 
-export type FetchMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, statisticsId: string, txcShared: any, hashPower: number, percent: number, issuedAt: any, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, emailVerified: boolean, totalIntroducers: number, status: boolean, email: string, point: number, mobile: string, assetId: string, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, state?: string | null, primaryAddress: string, secondaryAddress?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null, statistics?: { __typename?: 'Statistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, newBlocks: number, totalBlocks: number, totalHashPower: number, totalMembers: number, status: boolean, txcShared: any, issuedAt: any, from: any, to: any } | null } | null> | null } };
+export type FetchMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, statisticsId: string, txcShared: any, hashPower: number, percent: number, issuedAt: any, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, emailVerified: boolean, totalIntroducers: number, status: boolean, email: string, point: number, mobile: string, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, state?: string | null, primaryAddress: string, secondaryAddress?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null, statistics?: { __typename?: 'Statistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, newBlocks: number, totalBlocks: number, totalHashPower: number, totalMembers: number, status: boolean, txcShared: any, issuedAt: any, from: any, to: any } | null } | null> | null } };
 
 export type CreateStatisticsMutationVariables = Exact<{
   data: CreateStatisticsInput;
@@ -1487,7 +1506,7 @@ export type FetchSalesQueryVariables = Exact<{
 }>;
 
 
-export type FetchSalesQuery = { __typename?: 'Query', sales: { __typename?: 'SalesResponse', total?: number | null, sales?: Array<{ __typename?: 'Sale', id: string, status: boolean, memberId: string, packageId: string, orderedAt: any, paymentMethod: string, member?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, assetId: string, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, totalIntroducers: number, secondaryAddress?: string | null, preferredContact?: string | null, preferredContactDetail?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null, package?: { __typename?: 'Package', id: string, date: any, token: number, point: number, amount: number, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, productName: string, enrollVisibility: boolean } | null } | null> | null } };
+export type FetchSalesQuery = { __typename?: 'Query', sales: { __typename?: 'SalesResponse', total?: number | null, sales?: Array<{ __typename?: 'Sale', id: string, status: boolean, memberId: string, packageId: string, orderedAt: any, paymentMethod: string, member?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, totalIntroducers: number, secondaryAddress?: string | null, preferredContact?: string | null, preferredContactDetail?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null, package?: { __typename?: 'Package', id: string, date: any, token: number, point: number, amount: number, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, productName: string, enrollVisibility: boolean } | null } | null> | null } };
 
 export type FetchSaleStatsQueryVariables = Exact<{
   allFilter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1566,7 +1585,7 @@ export type TxcMemberStatisticsQueryVariables = Exact<{
 }>;
 
 
-export type TxcMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', id: string, hashPower: number, txcShared: any, issuedAt: any, percent: number, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', username: string, email: string, assetId: string } | null, statistics?: { __typename?: 'Statistics', newBlocks: number, status: boolean } | null } | null> | null } };
+export type TxcMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', id: string, hashPower: number, txcShared: any, issuedAt: any, percent: number, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', username: string, email: string, assetId?: string | null } | null, statistics?: { __typename?: 'Statistics', newBlocks: number, status: boolean } | null } | null> | null } };
 
 export type HistoryStatisticsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['String']['input']>;
