@@ -1,6 +1,8 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 
+import MediaPlayer from 'react-player';
+
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
@@ -25,6 +27,7 @@ type SectionProps = BoxProps & {
     icon: string;
     label: string;
   }[];
+  introVideo?: boolean;
 };
 
 export function Section({
@@ -35,6 +38,7 @@ export function Section({
   title = 'Manage the job',
   imgUrl = `${CONFIG.site.basePath}/assets/illustrations/illustration-dashboard.webp`,
   subtitle = 'More effectively with optimized workflows.',
+  introVideo = false,
   ...other
 }: SectionProps) {
   const theme = useTheme();
@@ -76,12 +80,16 @@ export function Section({
         )}
       </div>
 
-      <Box
-        component="img"
-        alt="Dashboard illustration"
-        src={imgUrl}
-        sx={{ width: 1, aspectRatio: '4/3', objectFit: 'cover' }}
-      />
+      {introVideo ? (
+        <MediaPlayer url="https://www.youtube.com/watch?v=ZfOCJ0v1YMo" controls />
+      ) : (
+        <Box
+          component="img"
+          alt="Dashboard illustration"
+          src={imgUrl}
+          sx={{ width: 1, aspectRatio: '4/3', objectFit: 'cover' }}
+        />
+      )}
 
       {!!methods?.length && method && (
         <Box component="ul" gap={2} display="flex">

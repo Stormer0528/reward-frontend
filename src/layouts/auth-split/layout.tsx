@@ -17,10 +17,17 @@ export type AuthSplitLayoutProps = {
     imgUrl?: string;
     subtitle?: string;
   };
+  introVideo?: boolean;
   width?: string;
 };
 
-export function AuthSplitLayout({ sx, section, children, width }: AuthSplitLayoutProps) {
+export function AuthSplitLayout({
+  sx,
+  section,
+  children,
+  width,
+  introVideo = false,
+}: AuthSplitLayoutProps) {
   const mobileNavOpen = useBoolean();
 
   const layoutQuery: Breakpoint = 'md';
@@ -63,6 +70,7 @@ export function AuthSplitLayout({ sx, section, children, width }: AuthSplitLayou
           layoutQuery={layoutQuery}
           imgUrl={section?.imgUrl}
           subtitle={section?.subtitle}
+          introVideo={introVideo}
         />
         <Content layoutQuery={layoutQuery}>{children}</Content>
       </Main>

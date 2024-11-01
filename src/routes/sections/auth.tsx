@@ -30,7 +30,7 @@ const signUp = {
   path: 'sign-up',
   element: (
     <GuestGuard>
-      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="620px">
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="620px" introVideo>
         <SignUpPage />
       </AuthSplitLayout>
     </GuestGuard>
