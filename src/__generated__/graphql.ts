@@ -170,7 +170,7 @@ export type CreateMemberInput = {
   preferredContactDetail?: InputMaybe<Scalars['String']['input']>;
   primaryAddress: Scalars['String']['input'];
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
-  sponsorId?: InputMaybe<Scalars['ID']['input']>;
+  sponsorId: Scalars['ID']['input'];
   state?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   syncWithSendy?: InputMaybe<Scalars['Boolean']['input']>;
