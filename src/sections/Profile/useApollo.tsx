@@ -6,6 +6,7 @@ import {
   FETCH_ME_QUERY,
   FETCH_MEMBERS_QUERY,
   FETCH_PAYOUTS_QUERY,
+  UPDATE_MEMBER_PASSWORD,
   FETCH_MEMBER_STATS_QUERY,
 } from './query';
 
@@ -75,4 +76,13 @@ export function useFetchPayouts() {
     payouts: data?.payouts.payouts ?? [],
     fetchPayouts,
   };
+}
+
+export function useUpdatePassword() {
+  const [updatePassword] = useMutation(UPDATE_MEMBER_PASSWORD, {
+    awaitRefetchQueries: true,
+    refetchQueries: ['FetchMembers'],
+  });
+
+  return { updatePassword };
 }

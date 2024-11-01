@@ -366,3 +366,12 @@ export const FETCH_PAYOUTS_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const UPDATE_MEMBER_PASSWORD = gql(/* GraphQL */ `
+  mutation UpdatePasswordMember($data: UpdateMemberPasswordInput!) {
+    updatePasswordMember(data: $data) {
+      message
+      result
+    }
+  }
+`);
