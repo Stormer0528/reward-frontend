@@ -51,7 +51,7 @@ const MemberGeneralSchema = zod.object({
   primaryAddress: zod.string({ required_error: 'Address is required' }),
   secondaryAddress: zod.string().optional().nullable(),
   sponsorId: zod.string().optional().nullable(),
-  assetId: zod.string({ required_error: 'AssetID is required' }),
+  assetId: zod.string().optional().nullable(),
   memberWallets: zod.array(
     zod.object({
       payoutId: zod.string({ required_error: 'Payout is required' }),
