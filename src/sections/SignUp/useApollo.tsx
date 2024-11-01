@@ -23,8 +23,10 @@ const SEND_EMAIL_VERIFICATION = gql(/* GraphQL */ `
 const VERIFY_EMAIL = gql(/* GraphQL */ `
   mutation EmailVerify($data: EmailVerificationInput!) {
     emailVerify(data: $data) {
-      message
       result
+      message
+      packageId
+      paymentMethod
     }
   }
 `);
