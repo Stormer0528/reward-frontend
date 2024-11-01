@@ -289,6 +289,14 @@ export type EmailVerificationResponse = {
   token: Scalars['String']['output'];
 };
 
+export type EmailVerifyResult = {
+  __typename?: 'EmailVerifyResult';
+  message?: Maybe<Scalars['String']['output']>;
+  packageId?: Maybe<Scalars['ID']['output']>;
+  paymentMethod?: Maybe<Scalars['String']['output']>;
+  result: SuccessResult;
+};
+
 export type EntityStats = {
   __typename?: 'EntityStats';
   dailyData: Array<DailyStats>;
@@ -515,7 +523,7 @@ export type Mutation = {
   createSale: Sale;
   createStatistics: Statistics;
   createStatisticsSale: StatisticsSale;
-  emailVerify: SuccessResponse;
+  emailVerify: EmailVerifyResult;
   memberLogin: MemberLoginResponse;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
@@ -1159,8 +1167,13 @@ export type StatisticsSaleResponse = {
 export type SuccessResponse = {
   __typename?: 'SuccessResponse';
   message?: Maybe<Scalars['String']['output']>;
-  result: Scalars['String']['output'];
+  result: SuccessResult;
 };
+
+export enum SuccessResult {
+  Failed = 'failed',
+  Success = 'success'
+}
 
 export type TokenInput = {
   token: Scalars['String']['input'];
@@ -1412,14 +1425,14 @@ export type ResetPasswordRequestMutationVariables = Exact<{
 }>;
 
 
-export type ResetPasswordRequestMutation = { __typename?: 'Mutation', resetPasswordRequest: { __typename?: 'SuccessResponse', message?: string | null, result: string } };
+export type ResetPasswordRequestMutation = { __typename?: 'Mutation', resetPasswordRequest: { __typename?: 'SuccessResponse', message?: string | null, result: SuccessResult } };
 
 export type ResetPasswordByTokenMutationVariables = Exact<{
   data: ResetPasswordTokenInput;
 }>;
 
 
-export type ResetPasswordByTokenMutation = { __typename?: 'Mutation', resetPasswordByToken: { __typename?: 'SuccessResponse', message?: string | null, result: string } };
+export type ResetPasswordByTokenMutation = { __typename?: 'Mutation', resetPasswordByToken: { __typename?: 'SuccessResponse', message?: string | null, result: SuccessResult } };
 
 export type RewardQueryVariables = Exact<{
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -1551,7 +1564,7 @@ export type EmailVerifyMutationVariables = Exact<{
 }>;
 
 
-export type EmailVerifyMutation = { __typename?: 'Mutation', emailVerify: { __typename?: 'SuccessResponse', message?: string | null, result: string } };
+export type EmailVerifyMutation = { __typename?: 'Mutation', emailVerify: { __typename?: 'EmailVerifyResult', message?: string | null, result: SuccessResult } };
 
 export type QueryQueryVariables = Exact<{
   data: LiveStatsArgs;
