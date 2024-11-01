@@ -169,7 +169,12 @@ export function SignUpView() {
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="sponsorUserId" label="Sponsor ID" disabled={Boolean(refID)} />
-        <Field.Text name="assetId" label="Coin ID" placeholder="enter the 6-digit Coin ID" />
+        <Field.Text
+          name="assetId"
+          label="Coin ID"
+          InputLabelProps={{ shrink: true }}
+          placeholder="Do you have a coin? Enter the ID here"
+        />
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
