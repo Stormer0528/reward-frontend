@@ -50,24 +50,41 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       placementPosition
       placementParent {
         id
-        username
-        fullName
         email
         point
-        emailVerified
-        totalIntroducers
+        state
         status
-        primaryAddress
-        secondaryAddress
+        status
         mobile
         assetId
+        username
+        fullName
         emailVerified
-        totalIntroducers
         syncWithSendy
+        primaryAddress
+        totalIntroducers
+        secondaryAddress
+        totalIntroducers
         preferredContact
         preferredContactDetail
+      }
+      placementChildren {
+        id
+        email
+        point
+        mobile
         status
-        state
+        assetId
+        username
+        fullName
+        emailVerified
+        syncWithSendy
+        primaryAddress
+        secondaryAddress
+        preferredContact
+        totalIntroducers
+        placementPosition
+        preferredContactDetail
       }
       sales {
         id
