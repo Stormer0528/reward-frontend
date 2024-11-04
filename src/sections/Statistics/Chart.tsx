@@ -72,6 +72,13 @@ export default function Chart() {
                 tickAmount: 30,
                 categories: blocks!.blocks!.map((item) => `${item?.blockNo}`).reverse(),
               },
+              yaxis: {
+                labels: {
+                  formatter(val) {
+                    return `${Math.floor(val)}`;
+                  },
+                },
+              },
             },
             colors: [alpha(theme.palette.primary.dark, 0.8)],
           }}

@@ -34,7 +34,7 @@ export default function Reward({ me }: Props) {
   const memberStatistics = data?.memberStatistics.memberStatistics ?? [];
 
   return (
-    <Grid sx={{ mt: 2 }}>
+    <Grid sx={{ mr: 2, mt: 2 }}>
       <Card>
         <CardHeader title="Reward" />
         <ChartWidget
@@ -55,6 +55,13 @@ export default function Reward({ me }: Props) {
               plotOptions: {
                 bar: {
                   columnWidth: '80%',
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter(val) {
+                    return `${Math.floor(val)}`;
+                  },
                 },
               },
             },
