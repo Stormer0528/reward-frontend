@@ -55,7 +55,7 @@ export default function MemberStatistics() {
   const notFound = !tableData?.memberStatistics?.length;
 
   return (
-    <Card sx={{ mt: 2 }}>
+    <Card sx={{ mr: 2, mt: 2 }}>
       <CardHeader title="Reward" sx={{ mb: 3 }} />
 
       <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
