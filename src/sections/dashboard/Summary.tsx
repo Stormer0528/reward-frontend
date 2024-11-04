@@ -79,6 +79,13 @@ export default function Summary() {
                   tickAmount: 30,
                   categories: chartData!.map((item) => item.base).reverse(),
                 },
+                yaxis: {
+                  labels: {
+                    formatter(val) {
+                      return `${Math.floor(val)}`;
+                    },
+                  },
+                },
               },
               colors: [alpha(theme.palette.primary.dark, 0.8)],
             }}
@@ -107,6 +114,13 @@ export default function Summary() {
                 categories: statistics
                   ?.statistics!.map((item) => formatDate(item!.issuedAt))
                   .reverse(),
+              },
+              yaxis: {
+                labels: {
+                  formatter(val) {
+                    return `${Math.floor(val)}`;
+                  },
+                },
               },
             },
             colors: [alpha(theme.palette.warning.main, 0.8)],
