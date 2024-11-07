@@ -10,6 +10,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       point
       primaryAddress
       secondaryAddress
+      userId
       assetId
       mobile
       city
@@ -37,6 +38,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         primaryAddress
         secondaryAddress
         mobile
+        userId
         assetId
         emailVerified
         totalIntroducers
@@ -56,6 +58,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         status
         status
         mobile
+        userId
         assetId
         username
         fullName
@@ -74,6 +77,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         point
         mobile
         status
+        userId
         assetId
         username
         fullName
@@ -143,6 +147,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         point
         primaryAddress
         secondaryAddress
+        userId
         assetId
         mobile
         city
@@ -267,6 +272,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         mobile
         primaryAddress
         secondaryAddress
+        userId
         assetId
         memberWallets {
           createdAt
