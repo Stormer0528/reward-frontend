@@ -1439,7 +1439,7 @@ export type UpdatePasswordMemberMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePasswordMemberMutation = { __typename?: 'Mutation', updatePasswordMember: { __typename?: 'SuccessResponse', message?: string | null, result: string } };
+export type UpdatePasswordMemberMutation = { __typename?: 'Mutation', updatePasswordMember: { __typename?: 'SuccessResponse', message?: string | null, result: SuccessResult } };
 
 export type ResetPasswordRequestMutationVariables = Exact<{
   data: EmailInput;
