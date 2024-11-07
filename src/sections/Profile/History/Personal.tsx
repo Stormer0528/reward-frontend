@@ -27,22 +27,14 @@ export default function Personal({ me }: Props) {
   return (
     <Grid xl={12}>
       <Card sx={{ mt: 2, p: 3 }}>
-        <Typography variant="h6" sx={{ pb: 2 }}>
-          About
-        </Typography>
+        <Stack direction="row" justifyContent="space-between" sx={{ pb: 2 }} columnGap={2}>
+          <Typography variant="h6">{me?.fullName}</Typography>
+          <Typography variant="body2" sx={{ pt: 0.4 }}>
+            {me?.userId.toString().padStart(7, '0')}
+          </Typography>
+        </Stack>
 
         <Stack>
-          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
-            <Stack width={0.5}>
-              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                Full Name:
-              </Typography>
-            </Stack>
-            <Stack width={1}>
-              <Typography variant="body2">{me?.fullName}</Typography>
-            </Stack>
-          </Stack>
-
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
@@ -188,6 +180,8 @@ export default function Personal({ me }: Props) {
             </Stack>
           </Stack>
         </Stack>
+
+        <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
         <Stack sx={{ mt: 2 }}>
           {me?.memberWallets?.map((item) => (
