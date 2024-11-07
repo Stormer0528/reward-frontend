@@ -5760,6 +5760,11 @@ sponge-case@^1.0.1:
   dependencies:
     tslib "^2.0.3"
 
+states-us@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/states-us/-/states-us-1.1.1.tgz"
+  integrity sha512-NEtyhDxdHEIpWq2aiJ33V6wCE8Kf5RDPVZ/QhptIrK3LfzwtsAXSVjWTERUe1zS8AmyV8ZnH6MCop4BG/PO9AA==
+
 streamsearch@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz"

@@ -1,3 +1,4 @@
+import states from 'states-us';
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
@@ -8,9 +9,11 @@ import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
@@ -63,6 +66,8 @@ export const SignUpSchema = zod
 
 export function SignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
+  const [state, setState] = useState<string>();
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -113,10 +118,11 @@ export function SignUpView() {
         const { data } = await submitSignUp({
           variables: {
             data: {
+              ...rest,
               username: rest.email,
+              state,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
-              ...rest,
             },
           },
         });
@@ -186,7 +192,24 @@ export function SignUpView() {
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="city" label="City" />
-        <Field.Text name="state" label="State" />
+
+        <Autocomplete
+          freeSolo
+          fullWidth
+          options={states}
+          getOptionLabel={(option: any) => option.name}
+          renderInput={(params) => (
+            <TextField {...params} name="state" label="States" margin="none" />
+          )}
+          renderOption={(props, option) => (
+            <li {...props} key={option!.name}>
+              {option.name}
+            </li>
+          )}
+          onChange={(_, value: any) => setState(value.name)}
+          onInputChange={(_, value: any) => setState(value)}
+        />
+
         <Field.Text name="zipCode" label="Zip Code" />
       </Stack>
 
