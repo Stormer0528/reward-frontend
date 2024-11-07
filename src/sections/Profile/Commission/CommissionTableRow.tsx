@@ -15,14 +15,18 @@ type Props = {
 export default function CommissionTableRow({ row }: Props) {
   const {
     member,
-    beforeLeftPoint,
-    beforeRightPoint,
-    afterLeftPoint,
-    afterRightPoint,
+    begL,
+    begR,
+    newL,
+    newR,
+    maxL,
+    maxR,
+    endL,
+    endR,
+    pkgL,
+    pkgR,
     commission,
     weekStartDate,
-    calculatedLeftPoint,
-    calculatedRightPoint,
   } = row;
 
   return (
@@ -52,10 +56,13 @@ export default function CommissionTableRow({ row }: Props) {
           }}
         />
       </TableCell>
-      <TableCell align="left">{`L${beforeLeftPoint}, R${beforeRightPoint}`}</TableCell>
-      <TableCell align="left">{`L${calculatedLeftPoint}, R${calculatedRightPoint}`}</TableCell>
-      <TableCell align="left">{commission}</TableCell>
-      <TableCell align="left">{`L${afterLeftPoint}, R${afterRightPoint}`}</TableCell>
+      <TableCell align="left">{member?.assetId}</TableCell>
+      <TableCell align="left">{`L${begL}, R${begR}`}</TableCell>
+      <TableCell align="left">{`L${newL}, R${newR}`}</TableCell>
+      <TableCell align="left">{`L${maxL}, R${maxR}`}</TableCell>
+      <TableCell align="left">{`L${endL}, R${endR}`}</TableCell>
+      <TableCell align="left">{`L${pkgL}, R${pkgR}`}</TableCell>
+      <TableCell align="left">{commission ?? 0}</TableCell>
     </TableRow>
   );
 }

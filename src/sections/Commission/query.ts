@@ -7,14 +7,19 @@ export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
         id
         memberId
         weekStartDate
-        beforeLeftPoint
-        beforeRightPoint
-        afterLeftPoint
-        afterRightPoint
-        calculatedLeftPoint
-        calculatedRightPoint
+        begL
+        begR
+        newL
+        newR
+        maxL
+        maxR
+        endL
+        endR
+        pkgL
+        pkgR
         commission
         status
+        note
         member {
           createdAt
           updatedAt

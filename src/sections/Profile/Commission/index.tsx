@@ -30,10 +30,13 @@ import type { ICommissionPrismaFilter, ICommissionTableFilters } from './types';
 const TABLE_HEAD = [
   { id: 'weekStartDate', label: 'Week', width: 300, sortable: true },
   { id: 'member.username', label: 'Username', sortable: true },
-  { id: 'before', label: 'Before', sortable: false },
-  { id: 'package', label: 'Package', sortable: false },
+  { id: 'member.assetId', label: 'AssetId', sortable: true },
+  { id: 'begLR', label: 'BegLR', sortable: false },
+  { id: 'newLR', label: 'NewLR', sortable: false },
+  { id: 'maxLR', label: 'MaxLR', sortable: false },
+  { id: 'endLR', label: 'EndLR', sortable: true },
+  { id: 'pkgLR', label: 'Package', sortable: true },
   { id: 'commission', label: 'Commissions', width: 200, sortable: true },
-  { id: 'after', label: 'After', width: 200, sortable: true },
 ];
 
 const defaultFilter: ICommissionTableFilters = {
