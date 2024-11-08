@@ -19,7 +19,10 @@ import { useQuery, type SortOrder } from 'src/routes/hooks';
 
 import { customizeDate } from 'src/utils/format-time';
 
+import { STORAGE_TOKEN_KEY } from 'src/consts';
+
 import { ScrollBar } from 'src/components/ScrollBar';
+import ExportButton from 'src/components/ExportButton';
 import {
   useTable,
   TableNoData,
@@ -86,6 +89,8 @@ export default function StatisticsTable() {
 
   const notFound = !statistics?.length;
 
+  const token = localStorage.getItem(STORAGE_TOKEN_KEY);
+
   const renderHeader = (
     <Stack direction="row" justifyContent="flex-end">
       <Stack direction="row" gap={2}>
@@ -105,6 +110,9 @@ export default function StatisticsTable() {
           defaultValue={dayjs()}
           onChange={(newValue) => setTo(newValue)}
         />
+        <Stack width={0.3} sx={{ p: 1 }}>
+          <ExportButton target="rewards/bymember" token={token!} />
+        </Stack>
       </Stack>
     </Stack>
   );
