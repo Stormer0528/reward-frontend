@@ -8,6 +8,8 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+import { formatDate } from 'src/utils/format-time';
+
 interface Props {
   me: Member;
 }
@@ -145,7 +147,31 @@ export default function Personal({ me }: Props) {
             </Stack>
           </Stack>
 
+          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+            <Stack width={0.5}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                Joined At:
+              </Typography>
+            </Stack>
+            <Stack width={1}>
+              <Typography variant="body2">
+                {me?.createdAt ? formatDate(me.createdAt) : ''}
+              </Typography>
+            </Stack>
+          </Stack>
+
           <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
+
+          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+            <Stack width={0.5}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                Commission:
+              </Typography>
+            </Stack>
+            <Stack width={1}>
+              <Typography variant="body2">{`L${me.currentL}, R${me.currentR}`}</Typography>
+            </Stack>
+          </Stack>
 
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>

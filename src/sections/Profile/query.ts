@@ -26,6 +26,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       status
       zipCode
       sponsorId
+      currentL
+      currentR
       sponsor {
         id
         username
