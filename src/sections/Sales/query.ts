@@ -9,6 +9,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
         memberId
         packageId
         orderedAt
+        paymentMethod
         member {
           id
           email
@@ -17,15 +18,15 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           status
           userId
           assetId
+          currentL
+          currentR
           username
           fullName
-          emailVerified
           emailVerified
           syncWithSendy
           primaryAddress
           totalIntroducers
           secondaryAddress
-          totalIntroducers
           preferredContact
           preferredContactDetail
           memberWallets {
@@ -62,7 +63,6 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           productName
           enrollVisibility
         }
-        paymentMethod
       }
       total
     }
