@@ -26,8 +26,10 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       status
       zipCode
       sponsorId
-      currentL
-      currentR
+      begL
+      begR
+      newL
+      newR
       sponsor {
         id
         username
@@ -37,8 +39,10 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         emailVerified
         totalIntroducers
         status
-        currentL
-        currentR
+        begL
+        begR
+        newL
+        newR
         primaryAddress
         secondaryAddress
         mobile
@@ -64,8 +68,10 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         userId
         assetId
-        currentL
-        currentR
+        begL
+        begR
+        newL
+        newR
         username
         fullName
         emailVerified
@@ -85,8 +91,10 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         status
         userId
         assetId
-        currentL
-        currentR
+        begL
+        begR
+        newL
+        newR
         username
         fullName
         emailVerified
@@ -164,8 +172,10 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         totalIntroducers
         status
         state
-        currentL
-        currentR
+        begL
+        begR
+        newL
+        newR
         emailVerified
         totalIntroducers
         syncWithSendy
@@ -184,8 +194,10 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
-          currentL
-          currentR
+          begL
+          begR
+          newL
+          newR
           emailVerified
           totalIntroducers
           syncWithSendy
@@ -208,8 +220,10 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
-          currentL
-          currentR
+          begL
+          begR
+          newL
+          newR
           emailVerified
           totalIntroducers
           syncWithSendy
