@@ -1,12 +1,14 @@
 import type { WeeklyCommission } from 'src/__generated__/graphql';
 
 import dayjs from 'dayjs';
+import utcPlugin from 'dayjs/plugin/utc';
 
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import ListItemText from '@mui/material/ListItemText';
 
 // ----------------------------------------------------------------------
+dayjs.extend(utcPlugin);
 
 type Props = {
   row: WeeklyCommission;
@@ -33,8 +35,8 @@ export default function CommissionTableRow({ row }: Props) {
     <TableRow hover>
       <TableCell align="left">
         <ListItemText
-          primary={dayjs(weekStartDate).format('MMM-ww')}
-          secondary={`${dayjs(weekStartDate).add(1, 'day').format('MM/DD')} - ${dayjs(weekStartDate).add(7, 'day').format('MM/DD')}`}
+          primary={dayjs(weekStartDate).utc().format('MMM-ww')}
+          secondary={`${dayjs(weekStartDate).utc().format('MM/DD')} - ${dayjs(weekStartDate).utc().add(6, 'day').format('MM/DD')}`}
           primaryTypographyProps={{ typography: 'body2' }}
           secondaryTypographyProps={{
             component: 'span',
