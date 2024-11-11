@@ -56,8 +56,10 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           email
-          currentL
-          currentR
+          begL
+          begR
+          newL
+          newR
           point
           mobile
           userId

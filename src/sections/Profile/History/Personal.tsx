@@ -165,11 +165,22 @@ export default function Personal({ me }: Props) {
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                Commission:
+                Starting Points:
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{`L${me.currentL}, R${me.currentR}`}</Typography>
+              <Typography variant="body2">{`L${me.begL}, R${me.begR}`}</Typography>
+            </Stack>
+          </Stack>
+
+          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+            <Stack width={0.5}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                New Points:
+              </Typography>
+            </Stack>
+            <Stack width={1}>
+              <Typography variant="body2">{`L${me.newL}, R${me.newR}`}</Typography>
             </Stack>
           </Stack>
 
