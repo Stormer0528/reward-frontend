@@ -29,13 +29,11 @@ import type { ICommissionPrismaFilter, ICommissionTableFilters } from './types';
 
 const TABLE_HEAD = [
   { id: 'weekStartDate', label: 'Week', width: 300, sortable: true },
-  { id: 'member.username', label: 'Username', sortable: true },
-  { id: 'member.assetId', label: 'AssetId', sortable: true },
   { id: 'begLR', label: 'BegLR', sortable: false },
   { id: 'newLR', label: 'NewLR', sortable: false },
   { id: 'maxLR', label: 'MaxLR', sortable: false },
-  { id: 'endLR', label: 'EndLR', sortable: true },
   { id: 'pkgLR', label: 'Package', sortable: true },
+  { id: 'endLR', label: 'EndLR', sortable: true },
   { id: 'commission', label: 'Commissions', width: 200, sortable: true },
 ];
 
