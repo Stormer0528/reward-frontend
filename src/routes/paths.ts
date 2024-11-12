@@ -1,17 +1,23 @@
 // ----------------------------------------------------------------------
 
 const ROOTS = {
+  // Auth
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
   VERIFY_EMAIL: '/verify-email',
-  DASHBOARD: '/dashboard',
+
+  // Statistics
   STATISTICS: '/statistics',
+
+  // Dashboard
+  DASHBOARD: '/dashboard',
   SALES: '/sales',
   REWARD: '/reward',
   SPONSOR: '/sponsor',
   PLACEMENT: '/placement',
+  COMMISSION: '/commission',
   RESOURCE: '/resource',
   PROFILE: '/profile',
 };
@@ -57,6 +63,7 @@ export const paths = {
     },
     sponsor: { root: ROOTS.SPONSOR },
     placement: { root: ROOTS.PLACEMENT },
+    commission: { root: ROOTS.COMMISSION },
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },
     profile: {
       root: ROOTS.PROFILE,
