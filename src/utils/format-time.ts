@@ -1,12 +1,14 @@
 import type { Dayjs, OpUnitType } from 'dayjs';
 
 import dayjs from 'dayjs';
+import utcPlugin from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 // ----------------------------------------------------------------------
 
 dayjs.extend(duration);
+dayjs.extend(utcPlugin);
 dayjs.extend(relativeTime);
 
 // ----------------------------------------------------------------------
@@ -268,26 +270,18 @@ export function fSub({
   return result;
 }
 
-export function formatDate(date: string | Date, format: boolean = true) {
-  const [dateonly] = new Date(date).toISOString().split('T');
-
-  const [year, month, day] = dateonly.split('-');
-
-  return format ? `${month}/${day}/${year}` : dateonly;
+export function formatDate(date: string | Date, format: string = 'MM/DD/YYYY') {
+  return dayjs(date).utc().format(format);
 }
 
 export function formatTime(date: string | Date) {
-  return new Date(date).toISOString().split(/[T.]/)[1];
+  return dayjs(date).utc().format('hh:mm:ss');
 }
 
-export function formatDateTime(data: string | Date, format: boolean = true) {
-  const [date, time] = new Date(data).toISOString().split(/[T.]/);
-
-  const [year, month, day] = date.split('-');
-
-  return `${format ? `${month}/${day}/${year}` : date} ${time}`;
+export function formatDateTime(date: string | Date, format: string = 'MM/DD/YYYY hh:mm:ss') {
+  return dayjs(date).utc().format(format);
 }
 
 export function customizeDate(date: string | Date) {
-  return `${formatDate(date, false)}T00:00:00Z`;
+  return `${formatDate(date, 'YYYY-MM-DD')}T00:00:00Z`;
 }
