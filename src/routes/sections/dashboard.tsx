@@ -36,6 +36,10 @@ const PlacementListPage = lazy(() => import('src/pages/Placement/List'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const CommissionListPage = lazy(() => import('src/pages/Commission/List'));
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
 const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
 // ----------------------------------------------------------------------
 
@@ -78,6 +82,10 @@ export const dashboardRoutes = [
       {
         path: 'placement',
         children: [{ index: true, element: <PlacementListPage /> }],
+      },
+      {
+        path: 'commission',
+        children: [{ index: true, element: <CommissionListPage /> }],
       },
       {
         path: 'resource',
