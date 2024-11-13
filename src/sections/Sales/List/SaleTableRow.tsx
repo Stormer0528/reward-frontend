@@ -13,10 +13,11 @@ type Props = {
 };
 
 export default function SaleTableRow({ row }: Props) {
-  const { member, package: product, paymentMethod, orderedAt } = row;
+  const { purchaseId, member, package: product, paymentMethod, orderedAt } = row;
 
   return (
     <TableRow hover>
+      <TableCell align="left">{purchaseId}</TableCell>
       <TableCell align="left">{member?.assetId}</TableCell>
       <TableCell align="left">{product?.productName}</TableCell>
       <TableCell align="left">{paymentMethod}</TableCell>

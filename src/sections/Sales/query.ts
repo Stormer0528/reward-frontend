@@ -7,8 +7,9 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
         id
         status
         memberId
-        packageId
         orderedAt
+        packageId
+        purchaseId
         paymentMethod
         member {
           id
