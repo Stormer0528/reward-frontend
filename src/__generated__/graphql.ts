@@ -119,10 +119,11 @@ export type ConfirmStatistics = {
   transactionId: Scalars['ID']['input'];
 };
 
-export enum Confirmation4Status {
-  Block = 'BLOCK',
-  Confirm = 'CONFIRM',
+export enum ConfirmationStatus {
+  Approved = 'APPROVED',
+  Declined = 'DECLINED',
   None = 'NONE',
+  Paid = 'PAID',
   Pending = 'PENDING'
 }
 
@@ -207,6 +208,7 @@ export type CreatePayoutInput = {
 
 export type CreateSaleInput = {
   fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  links?: InputMaybe<Array<InputMaybe<LinkInput>>>;
   memberId: Scalars['ID']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt: Scalars['DateTimeISO']['input'];
@@ -324,6 +326,11 @@ export type IntroducersResponse = {
   __typename?: 'IntroducersResponse';
   introducers?: Maybe<Array<Maybe<Introducer>>>;
   total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type LinkInput = {
+  link: Scalars['String']['input'];
+  linkType: Scalars['String']['input'];
 };
 
 export type LiveStatsArgs = {
@@ -1070,6 +1077,12 @@ export type QueryWeeklyblocksArgs = {
   sort?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type RefLink = {
+  __typename?: 'RefLink';
+  link: Scalars['String']['output'];
+  linkType: Scalars['String']['output'];
+};
+
 export type ReferenceLink = {
   __typename?: 'ReferenceLink';
   link: Scalars['String']['output'];
@@ -1105,6 +1118,7 @@ export type Sale = {
   paymentConfirm?: Maybe<Array<Maybe<PFile>>>;
   paymentMethod: Scalars['String']['output'];
   purchaseId?: Maybe<Scalars['Int']['output']>;
+  reflinks?: Maybe<Array<Maybe<RefLink>>>;
   statisticsSales?: Maybe<Array<Maybe<StatisticsSale>>>;
   status: Scalars['Boolean']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -1268,6 +1282,7 @@ export type UpdatePackageInput = {
 export type UpdateSaleInput = {
   fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   id: Scalars['ID']['input'];
+  links?: InputMaybe<Array<InputMaybe<LinkInput>>>;
   memberId?: InputMaybe<Scalars['ID']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt?: InputMaybe<Scalars['DateTimeISO']['input']>;
@@ -1326,7 +1341,8 @@ export type WeeklyCommission = {
   paymentConfirm?: Maybe<Array<Maybe<PFile>>>;
   pkgL: Scalars['Float']['output'];
   pkgR: Scalars['Float']['output'];
-  status: Confirmation4Status;
+  reflinks?: Maybe<Array<Maybe<RefLink>>>;
+  status: ConfirmationStatus;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   weekStartDate: Scalars['DateTimeISO']['output'];
 };
@@ -1340,8 +1356,9 @@ export type WeeklyCommissionResponse = {
 export type WeeklyCommissionUpdateInput = {
   fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   id: Scalars['ID']['input'];
+  links?: InputMaybe<Array<InputMaybe<LinkInput>>>;
   note?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<Confirmation4Status>;
+  status?: InputMaybe<ConfirmationStatus>;
 };
 
 export type GenerateReferenceLinkQueryVariables = Exact<{ [key: string]: never; }>;
@@ -1363,7 +1380,7 @@ export type WeeklyCommissionsQueryVariables = Exact<{
 }>;
 
 
-export type WeeklyCommissionsQuery = { __typename?: 'Query', weeklyCommissions: { __typename?: 'WeeklyCommissionResponse', total?: number | null, weeklyCommissions?: Array<{ __typename?: 'WeeklyCommission', id: string, memberId: string, weekStartDate: any, begL: number, begR: number, newL: number, newR: number, maxL: number, maxR: number, endL: number, endR: number, pkgL: number, pkgR: number, commission: number, status: Confirmation4Status, note?: string | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, sponsorId?: string | null, email: string, mobile: string, assetId?: string | null, primaryAddress: string, secondaryAddress?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, point: number, emailVerified: boolean, status: boolean, totalIntroducers: number } | null } | null> | null } };
+export type WeeklyCommissionsQuery = { __typename?: 'Query', weeklyCommissions: { __typename?: 'WeeklyCommissionResponse', total?: number | null, weeklyCommissions?: Array<{ __typename?: 'WeeklyCommission', id: string, memberId: string, weekStartDate: any, begL: number, begR: number, newL: number, newR: number, maxL: number, maxR: number, endL: number, endR: number, pkgL: number, pkgR: number, commission: number, status: ConfirmationStatus, note?: string | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, sponsorId?: string | null, email: string, mobile: string, assetId?: string | null, primaryAddress: string, secondaryAddress?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, point: number, emailVerified: boolean, status: boolean, totalIntroducers: number } | null } | null> | null } };
 
 export type FetchCommissionStatsQueryVariables = Exact<{
   allFilter?: InputMaybe<Scalars['JSONObject']['input']>;
