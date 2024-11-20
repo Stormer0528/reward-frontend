@@ -32,6 +32,7 @@ import type { ICommissionPrismaFilter, ICommissionTableFilters } from './types';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
+  { id: 'ID', label: 'ID', width: 120, sortable: true },
   { id: 'weekStartDate', label: 'Week', width: 300, sortable: true },
   { id: 'begLR', label: 'BegLR', sortable: false },
   { id: 'newLR', label: 'NewLR', sortable: false },
@@ -58,11 +59,7 @@ export default function Commission({ me }: Props) {
   const [query, { setQueryParams: setQuery, setPage, setPageSize }] =
     useQuery<ICommissionTableFilters>();
 
-  const {
-    page = { page: 1, pageSize: 10 },
-    sort = { weekStartDate: 'asc' },
-    filter = defaultFilter,
-  } = query;
+  const { page = { page: 1, pageSize: 10 }, sort = { ID: 'asc' }, filter = defaultFilter } = query;
 
   const graphQueryFilter = useMemo(() => {
     const filterObj: ICommissionPrismaFilter = {};

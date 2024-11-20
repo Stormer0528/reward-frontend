@@ -7,6 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import ListItemText from '@mui/material/ListItemText';
 
+import { formatID } from 'src/utils/helper';
+
 // ----------------------------------------------------------------------
 dayjs.extend(utcPlugin);
 
@@ -15,11 +17,25 @@ type Props = {
 };
 
 export default function CommissionTableRow({ row }: Props) {
-  const { begL, begR, newL, newR, maxL, maxR, endL, endR, pkgL, pkgR, commission, weekStartDate } =
-    row;
+  const {
+    ID,
+    begL,
+    begR,
+    newL,
+    newR,
+    maxL,
+    maxR,
+    endL,
+    endR,
+    pkgL,
+    pkgR,
+    commission,
+    weekStartDate,
+  } = row;
 
   return (
     <TableRow hover>
+      <TableCell align="left">{formatID(ID, 'C')}</TableCell>
       <TableCell align="left">
         <ListItemText
           primary={dayjs(weekStartDate).utc().format('MMM-ww')}
