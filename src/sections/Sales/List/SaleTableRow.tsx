@@ -4,6 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import ListItemText from '@mui/material/ListItemText';
 
+import { formatID } from 'src/utils/helper';
 import { fDate, fTime } from 'src/utils/format-time';
 
 // ----------------------------------------------------------------------
@@ -13,11 +14,11 @@ type Props = {
 };
 
 export default function SaleTableRow({ row }: Props) {
-  const { purchaseId, member, package: product, paymentMethod, orderedAt } = row;
+  const { ID, member, package: product, paymentMethod, orderedAt } = row;
 
   return (
     <TableRow hover>
-      <TableCell align="left">{purchaseId}</TableCell>
+      <TableCell align="left">{formatID(ID, 'S')}</TableCell>
       <TableCell align="left">{member?.assetId}</TableCell>
       <TableCell align="left">{product?.productName}</TableCell>
       <TableCell align="left">{paymentMethod}</TableCell>

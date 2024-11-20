@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+import { formatID } from 'src/utils/helper';
 import { formatDate } from 'src/utils/format-time';
 
 interface Props {
@@ -32,7 +33,7 @@ export default function Personal({ me }: Props) {
         <Stack direction="row" justifyContent="space-between" sx={{ pb: 2 }} columnGap={2}>
           <Typography variant="h6">{me?.fullName}</Typography>
           <Typography variant="body2" sx={{ pt: 0.4 }}>
-            {me?.userId.toString().padStart(7, '0')}
+            {formatID(me.ID)}
           </Typography>
         </Stack>
 
