@@ -62,7 +62,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           newR
           point
           mobile
-          userId
+          ID
           assetId
           emailVerified
           totalIntroducers

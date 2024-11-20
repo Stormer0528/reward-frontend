@@ -5,6 +5,7 @@ export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
     weeklyCommissions(page: $page, sort: $sort, filter: $filter) {
       weeklyCommissions {
         id
+        ID
         memberId
         weekStartDate
         begL
@@ -25,6 +26,7 @@ export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
           updatedAt
           deletedAt
           id
+          ID
           username
           fullName
           sponsorId

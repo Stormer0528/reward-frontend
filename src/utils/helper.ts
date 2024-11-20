@@ -128,3 +128,6 @@ export const merge = (target: any, ...sources: any[]): any => {
 
   return merge(target, ...sources);
 };
+
+export const formatID = (id: string | number, format: string = 'M') =>
+  `${format}-${id.toString().padStart(7, '0')}`;

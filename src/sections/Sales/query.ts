@@ -5,11 +5,11 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
     sales(sort: $sort, page: $page, filter: $filter) {
       sales {
         id
+        ID
         status
         memberId
         orderedAt
         packageId
-        purchaseId
         paymentMethod
         member {
           id
@@ -17,7 +17,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           point
           mobile
           status
-          userId
+          ID
           assetId
           begL
           begR

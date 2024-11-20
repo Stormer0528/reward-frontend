@@ -10,7 +10,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       point
       primaryAddress
       secondaryAddress
-      userId
+      ID
       assetId
       mobile
       city
@@ -18,7 +18,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       totalIntroducers
       status
       state
-      emailVerified
       totalIntroducers
       syncWithSendy
       preferredContact
@@ -46,7 +45,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         primaryAddress
         secondaryAddress
         mobile
-        userId
+        ID
         assetId
         emailVerified
         totalIntroducers
@@ -66,7 +65,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         status
         status
         mobile
-        userId
+        ID
         assetId
         begL
         begR
@@ -89,7 +88,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         point
         mobile
         status
-        userId
+        ID
         assetId
         begL
         begR
@@ -108,6 +107,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       }
       sales {
         id
+        ID
         memberId
         packageId
         paymentMethod
@@ -164,7 +164,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         point
         primaryAddress
         secondaryAddress
-        userId
+        ID
         assetId
         mobile
         city
@@ -301,7 +301,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         mobile
         primaryAddress
         secondaryAddress
-        userId
+        ID
         assetId
         memberWallets {
           createdAt
