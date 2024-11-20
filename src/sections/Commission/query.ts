@@ -20,7 +20,6 @@ export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
         pkgR
         commission
         status
-        note
         member {
           createdAt
           updatedAt

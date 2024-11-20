@@ -38,7 +38,7 @@ import type { ISalePrismaFilter, ISaleTableFilters } from './types';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'purchaseId', label: 'Purchase ID', width: 140, sortable: true },
+  { id: 'ID', label: 'ID', width: 140, sortable: true },
   { id: 'member.assetId', label: 'Asset ID', width: 120, sortable: true },
   { id: 'package.productName', label: 'Product Name', sortable: true },
   { id: 'paymentMethod', label: 'Payment Method', sortable: true },
