@@ -170,7 +170,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{`L${me.begL}, R${me.begR}`}</Typography>
+              <Typography variant="body2">{`L${me?.commission?.begL ?? 0}, R${me?.commission?.begR ?? 0}`}</Typography>
             </Stack>
           </Stack>
 
@@ -181,7 +181,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{`L${me.newL}, R${me.newR}`}</Typography>
+              <Typography variant="body2">{`L${me?.commission?.newL ?? 0}, R${me?.commission?.newR ?? 0}`}</Typography>
             </Stack>
           </Stack>
 

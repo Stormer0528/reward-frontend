@@ -25,10 +25,12 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       status
       zipCode
       sponsorId
-      begL
-      begR
-      newL
-      newR
+      commission {
+        begL
+        begR
+        newL
+        newR
+      }
       sponsor {
         id
         username
@@ -38,10 +40,12 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         emailVerified
         totalIntroducers
         status
-        begL
-        begR
-        newL
-        newR
+        commission {
+          begL
+          begR
+          newL
+          newR
+        }
         primaryAddress
         secondaryAddress
         mobile
@@ -67,10 +71,12 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         ID
         assetId
-        begL
-        begR
-        newL
-        newR
+        commission {
+          begL
+          begR
+          newL
+          newR
+        }
         username
         fullName
         emailVerified
@@ -90,10 +96,12 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         status
         ID
         assetId
-        begL
-        begR
-        newL
-        newR
+        commission {
+          begL
+          begR
+          newL
+          newR
+        }
         username
         fullName
         emailVerified
@@ -172,10 +180,12 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         totalIntroducers
         status
         state
-        begL
-        begR
-        newL
-        newR
+        commission {
+          begL
+          begR
+          newL
+          newR
+        }
         emailVerified
         totalIntroducers
         syncWithSendy
@@ -194,10 +204,12 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
-          begL
-          begR
-          newL
-          newR
+          commission {
+            begL
+            begR
+            newL
+            newR
+          }
           emailVerified
           totalIntroducers
           syncWithSendy
@@ -220,10 +232,12 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
-          begL
-          begR
-          newL
-          newR
+          commission {
+            begL
+            begR
+            newL
+            newR
+          }
           emailVerified
           totalIntroducers
           syncWithSendy
