@@ -19,10 +19,12 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           status
           ID
           assetId
-          begL
-          begR
-          newL
-          newR
+          commission {
+            begL
+            begR
+            newL
+            newR
+          }
           username
           fullName
           emailVerified

@@ -56,10 +56,12 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           email
-          begL
-          begR
-          newL
-          newR
+          commission {
+            begL
+            begR
+            newL
+            newR
+          }
           point
           mobile
           ID
