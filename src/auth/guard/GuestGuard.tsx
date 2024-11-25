@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'src/routes/hooks';
@@ -7,6 +8,7 @@ import { CONFIG } from 'src/config';
 import { SplashScreen } from 'src/components/loading-screen';
 
 import { useAuthContext } from '../hooks';
+import { setToken } from '../context/utils';
 
 // ----------------------------------------------------------------------
 
@@ -16,6 +18,7 @@ type Props = {
 
 export function GuestGuard({ children }: Props) {
   const router = useRouter();
+  const location = useLocation();
 
   const searchParams = useSearchParams();
 
@@ -31,7 +34,12 @@ export function GuestGuard({ children }: Props) {
     }
 
     if (isAuthenticated) {
-      router.replace(returnTo);
+      if (location.pathname === '/sign-up') {
+        setToken(null);
+      } else {
+        router.replace(returnTo);
+      }
+      setIsChecking(false);
       return;
     }
 
