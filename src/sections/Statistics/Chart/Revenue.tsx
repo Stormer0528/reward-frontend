@@ -14,19 +14,6 @@ import { useFetchRevenue } from '../useApollo';
 
 // ----------------------------------------------------------------------
 
-const categories = [
-  { label: 'Income', value: 'revenue' },
-  { label: 'Facility', value: 'mineFacility' },
-  { label: 'Electricity', value: 'mineElectricy' },
-  { label: 'Pending Commission', value: 'commissionPending' },
-  { label: 'Maintainance', value: 'mineMaintainance' },
-  { label: 'Infrastructure', value: 'infrastructure' },
-  { label: 'New Equipment', value: 'mineNewEquipment' },
-  { label: 'Approved Commission', value: 'commissionApprovedPaid' },
-  { label: 'TXC Promotion', value: 'marketingTXCPromotion' },
-  { label: 'MineTXC Promotion', value: 'marketingMineTXCPromotion' },
-];
-
 export default function RevenueOverview() {
   const theme = useTheme();
 
@@ -47,7 +34,7 @@ export default function RevenueOverview() {
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },
     colors: chartColors,
-    labels: categories.map((item) => item.label),
+    labels: ['Income', ...revenue.spent.map((item) => item?.label ?? '')],
     stroke: { width: 0 },
     plotOptions: {
       pie: {
@@ -105,8 +92,6 @@ export default function RevenueOverview() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  type RevenueKeys = keyof typeof revenue;
-
   return (
     <Card>
       <CardHeader title="Use Of Funds" />
@@ -124,23 +109,8 @@ export default function RevenueOverview() {
         <Chart
           type="donut"
           series={[
-            revenue.revenue -
-              Object.keys(revenue)
-                .filter(
-                  (ky): ky is Exclude<RevenueKeys, 'revenue' | '__typename'> =>
-                    ky !== 'revenue' && ky !== '__typename'
-                )
-                .reduce((prev, cur) => prev + revenue[cur], 0),
-            revenue.mineFacility,
-            revenue.mineElectricy,
-            revenue.commissionPending,
-            revenue.mineMaintainance,
-            revenue.infrastructure,
-            revenue.mineNewEquipment,
-            revenue.commissionApproved,
-            revenue.commissionPaid,
-            revenue.marketingTXCPromotion,
-            revenue.marketingMineTXCPromotion,
+            revenue.total - revenue.spent.reduce((prev, cur) => prev + (cur?.value ?? 0), 0),
+            ...revenue.spent.map((spt) => spt?.value ?? 0),
           ]}
           options={chartOptions}
           width={274}

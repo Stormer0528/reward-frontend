@@ -165,16 +165,10 @@ export const FETCH_REVENUE_QUERY = gql(/* GraphQL */ `
   query RevenueOverview {
     revenueOverview {
       revenue
-      commissionPending
-      commissionApproved
-      commissionPaid
-      mineElectricy
-      mineFacility
-      mineMaintainance
-      mineNewEquipment
-      infrastructure
-      marketingMineTXCPromotion
-      marketingTXCPromotion
+      spent {
+        label
+        value
+      }
     }
   }
 `);
@@ -197,6 +191,16 @@ export const FETCH_LATEST_REWARD = gql(/* GraphQL */ `
       totalMembers
       txcShared
       issuedAt
+    }
+  }
+`);
+
+export const FETCH_TXC_SHARES = gql(/* GraphQL */ `
+  query TxcShares($data: PeriodStatsArgs!) {
+    txcShares(data: $data) {
+      base
+      baseDate
+      txc
     }
   }
 `);
