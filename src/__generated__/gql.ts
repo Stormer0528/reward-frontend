@@ -51,6 +51,12 @@ const documents = {
     "\n  query Statistics($page: String, $filter: JSONObject, $sort: String) {\n    statistics(page: $page, filter: $filter, sort: $sort) {\n      statistics {\n        id\n        totalHashPower\n        newBlocks\n        totalBlocks\n        totalMembers\n        txcShared\n        issuedAt\n        from\n        to\n        status\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n": types.StatisticsDocument,
     "\n  query TXCMemberStatistics($page: String, $filter: JSONObject, $sort: String) {\n    memberStatistics(page: $page, filter: $filter, sort: $sort) {\n      memberStatistics {\n        id\n        hashPower\n        txcShared\n        issuedAt\n        percent\n        createdAt\n        updatedAt\n        deletedAt\n        member {\n          username\n          email\n          assetId\n        }\n        statistics {\n          newBlocks\n          status\n        }\n      }\n      total\n    }\n  }\n": types.TxcMemberStatisticsDocument,
     "\n  query HistoryStatistics($page: String, $filter: JSONObject, $sort: String) {\n    statistics(page: $page, filter: $filter, sort: $sort) {\n      statistics {\n        id\n        totalHashPower\n        newBlocks\n        totalBlocks\n        totalMembers\n        txcShared\n        issuedAt\n        from\n        to\n        status\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n": types.HistoryStatisticsDocument,
+    "\n  query BlocksData($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      hashRate\n      difficulty\n      base\n      baseDate\n    }\n  }\n": types.BlocksDataDocument,
+    "\n  query NewMemberCounts($data: PeriodStatsArgs!) {\n    newMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n": types.NewMemberCountsDocument,
+    "\n  query AverageMemberReward($data: PeriodStatsArgs!) {\n    averageMemberReward(data: $data) {\n      base\n      baseDate\n      reward\n    }\n  }\n": types.AverageMemberRewardDocument,
+    "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n": types.CommissionByPeriodDocument,
+    "\n  query RevenueOverview {\n    revenueOverview {\n      revenue\n      commissionPending\n      commissionApproved\n      commissionPaid\n      mineElectricy\n      mineFacility\n      mineMaintainance\n      mineNewEquipment\n      infrastructure\n      marketingMineTXCPromotion\n      marketingTXCPromotion\n    }\n  }\n": types.RevenueOverviewDocument,
+    "\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n": types.TotalMemberCountsDocument,
     "\n  query Blocksdata($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      base\n      difficulty\n      hashRate\n    }\n  }\n": types.BlocksdataDocument,
 };
 
@@ -220,6 +226,30 @@ export function gql(source: "\n  query TXCMemberStatistics($page: String, $filte
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query HistoryStatistics($page: String, $filter: JSONObject, $sort: String) {\n    statistics(page: $page, filter: $filter, sort: $sort) {\n      statistics {\n        id\n        totalHashPower\n        newBlocks\n        totalBlocks\n        totalMembers\n        txcShared\n        issuedAt\n        from\n        to\n        status\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n"): (typeof documents)["\n  query HistoryStatistics($page: String, $filter: JSONObject, $sort: String) {\n    statistics(page: $page, filter: $filter, sort: $sort) {\n      statistics {\n        id\n        totalHashPower\n        newBlocks\n        totalBlocks\n        totalMembers\n        txcShared\n        issuedAt\n        from\n        to\n        status\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query BlocksData($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      hashRate\n      difficulty\n      base\n      baseDate\n    }\n  }\n"): (typeof documents)["\n  query BlocksData($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      hashRate\n      difficulty\n      base\n      baseDate\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query NewMemberCounts($data: PeriodStatsArgs!) {\n    newMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n"): (typeof documents)["\n  query NewMemberCounts($data: PeriodStatsArgs!) {\n    newMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query AverageMemberReward($data: PeriodStatsArgs!) {\n    averageMemberReward(data: $data) {\n      base\n      baseDate\n      reward\n    }\n  }\n"): (typeof documents)["\n  query AverageMemberReward($data: PeriodStatsArgs!) {\n    averageMemberReward(data: $data) {\n      base\n      baseDate\n      reward\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n"): (typeof documents)["\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query RevenueOverview {\n    revenueOverview {\n      revenue\n      commissionPending\n      commissionApproved\n      commissionPaid\n      mineElectricy\n      mineFacility\n      mineMaintainance\n      mineNewEquipment\n      infrastructure\n      marketingMineTXCPromotion\n      marketingTXCPromotion\n    }\n  }\n"): (typeof documents)["\n  query RevenueOverview {\n    revenueOverview {\n      revenue\n      commissionPending\n      commissionApproved\n      commissionPaid\n      mineElectricy\n      mineFacility\n      mineMaintainance\n      mineNewEquipment\n      infrastructure\n      marketingMineTXCPromotion\n      marketingTXCPromotion\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n"): (typeof documents)["\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

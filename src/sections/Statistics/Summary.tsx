@@ -1,25 +1,28 @@
-import { useQuery as useGraphQuery } from '@apollo/client';
+import { useEffect } from 'react';
 
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import WidgetSummary from 'src/components/WidgetSummary';
 
-import { GENERAL_QUERY } from './query';
+import { useFetchGeneral } from './useApollo';
 
 export default function Summary() {
   const theme = useTheme();
 
-  const { loading, data } = useGraphQuery(GENERAL_QUERY, {
-    variables: { data: { pastDays: 7 } },
-  });
+  const { loading, data, fetchGeneral } = useFetchGeneral();
 
   const liveBlockStats = data?.liveBlockStats ?? { dailyData: [], meta: 0, total: 0 };
   const liveMiningStats = data?.liveMiningStats ?? { dailyData: [], meta: 0, total: 0 };
   const liveUserStats = data?.liveUserStats ?? { dailyData: [], meta: 0, total: 0 };
 
+  useEffect(() => {
+    fetchGeneral({ variables: { data: { pastDays: 7 } } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} sx={{ mb: 1 }}>
       <Grid xs={12} md={4}>
         <WidgetSummary
           loading={loading}
