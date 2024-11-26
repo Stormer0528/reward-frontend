@@ -275,10 +275,10 @@ export function formatDate(date: string | Date, format: string = 'MM/DD/YYYY') {
 }
 
 export function formatTime(date: string | Date) {
-  return dayjs(date).utc().format('hh:mm:ss');
+  return dayjs(date).utc().format('hh:mm:ss a');
 }
 
-export function formatDateTime(date: string | Date, format: string = 'MM/DD/YYYY hh:mm:ss') {
+export function formatDateTime(date: string | Date, format: string = 'MM/DD/YYYY hh:mm:ss a') {
   return dayjs(date).utc().format(format);
 }
 

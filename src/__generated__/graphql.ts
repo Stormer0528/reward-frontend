@@ -359,6 +359,15 @@ export type IntroducersResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type LatestStatistics = {
+  __typename?: 'LatestStatistics';
+  id: Scalars['ID']['output'];
+  issuedAt: Scalars['DateTimeISO']['output'];
+  newBlocks: Scalars['Float']['output'];
+  totalMembers: Scalars['Float']['output'];
+  txcShared: Scalars['BigInt']['output'];
+};
+
 export type LinkInput = {
   link: Scalars['String']['input'];
   linkType: Scalars['String']['input'];
@@ -998,6 +1007,7 @@ export type Query = {
   generateReferenceLink: ReferenceLink;
   hashPowerResponse: HashPowerResponse;
   introducers: IntroducersResponse;
+  latestStatistics: Array<LatestStatistics>;
   liveBlockStats: EntityStats;
   liveMiningStats: EntityStats;
   liveUserStats: EntityStats;

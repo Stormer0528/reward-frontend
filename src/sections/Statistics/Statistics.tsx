@@ -19,7 +19,7 @@ import { useDataGridQuery } from 'src/routes/hooks';
 
 import { debounce } from 'src/utils/debounce';
 import { parseFilter } from 'src/utils/parseFilter';
-import { fDate, fTime, formatDate } from 'src/utils/format-time';
+import { formatDate, formatTime } from 'src/utils/format-time';
 
 import { Label } from 'src/components/Label';
 import { EmptyContent } from 'src/components/EmptyContent';
@@ -69,8 +69,8 @@ export default function StatisticsTable({ status = false }: Props) {
         width: 150,
         renderCell: (params) => (
           <ListItemText
-            primary={fDate(params.row.from)}
-            secondary={fTime(params.row.from)}
+            primary={formatDate(params.row.from)}
+            secondary={formatTime(params.row.from)}
             primaryTypographyProps={{ typography: 'caption', noWrap: true }}
             secondaryTypographyProps={{
               component: 'span',
@@ -85,8 +85,8 @@ export default function StatisticsTable({ status = false }: Props) {
         width: 150,
         renderCell: (params) => (
           <ListItemText
-            primary={fDate(params.row.to)}
-            secondary={fTime(params.row.to)}
+            primary={formatDate(params.row.to)}
+            secondary={formatTime(params.row.to)}
             primaryTypographyProps={{ typography: 'caption', noWrap: true }}
             secondaryTypographyProps={{
               component: 'span',
