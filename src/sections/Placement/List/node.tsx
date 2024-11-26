@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { fDate } from 'src/utils/format-time';
+import { customizeFullName } from 'src/utils/helper';
 
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
@@ -14,8 +15,6 @@ import NodeContext from './nodeContext';
 import type { NodeProps } from './type';
 
 export function StandardNode({ id, placementPosition, username, fullName, createdAt }: NodeProps) {
-  const [firstName, lastName] = fullName ? fullName.split(' ') : ['', ''];
-
   const { visibleMap, expandTree, collapseTree } = useContext(NodeContext);
 
   return (
@@ -31,7 +30,7 @@ export function StandardNode({ id, placementPosition, username, fullName, create
       }}
     >
       <Typography variant="subtitle2" noWrap sx={{ mb: 0.5 }}>
-        {`${firstName} ${lastName.length && lastName[0].toUpperCase()}.`}
+        {customizeFullName(fullName)}
       </Typography>
 
       <Typography variant="caption" component="div" noWrap sx={{ color: 'text.secondary' }}>

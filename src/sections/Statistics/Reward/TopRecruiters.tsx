@@ -9,6 +9,8 @@ import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
+import { customizeFullName } from 'src/utils/helper';
+
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/Iconify';
@@ -81,7 +83,7 @@ export default function Latest() {
                     >
                       <Iconify width={24} icon="solar:cup-star-bold" />
                     </Box>
-                    <Typography variant="subtitle1">{item.fullName}</Typography>
+                    <Typography variant="subtitle1">{customizeFullName(item.fullName)}</Typography>
                   </Stack>
                   <Stack direction="row" sx={{ alignItems: 'center' }} columnGap={1}>
                     <Typography variant="body1">{item.totalIntroducers}</Typography>
