@@ -1,8 +1,11 @@
+import dayjs from 'dayjs';
 import { useState, useEffect, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import { alpha, useTheme } from '@mui/material/styles';
+
+import { formatWeekNumber } from 'src/utils/format-time';
 
 import { ChartSelect } from 'src/components/chart';
 import ChartWidget from 'src/components/ChartWidget';
@@ -33,12 +36,12 @@ export default function TXCShared() {
   useEffect(() => {
     fetchTXCShares({ variables: { data: { type: currentSeries?.value ?? '' } } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentSeries]);
 
   return (
     <Card>
       <CardHeader
-        title="Hash Rate"
+        title="TXC Shared"
         action={
           <ChartSelect
             options={series.map((item) => item.label)}
@@ -62,7 +65,13 @@ export default function TXCShared() {
             xaxis: {
               tooltip: { enabled: false },
               tickAmount: 18,
-              categories: txcShares!.map((item) => item.base).reverse(),
+              categories: txcShares!
+                .map((item) =>
+                  currentSeries?.value === 'week'
+                    ? `#${formatWeekNumber(item.baseDate)} (${dayjs(item.baseDate).utc().format('MM/DD')} - ${dayjs(item.baseDate).utc().add(6, 'day').format('MM/DD')})`
+                    : item.base
+                )
+                .reverse(),
             },
             yaxis: {
               labels: {

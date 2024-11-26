@@ -3,13 +3,13 @@ import { useLazyQuery } from '@apollo/client';
 import {
   GENERAL_QUERY,
   FETCH_TXC_SHARES,
-  FETCH_BLOCKS_QUERY,
-  // FETCH_STATISTICS_QUERY,
-  // FETCH_MEMBERSTATISTICS_QUERY,
+  FETCH_TOP_EARNERS,
   FETCH_MEMBER_COUNT,
+  FETCH_BLOCKS_QUERY,
   FETCH_LATEST_REWARD,
   FETCH_MEMBER_REWARD,
   FETCH_REVENUE_QUERY,
+  FETCH_TOP_RECRUITERS,
   FETCH_STATISTICS_QUERY,
   FETCH_TOTAL_MINER_QUERY,
   FETCH_BLOCKS_DATA_QUERY,
@@ -87,4 +87,16 @@ export function useFetchTXCShares() {
   const [fetchTXCShares, { loading, data }] = useLazyQuery(FETCH_TXC_SHARES);
 
   return { loading, txcShares: data?.txcShares ?? [], fetchTXCShares };
+}
+
+export function useFetchTopEarners() {
+  const [fetchTopEarners, { loading, data }] = useLazyQuery(FETCH_TOP_EARNERS);
+
+  return { loading, topEarners: data?.topEarners ?? [], fetchTopEarners };
+}
+
+export function useFetchTopRecruiters() {
+  const [fetchTopRecruiters, { loading, data }] = useLazyQuery(FETCH_TOP_RECRUITERS);
+
+  return { loading, topRecruiteres: data?.topRecruiters ?? [], fetchTopRecruiters };
 }
