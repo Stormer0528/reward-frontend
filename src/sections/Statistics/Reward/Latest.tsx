@@ -32,10 +32,11 @@ export default function Latest() {
     <Card sx={{ mt: 2 }}>
       <CardHeader title="Latest Reward" />
 
-      <ScrollBar sx={{ minHeight: 280 }}>
+      <ScrollBar sx={{ minHeight: 260 }}>
         <Box
           sx={{
             p: 3,
+            py: 1,
             gap: 3,
             minWidth: 360,
             display: 'flex',
