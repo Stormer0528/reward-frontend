@@ -71,6 +71,13 @@ export type AdminsResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type AverageMinerRewardStatsResponse = {
+  __typename?: 'AverageMinerRewardStatsResponse';
+  base: Scalars['String']['output'];
+  baseDate: Scalars['DateTimeISO']['output'];
+  reward: Scalars['Float']['output'];
+};
+
 export type Block = {
   __typename?: 'Block';
   blockNo: Scalars['Float']['output'];
@@ -86,6 +93,7 @@ export type Block = {
 export type BlockStatsResponse = {
   __typename?: 'BlockStatsResponse';
   base: Scalars['String']['output'];
+  baseDate?: Maybe<Scalars['DateTimeISO']['output']>;
   difficulty: Scalars['Float']['output'];
   hashRate: Scalars['Float']['output'];
 };
@@ -114,6 +122,7 @@ export type CommissionOverviewResponse = {
 export type CommissionPeriodResponse = {
   __typename?: 'CommissionPeriodResponse';
   base: Scalars['String']['output'];
+  baseDate: Scalars['DateTimeISO']['output'];
   commission: Scalars['Int']['output'];
 };
 
@@ -322,6 +331,12 @@ export type EntityStats = {
   total: Scalars['Float']['output'];
 };
 
+export type HashPowerResponse = {
+  __typename?: 'HashPowerResponse';
+  actualHashPower: Scalars['Float']['output'];
+  soldHashPower: Scalars['Float']['output'];
+};
+
 export type IdInput = {
   id: Scalars['ID']['input'];
 };
@@ -519,13 +534,8 @@ export type MembersResponse = {
 export type MinerCountStatsResponse = {
   __typename?: 'MinerCountStatsResponse';
   base: Scalars['String']['output'];
+  baseDate: Scalars['DateTimeISO']['output'];
   minerCount: Scalars['Int']['output'];
-};
-
-export type MinerRewardStatsResponse = {
-  __typename?: 'MinerRewardStatsResponse';
-  base: Scalars['String']['output'];
-  reward: Scalars['Float']['output'];
 };
 
 export type Mutation = {
@@ -975,6 +985,7 @@ export type Query = {
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
   admins: AdminsResponse;
+  averageMemberReward: Array<AverageMinerRewardStatsResponse>;
   blocks: BlocksResponse;
   blocksData: Array<BlockStatsResponse>;
   commissionByMemberIDAndWeek: WeeklyCommission;
@@ -985,18 +996,18 @@ export type Query = {
   countRightMembers: CountResponse;
   dailyRewards: DailyRewards;
   generateReferenceLink: ReferenceLink;
+  hashPowerResponse: HashPowerResponse;
   introducers: IntroducersResponse;
   liveBlockStats: EntityStats;
   liveMiningStats: EntityStats;
   liveUserStats: EntityStats;
-  memberCounts: Array<MinerCountStatsResponse>;
   memberMe: Member;
   memberOverview: MemberOverview;
-  memberRewards: Array<MinerRewardStatsResponse>;
   memberStatistics: MemberStatisticsResponse;
   memberStatisticsWallets: MemberStatisticsWalletResponse;
   memberWallets: MemberWalletResponse;
   members: MembersResponse;
+  newMemberCounts: Array<MinerCountStatsResponse>;
   onepointAwayMembers: MembersResponse;
   packages: PackageResponse;
   payouts: PayoutResponse;
@@ -1007,6 +1018,7 @@ export type Query = {
   sales: SalesResponse;
   statistics: StatisticsResponse;
   statisticsSales: StatisticsSaleResponse;
+  totalMemberCounts: Array<MinerCountStatsResponse>;
   weeklyCommissions: WeeklyCommissionResponse;
 };
 
@@ -1022,6 +1034,11 @@ export type QueryAdminsArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryAverageMemberRewardArgs = {
+  data: PeriodStatsArgs;
 };
 
 
@@ -1093,18 +1110,8 @@ export type QueryLiveUserStatsArgs = {
 };
 
 
-export type QueryMemberCountsArgs = {
-  data: PeriodStatsArgs;
-};
-
-
 export type QueryMemberOverviewArgs = {
   data: MemberOverviewInput;
-};
-
-
-export type QueryMemberRewardsArgs = {
-  data: PeriodStatsArgs;
 };
 
 
@@ -1133,6 +1140,11 @@ export type QueryMembersArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryNewMemberCountsArgs = {
+  data: PeriodStatsArgs;
 };
 
 
@@ -1198,6 +1210,11 @@ export type QueryStatisticsSalesArgs = {
 };
 
 
+export type QueryTotalMemberCountsArgs = {
+  data: PeriodStatsArgs;
+};
+
+
 export type QueryWeeklyCommissionsArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
@@ -1222,7 +1239,8 @@ export type ResetPasswordTokenInput = {
 
 export type RevenueOverviewResponse = {
   __typename?: 'RevenueOverviewResponse';
-  commissionApprovedPaid: Scalars['Float']['output'];
+  commissionApproved: Scalars['Float']['output'];
+  commissionPaid: Scalars['Float']['output'];
   commissionPending: Scalars['Float']['output'];
   infrastructure: Scalars['Float']['output'];
   marketingMineTXCPromotion: Scalars['Float']['output'];
@@ -1804,6 +1822,46 @@ export type HistoryStatisticsQueryVariables = Exact<{
 
 export type HistoryStatisticsQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, totalHashPower: number, newBlocks: number, totalBlocks: number, totalMembers: number, txcShared: any, issuedAt: any, from: any, to: any, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null> | null } };
 
+export type BlocksDataQueryVariables = Exact<{
+  data: PeriodStatsArgs;
+}>;
+
+
+export type BlocksDataQuery = { __typename?: 'Query', blocksData: Array<{ __typename?: 'BlockStatsResponse', hashRate: number, difficulty: number, base: string, baseDate?: any | null }> };
+
+export type NewMemberCountsQueryVariables = Exact<{
+  data: PeriodStatsArgs;
+}>;
+
+
+export type NewMemberCountsQuery = { __typename?: 'Query', newMemberCounts: Array<{ __typename?: 'MinerCountStatsResponse', base: string, baseDate: any, minerCount: number }> };
+
+export type AverageMemberRewardQueryVariables = Exact<{
+  data: PeriodStatsArgs;
+}>;
+
+
+export type AverageMemberRewardQuery = { __typename?: 'Query', averageMemberReward: Array<{ __typename?: 'AverageMinerRewardStatsResponse', base: string, baseDate: any, reward: number }> };
+
+export type CommissionByPeriodQueryVariables = Exact<{
+  data: PeriodStatsArgs;
+}>;
+
+
+export type CommissionByPeriodQuery = { __typename?: 'Query', commissionByPeriod: Array<{ __typename?: 'CommissionPeriodResponse', base: string, baseDate: any, commission: number }> };
+
+export type RevenueOverviewQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RevenueOverviewQuery = { __typename?: 'Query', revenueOverview: { __typename?: 'RevenueOverviewResponse', revenue: number, commissionPending: number, commissionApproved: number, commissionPaid: number, mineElectricy: number, mineFacility: number, mineMaintainance: number, mineNewEquipment: number, infrastructure: number, marketingMineTXCPromotion: number, marketingTXCPromotion: number } };
+
+export type TotalMemberCountsQueryVariables = Exact<{
+  data: PeriodStatsArgs;
+}>;
+
+
+export type TotalMemberCountsQuery = { __typename?: 'Query', totalMemberCounts: Array<{ __typename?: 'MinerCountStatsResponse', base: string, baseDate: any, minerCount: number }> };
+
 export type BlocksdataQueryVariables = Exact<{
   data: PeriodStatsArgs;
 }>;
@@ -1850,4 +1908,10 @@ export const BlocksDocument = {"kind":"Document","definitions":[{"kind":"Operati
 export const StatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Statistics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"statistics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"statistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalHashPower"}},{"kind":"Field","name":{"kind":"Name","value":"newBlocks"}},{"kind":"Field","name":{"kind":"Name","value":"totalBlocks"}},{"kind":"Field","name":{"kind":"Name","value":"totalMembers"}},{"kind":"Field","name":{"kind":"Name","value":"txcShared"}},{"kind":"Field","name":{"kind":"Name","value":"issuedAt"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<StatisticsQuery, StatisticsQueryVariables>;
 export const TxcMemberStatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TXCMemberStatistics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberStatistics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"hashPower"}},{"kind":"Field","name":{"kind":"Name","value":"txcShared"}},{"kind":"Field","name":{"kind":"Name","value":"issuedAt"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"member"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"statistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"newBlocks"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<TxcMemberStatisticsQuery, TxcMemberStatisticsQueryVariables>;
 export const HistoryStatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HistoryStatistics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"statistics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"statistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"totalHashPower"}},{"kind":"Field","name":{"kind":"Name","value":"newBlocks"}},{"kind":"Field","name":{"kind":"Name","value":"totalBlocks"}},{"kind":"Field","name":{"kind":"Name","value":"totalMembers"}},{"kind":"Field","name":{"kind":"Name","value":"txcShared"}},{"kind":"Field","name":{"kind":"Name","value":"issuedAt"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<HistoryStatisticsQuery, HistoryStatisticsQueryVariables>;
+export const BlocksDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BlocksData"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PeriodStatsArgs"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blocksData"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hashRate"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"base"}},{"kind":"Field","name":{"kind":"Name","value":"baseDate"}}]}}]}}]} as unknown as DocumentNode<BlocksDataQuery, BlocksDataQueryVariables>;
+export const NewMemberCountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"NewMemberCounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PeriodStatsArgs"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"newMemberCounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"base"}},{"kind":"Field","name":{"kind":"Name","value":"baseDate"}},{"kind":"Field","name":{"kind":"Name","value":"minerCount"}}]}}]}}]} as unknown as DocumentNode<NewMemberCountsQuery, NewMemberCountsQueryVariables>;
+export const AverageMemberRewardDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AverageMemberReward"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PeriodStatsArgs"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"averageMemberReward"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"base"}},{"kind":"Field","name":{"kind":"Name","value":"baseDate"}},{"kind":"Field","name":{"kind":"Name","value":"reward"}}]}}]}}]} as unknown as DocumentNode<AverageMemberRewardQuery, AverageMemberRewardQueryVariables>;
+export const CommissionByPeriodDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CommissionByPeriod"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PeriodStatsArgs"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commissionByPeriod"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"base"}},{"kind":"Field","name":{"kind":"Name","value":"baseDate"}},{"kind":"Field","name":{"kind":"Name","value":"commission"}}]}}]}}]} as unknown as DocumentNode<CommissionByPeriodQuery, CommissionByPeriodQueryVariables>;
+export const RevenueOverviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RevenueOverview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"revenueOverview"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"revenue"}},{"kind":"Field","name":{"kind":"Name","value":"commissionPending"}},{"kind":"Field","name":{"kind":"Name","value":"commissionApproved"}},{"kind":"Field","name":{"kind":"Name","value":"commissionPaid"}},{"kind":"Field","name":{"kind":"Name","value":"mineElectricy"}},{"kind":"Field","name":{"kind":"Name","value":"mineFacility"}},{"kind":"Field","name":{"kind":"Name","value":"mineMaintainance"}},{"kind":"Field","name":{"kind":"Name","value":"mineNewEquipment"}},{"kind":"Field","name":{"kind":"Name","value":"infrastructure"}},{"kind":"Field","name":{"kind":"Name","value":"marketingMineTXCPromotion"}},{"kind":"Field","name":{"kind":"Name","value":"marketingTXCPromotion"}}]}}]}}]} as unknown as DocumentNode<RevenueOverviewQuery, RevenueOverviewQueryVariables>;
+export const TotalMemberCountsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TotalMemberCounts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PeriodStatsArgs"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalMemberCounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"base"}},{"kind":"Field","name":{"kind":"Name","value":"baseDate"}},{"kind":"Field","name":{"kind":"Name","value":"minerCount"}}]}}]}}]} as unknown as DocumentNode<TotalMemberCountsQuery, TotalMemberCountsQueryVariables>;
 export const BlocksdataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Blocksdata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PeriodStatsArgs"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blocksData"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"base"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"hashRate"}}]}}]}}]} as unknown as DocumentNode<BlocksdataQuery, BlocksdataQueryVariables>;

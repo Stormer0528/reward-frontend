@@ -285,3 +285,15 @@ export function formatDateTime(date: string | Date, format: string = 'MM/DD/YYYY
 export function customizeDate(date: string | Date) {
   return `${formatDate(date, 'YYYY-MM-DD')}T00:00:00Z`;
 }
+
+export function formatWeekNumber(date: string | Date, base: string = '2024-04-06') {
+  const baseDate = dayjs(base).utc().startOf('day');
+
+  const currentDate = dayjs(date).utc().startOf('day');
+
+  const weekDiff = Math.floor(currentDate.diff(baseDate, 'day') / 7) + 2;
+
+  const weekNumber = String(weekDiff).padStart(3, '0');
+
+  return weekNumber;
+}

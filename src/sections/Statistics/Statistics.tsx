@@ -186,7 +186,7 @@ export default function StatisticsTable({ status = false }: Props) {
         sx={{
           width: '100%',
           m: 0.5,
-          mt: 2,
+          mt: 3,
           borderRadius: 1.5,
         }}
       >
