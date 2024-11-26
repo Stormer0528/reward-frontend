@@ -4,9 +4,8 @@ import { paths } from 'src/routes/paths';
 
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
-import StatisticsTable from 'src/sections/Statistics/Statistics';
-
-import Summary from './Summary';
+import Chart from '../Statistics/Chart';
+import Reward from '../Statistics/Reward';
 
 export default function Dashboard() {
   return (
@@ -19,8 +18,8 @@ export default function Dashboard() {
         }}
       />
 
-      <Summary />
-      <StatisticsTable />
+      <Chart />
+      <Reward />
     </Container>
   );
 }
