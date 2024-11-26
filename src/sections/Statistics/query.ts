@@ -188,3 +188,15 @@ export const FETCH_TOTAL_MINER_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const FETCH_LATEST_REWARD = gql(/* GraphQL */ `
+  query LatestStatistics {
+    latestStatistics {
+      id
+      newBlocks
+      totalMembers
+      txcShared
+      issuedAt
+    }
+  }
+`);

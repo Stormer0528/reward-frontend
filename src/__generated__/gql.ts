@@ -57,6 +57,7 @@ const documents = {
     "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n": types.CommissionByPeriodDocument,
     "\n  query RevenueOverview {\n    revenueOverview {\n      revenue\n      commissionPending\n      commissionApproved\n      commissionPaid\n      mineElectricy\n      mineFacility\n      mineMaintainance\n      mineNewEquipment\n      infrastructure\n      marketingMineTXCPromotion\n      marketingTXCPromotion\n    }\n  }\n": types.RevenueOverviewDocument,
     "\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n": types.TotalMemberCountsDocument,
+    "\n  query LatestStatistics {\n    latestStatistics {\n      id\n      newBlocks\n      totalMembers\n      txcShared\n      issuedAt\n    }\n  }\n": types.LatestStatisticsDocument,
     "\n  query Blocksdata($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      base\n      difficulty\n      hashRate\n    }\n  }\n": types.BlocksdataDocument,
 };
 
@@ -250,6 +251,10 @@ export function gql(source: "\n  query RevenueOverview {\n    revenueOverview {\
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n"): (typeof documents)["\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query LatestStatistics {\n    latestStatistics {\n      id\n      newBlocks\n      totalMembers\n      txcShared\n      issuedAt\n    }\n  }\n"): (typeof documents)["\n  query LatestStatistics {\n    latestStatistics {\n      id\n      newBlocks\n      totalMembers\n      txcShared\n      issuedAt\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

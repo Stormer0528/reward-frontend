@@ -6,6 +6,7 @@ import {
   // FETCH_STATISTICS_QUERY,
   // FETCH_MEMBERSTATISTICS_QUERY,
   FETCH_MEMBER_COUNT,
+  FETCH_LATEST_REWARD,
   FETCH_MEMBER_REWARD,
   FETCH_REVENUE_QUERY,
   FETCH_STATISTICS_QUERY,
@@ -80,4 +81,10 @@ export function useFetchRevenue() {
   };
 
   return { loading, revenue, fetchRevenue };
+}
+
+export function useFetchLatestReward() {
+  const [fetchReward, { loading, data }] = useLazyQuery(FETCH_LATEST_REWARD);
+
+  return { loading, latest: data?.latestStatistics ?? [], fetchReward };
 }
