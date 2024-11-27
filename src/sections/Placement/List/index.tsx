@@ -186,7 +186,7 @@ function getResetVisibleMap(
   }
 
   const { result: placementTree } = buildPlacementTree(
-    members.filter((member) => member?.placementParentId),
+    members.filter((member) => member?.placementParentId || member.id === target.id),
     target
   );
   const maps = getMemberIdsWithDepth(placementTree, 0, 3);
@@ -207,7 +207,7 @@ function getNewVisibleMap(
   if (!members || !members.length) return {};
 
   const { memberMap } = buildPlacementTree(
-    members.filter((member) => member?.placementParentId),
+    members.filter((member) => member?.placementParentId || member.id === target.id),
     target
   );
   const newVisibleMap: Record<string, number> = {};
@@ -252,7 +252,7 @@ function PlacementListView() {
   const nodes: Node[] = useMemo(() => {
     if (!members || members.length === 0) return [];
     const { result: placementTree } = buildPlacementTree(
-      members.filter((member) => member?.placementParentId),
+      members.filter((member) => member?.placementParentId || member?.id === user!.id),
       user!
     );
 
