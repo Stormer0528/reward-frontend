@@ -66,6 +66,11 @@ export const _account = [
     icon: <Iconify icon="marketeq:reward" />,
   },
   {
+    label: 'Calculator',
+    href: '/calculator',
+    icon: <Iconify icon="system-uicons:calculator" />,
+  },
+  {
     label: 'Profile',
     href: '/profile',
     icon: <Iconify icon="heroicons:user" />,
