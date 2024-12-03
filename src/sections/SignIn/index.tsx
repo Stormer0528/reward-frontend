@@ -77,9 +77,20 @@ export function SignInView() {
           {`Don't have an account?`}
         </Typography>
 
-        <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
-          Join Now
-        </Link>
+        <Stack direction="row" columnGap={2}>
+          <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
+            Join Now
+          </Link>
+
+          <Link
+            component={RouterLink}
+            href={paths.calculator.root}
+            variant="subtitle2"
+            color="blue"
+          >
+            Calculator
+          </Link>
+        </Stack>
       </Stack>
     </Stack>
   );

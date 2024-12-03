@@ -14,6 +14,7 @@ const SignUpPage = lazy(() => import('src/pages/SignUp'));
 const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
 const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
 const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
+const CalculatorPage = lazy(() => import('src/pages/Calculator'));
 
 const signIn = {
   path: 'sign-in',
@@ -70,6 +71,17 @@ const verifyEmail = {
   ),
 };
 
+const calculator = {
+  path: 'calculator',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="720px">
+        <CalculatorPage />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
+
 export const authRoutes = [
   {
     path: '',
@@ -78,6 +90,6 @@ export const authRoutes = [
         <Outlet />
       </Suspense>
     ),
-    children: [signIn, signUp, verifyEmail, forgotPassword, resetPassword],
+    children: [signIn, signUp, verifyEmail, forgotPassword, resetPassword, calculator],
   },
 ];

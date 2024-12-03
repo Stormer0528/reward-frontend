@@ -26,7 +26,7 @@ export type Scalars = {
 
 export type Admin = {
   __typename?: 'Admin';
-  adminNotes?: Maybe<Array<Maybe<AdminNotes>>>;
+  adminNotes?: Maybe<Array<AdminNotes>>;
   avatar: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -61,13 +61,13 @@ export type AdminNotes = {
 
 export type AdminNotesResponse = {
   __typename?: 'AdminNotesResponse';
-  adminNotes?: Maybe<Array<Maybe<AdminNotes>>>;
+  adminNotes?: Maybe<Array<AdminNotes>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type AdminsResponse = {
   __typename?: 'AdminsResponse';
-  admins?: Maybe<Array<Maybe<Admin>>>;
+  admins?: Maybe<Array<Admin>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -100,7 +100,7 @@ export type BlockStatsResponse = {
 
 export type BlocksResponse = {
   __typename?: 'BlocksResponse';
-  blocks?: Maybe<Array<Maybe<Block>>>;
+  blocks?: Maybe<Array<Block>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -115,7 +115,7 @@ export type CommissionOverview = {
 
 export type CommissionOverviewResponse = {
   __typename?: 'CommissionOverviewResponse';
-  commissions?: Maybe<Array<Maybe<CommissionOverview>>>;
+  commissions?: Maybe<Array<CommissionOverview>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -229,33 +229,33 @@ export type CreatePayoutInput = {
 
 export type CreatePrepaidCommissionInput = {
   commissionId: Scalars['ID']['input'];
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt: Scalars['DateTimeISO']['input'];
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   txId?: InputMaybe<Scalars['ID']['input']>;
   txType?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateProofInput = {
   amount: Scalars['Float']['input'];
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   mineLocation?: InputMaybe<Scalars['String']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt?: InputMaybe<Scalars['DateTimeISO']['input']>;
   refId: Scalars['ID']['input'];
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   type: ProofType;
 };
 
 export type CreateSaleInput = {
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   memberId: Scalars['ID']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt: Scalars['DateTimeISO']['input'];
   packageId: Scalars['ID']['input'];
   paymentMethod: Scalars['String']['input'];
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   status: Scalars['Boolean']['input'];
 };
 
@@ -355,7 +355,7 @@ export type Introducer = {
 
 export type IntroducersResponse = {
   __typename?: 'IntroducersResponse';
-  introducers?: Maybe<Array<Maybe<Introducer>>>;
+  introducers?: Maybe<Array<Introducer>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -385,7 +385,7 @@ export type ManySuccessResponse = {
 export type Member = {
   __typename?: 'Member';
   ID: Scalars['Int']['output'];
-  adminNotes?: Maybe<Array<Maybe<AdminNotes>>>;
+  adminNotes?: Maybe<Array<AdminNotes>>;
   assetId?: Maybe<Scalars['String']['output']>;
   city?: Maybe<Scalars['String']['output']>;
   cmnCalculatedWeeks: Scalars['Int']['output'];
@@ -396,11 +396,11 @@ export type Member = {
   emailVerified: Scalars['Boolean']['output'];
   fullName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  introduceMembers?: Maybe<Array<Maybe<Member>>>;
-  logs?: Maybe<Array<Maybe<MemberLog>>>;
-  memberWallets?: Maybe<Array<Maybe<MemberWallet>>>;
+  introduceMembers?: Maybe<Array<Member>>;
+  logs?: Maybe<Array<MemberLog>>;
+  memberWallets?: Maybe<Array<MemberWallet>>;
   mobile: Scalars['String']['output'];
-  placementChildren?: Maybe<Array<Maybe<Member>>>;
+  placementChildren?: Maybe<Array<Member>>;
   placementParent?: Maybe<Member>;
   placementParentId?: Maybe<Scalars['ID']['output']>;
   placementPosition?: Maybe<PlacementPosition>;
@@ -408,18 +408,18 @@ export type Member = {
   preferredContact?: Maybe<Scalars['String']['output']>;
   preferredContactDetail?: Maybe<Scalars['String']['output']>;
   primaryAddress: Scalars['String']['output'];
-  sales?: Maybe<Array<Maybe<Sale>>>;
+  sales?: Maybe<Array<Sale>>;
   secondaryAddress?: Maybe<Scalars['String']['output']>;
   sponsor?: Maybe<Member>;
   sponsorId?: Maybe<Scalars['ID']['output']>;
   state?: Maybe<Scalars['String']['output']>;
-  statistics?: Maybe<Array<Maybe<MemberStatistics>>>;
+  statistics?: Maybe<Array<MemberStatistics>>;
   status: Scalars['Boolean']['output'];
   syncWithSendy: Scalars['Boolean']['output'];
   totalIntroducers: Scalars['Float']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   username: Scalars['String']['output'];
-  weeklyCommissions?: Maybe<Array<Maybe<WeeklyCommission>>>;
+  weeklyCommissions?: Maybe<Array<WeeklyCommission>>;
   zipCode?: Maybe<Scalars['String']['output']>;
 };
 
@@ -472,7 +472,7 @@ export type MemberStatistics = {
   issuedAt: Scalars['DateTimeISO']['output'];
   member?: Maybe<Member>;
   memberId: Scalars['String']['output'];
-  memberStatisticsWallets?: Maybe<Array<Maybe<MemberStatisticsWallet>>>;
+  memberStatisticsWallets?: Maybe<Array<MemberStatisticsWallet>>;
   percent: Scalars['Float']['output'];
   statistics?: Maybe<Statistics>;
   statisticsId: Scalars['String']['output'];
@@ -482,7 +482,7 @@ export type MemberStatistics = {
 
 export type MemberStatisticsResponse = {
   __typename?: 'MemberStatisticsResponse';
-  memberStatistics?: Maybe<Array<Maybe<MemberStatistics>>>;
+  memberStatistics?: Maybe<Array<MemberStatistics>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -502,7 +502,7 @@ export type MemberStatisticsWallet = {
 
 export type MemberStatisticsWalletResponse = {
   __typename?: 'MemberStatisticsWalletResponse';
-  memberStatisticsWallets?: Maybe<Array<Maybe<MemberStatisticsWallet>>>;
+  memberStatisticsWallets?: Maybe<Array<MemberStatisticsWallet>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -514,7 +514,7 @@ export type MemberWallet = {
   id: Scalars['ID']['output'];
   member?: Maybe<Member>;
   memberId: Scalars['String']['output'];
-  memberStatisticsWallets?: Maybe<Array<Maybe<MemberStatisticsWallet>>>;
+  memberStatisticsWallets?: Maybe<Array<MemberStatisticsWallet>>;
   note?: Maybe<Scalars['String']['output']>;
   payout?: Maybe<Payout>;
   payoutId: Scalars['ID']['output'];
@@ -531,13 +531,13 @@ export type MemberWalletDataInput = {
 
 export type MemberWalletResponse = {
   __typename?: 'MemberWalletResponse';
-  MemberWallets?: Maybe<Array<Maybe<MemberWallet>>>;
+  MemberWallets?: Maybe<Array<MemberWallet>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type MembersResponse = {
   __typename?: 'MembersResponse';
-  members?: Maybe<Array<Maybe<Member>>>;
+  members?: Maybe<Array<Member>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -887,7 +887,7 @@ export type Package = {
   id: Scalars['ID']['output'];
   point: Scalars['Float']['output'];
   productName: Scalars['String']['output'];
-  sales?: Maybe<Array<Maybe<Sale>>>;
+  sales?: Maybe<Array<Sale>>;
   status: Scalars['Boolean']['output'];
   token: Scalars['Float']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -895,7 +895,7 @@ export type Package = {
 
 export type PackageResponse = {
   __typename?: 'PackageResponse';
-  packages?: Maybe<Array<Maybe<Package>>>;
+  packages?: Maybe<Array<Package>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -905,7 +905,7 @@ export type Payout = {
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   display: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  memberWallets?: Maybe<Array<Maybe<MemberWallet>>>;
+  memberWallets?: Maybe<Array<MemberWallet>>;
   method: Scalars['String']['output'];
   name: Scalars['String']['output'];
   status: Scalars['Boolean']['output'];
@@ -914,7 +914,7 @@ export type Payout = {
 
 export type PayoutResponse = {
   __typename?: 'PayoutResponse';
-  payouts?: Maybe<Array<Maybe<Payout>>>;
+  payouts?: Maybe<Array<Payout>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -949,8 +949,27 @@ export type PrepaidCommission = {
 
 export type PrepaidCommissionResponse = {
   __typename?: 'PrepaidCommissionResponse';
-  prepaidCommissions?: Maybe<Array<Maybe<PrepaidCommission>>>;
+  prepaidCommissions?: Maybe<Array<PrepaidCommission>>;
   total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type ProfitabilityCalculationInput = {
+  init: Scalars['Int']['input'];
+  joinDate: Scalars['DateTimeISO']['input'];
+  target: Scalars['Int']['input'];
+};
+
+export type ProfitabilityCalculationResponse = {
+  __typename?: 'ProfitabilityCalculationResponse';
+  endDate: Scalars['DateTimeISO']['output'];
+  extraTXC: Scalars['Float']['output'];
+  init: Scalars['Int']['output'];
+  period: Scalars['Int']['output'];
+  startDate: Scalars['DateTimeISO']['output'];
+  target: Scalars['Int']['output'];
+  txc: Scalars['Float']['output'];
+  txcCost: Scalars['Float']['output'];
+  txcPrice: Scalars['Float']['output'];
 };
 
 export type Proof = {
@@ -1005,6 +1024,7 @@ export type Query = {
   averageMemberReward: Array<AverageMinerRewardStatsResponse>;
   blocks: BlocksResponse;
   blocksData: Array<BlockStatsResponse>;
+  calculateProfitability: ProfitabilityCalculationResponse;
   commissionByMemberIDAndWeek: WeeklyCommission;
   commissionByPeriod: Array<CommissionPeriodResponse>;
   commissionsByWeek: CommissionOverviewResponse;
@@ -1073,6 +1093,11 @@ export type QueryBlocksArgs = {
 
 export type QueryBlocksDataArgs = {
   data: PeriodStatsArgs;
+};
+
+
+export type QueryCalculateProfitabilityArgs = {
+  data: ProfitabilityCalculationInput;
 };
 
 
@@ -1272,7 +1297,7 @@ export type ResetPasswordTokenInput = {
 export type RevenueOverviewResponse = {
   __typename?: 'RevenueOverviewResponse';
   revenue: Scalars['Float']['output'];
-  spent?: Maybe<Array<Maybe<RevenueSpentItem>>>;
+  spent?: Maybe<Array<RevenueSpentItem>>;
 };
 
 export type RevenueSpentItem = {
@@ -1305,14 +1330,14 @@ export type Sale = {
   packageId: Scalars['ID']['output'];
   paymentMethod: Scalars['String']['output'];
   proof?: Maybe<Proof>;
-  statisticsSales?: Maybe<Array<Maybe<StatisticsSale>>>;
+  statisticsSales?: Maybe<Array<StatisticsSale>>;
   status: Scalars['Boolean']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };
 
 export type SalesResponse = {
   __typename?: 'SalesResponse';
-  sales?: Maybe<Array<Maybe<Sale>>>;
+  sales?: Maybe<Array<Sale>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1342,9 +1367,9 @@ export type Statistics = {
   from: Scalars['DateTimeISO']['output'];
   id: Scalars['ID']['output'];
   issuedAt: Scalars['DateTimeISO']['output'];
-  memberStatistics?: Maybe<Array<Maybe<MemberStatistics>>>;
+  memberStatistics?: Maybe<Array<MemberStatistics>>;
   newBlocks: Scalars['Float']['output'];
-  statisticsSales?: Maybe<Array<Maybe<StatisticsSale>>>;
+  statisticsSales?: Maybe<Array<StatisticsSale>>;
   status: Scalars['Boolean']['output'];
   to: Scalars['DateTimeISO']['output'];
   totalBlocks: Scalars['Float']['output'];
@@ -1357,7 +1382,7 @@ export type Statistics = {
 
 export type StatisticsResponse = {
   __typename?: 'StatisticsResponse';
-  statistics?: Maybe<Array<Maybe<Statistics>>>;
+  statistics?: Maybe<Array<Statistics>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1376,7 +1401,7 @@ export type StatisticsSale = {
 
 export type StatisticsSaleResponse = {
   __typename?: 'StatisticsSaleResponse';
-  statisticsSales?: Maybe<Array<Maybe<StatisticsSale>>>;
+  statisticsSales?: Maybe<Array<StatisticsSale>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1454,7 +1479,7 @@ export type UpdateMemberInput = {
   status?: InputMaybe<Scalars['Boolean']['input']>;
   syncWithSendy?: InputMaybe<Scalars['Boolean']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
-  wallets?: InputMaybe<Array<InputMaybe<MemberWalletDataInput>>>;
+  wallets?: InputMaybe<Array<MemberWalletDataInput>>;
   zipCode?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1486,36 +1511,36 @@ export type UpdatePackageInput = {
 
 export type UpdatePrepaidCommissionInput = {
   commissionId?: InputMaybe<Scalars['ID']['input']>;
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   txId?: InputMaybe<Scalars['ID']['input']>;
   txType?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateProofByIdInput = {
   amount?: InputMaybe<Scalars['Float']['input']>;
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   mineLocation?: InputMaybe<Scalars['String']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt?: InputMaybe<Scalars['DateTimeISO']['input']>;
   refId?: InputMaybe<Scalars['ID']['input']>;
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   type?: InputMaybe<ProofType>;
 };
 
 export type UpdateSaleInput = {
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   memberId?: InputMaybe<Scalars['ID']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
   orderedAt?: InputMaybe<Scalars['DateTimeISO']['input']>;
   packageId?: InputMaybe<Scalars['ID']['input']>;
   paymentMethod?: InputMaybe<Scalars['String']['input']>;
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -1565,14 +1590,14 @@ export type WeeklyCommissionGetInput = {
 export type WeeklyCommissionResponse = {
   __typename?: 'WeeklyCommissionResponse';
   total?: Maybe<Scalars['Int']['output']>;
-  weeklyCommissions?: Maybe<Array<Maybe<WeeklyCommission>>>;
+  weeklyCommissions?: Maybe<Array<WeeklyCommission>>;
 };
 
 export type WeeklyCommissionUpdateInput = {
-  fileIds?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
-  reflinks?: InputMaybe<Array<InputMaybe<LinkInput>>>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
   status?: InputMaybe<ConfirmationStatus>;
 };
 
@@ -1593,6 +1618,13 @@ export type ResetTokenVerifyMutationVariables = Exact<{
 
 export type ResetTokenVerifyMutation = { __typename?: 'Mutation', resetTokenVerify: { __typename?: 'VerifyTokenResponse', email: string, token: string } };
 
+export type CalculateProfitabilityQueryVariables = Exact<{
+  data: ProfitabilityCalculationInput;
+}>;
+
+
+export type CalculateProfitabilityQuery = { __typename?: 'Query', calculateProfitability: { __typename?: 'ProfitabilityCalculationResponse', startDate: any, target: number, init: number, period: number, txc: number, txcCost: number, extraTXC: number, endDate: any, txcPrice: number } };
+
 export type WeeklyCommissionsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -1600,7 +1632,7 @@ export type WeeklyCommissionsQueryVariables = Exact<{
 }>;
 
 
-export type WeeklyCommissionsQuery = { __typename?: 'Query', weeklyCommissions: { __typename?: 'WeeklyCommissionResponse', total?: number | null, weeklyCommissions?: Array<{ __typename?: 'WeeklyCommission', id: string, ID: number, memberId: string, weekStartDate: any, begL: number, begR: number, newL: number, newR: number, maxL: number, maxR: number, endL: number, endR: number, pkgL: number, pkgR: number, commission: number, status: ConfirmationStatus, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, ID: number, username: string, fullName: string, sponsorId?: string | null, email: string, mobile: string, assetId?: string | null, primaryAddress: string, secondaryAddress?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, point: number, emailVerified: boolean, status: boolean, totalIntroducers: number } | null } | null> | null } };
+export type WeeklyCommissionsQuery = { __typename?: 'Query', weeklyCommissions: { __typename?: 'WeeklyCommissionResponse', total?: number | null, weeklyCommissions?: Array<{ __typename?: 'WeeklyCommission', id: string, ID: number, memberId: string, weekStartDate: any, begL: number, begR: number, newL: number, newR: number, maxL: number, maxR: number, endL: number, endR: number, pkgL: number, pkgR: number, commission: number, status: ConfirmationStatus, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, ID: number, username: string, fullName: string, sponsorId?: string | null, email: string, mobile: string, assetId?: string | null, primaryAddress: string, secondaryAddress?: string | null, city?: string | null, state?: string | null, zipCode?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, point: number, emailVerified: boolean, status: boolean, totalIntroducers: number } | null }> | null } };
 
 export type FetchCommissionStatsQueryVariables = Exact<{
   allFilter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1615,7 +1647,7 @@ export type FetchCommissionStatsQuery = { __typename?: 'Query', all: { __typenam
 export type FetchMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FetchMeQuery = { __typename?: 'Query', memberMe: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, ID: number, assetId?: string | null, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, primaryAddress: string, secondaryAddress?: string | null, mobile: string, ID: number, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, state?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, placementParent?: { __typename?: 'Member', id: string, email: string, point: number, state?: string | null, status: boolean, mobile: string, ID: number, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, totalIntroducers: number, secondaryAddress?: string | null, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, placementChildren?: Array<{ __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, ID: number, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, secondaryAddress?: string | null, preferredContact?: string | null, totalIntroducers: number, placementPosition?: PlacementPosition | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null> | null, sales?: Array<{ __typename?: 'Sale', id: string, ID: number, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any } | null> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, note?: string | null, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } };
+export type FetchMeQuery = { __typename?: 'Query', memberMe: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, ID: number, assetId?: string | null, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, primaryAddress: string, secondaryAddress?: string | null, mobile: string, ID: number, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, state?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, placementParent?: { __typename?: 'Member', id: string, email: string, point: number, state?: string | null, status: boolean, mobile: string, ID: number, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, totalIntroducers: number, secondaryAddress?: string | null, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, placementChildren?: Array<{ __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, ID: number, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, secondaryAddress?: string | null, preferredContact?: string | null, totalIntroducers: number, placementPosition?: PlacementPosition | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null }> | null, sales?: Array<{ __typename?: 'Sale', id: string, ID: number, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any }> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, note?: string | null, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null }> | null } };
 
 export type FetchMemberStatsQueryVariables = Exact<{
   inactiveFilter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1631,7 +1663,7 @@ export type FetchMembersQueryVariables = Exact<{
 }>;
 
 
-export type FetchMembersQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', total?: number | null, members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, ID: number, assetId?: string | null, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, placementParent?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, sales?: Array<{ __typename?: 'Sale', id: string, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any } | null> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null> | null } };
+export type FetchMembersQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', total?: number | null, members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, primaryAddress: string, secondaryAddress?: string | null, ID: number, assetId?: string | null, mobile: string, city?: string | null, emailVerified: boolean, totalIntroducers: number, status: boolean, state?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, zipCode?: string | null, sponsorId?: string | null, placementParentId?: string | null, placementPosition?: PlacementPosition | null, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, sponsor?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, placementParent?: { __typename?: 'Member', id: string, username: string, fullName: string, email: string, emailVerified: boolean, totalIntroducers: number, status: boolean, point: number, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, primaryAddress: string, secondaryAddress?: string | null, mobile: string, assetId?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null } | null, sales?: Array<{ __typename?: 'Sale', id: string, memberId: string, packageId: string, paymentMethod: string, status: boolean, orderedAt: any }> | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null }> | null }> | null } };
 
 export type CreateMemberMutationVariables = Exact<{
   data: CreateMemberInput;
@@ -1645,14 +1677,14 @@ export type FetchMemberQueryVariables = Exact<{
 }>;
 
 
-export type FetchMemberQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, mobile: string, primaryAddress: string, secondaryAddress?: string | null, ID: number, assetId?: string | null, deletedAt?: any | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null> | null } };
+export type FetchMemberQuery = { __typename?: 'Query', members: { __typename?: 'MembersResponse', members?: Array<{ __typename?: 'Member', id: string, username: string, fullName: string, email: string, point: number, emailVerified: boolean, totalIntroducers: number, status: boolean, mobile: string, primaryAddress: string, secondaryAddress?: string | null, ID: number, assetId?: string | null, deletedAt?: any | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null }> | null }> | null } };
 
 export type UpdateMemberMutationVariables = Exact<{
   data: UpdateMemberInput;
 }>;
 
 
-export type UpdateMemberMutation = { __typename?: 'Mutation', updateMember: { __typename?: 'Member', id: string, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', method: string, display: string } | null } | null> | null } };
+export type UpdateMemberMutation = { __typename?: 'Mutation', updateMember: { __typename?: 'Member', id: string, mobile: string, primaryAddress: string, secondaryAddress?: string | null, assetId?: string | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', method: string, display: string } | null }> | null } };
 
 export type MemberOverviewQueryVariables = Exact<{
   data: MemberOverviewInput;
@@ -1668,7 +1700,7 @@ export type MemberStatisticsQueryVariables = Exact<{
 }>;
 
 
-export type MemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', issuedAt: any, hashPower: number, txcShared: any } | null> | null } };
+export type MemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', issuedAt: any, hashPower: number, txcShared: any }> | null } };
 
 export type PayoutsQueryVariables = Exact<{
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1677,7 +1709,7 @@ export type PayoutsQueryVariables = Exact<{
 }>;
 
 
-export type PayoutsQuery = { __typename?: 'Query', payouts: { __typename?: 'PayoutResponse', total?: number | null, payouts?: Array<{ __typename?: 'Payout', id: string, method: string, display: string, name: string, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null> | null } };
+export type PayoutsQuery = { __typename?: 'Query', payouts: { __typename?: 'PayoutResponse', total?: number | null, payouts?: Array<{ __typename?: 'Payout', id: string, method: string, display: string, name: string, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null }> | null } };
 
 export type UpdatePasswordMemberMutationVariables = Exact<{
   data: UpdateMemberPasswordInput;
@@ -1707,7 +1739,7 @@ export type RewardQueryVariables = Exact<{
 }>;
 
 
-export type RewardQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, issuedAt: any, newBlocks: number, totalBlocks: number, totalHashPower: number, totalMembers: number, txcShared: any, from: any, to: any, status: boolean, statisticsSales?: Array<{ __typename?: 'StatisticsSale', id: string, saleId: string, issuedAt: any } | null> | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', txcShared: any, memberStatisticsWallets?: Array<{ __typename?: 'MemberStatisticsWallet', id: string } | null> | null } | null> | null } | null> | null } };
+export type RewardQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, issuedAt: any, newBlocks: number, totalBlocks: number, totalHashPower: number, totalMembers: number, txcShared: any, from: any, to: any, status: boolean, statisticsSales?: Array<{ __typename?: 'StatisticsSale', id: string, saleId: string, issuedAt: any }> | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', txcShared: any, memberStatisticsWallets?: Array<{ __typename?: 'MemberStatisticsWallet', id: string }> | null }> | null }> | null } };
 
 export type FetchMemberStatisticsQueryVariables = Exact<{
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -1716,7 +1748,7 @@ export type FetchMemberStatisticsQueryVariables = Exact<{
 }>;
 
 
-export type FetchMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, statisticsId: string, txcShared: any, hashPower: number, percent: number, issuedAt: any, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, emailVerified: boolean, totalIntroducers: number, status: boolean, email: string, point: number, mobile: string, ID: number, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, state?: string | null, primaryAddress: string, secondaryAddress?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null, statistics?: { __typename?: 'Statistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, newBlocks: number, totalBlocks: number, totalHashPower: number, totalMembers: number, status: boolean, txcShared: any, issuedAt: any, from: any, to: any } | null } | null> | null } };
+export type FetchMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, statisticsId: string, txcShared: any, hashPower: number, percent: number, issuedAt: any, member?: { __typename?: 'Member', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, username: string, fullName: string, emailVerified: boolean, totalIntroducers: number, status: boolean, email: string, point: number, mobile: string, ID: number, assetId?: string | null, syncWithSendy: boolean, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, state?: string | null, primaryAddress: string, secondaryAddress?: string | null, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null }> | null } | null, statistics?: { __typename?: 'Statistics', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, newBlocks: number, totalBlocks: number, totalHashPower: number, totalMembers: number, status: boolean, txcShared: any, issuedAt: any, from: any, to: any } | null }> | null } };
 
 export type CreateStatisticsMutationVariables = Exact<{
   data: CreateStatisticsInput;
@@ -1776,7 +1808,7 @@ export type MemberStatisticsWalletsQueryVariables = Exact<{
 }>;
 
 
-export type MemberStatisticsWalletsQuery = { __typename?: 'Query', memberStatisticsWallets: { __typename?: 'MemberStatisticsWalletResponse', memberStatisticsWallets?: Array<{ __typename?: 'MemberStatisticsWallet', id: string, txc: any, issuedAt: any, memberWallet?: { __typename?: 'MemberWallet', address: string } | null, memberStatistic?: { __typename?: 'MemberStatistics', hashPower: number, percent: number, txcShared: any } | null } | null> | null } };
+export type MemberStatisticsWalletsQuery = { __typename?: 'Query', memberStatisticsWallets: { __typename?: 'MemberStatisticsWalletResponse', memberStatisticsWallets?: Array<{ __typename?: 'MemberStatisticsWallet', id: string, txc: any, issuedAt: any, memberWallet?: { __typename?: 'MemberWallet', address: string } | null, memberStatistic?: { __typename?: 'MemberStatistics', hashPower: number, percent: number, txcShared: any } | null }> | null } };
 
 export type FetchSalesQueryVariables = Exact<{
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -1785,7 +1817,7 @@ export type FetchSalesQueryVariables = Exact<{
 }>;
 
 
-export type FetchSalesQuery = { __typename?: 'Query', sales: { __typename?: 'SalesResponse', total?: number | null, sales?: Array<{ __typename?: 'Sale', id: string, ID: number, status: boolean, memberId: string, orderedAt: any, packageId: string, paymentMethod: string, member?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, ID: number, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, totalIntroducers: number, secondaryAddress?: string | null, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null } | null> | null } | null, package?: { __typename?: 'Package', id: string, date: any, token: number, point: number, amount: number, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, productName: string, enrollVisibility: boolean } | null } | null> | null } };
+export type FetchSalesQuery = { __typename?: 'Query', sales: { __typename?: 'SalesResponse', total?: number | null, sales?: Array<{ __typename?: 'Sale', id: string, ID: number, status: boolean, memberId: string, orderedAt: any, packageId: string, paymentMethod: string, member?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, ID: number, assetId?: string | null, username: string, fullName: string, emailVerified: boolean, syncWithSendy: boolean, primaryAddress: string, totalIntroducers: number, secondaryAddress?: string | null, preferredContact?: string | null, preferredContactDetail?: string | null, cmnCalculatedWeeks: number, commission?: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } | null, memberWallets?: Array<{ __typename?: 'MemberWallet', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, memberId: string, payoutId: string, address: string, percent: number, payout?: { __typename?: 'Payout', id: string, method: string, status: boolean, name: string, display: string, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null }> | null } | null, package?: { __typename?: 'Package', id: string, date: any, token: number, point: number, amount: number, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, productName: string, enrollVisibility: boolean } | null }> | null } };
 
 export type FetchSaleStatsQueryVariables = Exact<{
   allFilter?: InputMaybe<Scalars['JSONObject']['input']>;
@@ -1802,7 +1834,7 @@ export type PackagesQueryVariables = Exact<{
 }>;
 
 
-export type PackagesQuery = { __typename?: 'Query', packages: { __typename?: 'PackageResponse', total?: number | null, packages?: Array<{ __typename?: 'Package', id: string, date: any, token: number, point: number, amount: number, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, productName: string, enrollVisibility: boolean } | null> | null } };
+export type PackagesQuery = { __typename?: 'Query', packages: { __typename?: 'PackageResponse', total?: number | null, packages?: Array<{ __typename?: 'Package', id: string, date: any, token: number, point: number, amount: number, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, productName: string, enrollVisibility: boolean }> | null } };
 
 export type LoginMutationVariables = Exact<{
   data: MemberLoginInput;
@@ -1846,7 +1878,7 @@ export type BlocksQueryVariables = Exact<{
 }>;
 
 
-export type BlocksQuery = { __typename?: 'Query', blocks: { __typename?: 'BlocksResponse', total?: number | null, blocks?: Array<{ __typename?: 'Block', id: string, blockNo: number, hashRate: number, difficulty: number, issuedAt: any, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null> | null } };
+export type BlocksQuery = { __typename?: 'Query', blocks: { __typename?: 'BlocksResponse', total?: number | null, blocks?: Array<{ __typename?: 'Block', id: string, blockNo: number, hashRate: number, difficulty: number, issuedAt: any, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null }> | null } };
 
 export type StatisticsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['String']['input']>;
@@ -1855,7 +1887,7 @@ export type StatisticsQueryVariables = Exact<{
 }>;
 
 
-export type StatisticsQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, totalHashPower: number, newBlocks: number, totalBlocks: number, totalMembers: number, txcShared: any, issuedAt: any, from: any, to: any, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null> | null } };
+export type StatisticsQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, totalHashPower: number, newBlocks: number, totalBlocks: number, totalMembers: number, txcShared: any, issuedAt: any, from: any, to: any, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null }> | null } };
 
 export type TxcMemberStatisticsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['String']['input']>;
@@ -1864,7 +1896,7 @@ export type TxcMemberStatisticsQueryVariables = Exact<{
 }>;
 
 
-export type TxcMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', id: string, hashPower: number, txcShared: any, issuedAt: any, percent: number, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', username: string, email: string, assetId?: string | null } | null, statistics?: { __typename?: 'Statistics', newBlocks: number, status: boolean } | null } | null> | null } };
+export type TxcMemberStatisticsQuery = { __typename?: 'Query', memberStatistics: { __typename?: 'MemberStatisticsResponse', total?: number | null, memberStatistics?: Array<{ __typename?: 'MemberStatistics', id: string, hashPower: number, txcShared: any, issuedAt: any, percent: number, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, member?: { __typename?: 'Member', username: string, email: string, assetId?: string | null } | null, statistics?: { __typename?: 'Statistics', newBlocks: number, status: boolean } | null }> | null } };
 
 export type HistoryStatisticsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['String']['input']>;
@@ -1873,7 +1905,7 @@ export type HistoryStatisticsQueryVariables = Exact<{
 }>;
 
 
-export type HistoryStatisticsQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, totalHashPower: number, newBlocks: number, totalBlocks: number, totalMembers: number, txcShared: any, issuedAt: any, from: any, to: any, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null } | null> | null } };
+export type HistoryStatisticsQuery = { __typename?: 'Query', statistics: { __typename?: 'StatisticsResponse', total?: number | null, statistics?: Array<{ __typename?: 'Statistics', id: string, totalHashPower: number, newBlocks: number, totalBlocks: number, totalMembers: number, txcShared: any, issuedAt: any, from: any, to: any, status: boolean, createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null }> | null } };
 
 export type BlocksDataQueryVariables = Exact<{
   data: PeriodStatsArgs;
@@ -1906,7 +1938,7 @@ export type CommissionByPeriodQuery = { __typename?: 'Query', commissionByPeriod
 export type RevenueOverviewQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RevenueOverviewQuery = { __typename?: 'Query', revenueOverview: { __typename?: 'RevenueOverviewResponse', revenue: number, spent?: Array<{ __typename?: 'RevenueSpentItem', label: string, value: number } | null> | null } };
+export type RevenueOverviewQuery = { __typename?: 'Query', revenueOverview: { __typename?: 'RevenueOverviewResponse', revenue: number, spent?: Array<{ __typename?: 'RevenueSpentItem', label: string, value: number }> | null } };
 
 export type TotalMemberCountsQueryVariables = Exact<{
   data: PeriodStatsArgs;
@@ -1947,6 +1979,7 @@ export type BlocksdataQuery = { __typename?: 'Query', blocksData: Array<{ __type
 
 export const GenerateReferenceLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateReferenceLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateReferenceLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]} as unknown as DocumentNode<GenerateReferenceLinkQuery, GenerateReferenceLinkQueryVariables>;
 export const ResetTokenVerifyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetTokenVerify"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resetTokenVerify"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}}]}}]}}]} as unknown as DocumentNode<ResetTokenVerifyMutation, ResetTokenVerifyMutationVariables>;
+export const CalculateProfitabilityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CalculateProfitability"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProfitabilityCalculationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"calculateProfitability"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"target"}},{"kind":"Field","name":{"kind":"Name","value":"init"}},{"kind":"Field","name":{"kind":"Name","value":"period"}},{"kind":"Field","name":{"kind":"Name","value":"txc"}},{"kind":"Field","name":{"kind":"Name","value":"txcCost"}},{"kind":"Field","name":{"kind":"Name","value":"extraTXC"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"txcPrice"}}]}}]}}]} as unknown as DocumentNode<CalculateProfitabilityQuery, CalculateProfitabilityQueryVariables>;
 export const WeeklyCommissionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WeeklyCommissions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyCommissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"memberId"}},{"kind":"Field","name":{"kind":"Name","value":"weekStartDate"}},{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}},{"kind":"Field","name":{"kind":"Name","value":"maxL"}},{"kind":"Field","name":{"kind":"Name","value":"maxR"}},{"kind":"Field","name":{"kind":"Name","value":"endL"}},{"kind":"Field","name":{"kind":"Name","value":"endR"}},{"kind":"Field","name":{"kind":"Name","value":"pkgL"}},{"kind":"Field","name":{"kind":"Name","value":"pkgR"}},{"kind":"Field","name":{"kind":"Name","value":"commission"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"member"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"sponsorId"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipCode"}},{"kind":"Field","name":{"kind":"Name","value":"placementParentId"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<WeeklyCommissionsQuery, WeeklyCommissionsQueryVariables>;
 export const FetchCommissionStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchCommissionStats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pendingFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"declineFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sentFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"all"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"pending"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pendingFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"decline"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"declineFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"sent"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sentFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<FetchCommissionStatsQuery, FetchCommissionStatsQueryVariables>;
 export const FetchMeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"fetchMe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberMe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContact"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContactDetail"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"zipCode"}},{"kind":"Field","name":{"kind":"Name","value":"sponsorId"}},{"kind":"Field","name":{"kind":"Name","value":"commission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sponsor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"commission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContact"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContactDetail"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"state"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placementParentId"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"placementParent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}},{"kind":"Field","name":{"kind":"Name","value":"commission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContact"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContactDetail"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}},{"kind":"Field","name":{"kind":"Name","value":"placementChildren"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}},{"kind":"Field","name":{"kind":"Name","value":"commission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContact"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"preferredContactDetail"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sales"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"memberId"}},{"kind":"Field","name":{"kind":"Name","value":"packageId"}},{"kind":"Field","name":{"kind":"Name","value":"paymentMethod"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"orderedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"memberWallets"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"memberId"}},{"kind":"Field","name":{"kind":"Name","value":"payoutId"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}},{"kind":"Field","name":{"kind":"Name","value":"note"}},{"kind":"Field","name":{"kind":"Name","value":"payout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"method"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"display"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}}]}}]} as unknown as DocumentNode<FetchMeQuery, FetchMeQueryVariables>;

@@ -44,6 +44,9 @@ export const paths = {
   // STATISTICS
   statistics: { root: ROOTS.STATISTICS },
 
+  // CALCULATOR
+  calculator: { root: ROOTS.CALCULATOR },
+
   // DASHBOARD
   dashboard: {
     root: '/',
@@ -65,7 +68,6 @@ export const paths = {
     sponsor: { root: ROOTS.SPONSOR },
     placement: { root: ROOTS.PLACEMENT },
     commission: { root: ROOTS.COMMISSION },
-    calculator: { root: ROOTS.CALCULATOR },
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },
     profile: {
       root: ROOTS.PROFILE,
