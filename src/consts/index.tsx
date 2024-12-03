@@ -70,3 +70,11 @@ export const OTHER_WALLET = [
   { id: 'f8717a04-6203-482a-bed0-58bfb9c6f7e0', method: 'USDT' },
   { id: 'ac26f196-d377-4846-8b86-7a7dda622d01', method: 'OTHER' },
 ];
+
+export const TARGET = [
+  { label: '100, 000', value: 100000 },
+  { label: '250, 000', value: 250000 },
+  { label: '500, 000', value: 500000 },
+  { label: '1, 000, 000', value: 1000000 },
+  { label: '5, 000, 000', value: 5000000 },
+];
