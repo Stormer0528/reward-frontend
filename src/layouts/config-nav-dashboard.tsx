@@ -62,7 +62,7 @@ export const navData = [
       { title: 'Commission', path: paths.dashboard.commission.root, icon: ICONS.commission },
       { title: 'Resource', path: paths.dashboard.resource.root, icon: ICONS.folder },
       { title: 'Reward', path: paths.dashboard.reward.root, icon: ICONS.reward },
-      { title: 'Calculator', path: paths.dashboard.calculator.root, icon: ICONS.calculator },
+      { title: 'Calculator', path: paths.calculator.root, icon: ICONS.calculator },
       { title: 'Profile', path: paths.dashboard.profile.root, icon: ICONS.user },
     ],
   },

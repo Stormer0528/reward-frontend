@@ -156,9 +156,20 @@ export function SignUpView() {
           Already have an account?
         </Typography>
 
-        <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
-          Sign in
-        </Link>
+        <Stack direction="row" columnGap={2}>
+          <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
+            Sign in
+          </Link>
+
+          <Link
+            component={RouterLink}
+            href={paths.calculator.root}
+            variant="subtitle2"
+            color="blue"
+          >
+            Calculator
+          </Link>
+        </Stack>
       </Stack>
     </Stack>
   );
