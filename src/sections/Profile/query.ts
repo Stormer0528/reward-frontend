@@ -22,6 +22,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       syncWithSendy
       preferredContact
       preferredContactDetail
+      cmnCalculatedWeeks
       status
       zipCode
       sponsorId
@@ -56,6 +57,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         syncWithSendy
         preferredContact
         preferredContactDetail
+        cmnCalculatedWeeks
         status
         state
       }
@@ -87,6 +89,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         totalIntroducers
         preferredContact
         preferredContactDetail
+        cmnCalculatedWeeks
       }
       placementChildren {
         id
@@ -112,6 +115,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         totalIntroducers
         placementPosition
         preferredContactDetail
+        cmnCalculatedWeeks
       }
       sales {
         id
@@ -191,6 +195,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         syncWithSendy
         preferredContact
         preferredContactDetail
+        cmnCalculatedWeeks
         status
         zipCode
         sponsorId
@@ -215,6 +220,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           syncWithSendy
           preferredContact
           preferredContactDetail
+          cmnCalculatedWeeks
           status
           primaryAddress
           secondaryAddress
@@ -243,6 +249,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           syncWithSendy
           preferredContact
           preferredContactDetail
+          cmnCalculatedWeeks
           status
           primaryAddress
           secondaryAddress

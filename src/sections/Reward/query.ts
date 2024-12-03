@@ -71,6 +71,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           syncWithSendy
           preferredContact
           preferredContactDetail
+          cmnCalculatedWeeks
           status
           state
           memberWallets {
