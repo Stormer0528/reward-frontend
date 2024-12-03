@@ -1,13 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
+import Autocomplete from '@mui/material/Autocomplete';
 
 import { today, customizeDate } from 'src/utils/format-time';
+
+import { TARGET } from 'src/consts';
 
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
@@ -18,10 +22,11 @@ import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 
 export default function EditForm() {
+  const [target, setTarget] = useState(100000);
+
   const defaultValues = useMemo(
     () => ({
       init: 0,
-      target: 0,
       joinDate: `${today('YYYY-MM-DD')}`,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,10 +43,10 @@ export default function EditForm() {
   const { loading, data, calculateProfitability } = useCalculation();
   const { packages, fetchPackages } = useFetchPackages();
 
-  const onSubmit = handleSubmit(async ({ joinDate, ...rest }) => {
+  const onSubmit = handleSubmit(async ({ joinDate, init }) => {
     try {
       await calculateProfitability({
-        variables: { data: { ...rest, joinDate: customizeDate(joinDate) } },
+        variables: { data: { init, target: +target, joinDate: customizeDate(joinDate) } },
       });
     } catch (err) {
       toast.error(err.message);
@@ -78,7 +83,22 @@ export default function EditForm() {
               </MenuItem>
             ))}
           </Field.Select>
-          <Field.Text type="number" name="target" label="Target ($)" />
+          <Autocomplete
+            freeSolo
+            fullWidth
+            options={TARGET}
+            getOptionLabel={(option: any) => option.label}
+            renderInput={(params) => (
+              <TextField {...params} name="target" label="Target ($)" margin="none" />
+            )}
+            renderOption={(props, option) => (
+              <li {...props} key={option!.label}>
+                {option.label}
+              </li>
+            )}
+            onChange={(_, value: any) => setTarget(value.value)}
+            onInputChange={(_, value: any) => setTarget(value)}
+          />
           <Field.DatePicker name="joinDate" label="Join Date" format="YYYY-MM-DD" />
         </Box>
 
