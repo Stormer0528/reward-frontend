@@ -34,6 +34,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
           secondaryAddress
           preferredContact
           preferredContactDetail
+          cmnCalculatedWeeks
           memberWallets {
             createdAt
             updatedAt
