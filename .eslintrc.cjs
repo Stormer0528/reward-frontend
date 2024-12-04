@@ -76,6 +76,8 @@ module.exports = {
           'style',
           'type',
           ['builtin', 'external'],
+          'custom-ag-grid-community',
+          'custom-ag-grid-enterprise',
           'custom-mui',
           'custom-routes',
           'custom-hooks',
@@ -93,6 +95,8 @@ module.exports = {
         'custom-groups': {
           value: {
             ['custom-mui']: '@mui/**',
+            ['custom-ag-grid-community']: '@ag-grid-community/**',
+            ['custom-ag-grid-enterprise']: '@ag-grid-enterprise/**',
             ['custom-auth']: 'src/auth/**',
             ['custom-hooks']: 'src/hooks/**',
             ['custom-utils']: 'src/utils/**',
@@ -106,4 +110,17 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['src/components/AgGrid/ClientSideRowModel/**/*.ts'],
+      rules: {
+        'class-methods-use-this': 0,
+        'no-plusplus': 0,
+        eqeqeq: 0,
+        'default-case': 0,
+        'no-constant-condition': 0,
+        'no-continue': 0,
+      },
+    },
+  ],
 };

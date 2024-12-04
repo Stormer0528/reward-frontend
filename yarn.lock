@@ -7,6 +7,109 @@
   resolved "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
+"@ag-grid-community/core@^32.2.1", "@ag-grid-community/core@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-community/core/-/core-32.3.3.tgz"
+  integrity sha512-JMr5ahDjjl+pvQbBM1/VrfVFlioCVnMl1PKWc6MC1ENhpXT1+CPQdfhUEUw2VytOulQeQ4eeP0pFKPuBZ5Jn2g==
+  dependencies:
+    ag-charts-types "10.3.3"
+    tslib "^2.3.0"
+
+"@ag-grid-community/csv-export@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-community/csv-export/-/csv-export-32.3.3.tgz"
+  integrity sha512-uu5BdegnQCpoySFbhd7n0/yK9mMoepZMN6o36DblPydLXCOLEqOuroIPqQv008slDOK676Pe/O6bMszY3/MUlQ==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    tslib "^2.3.0"
+
+"@ag-grid-community/react@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-community/react/-/react-32.3.3.tgz"
+  integrity sha512-YU8nOMZjvJsrbbW41PT1jFZQw67p1RGvTk3W7w1dFmtzXFOoXzpB2pWf2jMxREyLYGvz2P9TwmfeHEM50osSPQ==
+  dependencies:
+    prop-types "^15.8.1"
+
+"@ag-grid-community/styles@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-community/styles/-/styles-32.3.3.tgz"
+  integrity sha512-QAJc1CPbmFsAAq5M/8r0IOm8HL4Fb3eVK6tZXKzV9zibIereBjUwvvJRaSJa8iwtTlgxCtaULAQyE2gJcctphA==
+
+"@ag-grid-community/theming@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-community/theming/-/theming-32.3.3.tgz"
+  integrity sha512-yIM2Ff0zxveVqUB0Uy4c0pe2q3MrFc6PrZvPcI/aLTYgmlEliWbO1PzWh8zIiRlgc6AxLT3c6ky9nvkRYzGohg==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    tslib "^2.6.3"
+
+"@ag-grid-enterprise/clipboard@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/clipboard/-/clipboard-32.3.3.tgz"
+  integrity sha512-W9AuZCmLU/wCk6qAMpcijbQ6jgHnLAoz8rnxExeIwIEfVBZ5HcPahwbT28eksGmPjc+rpPzLLzP8KQBnSpGU4A==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-community/csv-export" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
+"@ag-grid-enterprise/column-tool-panel@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/column-tool-panel/-/column-tool-panel-32.3.3.tgz"
+  integrity sha512-Gw5C6vb1mGwiyutMMDL0S+6lTMmbSApNkZUhFXk1DX0c83ftHAf05qF1D3o5cc+aVHNV7E2EkLuwLIBihW/dsw==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+    "@ag-grid-enterprise/row-grouping" "32.3.3"
+    "@ag-grid-enterprise/side-bar" "32.3.3"
+
+"@ag-grid-enterprise/core@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/core/-/core-32.3.3.tgz"
+  integrity sha512-8qsBPIdx55qY1sqOpmaiSgYXZT5qRy6wScN2goaXDpffxkyTNiQgs6Iq0YdW4c6VJM4Ua87B0RuysOI925ZQ9A==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+
+"@ag-grid-enterprise/menu@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/menu/-/menu-32.3.3.tgz"
+  integrity sha512-cCr8eLY9xoDgH/3lojy1wb0zqXRxPUsZwmlID7In5L1UMvMat42Trh2N9gu9qhtOft9LOYfI+Vz2zmPtlpZNug==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/column-tool-panel" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
+"@ag-grid-enterprise/range-selection@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/range-selection/-/range-selection-32.3.3.tgz"
+  integrity sha512-az7vdldLbkSjIE0VlVDI1ig9V0+GPTNVu1+HkxL/fs/hYjBWtJW/DnVVXABvE9FsL4xbkmhIU14NhUEhufqgyw==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
+"@ag-grid-enterprise/row-grouping@^32.2.1", "@ag-grid-enterprise/row-grouping@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/row-grouping/-/row-grouping-32.3.3.tgz"
+  integrity sha512-tcxcNuK6Sf/RXhAyFKd+oo8w6Pb4kEI037x650jFW7+G+CndZ7+GOvfI7T4p/oYxiDuUQIJRRlD1YSdzRwKoFQ==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
+"@ag-grid-enterprise/set-filter@^32.2.1":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/set-filter/-/set-filter-32.3.3.tgz"
+  integrity sha512-qYjIcTrBl8Rd9kvWH0X9oyNofI1ZA52C2x8bW9DKFmgx/drhf85a1iL3E33JVJpZxE1btCcns3SQuPjbXLZI7Q==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
+"@ag-grid-enterprise/side-bar@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/side-bar/-/side-bar-32.3.3.tgz"
+  integrity sha512-G2MkzV+BhnQZsxLxxIjB3Y2s6O3Wewi5BUEj5bQ6rsKi3Hl1Cyx6w5K1+qyh4TahR6fAfbnB6ymBtsYV1PNmGQ==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
 "@ampproject/remapping@^2.2.0":
   version "2.3.0"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.3.0.tgz"
@@ -1931,6 +2034,11 @@ acorn-jsx@^5.3.2:
   version "8.11.2"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.11.2.tgz"
   integrity sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==
+
+ag-charts-types@10.3.3:
+  version "10.3.3"
+  resolved "https://registry.npmjs.org/ag-charts-types/-/ag-charts-types-10.3.3.tgz"
+  integrity sha512-8rmyquaTkwfP4Lzei/W/cbkq9wwEl8+grIo3z97mtxrMIXh9sHJK1oJipd/u08MmBZrca5Jjtn5F1+UNPu/4fQ==
 
 agent-base@^7.0.2, agent-base@^7.1.0:
   version "7.1.1"
@@ -5173,7 +5281,7 @@ react-apexcharts@^1.4.1:
   dependencies:
     prop-types "^15.8.1"
 
-"react-dom@^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^17.0.0 || ^18.0.0", react-dom@^18.0.0, react-dom@^18.3.1, "react-dom@>= 16.12.0", react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0, react-dom@>=17:
+"react-dom@^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom@^17.0.0 || ^18.0.0", react-dom@^18.0.0, react-dom@^18.3.1, "react-dom@>= 16.12.0", react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0, react-dom@>=17:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz"
   integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
@@ -5293,7 +5401,7 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@*, "react@^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x", "react@^16.6.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.3.1, "react@>= 16.12.0", "react@>= 16.8 || 18.0.0", react@>=0.13, react@>=16, react@>=16.0.0, react@>=16.6.0, react@>=16.8, react@>=16.8.0, react@>=17:
+react@*, "react@^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x", "react@^16.6.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.3.1, "react@>= 16.12.0", "react@>= 16.8 || 18.0.0", react@>=0.13, react@>=16, react@>=16.0.0, react@>=16.6.0, react@>=16.8, react@>=16.8.0, react@>=17:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
   integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
@@ -6102,6 +6210,11 @@ tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@^2.4
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
+
+tslib@^2.6.3:
+  version "2.8.1"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz"
+  integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"

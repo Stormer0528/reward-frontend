@@ -1,5 +1,7 @@
 export * from './useQuery';
 
+export * from './useAgQuery';
+
 export * from './useActiveLink';
 
 export * from './useDataGridQuery';
