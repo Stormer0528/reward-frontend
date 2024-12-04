@@ -1,5 +1,4 @@
 import states from 'states-us';
-import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
@@ -28,39 +27,8 @@ import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
 import { useSignUp } from './useApollo';
+import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
-
-// ----------------------------------------------------------------------
-
-export type SignUpSchemaType = zod.infer<typeof SignUpSchema>;
-
-export const SignUpSchema = zod
-  .object({
-    firstName: zod.string({ required_error: 'First Name is required' }),
-    lastName: zod.string({ required_error: 'Last Name is required' }),
-    email: zod
-      .string({ required_error: 'Email is required' })
-      .email({ message: 'Invalid email address is provided' }),
-    mobile: zod.string(),
-    city: zod.string(),
-    zipCode: zod.string(),
-    state: zod.string(),
-    primaryAddress: zod.string(),
-    packageId: zod.string(),
-    sponsorUserId: zod.string(),
-    secondaryAddress: zod.string(),
-    paymentMethod: zod.string(),
-    password: zod
-      .string()
-      .min(1, { message: 'Password is required!' })
-      .min(6, { message: 'Password must be at least 6 characters!' }),
-    confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
-    assetId: zod.string().optional().nullable(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match!',
-    path: ['confirmPassword'],
-  });
 
 // ----------------------------------------------------------------------
 
@@ -97,8 +65,8 @@ export function SignUpView() {
     city: '',
   };
 
-  const methods = useForm<SignUpSchemaType>({
-    resolver: zodResolver(SignUpSchema),
+  const methods = useForm<SchemaType>({
+    resolver: zodResolver(Schema),
     defaultValues,
   });
 

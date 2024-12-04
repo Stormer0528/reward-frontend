@@ -23,7 +23,7 @@ export const CustomName = memo(({ id, username, email }: Props) => {
         '&:hover': { bgcolor: (theme) => theme.vars.palette.action.hover },
       }}
       onClick={() => {
-        router.push(paths.dashboard.members.edit(id));
+        router.push(paths.dashboard.profile.root);
       }}
     >
       <ListItemText

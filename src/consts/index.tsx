@@ -78,3 +78,12 @@ export const TARGET = [
   { label: '1, 000, 000', value: 1000000 },
   { label: '5, 000, 000', value: 5000000 },
 ];
+
+export enum State {
+  Approved = 'Approved',
+  Draft = 'Draft',
+  NeedApproval = 'NeedApproval',
+  NeedRevision = 'NeedRevision',
+  Printed = 'Printed',
+  Voided = 'Voided',
+}
