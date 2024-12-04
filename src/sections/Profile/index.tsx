@@ -17,7 +17,6 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-// import Sale from './Sale';
 import General from './General';
 import History from './History';
 
@@ -28,7 +27,6 @@ const TABS = [
     icon: <Iconify icon="carbon:analytics" width={24} />,
   },
   { value: 'edit', label: 'Edit', icon: <Iconify icon="solar:pen-2-bold" width={24} /> },
-  // { value: 'sale', label: 'Sale', icon: <Iconify icon="bi:currency-exchange" /> },
   // { value: 'commission', label: 'Commission', icon: <Iconify icon="fluent:reward-32-regular" /> },
 ];
 
@@ -69,8 +67,6 @@ export default function Profile() {
         {tabs.value === 'edit' && <General me={user} />}
 
         {tabs.value === 'history' && <History me={user} />}
-
-        {/* {tabs.value === 'sale' && <Sale me={user} />} */}
 
         {/* {tabs.value === 'commission' && <Commission me={user} />} */}
       </DashboardContent>

@@ -1,10 +1,20 @@
 import { useRef, useMemo } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
+
+import { useAgQuery as useQueryString } from 'src/routes/hooks';
+
+import { parseFilterModel } from 'src/utils/parseFilter';
 
 import { FETCH_SALES_QUERY, FETCH_PACKAGES_QUERY, FETCH_SALES_STATS_QUERY } from './query';
 
 export function useFetchSales() {
-  const [fetchSales, { loading, data }] = useLazyQuery(FETCH_SALES_QUERY);
+  const [{ page = '1,25', sort = 'orderedAt', filter }] = useQueryString();
+
+  const graphQueryFilter = useMemo(() => parseFilterModel({}, filter), [filter]);
+
+  const { loading, data, called } = useQuery(FETCH_SALES_QUERY, {
+    variables: { filter: graphQueryFilter, page, sort },
+  });
 
   const rowCountRef = useRef(data?.sales.total ?? 0);
 
@@ -19,10 +29,10 @@ export function useFetchSales() {
   }, [data]);
 
   return {
+    called,
     loading,
     rowCount,
     sales: data?.sales.sales ?? [],
-    fetchSales,
   };
 }
 
