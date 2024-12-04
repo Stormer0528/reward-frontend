@@ -21,14 +21,13 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
-import { PAYMENT_TYPE } from 'src/consts';
-
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
 import { useSignUp } from './useApollo';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
+import { useFetchPayments } from '../Payment/useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -75,6 +74,7 @@ export function SignUpView() {
     formState: { isSubmitting },
   } = methods;
 
+  const { payments } = useFetchPayments();
   const { packages, fetchPackages } = useFetchPackages();
   const { submitSignUp } = useSignUp();
 
@@ -206,9 +206,9 @@ export function SignUpView() {
         </Field.Select>
 
         <Field.Select name="paymentMethod" label="Payment Method">
-          {PAYMENT_TYPE.map((option) => (
-            <MenuItem key={option.label} value={option.value}>
-              {option.value}
+          {payments.map((option) => (
+            <MenuItem key={option.name} value={option.name}>
+              {option.name}
             </MenuItem>
           ))}
         </Field.Select>
