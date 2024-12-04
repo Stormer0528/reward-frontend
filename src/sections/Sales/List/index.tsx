@@ -31,7 +31,7 @@ export default function SaleListView() {
         resizable: true,
         editable: false,
         cellRenderer: ({ data }: CustomCellRendererProps<Sale>) => formatID(data?.ID ?? '', 'S'),
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'ag-number-cell',
       },
       {
         field: 'member.assetId',
@@ -41,7 +41,6 @@ export default function SaleListView() {
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
-        cellClass: 'ag-cell-center',
       },
       {
         field: 'package.productName',
@@ -51,7 +50,6 @@ export default function SaleListView() {
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
-        cellClass: 'ag-cell-center',
       },
       {
         field: 'paymentMethod',
@@ -61,7 +59,6 @@ export default function SaleListView() {
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
-        cellClass: 'ag-cell-center',
       },
       {
         field: 'package.amount',
@@ -70,7 +67,7 @@ export default function SaleListView() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'ag-number-cell',
       },
       {
         field: 'package.token',
@@ -79,7 +76,6 @@ export default function SaleListView() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-cell-center',
       },
       {
         field: 'package.point',
@@ -88,7 +84,7 @@ export default function SaleListView() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'ag-number-cell',
       },
       {
         field: 'orderedAt',
@@ -104,7 +100,6 @@ export default function SaleListView() {
         editable: false,
         initialSort: 'desc',
         cellRenderer: ({ data }: CustomCellRendererProps<Sale>) => formatDate(data?.createdAt),
-        cellClass: 'ag-cell-center',
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
