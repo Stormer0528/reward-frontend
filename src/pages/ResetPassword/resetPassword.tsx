@@ -41,7 +41,7 @@ export default function Page() {
     if (!loading && data && !error) {
       setIsOpen(true);
     } else if (!loading && !data && error) {
-      toast.error('Invalid token!');
+      toast.error(error.message);
 
       setTimeout(() => {
         window.location.href = paths.forgotPassword;
