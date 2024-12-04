@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 
 import { useAgQuery as useQueryString } from 'src/routes/hooks';
 
@@ -35,10 +35,8 @@ export function useFetchPayments() {
   };
 }
 
-export function useFetchPayment(id: string) {
-  const { loading, data } = useQuery(FETCH_PAYMENT_QUERY, {
-    variables: { filter: { id } },
-  });
+export function useFetchPayment() {
+  const [fetchPayment, { loading, data }] = useLazyQuery(FETCH_PAYMENT_QUERY);
 
-  return { loading, payment: data?.paymentMethods.paymentMethods ?? [] };
+  return { loading, payment: data?.paymentMethods.paymentMethods ?? [], fetchPayment };
 }

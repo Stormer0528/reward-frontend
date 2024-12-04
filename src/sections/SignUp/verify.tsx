@@ -14,13 +14,13 @@ import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { useCountdownSeconds } from 'src/hooks/use-countdown';
 
-import { CREDIT_LINKS } from 'src/consts';
 import { EmailInboxIcon } from 'src/assets/icons';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
+import { useFetchPayment } from '../Payment/useApollo';
 import { useVerifyEmail, useSendEmailVerification } from './useApollo';
 
 // ----------------------------------------------------------------------
@@ -65,6 +65,7 @@ export default function AmplifyVerifyView() {
   const values = watch();
 
   const { result, sendVerification } = useSendEmailVerification();
+  const { fetchPayment } = useFetchPayment();
   const { verifyEmail } = useVerifyEmail();
 
   const onSubmit = handleSubmit(async (data) => {
@@ -86,13 +87,32 @@ export default function AmplifyVerifyView() {
           emailVerify: { packageId, paymentMethod },
         } = verifyResult;
 
+        const { data: paymentData } = await fetchPayment({
+          variables: { filter: { name: paymentMethod } },
+        });
+
         setTimeout(() => {
-          if (packageId && paymentMethod === 'Credit Card') {
-            CREDIT_LINKS.forEach((item) => {
-              if (item.label === packageId) {
+          const current = paymentData?.paymentMethods.paymentMethods?.[0];
+
+          console.log('current => ', current);
+          console.log('packageId => ', packageId);
+          console.log('length => ', current?.paymentMethodLinks?.length);
+
+          if (packageId && current?.paymentMethodLinks?.length) {
+            console.log('here');
+            current.paymentMethodLinks.forEach((item) => {
+              if (item.packageId === packageId) {
                 window.location.href = item.link;
               }
             });
+
+            // CREDIT_LINKS.forEach((item) => {
+            //   if (item.label === packageId) {
+            //     window.location.href = item.link;
+            //   }
+            // });
+          } else if (current?.defaultLink) {
+            window.location.href = current.defaultLink;
           } else {
             router.push(paths.auth.signIn);
           }
