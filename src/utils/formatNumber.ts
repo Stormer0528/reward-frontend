@@ -11,7 +11,7 @@ type Options = Intl.NumberFormatOptions | undefined;
 
 const locale = { code: 'en-US', currency: 'USD' };
 
-function processInput(inputValue: InputNumberValue): number | null {
+export function processInput(inputValue: InputNumberValue): number | null {
   if (inputValue == null || Number.isNaN(inputValue)) return null;
   return Number(inputValue);
 }
