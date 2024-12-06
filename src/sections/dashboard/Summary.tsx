@@ -9,8 +9,8 @@ import { useTabs } from 'src/hooks/use-tabs';
 
 import { formatDate } from 'src/utils/format-time';
 
-import ChartWidget from 'src/components/ChartWidget';
 import { CustomTabs } from 'src/components/custom-tabs';
+import { ChartWidget } from 'src/components/CustomChart';
 
 import { FETCH_STATISTICS_QUERY, FETCH_BLOCKS_DATA_QUERY } from './query';
 
