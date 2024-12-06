@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { alpha, useTheme } from '@mui/material/styles';
 
-import ChartWidget from 'src/components/ChartWidget';
+import { ChartWidget } from 'src/components/CustomChart';
 
 import { useFetchBlocksQuery } from '../useApollo';
 

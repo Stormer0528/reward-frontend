@@ -47,7 +47,7 @@ type Props = CardProps & {
   unit?: string;
 };
 
-export default function ChartWidget({
+export function ChartWidget({
   loading,
   title,
   subheader,

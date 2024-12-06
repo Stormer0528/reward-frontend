@@ -157,6 +157,7 @@ export const FETCH_COMMISSION_BY_PERIOD = gql(/* GraphQL */ `
       base
       baseDate
       commission
+      revenue
     }
   }
 `);

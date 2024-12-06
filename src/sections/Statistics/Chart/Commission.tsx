@@ -3,12 +3,11 @@ import { useState, useEffect, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import { alpha, useTheme } from '@mui/material/styles';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
 import { ChartSelect } from 'src/components/chart';
-import ChartWidget from 'src/components/ChartWidget';
+import { ChartMixed } from 'src/components/CustomChart';
 
 import { useFetchCommissionByPeriod } from '../useApollo';
 
@@ -22,7 +21,6 @@ const series = [
 
 export default function MemberReward() {
   const [selectedSeries, setSelectedSeries] = useState('Week');
-  const theme = useTheme();
 
   const handleChangeSeries = useCallback((newValue: string) => {
     setSelectedSeries(newValue);
@@ -32,6 +30,8 @@ export default function MemberReward() {
 
   const { loading, commission, fetchCommissionByPeriod } = useFetchCommissionByPeriod();
 
+  const max = Math.max(...commission.map((item) => item.revenue));
+
   useEffect(() => {
     fetchCommissionByPeriod({ variables: { data: { type: currentSeries?.value ?? '' } } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +39,7 @@ export default function MemberReward() {
   return (
     <Card>
       <CardHeader
-        title="Commission"
+        title="Revenue & Commission"
         action={
           <ChartSelect
             options={series.map((item) => item.label)}
@@ -49,14 +49,20 @@ export default function MemberReward() {
         }
       />
 
-      <ChartWidget
+      <ChartMixed
         loading={loading}
         chart={{
           categories: commission!.map((item) => item.base).reverse(),
           series: [
             {
               name: 'Commission',
-              data: commission.map((item) => item.commission).reverse(),
+              type: 'column',
+              data: commission.map((item) => item.commission / 1000).reverse(),
+            },
+            {
+              name: 'Revenue',
+              type: 'area',
+              data: commission.map((item) => item.revenue / 1000).reverse(),
             },
           ],
           options: {
@@ -72,16 +78,15 @@ export default function MemberReward() {
                 .reverse(),
             },
             yaxis: {
+              stepSize: Math.floor(max / 4000),
               labels: {
-                formatter(val) {
-                  return `${Math.floor(val)}`;
+                formatter(val: any) {
+                  return `${Math.floor(val)}K`;
                 },
               },
             },
           },
-          colors: [alpha(theme.palette.primary.dark, 0.8)],
         }}
-        card
       />
     </Card>
   );
