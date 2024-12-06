@@ -56,7 +56,7 @@ const documents = {
     "\n  query BlocksData($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      hashRate\n      difficulty\n      base\n      baseDate\n    }\n  }\n": types.BlocksDataDocument,
     "\n  query NewMemberCounts($data: PeriodStatsArgs!) {\n    newMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n": types.NewMemberCountsDocument,
     "\n  query AverageMemberReward($data: PeriodStatsArgs!) {\n    averageMemberReward(data: $data) {\n      base\n      baseDate\n      reward\n    }\n  }\n": types.AverageMemberRewardDocument,
-    "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n": types.CommissionByPeriodDocument,
+    "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n      revenue\n    }\n  }\n": types.CommissionByPeriodDocument,
     "\n  query RevenueOverview {\n    revenueOverview {\n      revenue\n      spent {\n        label\n        value\n      }\n    }\n  }\n": types.RevenueOverviewDocument,
     "\n  query TotalMemberCounts($data: PeriodStatsArgs!) {\n    totalMemberCounts(data: $data) {\n      base\n      baseDate\n      minerCount\n    }\n  }\n": types.TotalMemberCountsDocument,
     "\n  query LatestStatistics {\n    latestStatistics {\n      id\n      newBlocks\n      totalMembers\n      txcShared\n      issuedAt\n    }\n  }\n": types.LatestStatisticsDocument,
@@ -255,7 +255,7 @@ export function gql(source: "\n  query AverageMemberReward($data: PeriodStatsArg
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n"): (typeof documents)["\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n    }\n  }\n"];
+export function gql(source: "\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n      revenue\n    }\n  }\n"): (typeof documents)["\n  query CommissionByPeriod($data: PeriodStatsArgs!) {\n    commissionByPeriod(data: $data) {\n      base\n      baseDate\n      commission\n      revenue\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

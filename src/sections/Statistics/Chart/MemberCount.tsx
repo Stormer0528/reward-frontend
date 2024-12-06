@@ -8,7 +8,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { formatWeekNumber } from 'src/utils/format-time';
 
 import { ChartSelect } from 'src/components/chart';
-import ChartWidget from 'src/components/ChartWidget';
+import { ChartWidget } from 'src/components/CustomChart';
 
 import { useFetchMemberCounts } from '../useApollo';
 
