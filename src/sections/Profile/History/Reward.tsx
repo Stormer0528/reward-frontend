@@ -10,7 +10,7 @@ import { useQuery } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 
-import ChartWidget from 'src/components/ChartWidget';
+import { ChartWidget } from 'src/components/CustomChart';
 
 import { FETCH_MEMBER_STATISTICS } from '../query';
 
