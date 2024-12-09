@@ -26,6 +26,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       status
       zipCode
       sponsorId
+      placementPosition
+      teamStrategy
       commission {
         begL
         begR
@@ -60,6 +62,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         cmnCalculatedWeeks
         status
         state
+        placementPosition
+        teamStrategy
       }
       placementParentId
       placementPosition
@@ -90,6 +94,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         preferredContact
         preferredContactDetail
         cmnCalculatedWeeks
+        placementPosition
+        teamStrategy
       }
       placementChildren {
         id
@@ -116,6 +122,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         placementPosition
         preferredContactDetail
         cmnCalculatedWeeks
+        placementPosition
+        teamStrategy
       }
       sales {
         id

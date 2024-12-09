@@ -13,6 +13,7 @@ export const Schema = zod.object({
   zipCode: zod.string().optional().nullable(),
   state: zod.string().optional().nullable(),
   primaryAddress: zod.string({ required_error: 'Address is required' }),
+  teamStrategy: zod.string({ required_error: 'Team Strategy is required' }),
   secondaryAddress: zod.string().optional().nullable(),
   sponsorId: zod.string().optional().nullable(),
   assetId: zod.string().optional().nullable(),

@@ -1,5 +1,3 @@
-import type { Member } from 'src/__generated__/graphql';
-
 import isEqual from 'lodash/isEqual';
 import { useForm } from 'react-hook-form';
 import { useMemo, useState, useEffect } from 'react';
@@ -18,7 +16,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { CONTACT, TXC_WALLET, OTHER_WALLET } from 'src/consts';
+import { CONTACT } from 'src/consts';
+import { type Member, TeamStrategy } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
@@ -26,6 +25,7 @@ import { Form, Field } from 'src/components/Form';
 import TXCWallets from './txcWallets';
 import OtherWallets from './otherWallets';
 import { Schema, type SchemaType } from './schema';
+import { getWallets, hasDuplicates } from './helper';
 import { UPDATE_MEMBER, FETCH_MEMBERS_QUERY } from '../query';
 
 // ----------------------------------------------------------------------
@@ -38,32 +38,6 @@ interface Edit {
   id: string;
   username: string;
 }
-
-const getWallets = (memberWallets: any) => {
-  if (!Array.isArray(memberWallets)) return [[], []];
-
-  const txcWallets: any[] = memberWallets
-    .filter((mw) => TXC_WALLET.findIndex((TXCWALLET) => TXCWALLET.id === mw.payout.id) !== -1)
-    .map((mw) => ({
-      id: mw.id,
-      payoutId: mw.payout.id,
-      address: mw.address,
-      note: mw.note,
-      percent: mw.percent,
-    }));
-
-  const otherWallets: any = memberWallets
-    .filter((mw) => OTHER_WALLET.findIndex((TXCWALLET) => TXCWALLET.id === mw.payout.id) !== -1)
-    .map((mw) => ({
-      id: mw.id,
-      payoutId: mw.payout.id,
-      address: mw.address,
-      note: mw.note,
-      percent: mw.percent,
-    }));
-
-  return [txcWallets, otherWallets];
-};
 
 export default function MemberGeneral({ me }: Props) {
   const router = useRouter();
@@ -98,20 +72,6 @@ export default function MemberGeneral({ me }: Props) {
   });
 
   const { setError, handleSubmit } = methods;
-
-  const hasDuplicates = (arr: any[]) => {
-    const seen = new Set();
-
-    return arr.some((item: any) => {
-      if (seen.has(item.address)) {
-        return true;
-      }
-
-      seen.add(item.address);
-
-      return false;
-    });
-  };
 
   const onSubmit = handleSubmit(async (newMember) => {
     try {
@@ -149,6 +109,7 @@ export default function MemberGeneral({ me }: Props) {
               preferredContact: newMember.preferredContact,
               preferredContactDetail: newMember.preferredContactDetail,
               zipCode: newMember.zipCode,
+              teamStrategy: newMember.teamStrategy as TeamStrategy,
               wallets: [...newMember.txcWallets, ...newMember.otherWallets].map(
                 ({ percent, ...rest }) => ({
                   percent: percent * 100,
@@ -277,6 +238,13 @@ export default function MemberGeneral({ me }: Props) {
                 ))}
               </Field.Select>
               <Field.Text name="preferredContactDetail" label="Preferred Contact Detail" />
+              <Field.Select name="teamStrategy" label="Team Strategy">
+                {Object.values(TeamStrategy).map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Field.Select>
             </Box>
           </Card>
         </Grid>
