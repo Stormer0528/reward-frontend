@@ -63,7 +63,7 @@ export type MemberWallet = {
 
 export type Member = {
   __typename?: 'Member';
-  ID: number;
+  ID: string;
   adminNotes?: Array<AdminNotes> | null;
   assetId?: string | null;
   city?: string | null;

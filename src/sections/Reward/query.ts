@@ -74,6 +74,8 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           cmnCalculatedWeeks
           status
           state
+          placementPosition
+          teamStrategy
           memberWallets {
             createdAt
             updatedAt
