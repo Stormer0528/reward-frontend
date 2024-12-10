@@ -54,36 +54,39 @@ export default function Detail() {
           mb: { xs: 2, md: 3 },
         }}
       />
-      <Typography variant="h4">{current.title}</Typography>
-      <Typography variant="body1" sx={{ mb: 2 }}>
-        {current.date}, {current.category?.title}
-      </Typography>
-
-      <Grid container sx={{ mb: 2 }}>
-        <Grid xl={6}>
-          <MediaPlayer url={current.videoUrl} controls />
-        </Grid>
-        <Grid xl={6}>
-          <Typography sx={{ ...maxLine({ line: 10 }), mb: 3 }}>{current.quickSummary}</Typography>
-        </Grid>
-      </Grid>
-
-      <Stack sx={{ mb: 3 }}>
-        {current.summaryText?.map((item: any) => (
-          <Typography sx={{ mb: 2 }} variant={item.style}>
-            {item?.children[0].text}
-          </Typography>
-        ))}
-      </Stack>
-
-      <Divider flexItem sx={{ mb: 2, borderWidth: 2, background: '#000000' }} />
 
       <Stack>
-        {current.fullTranscript?.map((item: any) => (
-          <Typography sx={{ mb: 2 }} variant={item.style}>
-            {item?.children[0].text}
-          </Typography>
-        ))}
+        <Typography variant="h4">{current.title}</Typography>
+        <Typography variant="body1" sx={{ mb: 2 }}>
+          {current.date}, {current.category?.title}
+        </Typography>
+
+        <Grid container sx={{ mb: 2 }}>
+          <Grid xl={6}>
+            <MediaPlayer url={current.videoUrl} controls />
+          </Grid>
+          <Grid xl={6}>
+            <Typography sx={{ ...maxLine({ line: 10 }), mb: 3 }}>{current.quickSummary}</Typography>
+          </Grid>
+        </Grid>
+
+        <Stack sx={{ mb: 3 }}>
+          {current.summaryText?.map((item: any) => (
+            <Typography sx={{ mb: 2 }} variant={item.style}>
+              {item?.children[0].text}
+            </Typography>
+          ))}
+        </Stack>
+
+        <Divider flexItem sx={{ mb: 2, borderWidth: 2, background: '#000000' }} />
+
+        <Stack>
+          {current.fullTranscript?.map((item: any) => (
+            <Typography sx={{ mb: 2 }} variant={item.style}>
+              {item?.children[0].text}
+            </Typography>
+          ))}
+        </Stack>
       </Stack>
     </DashboardContent>
   );

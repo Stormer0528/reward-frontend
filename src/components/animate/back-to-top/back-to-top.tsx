@@ -23,8 +23,8 @@ export function BackToTop({ value = 90, sx, ...other }: BackToTopProps) {
   };
 
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    const isEnd = Math.floor(latest * 100) > value; // unit is %
-    setShow(isEnd);
+    // const isEnd = Math.floor(latest * 100) > value; // unit is %
+    setShow(!!latest);
   });
 
   return (
