@@ -40,8 +40,6 @@ export default function Resource() {
 
   const renderLoading = <PostItemSkeleton variant="horizontal" />;
 
-  console.log('data => ', data);
-
   const renderList = data.map((item) => (
     <PostItemHorizontal key={item.id} post={item} urlFor={urlFor} />
   ));
