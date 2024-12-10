@@ -21,7 +21,7 @@ export default function Resource() {
   const CONTENT_QUERY = `*[_type == "post"] | order(date desc) {
     ...,
     category->,
-    body
+    body,
   }`;
 
   const builder = imageUrlBuilder(client);
@@ -39,6 +39,8 @@ export default function Resource() {
   useEffect(() => setLoading(!data.length), [data]);
 
   const renderLoading = <PostItemSkeleton variant="horizontal" />;
+
+  console.log('data => ', data);
 
   const renderList = data.map((item) => (
     <PostItemHorizontal key={item.id} post={item} urlFor={urlFor} />

@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config';
@@ -24,30 +23,29 @@ type Props = {
 export function PostItemHorizontal({ post, urlFor }: Props) {
   const theme = useTheme();
 
-  const router = useRouter();
-
-  const { title, slug, quickSummary, mainImage } = post;
+  const { title, slug, date, quickSummary, mainImage } = post;
 
   return (
-    <Card
-      sx={{ display: 'flex', cursor: 'pointer', justifyContent: 'space-between' }}
-      onClick={() => router.push(paths.dashboard.resource.view(slug.current))}
-    >
+    <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <Stack spacing={1} sx={{ p: theme.spacing(3, 3, 2, 3) }}>
         <Stack spacing={1} flexGrow={1}>
-          <Link
-            component={RouterLink}
-            href="paths.dashboard.resource.detail(title)"
-            color="inherit"
-            variant="h5"
-            sx={{ ...maxLine({ line: 2 }) }}
-          >
+          <Typography color="inherit" variant="h5" sx={{ ...maxLine({ line: 2 }) }}>
             {title}
-          </Link>
+          </Typography>
 
-          <Typography variant="body2" sx={{ ...maxLine({ line: 5 }), color: 'text.secondary' }}>
+          <Typography variant="subtitle2">{date}</Typography>
+
+          <Typography variant="body1" sx={{ ...maxLine({ line: 3 }), color: 'text.secondary' }}>
             {quickSummary}
           </Typography>
+
+          <Link
+            component={RouterLink}
+            variant="body2"
+            href={paths.dashboard.resource.view(slug.current)}
+          >
+            Read more
+          </Link>
         </Stack>
       </Stack>
 
