@@ -137,3 +137,6 @@ export const customizeFullName = (fullName: string) => {
 
   return `${firstName} ${lastName?.length ? `${lastName[0].toUpperCase()}.` : ''}`;
 };
+
+export const removeSpecialCharacters = (input: string): string =>
+  input.replace(/[^a-zA-Z0-9\s]/g, '');

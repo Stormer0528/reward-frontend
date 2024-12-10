@@ -21,6 +21,8 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
+import { removeSpecialCharacters } from 'src/utils/helper';
+
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
@@ -87,7 +89,7 @@ export function SignUpView() {
           variables: {
             data: {
               ...rest,
-              username: rest.email,
+              username: removeSpecialCharacters(rest.email),
               state,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
