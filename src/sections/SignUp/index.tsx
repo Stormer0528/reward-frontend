@@ -81,7 +81,7 @@ export function SignUpView() {
   const { submitSignUp } = useSignUp();
 
   const onSubmit = handleSubmit(
-    async ({ confirmPassword, firstName, lastName, sponsorUserId, ...rest }) => {
+    async ({ confirmPassword, firstName, lastName, sponsorUserId, username, ...rest }) => {
       try {
         localStorage.setItem('payout_reference', refID || sponsorUserId);
 
@@ -89,7 +89,7 @@ export function SignUpView() {
           variables: {
             data: {
               ...rest,
-              username: removeSpecialCharacters(rest.email),
+              username: removeSpecialCharacters(username),
               state,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
@@ -157,16 +157,6 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="sponsorUserId" label="Sponsor ID" disabled={Boolean(refID)} />
-        <Field.Text
-          name="assetId"
-          label="Coin ID"
-          InputLabelProps={{ shrink: true }}
-          placeholder="Do you have a coin? Enter the ID here"
-        />
-      </Stack>
-
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="primaryAddress" label="Address" />
         <Field.Text name="secondaryAddress" label="Address 2" />
       </Stack>
@@ -194,26 +184,75 @@ export function SignUpView() {
         <Field.Text name="zipCode" label="Zip Code" />
       </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Select
-          name="packageId"
-          label="Pacakage"
-          inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
-        >
-          {packages.map((option) => (
-            <MenuItem key={option?.id} value={option?.id}>
-              {`$${option?.amount} @ ${option?.productName}`}
-            </MenuItem>
-          ))}
-        </Field.Select>
+      <Field.Select
+        name="packageId"
+        label="Pacakage"
+        inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+      >
+        {packages.map((option) => (
+          <MenuItem key={option?.id} value={option?.id}>
+            {`$${option?.amount} @ ${option?.productName}`}
+          </MenuItem>
+        ))}
+      </Field.Select>
 
-        <Field.Select name="paymentMethod" label="Payment Method">
-          {payments.map((option) => (
-            <MenuItem key={option.name} value={option.name}>
-              {option.name}
-            </MenuItem>
-          ))}
-        </Field.Select>
+      <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
+        <Stack width={1}>
+          <Typography>This will be your affiliate ID: </Typography>
+        </Stack>
+        <Stack width={1}>
+          <Field.Text
+            name="username"
+            label="affiliate ID"
+            placeholder="5 characters or more"
+            InputLabelProps={{ shrink: true }}
+            required
+          />
+        </Stack>
+      </Stack>
+
+      <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
+        <Stack width={1}>
+          <Typography>How would you like to pay?</Typography>
+        </Stack>
+        <Stack width={1}>
+          <Field.Select name="paymentMethod" label="Payment Method">
+            {payments.map((option) => (
+              <MenuItem key={option.name} value={option.name}>
+                {option.name}
+              </MenuItem>
+            ))}
+          </Field.Select>
+        </Stack>
+      </Stack>
+
+      <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
+        <Stack width={1}>
+          <Typography>How did you hear about us?</Typography>
+        </Stack>
+        <Stack width={1}>
+          <Field.Text
+            name="sponsorUserId"
+            label="Sponsor ID"
+            disabled={Boolean(refID)}
+            InputLabelProps={{ shrink: true }}
+            placeholder="name or ID of the person"
+          />
+        </Stack>
+      </Stack>
+
+      <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
+        <Stack width={1}>
+          <Typography>Have a Cold Storage Coin?</Typography>
+        </Stack>
+        <Stack width={1}>
+          <Field.Text
+            name="assetId"
+            label="Coin ID"
+            InputLabelProps={{ shrink: true }}
+            placeholder="Do you have a coin? Enter the ID here"
+          />
+        </Stack>
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
