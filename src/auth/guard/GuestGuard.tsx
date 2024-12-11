@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
 
-import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config';
@@ -37,8 +36,6 @@ export function GuestGuard({ children }: Props) {
     if (isAuthenticated) {
       if (location.pathname === '/sign-up') {
         setToken(null);
-      } else if (location.pathname === '/calculator') {
-        router.push(paths.calculator.root);
       } else {
         router.replace(returnTo);
       }

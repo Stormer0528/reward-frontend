@@ -74,11 +74,9 @@ const verifyEmail = {
 const calculator = {
   path: 'calculator',
   element: (
-    <GuestGuard>
-      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="720px">
-        <CalculatorPage />
-      </AuthSplitLayout>
-    </GuestGuard>
+    <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="720px">
+      <CalculatorPage />
+    </AuthSplitLayout>
   ),
 };
 
