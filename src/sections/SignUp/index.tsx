@@ -234,7 +234,7 @@ export function SignUpView() {
           <Field.Text
             name="sponsorUserId"
             label="Sponsor ID"
-            disabled={Boolean(refID)}
+            // disabled={Boolean(refID)}
             InputLabelProps={{ shrink: true }}
             placeholder="name or ID of the person"
           />
