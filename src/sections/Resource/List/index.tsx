@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import imageUrlBuilder from '@sanity/image-url';
 
-import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+
+import { useTabs } from 'src/hooks/use-tabs';
 
 import { client } from 'src/utils/sanity/client';
 
@@ -11,22 +13,20 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
-import { PostItemSkeleton } from './post-skeleton';
-import { PostItemHorizontal } from './post-item-horizontal';
+import Item from './item';
 
 export default function Resource() {
-  const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any[]>([]);
 
-  const CONTENT_QUERY = `*[_type == "post"] | order(date desc) {
+  const CONTENT_QUERY = `*[_type == "category"] | order(date desc) {
     ...,
-    category->,
+    title,
     body,
   }`;
 
-  const builder = imageUrlBuilder(client);
+  const TABS = data.map((item) => ({ value: item.title, label: item.title }));
 
-  const urlFor = (source: any) => builder.image(source);
+  const tabs = useTabs('Zoom Calls');
 
   useEffect(() => {
     client
@@ -36,19 +36,12 @@ export default function Resource() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => setLoading(!data.length), [data]);
-
-  const renderLoading = <PostItemSkeleton variant="horizontal" />;
-
-  const renderList = data.map((item) => (
-    <PostItemHorizontal key={item.id} post={item} urlFor={urlFor} />
-  ));
-
   return (
     <>
       <Helmet>
         <title>{`${CONFIG.site.name} / resources`}</title>
       </Helmet>
+
       <DashboardContent>
         <Breadcrumbs
           heading="Resources"
@@ -58,13 +51,13 @@ export default function Resource() {
           }}
         />
 
-        <Box
-          gap={3}
-          display="grid"
-          gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
-        >
-          {loading ? renderLoading : renderList}
-        </Box>
+        <Tabs value={tabs.value} onChange={tabs.onChange} sx={{ mb: { xs: 2, md: 3 } }}>
+          {TABS.map((tab) => (
+            <Tab key={tab.value} label={tab.label} value={tab.value} />
+          ))}
+        </Tabs>
+
+        <Item title={tabs.value} />
       </DashboardContent>
     </>
   );
