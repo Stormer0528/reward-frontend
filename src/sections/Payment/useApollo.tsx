@@ -10,7 +10,10 @@ import { FETCH_PAYMENT_QUERY } from './query';
 export function useFetchPayments() {
   const [{ page = '1,25', sort = 'createdAt', filter }] = useQueryString();
 
-  const graphQueryFilter = useMemo(() => parseFilterModel({}, filter), [filter]);
+  const graphQueryFilter = useMemo(
+    () => parseFilterModel({}, { ...filter, visible: true }),
+    [filter]
+  );
 
   const { loading, data } = useQuery(FETCH_PAYMENT_QUERY, {
     variables: { filter: graphQueryFilter, page, sort },
