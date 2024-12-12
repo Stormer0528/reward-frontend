@@ -94,27 +94,16 @@ export default function AmplifyVerifyView() {
         setTimeout(() => {
           const current = paymentData?.paymentMethods.paymentMethods?.[0];
 
-          console.log('current => ', current);
-          console.log('packageId => ', packageId);
-          console.log('length => ', current?.paymentMethodLinks?.length);
-
           if (packageId && current?.paymentMethodLinks?.length) {
-            console.log('here');
             current.paymentMethodLinks.forEach((item) => {
               if (item.packageId === packageId) {
                 window.location.href = item.link;
               }
             });
-
-            // CREDIT_LINKS.forEach((item) => {
-            //   if (item.label === packageId) {
-            //     window.location.href = item.link;
-            //   }
-            // });
           } else if (current?.defaultLink) {
             window.location.href = current.defaultLink;
           } else {
-            router.push(paths.auth.signIn);
+            router.push(paths.verifyResult);
           }
         }, 1000);
       }
