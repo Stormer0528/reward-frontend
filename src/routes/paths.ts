@@ -7,6 +7,7 @@ const ROOTS = {
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
   VERIFY_EMAIL: '/verify-email',
+  VERIFYRESULT: '/thanks',
 
   // Statistics
   STATISTICS: '/statistics',
@@ -40,6 +41,9 @@ export const paths = {
 
   // VERIFY EMAIL
   verifyEmail: ROOTS.VERIFY_EMAIL,
+
+  // RESULT
+  verifyResult: ROOTS.VERIFYRESULT,
 
   // STATISTICS
   statistics: { root: ROOTS.STATISTICS },
