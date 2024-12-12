@@ -6,7 +6,7 @@ import type { StatisticsSale } from 'src/sections/Statistics/type';
 export type Sale = {
   __typename?: 'Sale';
   id: string;
-  ID: number;
+  ID?: number | null;
   memberId: string;
   packageId: string;
   paymentMethod: string;
