@@ -385,7 +385,7 @@ export const UPDATE_MEMBER = gql(/* GraphQL */ `
 `);
 
 export const FETCH_MEMBER_HISTORY = gql(/* GraphQL */ `
-  query MemberOverview($data: MemberOverviewInput!) {
+  query MemberOverview($data: IDInput!) {
     memberOverview(data: $data) {
       currentHashPower
       totalTXCShared
