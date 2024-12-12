@@ -33,7 +33,7 @@ export default function Personal({ me }: Props) {
         <Stack direction="row" justifyContent="space-between" sx={{ pb: 2 }} columnGap={2}>
           <Typography variant="h6">{me?.fullName}</Typography>
           <Typography variant="body2" sx={{ pt: 0.4 }}>
-            {formatID(me.ID)}
+            {formatID(me.ID!)}
           </Typography>
         </Stack>
 

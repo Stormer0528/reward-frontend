@@ -11,6 +11,7 @@ export const FETCH_SALES_QUERY = gql(/* GraphQL */ `
         orderedAt
         packageId
         paymentMethod
+        freeShareSale
         member {
           id
           email

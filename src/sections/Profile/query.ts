@@ -133,6 +133,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         paymentMethod
         status
         orderedAt
+        freeShareSale
       }
       memberWallets {
         createdAt
