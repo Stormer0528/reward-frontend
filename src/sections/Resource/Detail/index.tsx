@@ -1,9 +1,11 @@
 // eslint-disable jsx-a11y/media-has-caption
+// @ts-nocheck
 
 import MediaPlayer from 'react-player';
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import BlockContent from '@sanity/block-content-to-react';
 
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
@@ -71,11 +73,7 @@ export default function Detail() {
         </Grid>
 
         <Stack sx={{ mb: 3 }}>
-          {current.summaryText?.map((item: any) => (
-            <Typography sx={{ mb: 2 }} variant={item.style}>
-              {item?.children[0].text}
-            </Typography>
-          ))}
+          <BlockContent blocks={current.summaryText} projectId="1s9yly1w" dataset="development" />
         </Stack>
 
         <Divider flexItem sx={{ mb: 2, borderWidth: 2, background: '#000000' }} />
