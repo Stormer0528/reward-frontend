@@ -2,8 +2,9 @@ import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { Logo } from 'src/components/logo';
 import { paths } from 'src/routes/paths';
+
+import { Logo } from 'src/components/logo';
 
 export default function Info() {
   return (
