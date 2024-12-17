@@ -79,6 +79,12 @@ export const TARGET = [
   { label: '5, 000, 000', value: 5000000 },
 ];
 
+export const NOTIFICATION_LEVEL = {
+  ALL: 'All',
+  INDIVIDUAL: 'Individual',
+  TEAMLEADER: 'Team Leader',
+};
+
 export enum State {
   Approved = 'Approved',
   Draft = 'Draft',

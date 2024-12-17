@@ -5,6 +5,8 @@ import { useTheme } from '@mui/material/styles';
 
 import Password from 'src/components/Password';
 
+import Notification from 'src/sections/Notification';
+
 import { HeaderSection } from './header-section';
 import { MenuButton } from '../components/menu-button';
 import { AccountDrawer } from '../components/account-drawer';
@@ -90,6 +92,9 @@ export function HeaderBase({
 
               {/* -- Update Password button -- */}
               {account && <Password />}
+
+              {/* -- Update Password button -- */}
+              {account && <Notification />}
 
               {/* -- Account drawer -- */}
               {account && <AccountDrawer data-slot="account" data={data?.account} />}

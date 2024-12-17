@@ -22,6 +22,7 @@ const ROOTS = {
   RESOURCE: '/resource',
   CALCULATOR: '/calculator',
   PROFILE: '/profile',
+  NOTIFICATIONS: '/notifications',
 };
 
 // ----------------------------------------------------------------------
@@ -75,6 +76,9 @@ export const paths = {
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },
     profile: {
       root: ROOTS.PROFILE,
+    },
+    notifications: {
+      root: ROOTS.NOTIFICATIONS,
     },
   },
   notFound: '/404',
