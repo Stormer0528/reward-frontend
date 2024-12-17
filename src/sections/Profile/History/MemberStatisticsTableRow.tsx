@@ -19,7 +19,7 @@ export default function MemberStatisticsTableRow({ row, selected }: Props) {
       <TableCell>{fDate(issuedAt)}</TableCell>
       <TableCell>{member?.username}</TableCell>
       <TableCell>{hashPower}</TableCell>
-      <TableCell>{txcShared}</TableCell>
+      <TableCell>{txcShared / 10 ** 8}</TableCell>
       <TableCell>{percent / 100} %</TableCell>
     </TableRow>
   );

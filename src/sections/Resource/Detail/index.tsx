@@ -18,6 +18,7 @@ import { CONFIG } from 'src/config';
 import { maxLine } from 'src/theme/styles';
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { BackToTop } from 'src/components/animate';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import { LoadingScreen } from 'src/components/loading-screen';
 
@@ -56,6 +57,8 @@ export default function Detail() {
           mb: { xs: 2, md: 3 },
         }}
       />
+
+      <BackToTop />
 
       <Stack>
         <Typography variant="h4">{current.title}</Typography>
