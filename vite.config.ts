@@ -36,9 +36,6 @@ export default defineConfig({
       },
     ],
   },
-  optimizeDeps: {
-    exclude: ['specific-package-name'], // Replace with the root package causing the issue
-  },
   server: { port: PORT, host: '0.0.0.0' },
   preview: { port: PORT, host: '0.0.0.0' },
 });
