@@ -43,6 +43,10 @@ const CommissionListPage = lazy(() => import('src/pages/Commission/List'));
 const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+const NotificationListPage = lazy(() => import('src/pages/Notification/List'));
+// ----------------------------------------------------------------------
+
 export const dashboardRoutes = [
   {
     path: '',
@@ -95,6 +99,17 @@ export const dashboardRoutes = [
         ],
       },
       { path: 'profile', element: <ProfilePage /> },
+      {
+        path: 'notifications',
+        element: (
+          <AuthGuard>
+            <Suspense fallback={<LoadingScreen />}>
+              <Outlet />
+            </Suspense>
+          </AuthGuard>
+        ),
+        children: [{ index: true, element: <NotificationListPage /> }],
+      },
     ],
   },
 ];

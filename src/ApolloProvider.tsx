@@ -1,12 +1,43 @@
 import React from 'react';
+import { createClient } from 'graphql-ws';
 import { setContext } from '@apollo/client/link/context';
-import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import {
+  split,
+  ApolloLink,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  ApolloProvider,
+} from '@apollo/client';
 
 import { CONFIG } from 'src/config';
 
 const httpLink = createHttpLink({
   uri: CONFIG.SERVER_URL,
 });
+
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: CONFIG.WS_PATH,
+    connectionParams: () => {
+      const token = localStorage.getItem(CONFIG.storageTokenKey);
+      return {
+        authorization: token ? `Bearer ${token}` : '',
+      };
+    },
+  })
+);
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
+  },
+  wsLink,
+  httpLink
+);
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -21,7 +52,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.concat(authLink, splitLink),
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
