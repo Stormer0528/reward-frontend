@@ -11,6 +11,7 @@ import { client } from 'src/utils/sanity/client';
 import { CONFIG } from 'src/config';
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { BackToTop } from 'src/components/animate';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import Item from './item';
@@ -41,6 +42,8 @@ export default function Resource() {
       <Helmet>
         <title>{`${CONFIG.site.name} / resources`}</title>
       </Helmet>
+
+      <BackToTop />
 
       <DashboardContent>
         <Breadcrumbs

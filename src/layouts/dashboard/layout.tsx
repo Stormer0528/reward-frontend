@@ -11,7 +11,6 @@ import { useBoolean } from 'src/hooks/useBoolean';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
-import { BackToTop } from 'src/components/animate';
 import { bulletColor } from 'src/components/nav-section';
 import { useSettingsContext } from 'src/components/settings';
 
@@ -178,8 +177,6 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
           ...sx,
         }}
       >
-        <BackToTop />
-
         <Main isNavHorizontal={isNavHorizontal}>{children}</Main>
       </LayoutSection>
     </>
