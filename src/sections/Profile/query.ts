@@ -8,6 +8,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       fullName
       email
       point
+      groupName
       primaryAddress
       secondaryAddress
       ID
@@ -40,6 +41,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         fullName
         email
         point
+        groupName
         emailVerified
         totalIntroducers
         status
@@ -54,6 +56,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         ID
         assetId
+        groupName
         emailVerified
         totalIntroducers
         syncWithSendy
@@ -77,6 +80,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         ID
         assetId
+        groupName
         commission {
           begL
           begR
@@ -85,6 +89,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         }
         username
         fullName
+        groupName
         emailVerified
         syncWithSendy
         primaryAddress
@@ -113,6 +118,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         }
         username
         fullName
+        groupName
         emailVerified
         syncWithSendy
         primaryAddress

@@ -166,6 +166,17 @@ export default function Personal({ me }: Props) {
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                Group:
+              </Typography>
+            </Stack>
+            <Stack width={1}>
+              <Typography variant="body2">{me.groupName}</Typography>
+            </Stack>
+          </Stack>
+
+          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+            <Stack width={0.5}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                 Team Strategy:
               </Typography>
             </Stack>
