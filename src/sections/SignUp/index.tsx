@@ -1,4 +1,5 @@
 import states from 'states-us';
+import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
@@ -36,6 +37,7 @@ import { useFetchPayments } from '../Payment/useApollo';
 export function SignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
   const [state, setState] = useState<string>();
+  const [country, setCountry] = useState<string>();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -91,6 +93,7 @@ export function SignUpView() {
               ...rest,
               username: removeSpecialCharacters(username),
               state,
+              country,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
             },
@@ -162,7 +165,22 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="city" label="City" />
+        <Autocomplete
+          freeSolo
+          fullWidth
+          options={countries.getNames()}
+          getOptionLabel={(option: any) => option}
+          renderInput={(params) => (
+            <TextField {...params} name="country" label="Country" margin="none" />
+          )}
+          renderOption={(props, option) => (
+            <li {...props} key={option}>
+              {option}
+            </li>
+          )}
+          onChange={(_, value: any) => setCountry(value)}
+          onInputChange={(_, value: any) => setCountry(value)}
+        />
 
         <Autocomplete
           freeSolo
@@ -180,6 +198,8 @@ export function SignUpView() {
           onChange={(_, value: any) => setState(value.name)}
           onInputChange={(_, value: any) => setState(value)}
         />
+
+        <Field.Text name="city" label="City" />
 
         <Field.Text name="zipCode" label="Zip Code" />
       </Stack>

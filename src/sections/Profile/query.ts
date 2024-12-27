@@ -18,6 +18,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       emailVerified
       totalIntroducers
       status
+      country
       state
       totalIntroducers
       syncWithSendy
@@ -27,7 +28,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       status
       zipCode
       sponsorId
-      placementPosition
       teamStrategy
       commission {
         begL
@@ -65,6 +65,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         cmnCalculatedWeeks
         status
         state
+        country
         placementPosition
         teamStrategy
       }
@@ -76,7 +77,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         point
         state
         status
-        status
         mobile
         ID
         assetId
@@ -87,6 +87,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           newL
           newR
         }
+        country
         username
         fullName
         groupName
@@ -195,6 +196,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         assetId
         mobile
         city
+        country
         emailVerified
         totalIntroducers
         status
