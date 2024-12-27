@@ -1695,6 +1695,11 @@
   resolved "https://registry.npmjs.org/@types/autosuggest-highlight/-/autosuggest-highlight-3.2.3.tgz"
   integrity sha512-8Mb21KWtpn6PvRQXjsKhrXIcxbSloGqNH50RntwGeJsGPW4xvNhfml+3kKulaKpO/7pgZfOmzsJz7VbepArlGQ==
 
+"@types/country-list@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.npmjs.org/@types/country-list/-/country-list-2.1.4.tgz"
+  integrity sha512-c4orjm0wT+BRt6Ynf2/QRRL+iMX4SdLT11jAjKqkJ7mQr/DLOmdz7qR8i04j9Y7wFSoP70cXJc18FN4YGNgGaA==
+
 "@types/d3-color@*":
   version "3.1.3"
   resolved "https://registry.npmjs.org/@types/d3-color/-/d3-color-3.1.3.tgz"
@@ -2813,6 +2818,11 @@ country-flag-icons@^1.5.11:
   version "1.5.12"
   resolved "https://registry.npmjs.org/country-flag-icons/-/country-flag-icons-1.5.12.tgz"
   integrity sha512-ksBaQqQEFSvSFg1NV8tlAk4IjgDRNMu5ImjnCac0C409CiN6ObTI0vCFaNfaPusxLrr5O9pueT1R3G4XMMwErg==
+
+country-list@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/country-list/-/country-list-2.3.0.tgz"
+  integrity sha512-qZk66RlmQm7fQjMYWku1AyjlKPogjPEorAZJG88owPExoPV8EsyCcuFLvO2afTXHEhi9liVOoyd+5A6ZS5QwaA==
 
 cross-fetch@^3.1.5:
   version "3.1.8"

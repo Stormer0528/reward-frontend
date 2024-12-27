@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -46,6 +47,7 @@ export default function MemberGeneral({ me }: Props) {
 
   const [firstName, setFirstName] = useState<string>(me.fullName.split(' ')[0]);
   const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
+  const [country, setCountry] = useState<string>();
 
   const [fetchMembers, { loading: memberLoading, data: memberData }] =
     useLazyQuery(FETCH_MEMBERS_QUERY);
@@ -105,6 +107,7 @@ export default function MemberGeneral({ me }: Props) {
               assetId: newMember.assetId,
               city: newMember.city,
               state: newMember.state,
+              country,
               syncWithSendy: newMember.syncWithSendy,
               preferredContact: newMember.preferredContact,
               preferredContactDetail: newMember.preferredContactDetail,
@@ -226,8 +229,25 @@ export default function MemberGeneral({ me }: Props) {
               />
               <Field.Text name="primaryAddress" label="Address" />
               <Field.Text name="secondaryAddress" label="Address Line 2" />
-              <Field.Text name="city" label="City" />
+              <Autocomplete
+                freeSolo
+                fullWidth
+                options={countries.getNames()}
+                getOptionLabel={(option: any) => option}
+                value={country ?? me.country}
+                renderInput={(params) => (
+                  <TextField {...params} name="country" label="Country" margin="none" />
+                )}
+                renderOption={(props, option) => (
+                  <li {...props} key={option}>
+                    {option}
+                  </li>
+                )}
+                onChange={(_, value: any) => setCountry(value)}
+                onInputChange={(_, value: any) => setCountry(value)}
+              />
               <Field.Text name="state" label="State" />
+              <Field.Text name="city" label="City" />
               <Field.Text name="zipCode" label="ZIP Code" />
               <Field.Text name="assetId" label="Asset ID" disabled />
               <Field.Select name="preferredContact" label="Preferred Contact">
