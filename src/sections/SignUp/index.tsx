@@ -54,7 +54,6 @@ export function SignUpView() {
     firstName: '',
     lastName: '',
     username: '',
-    mobile: '',
     sponsorUserId: refID,
     email: '',
     packageId: '',

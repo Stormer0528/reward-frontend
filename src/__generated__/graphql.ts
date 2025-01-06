@@ -124,6 +124,7 @@ export type BlockStatsResponse = {
   baseDate?: Maybe<Scalars['DateTimeISO']['output']>;
   difficulty: Scalars['Float']['output'];
   hashRate: Scalars['Float']['output'];
+  soldHashPower: Scalars['Float']['output'];
 };
 
 export type BlocksResponse = {
