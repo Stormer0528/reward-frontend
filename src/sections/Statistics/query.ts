@@ -127,6 +127,7 @@ export const FETCH_BLOCKS_DATA_QUERY = gql(/* GraphQL */ `
       difficulty
       base
       baseDate
+      soldHashPower
     }
   }
 `);
