@@ -79,6 +79,11 @@ export default function Latest() {
                           color: 'error.main',
                           bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
                         }),
+                        ...(index === 3 && {
+                          color: 'warning.main',
+                          bgcolor: (theme) =>
+                            varAlpha(theme.vars.palette.warning.mainChannel, 0.08),
+                        }),
                       }}
                     >
                       <Iconify width={24} icon="solar:cup-star-bold" />
