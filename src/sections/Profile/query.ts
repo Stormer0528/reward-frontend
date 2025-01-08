@@ -28,6 +28,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       status
       zipCode
       sponsorId
+      teamReport
       teamStrategy
       commission {
         begL
@@ -45,6 +46,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         emailVerified
         totalIntroducers
         status
+        teamReport
         commission {
           begL
           begR
@@ -87,6 +89,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           newL
           newR
         }
+        teamReport
         country
         username
         fullName
@@ -117,6 +120,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           newL
           newR
         }
+        teamReport
         username
         fullName
         groupName
@@ -186,6 +190,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
     members(page: $page, filter: $filter, sort: $sort) {
       members {
         id
+        teamReport
         username
         fullName
         email
@@ -226,6 +231,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
+          teamReport
           commission {
             begL
             begR
@@ -248,6 +254,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         placementPosition
         placementParent {
           id
+          teamReport
           username
           fullName
           email
@@ -329,6 +336,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
     members(filter: $filter) {
       members {
         id
+        teamReport
         username
         fullName
         email

@@ -57,6 +57,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           email
+          teamReport
           commission {
             begL
             begR
