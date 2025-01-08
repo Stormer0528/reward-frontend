@@ -22,6 +22,7 @@ const ROOTS = {
   RESOURCE: '/resource',
   CALCULATOR: '/calculator',
   PROFILE: '/profile',
+  TEAM: '/team',
   NOTIFICATIONS: '/notifications',
 };
 
@@ -79,6 +80,9 @@ export const paths = {
     },
     notifications: {
       root: ROOTS.NOTIFICATIONS,
+    },
+    team: {
+      root: ROOTS.TEAM,
     },
   },
   notFound: '/404',

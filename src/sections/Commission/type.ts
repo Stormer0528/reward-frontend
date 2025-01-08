@@ -24,6 +24,7 @@ export type WeeklyCommission = {
   pkgR: number;
   proof?: Proof | null;
   status: ConfirmationStatus;
+  shortNote?: string | null;
   updatedAt?: any | null;
   weekStartDate: any | null;
 };

@@ -40,6 +40,10 @@ const CommissionListPage = lazy(() => import('src/pages/Commission/List'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const TeamCommissionListPage = lazy(() => import('src/pages/TeamCommission'));
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
 const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
 // ----------------------------------------------------------------------
 
@@ -110,6 +114,7 @@ export const dashboardRoutes = [
         ),
         children: [{ index: true, element: <NotificationListPage /> }],
       },
+      { path: 'team', element: <TeamCommissionListPage /> },
     ],
   },
 ];
