@@ -1,5 +1,23 @@
 import { gql } from 'src/__generated__';
 
+export const FETCH_TEAM_COMMISSION_STATS_QUERY = gql(/* GraphQL */ `
+  query FetchTeamCommissionStats(
+    $leftFilter: TeamReportSection!
+    $rightFilter: TeamReportSection!
+    $referralFilter: TeamReportSection!
+  ) {
+    LEFT: teamCommissions(teamReport: $leftFilter) {
+      total
+    }
+    RIGHT: teamCommissions(teamReport: $rightFilter) {
+      total
+    }
+    REFERRAL: teamCommissions(teamReport: $referralFilter) {
+      total
+    }
+  }
+`);
+
 export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
   query TeamCommissions(
     $sort: String

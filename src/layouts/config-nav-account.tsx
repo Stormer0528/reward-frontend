@@ -71,6 +71,11 @@ export const _account = [
     icon: <Iconify icon="system-uicons:calculator" />,
   },
   {
+    label: 'Team',
+    href: '/team',
+    icon: <Iconify icon="fluent:people-team-20-regular" />,
+  },
+  {
     label: 'Profile',
     href: '/profile',
     icon: <Iconify icon="heroicons:user" />,
