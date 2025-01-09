@@ -21,7 +21,7 @@ export default function NotificationsDrawer() {
   const totalUnRead = notifications.filter((item: any) => item.read === false).length;
 
   useEffect(() => {
-    fetchNotification({ variables: { sort: '-read,createdAt', page: '1,5' } });
+    fetchNotification({ variables: { sort: '-read,createdAt', filter: { read: false } } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newNotification]);
 
