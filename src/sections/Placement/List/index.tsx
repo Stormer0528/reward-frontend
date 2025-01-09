@@ -32,7 +32,7 @@ import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/loading-screen';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
-import { useFetchMembers } from 'src/sections/Profile/useApollo';
+import { useFetchPlacementMembers } from 'src/sections/Profile/useApollo';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -233,7 +233,7 @@ function getNewVisibleMap(
 function PlacementListView() {
   const popover = usePopover();
 
-  const { fetchMembers, members, loading, called } = useFetchMembers();
+  const { fetchMembers, members, loading, called } = useFetchPlacementMembers();
   const { user } = useAuthContext();
 
   const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});

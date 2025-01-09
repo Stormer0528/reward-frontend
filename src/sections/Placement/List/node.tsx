@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { fDate } from 'src/utils/format-time';
+import { formatDate } from 'src/utils/format-time';
 import { customizeFullName } from 'src/utils/helper';
 
 import { Label } from 'src/components/Label';
@@ -14,7 +14,14 @@ import NodeContext from './nodeContext';
 
 import type { NodeProps } from './type';
 
-export function StandardNode({ id, placementPosition, username, fullName, createdAt }: NodeProps) {
+export function StandardNode({
+  id,
+  placementPosition,
+  username,
+  fullName,
+  commission,
+  createdAt,
+}: NodeProps) {
   const { visibleMap, expandTree, collapseTree } = useContext(NodeContext);
 
   return (
@@ -29,48 +36,75 @@ export function StandardNode({ id, placementPosition, username, fullName, create
         flexDirection: 'column',
       }}
     >
-      <Typography variant="subtitle2" noWrap sx={{ mb: 0.5 }}>
+      <Typography
+        variant="subtitle2"
+        noWrap
+        sx={{
+          mb: 0.5,
+          cursor: 'pointer',
+          '&:hover': { color: (theme) => theme.vars.palette.Alert.errorIconColor },
+        }}
+      >
         {customizeFullName(fullName)}
       </Typography>
 
-      <Typography variant="caption" component="div" noWrap sx={{ color: 'text.secondary' }}>
-        {username}
-      </Typography>
-
-      <Stack direction="row" justifyContent="space-between" sx={{ background: 'translation' }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        sx={{ mb: 0.5, background: 'translation' }}
+      >
         <Typography
           variant="caption"
           component="div"
           noWrap
           sx={{ color: 'text.secondary', mt: 0.5 }}
         >
-          {fDate(createdAt)}
+          {username}
         </Typography>
 
-        <Stack direction="row" columnGap={1}>
-          <Stack>
-            {placementPosition && (
-              <Label
-                variant={placementPosition === 'LEFT' ? 'soft' : 'outlined'}
-                color="info"
-                sx={{ fontSize: 10, border: placementPosition === 'LEFT' ? 'none' : 1 }}
-              >
-                {placementPosition}
-              </Label>
-            )}
-          </Stack>
-          <Stack>
-            {visibleMap[id] !== 3 && (
-              <Iconify
-                icon={`mdi:${visibleMap[id] === 1 ? 'plus' : 'minus'}-circle-outline`}
-                sx={{ mt: 0.15, cursor: 'pointer' }}
-                onClick={() => {
-                  if (visibleMap[id] === 1) expandTree(id);
-                  else if (visibleMap[id] === 2) collapseTree(id);
-                }}
-              />
-            )}
-          </Stack>
+        <Stack>
+          {placementPosition !== 'NONE' && (
+            <Label
+              variant={placementPosition === 'LEFT' ? 'soft' : 'outlined'}
+              color="info"
+              sx={{ fontSize: 10, border: placementPosition === 'LEFT' ? 'none' : 1 }}
+            >
+              {placementPosition}
+            </Label>
+          )}
+        </Stack>
+      </Stack>
+
+      <Stack direction="row" justifyContent="space-between">
+        <Typography variant="caption" color="gray" component="div" noWrap sx={{ mt: 1 }}>
+          L {commission?.begL || 0}/{commission?.newL || 0}
+        </Typography>
+        <Typography variant="caption" color="gray" component="div" noWrap sx={{ mt: 1 }}>
+          {commission?.begR || 0}/{commission?.newR || 0} R
+        </Typography>
+      </Stack>
+
+      <Stack direction="row" justifyContent="space-between">
+        <Typography
+          variant="caption"
+          component="div"
+          noWrap
+          sx={{ color: 'text.secondary', mt: 0.5 }}
+        >
+          {formatDate(createdAt)}
+        </Typography>
+
+        <Stack>
+          {visibleMap[id] !== 3 && (
+            <Iconify
+              icon={`mdi:${visibleMap[id] === 1 ? 'plus' : 'minus'}-circle-outline`}
+              sx={{ mt: 0.15, cursor: 'pointer' }}
+              onClick={() => {
+                if (visibleMap[id] === 1) expandTree(id);
+                else if (visibleMap[id] === 2) collapseTree(id);
+              }}
+            />
+          )}
         </Stack>
       </Stack>
     </Card>

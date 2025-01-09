@@ -4,6 +4,7 @@ import type { OrgChartBaseNode } from 'src/components/organizationalChart';
 
 export type NodeProps = OrgChartBaseNode &
   Member & {
+    // commissions?: any;
     children?: any;
     sx?: SxProps<Theme>;
   };
