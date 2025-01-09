@@ -317,6 +317,42 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
   }
 `);
 
+export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
+  query FetchPlacementMembers($page: String, $filter: JSONObject, $sort: String) {
+    members(page: $page, filter: $filter, sort: $sort) {
+      members {
+        id
+        username
+        email
+        fullName
+        sponsorId
+        groupName
+        status
+        teamReport
+        cmnCalculatedWeeks
+        placementParentId
+        placementPosition
+        placementParent {
+          id
+          username
+          fullName
+        }
+        sponsor {
+          username
+        }
+        commission {
+          begL
+          begR
+          newL
+          newR
+        }
+        createdAt
+      }
+      total
+    }
+  }
+`);
+
 export const CREATE_MEMBER = gql(/* GraphQL */ `
   mutation CreateMember($data: CreateMemberInput!) {
     createMember(data: $data) {
