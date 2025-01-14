@@ -23,8 +23,7 @@ const documents = {
     "\n  query TeamMembers {\n    teamMembers {\n      id\n      email\n      point\n      mobile\n      status\n      username\n      fullName\n      groupName\n      teamReport\n      teamStrategy\n      syncWithSendy\n      emailVerified\n      primaryAddress\n      totalIntroducers\n      placementPosition\n      cmnCalculatedWeeks\n    }\n  }\n": types.TeamMembersDocument,
     "\n  query EmailById($data: IDInput!) {\n    emailById(data: $data) {\n      id\n      to\n      body\n      subject\n      isDraft\n      senderId\n      isDeleted\n      updatedAt\n      sender {\n        id\n        email\n        point\n        mobile\n        status\n        username\n        fullName\n        groupName\n        teamReport\n        teamStrategy\n        syncWithSendy\n        emailVerified\n        primaryAddress\n        totalIntroducers\n        placementPosition\n        cmnCalculatedWeeks\n      }\n      files {\n        id\n        url\n        size\n        mimeType\n        originalName\n      }\n    }\n  }\n": types.EmailByIdDocument,
     "\n  query RecipientById($data: IDInput!) {\n    recipientById(data: $data) {\n      createdAt\n      updatedAt\n      deletedAt\n      id\n      emailId\n      recipientId\n      isRead\n      isDeleted\n      isStarred\n      email {\n        id\n        to\n        body\n        subject\n        isDraft\n        senderId\n        isDeleted\n        updatedAt\n        sender {\n          id\n          email\n          point\n          mobile\n          status\n          username\n          fullName\n          groupName\n          teamReport\n          teamStrategy\n          syncWithSendy\n          emailVerified\n          primaryAddress\n          totalIntroducers\n          placementPosition\n          cmnCalculatedWeeks\n        }\n        files {\n          id\n          url\n          size\n          mimeType\n          originalName\n        }\n      }\n      recipient {\n        id\n        email\n        point\n        mobile\n        status\n        username\n        fullName\n        groupName\n        teamReport\n        teamStrategy\n        syncWithSendy\n        emailVerified\n        primaryAddress\n        totalIntroducers\n        placementPosition\n        cmnCalculatedWeeks\n      }\n    }\n  }\n": types.RecipientByIdDocument,
-    "\n  mutation CreateEmail($data: CreateEmailInput!) {\n    createEmail(data: $data) {\n      id\n    }\n  }\n": types.CreateEmailDocument,
-    "\n  mutation UpdateEmail($data: UpdateEmailInput!) {\n    updateEmail(data: $data) {\n      id\n    }\n  }\n": types.UpdateEmailDocument,
+    "\n  mutation UpsertEmail($data: UpsertEmailInput!) {\n    upsertEmail(data: $data) {\n      id\n    }\n  }\n": types.UpsertEmailDocument,
     "\n  mutation RemoveEmail($data: IDInput!) {\n    removeEmail(data: $data) {\n      id\n    }\n  }\n": types.RemoveEmailDocument,
     "\n  mutation SendEmail($data: IDInput!) {\n    sendEmail(data: $data) {\n      message\n      result\n    }\n  }\n": types.SendEmailDocument,
     "\n  mutation SetRecipientStatus($data: EmailStatusInput!) {\n    setRecipientStatus(data: $data) {\n      id\n    }\n  }\n": types.SetRecipientStatusDocument,
@@ -141,11 +140,7 @@ export function gql(source: "\n  query RecipientById($data: IDInput!) {\n    rec
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation CreateEmail($data: CreateEmailInput!) {\n    createEmail(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateEmail($data: CreateEmailInput!) {\n    createEmail(data: $data) {\n      id\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  mutation UpdateEmail($data: UpdateEmailInput!) {\n    updateEmail(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateEmail($data: UpdateEmailInput!) {\n    updateEmail(data: $data) {\n      id\n    }\n  }\n"];
+export function gql(source: "\n  mutation UpsertEmail($data: UpsertEmailInput!) {\n    upsertEmail(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpsertEmail($data: UpsertEmailInput!) {\n    upsertEmail(data: $data) {\n      id\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

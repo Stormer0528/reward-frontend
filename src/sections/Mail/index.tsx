@@ -1,4 +1,4 @@
-import type { Recipient } from 'src/__generated__/graphql';
+import type { Email, Recipient } from 'src/__generated__/graphql';
 
 import { useState, useEffect, useCallback } from 'react';
 
@@ -12,6 +12,8 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import { toast } from 'src/components/SnackBar';
+
 import { Layout } from './view/layout';
 import { MailNav } from './view/mail-nav';
 import { SentList } from './view/sent-list';
@@ -22,8 +24,10 @@ import { SentDetails } from './view/sent-details';
 import { InboxDetails } from './view/inbox-details';
 import {
   useFetchEmails,
+  useRemoveEmail,
   useFetchEmailById,
   useFetchRecipients,
+  useMoveEmailToTrash,
   useSetRecipientStatus,
   useFetchRecipientById,
 } from './useApollo';
@@ -42,11 +46,14 @@ export default function MailView() {
   const mdUp = useResponsive('up', 'md');
 
   const [inbox, setInbox] = useState<Recipient[]>([]);
+  const [sent, setSent] = useState<Email[]>([]);
 
   const openNav = useBoolean();
   const openMail = useBoolean();
   const openCompose = useBoolean();
 
+  const { removeEmail } = useRemoveEmail();
+  const { moveEmailToTrash } = useMoveEmailToTrash();
   const { setRecipientStatus } = useSetRecipientStatus();
   const { loading, emails, fetchEmails } = useFetchEmails();
   const { loading: emailLoading, email, fetchEmailById } = useFetchEmailById();
@@ -73,7 +80,35 @@ export default function MailView() {
       name: 'Drafts',
       color: 'default',
     },
+    {
+      id: 'trash',
+      type: 'Trash',
+      name: 'Trash',
+      color: 'default',
+    },
   ];
+
+  const handleMoveTrash = async (mailId: string) => {
+    if (selectedLabelId === 'trash') {
+      const { data } = await removeEmail({ variables: { data: { id: mailId } } });
+
+      if (data) {
+        toast.success('Successfully removed permanently');
+
+        setSent(emails.filter((item: Email) => item.id !== mailId));
+      }
+    } else {
+      const { data } = await moveEmailToTrash({ variables: { data: { id: mailId } } });
+
+      if (data) {
+        toast.success('Successfully moved to Trash');
+
+        setSent(emails.filter((item: Email) => item.id !== mailId));
+      }
+
+      router.push(`${paths.dashboard.mail.root}?label=${selectedLabelId}`);
+    }
+  };
 
   const handleToggleCompose = useCallback(() => {
     if (openNav.value) {
@@ -171,9 +206,17 @@ export default function MailView() {
     fetchRecipients({ variables: { sort: '-isRead,updatedAt' } });
 
     if (selectedLabelId === 'drafts') {
-      fetchEmails({ variables: { filter: { isDraft: true }, sort: 'updatedAt' } });
+      fetchEmails({
+        variables: { filter: { isDraft: true, isDeleted: false }, sort: 'updatedAt' },
+      });
     } else if (selectedLabelId === 'sent') {
-      fetchEmails({ variables: { filter: { isDraft: false }, sort: 'updatedAt' } });
+      fetchEmails({
+        variables: { filter: { isDraft: false, isDeleted: false }, sort: 'updatedAt' },
+      });
+    } else if (selectedLabelId === 'trash') {
+      fetchEmails({
+        variables: { filter: { isDeleted: true }, sort: 'updatedAt' },
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLabelId]);
@@ -181,6 +224,10 @@ export default function MailView() {
   useEffect(() => {
     setInbox(recipients);
   }, [recipients]);
+
+  useEffect(() => {
+    setSent(emails);
+  }, [emails]);
 
   useEffect(() => {
     if (openCompose.value) {
@@ -241,9 +288,11 @@ export default function MailView() {
                   />
                 )}
 
-                {(selectedLabelId === 'sent' || selectedLabelId === 'drafts') && (
+                {(selectedLabelId === 'sent' ||
+                  selectedLabelId === 'drafts' ||
+                  selectedLabelId === 'trash') && (
                   <SentList
-                    emails={emails}
+                    emails={sent}
                     empty={openMail.value}
                     loading={loading}
                     openMail={openMail.value}
@@ -266,11 +315,14 @@ export default function MailView() {
                   />
                 )}
 
-                {(selectedLabelId === 'sent' || selectedLabelId === 'drafts') && (
+                {(selectedLabelId === 'sent' ||
+                  selectedLabelId === 'drafts' ||
+                  selectedLabelId === 'trash') && (
                   <SentDetails
                     mail={email}
                     empty={openMail.value}
                     loading={emailLoading}
+                    handleMoveTrash={handleMoveTrash}
                     renderLabel={(id: string) => labels.filter((label: any) => label.id === id)[0]}
                   />
                 )}

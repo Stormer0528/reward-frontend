@@ -3,9 +3,8 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 
 import {
   SEND_EMAIL,
-  CREATE_EMAIL,
   REMOVE_EMAIL,
-  UPDATE_EMAIL,
+  UPSERT_EMAIL,
   MOVE_EMAIL_TRASH,
   FETCH_EMAILS_QUERY,
   SET_RECIPIENT_STATUS,
@@ -79,16 +78,10 @@ export function useFetchTeamMembers() {
   return { loading, teamMembers: data?.teamMembers ?? [], fetchTeamMembers };
 }
 
-export function useCreateEmail() {
-  const [createEmail, { loading, data, error }] = useMutation(CREATE_EMAIL);
+export function useUpsertEmail() {
+  const [upsertEmail, { loading, data, error }] = useMutation(UPSERT_EMAIL);
 
-  return { loading, data, error, createEmail };
-}
-
-export function useUpdateEmail() {
-  const [updateEmail, { loading, data, error }] = useMutation(UPDATE_EMAIL);
-
-  return { loading, data, error, updateEmail };
+  return { loading, data, error, upsertEmail };
 }
 
 export function useRemoveEmail() {

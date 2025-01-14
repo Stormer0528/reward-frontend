@@ -30,10 +30,8 @@ export function FileManagerNewFolderDialog({
   folderName,
   onChangeFolderName,
 }: Props) {
-  const [files, setFiles] = useState<(File | string)[]>([]);
   const [loading, setLoading] = useState<boolean>();
-
-  console.log('id => ', id);
+  const [files, setFiles] = useState<(File | string)[]>([]);
 
   useEffect(() => {
     setFiles([]);
