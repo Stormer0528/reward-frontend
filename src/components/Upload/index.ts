@@ -4,6 +4,8 @@ export type * from './types';
 
 export * from './upload-box';
 
+export * from './customUpload';
+
 export * from './UploadAvatar';
 
 export * from './components/rejection-files';
