@@ -129,7 +129,7 @@ export function MailCompose({ onCloseCompose }: Props) {
       handleUpdate();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdate, to, subject, message]);
+  }, [isUpdate, to, subject, message, handleUpload]);
 
   useEffect(() => {
     setTimeout(() => {
