@@ -202,6 +202,14 @@ export type CreateBlockInput = {
   issuedAt: Scalars['DateTimeISO']['input'];
 };
 
+export type CreateEmailInput = {
+  body: Scalars['String']['input'];
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  replyFromId?: InputMaybe<Scalars['String']['input']>;
+  subject: Scalars['String']['input'];
+  to: Scalars['String']['input'];
+};
+
 export type CreateGroupSettingCommissionBonusInput = {
   commission: Scalars['Int']['input'];
   lPoint: Scalars['Int']['input'];
@@ -355,8 +363,41 @@ export type DailyStats = {
   field: Scalars['String']['output'];
 };
 
+export type Email = {
+  __typename?: 'Email';
+  body: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  files?: Maybe<Array<PFile>>;
+  id: Scalars['ID']['output'];
+  isDeleted: Scalars['Boolean']['output'];
+  isDraft: Scalars['Boolean']['output'];
+  recipients?: Maybe<Array<Recipient>>;
+  repliedEmails?: Maybe<Array<Email>>;
+  replyFrom?: Maybe<Email>;
+  replyFromId?: Maybe<Scalars['String']['output']>;
+  sender?: Maybe<Member>;
+  senderId: Scalars['String']['output'];
+  subject: Scalars['String']['output'];
+  to: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
 export type EmailInput = {
   email: Scalars['String']['input'];
+};
+
+export type EmailResponse = {
+  __typename?: 'EmailResponse';
+  emails?: Maybe<Array<Email>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export type EmailStatusInput = {
+  id: Scalars['ID']['input'];
+  isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
+  isRead?: InputMaybe<Scalars['Boolean']['input']>;
+  isStarred?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type EmailVerificationInput = {
@@ -646,6 +687,7 @@ export type Mutation = {
   createAdmin: Admin;
   createAdminNote: AdminNotes;
   createBlock: Block;
+  createEmail: Email;
   createGroupSetting: GroupSetting;
   createManyMemberStatistics: ManySuccessResponse;
   createManyStatisticsSales: ManySuccessResponse;
@@ -662,10 +704,12 @@ export type Mutation = {
   emailVerify: EmailVerifyResult;
   generateWeeklyReport: SuccessResponse;
   memberLogin: MemberLoginResponse;
+  moveEmailToTrash: Email;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
   removeBalance: SuccessResponse;
   removeCompleteMemberPlacement: SuccessResponse;
+  removeEmail: Email;
   removeGroupSetting: GroupSetting;
   removeManyMemberStatistics: ManySuccessResponse;
   removeManyStatistics: ManySuccessResponse;
@@ -676,15 +720,19 @@ export type Mutation = {
   removePaymentMethod: SuccessResponse;
   removePrepaidCommission: SuccessResponse;
   removeProof: SuccessResponse;
+  removeRecipient: Recipient;
   removeSale: SuccessResponse;
   removeStatisticsSalesByStaitisId: ManySuccessResponse;
   resetPasswordByToken: SuccessResponse;
   resetPasswordRequest: SuccessResponse;
   resetTokenVerify: VerifyTokenResponse;
+  restoreEmailFromTrash: Email;
+  sendEmail: SuccessResponse;
   sendEmailVerification: EmailVerificationResponse;
   sendWelcomeEmail: SuccessResponse;
   setReadAllNotifications: ManySuccessResponse;
   setReadNotification: SuccessResponse;
+  setRecipientStatus: Recipient;
   signUpMember: Member;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
@@ -692,6 +740,7 @@ export type Mutation = {
   updateCommission: WeeklyCommission;
   updateCommissionShortNote: WeeklyCommission;
   updateCommissionsStatus: SuccessResponse;
+  updateEmail: Email;
   updateGroupSetting: GroupSetting;
   updateMember: Member;
   updateMemberWallet: SuccessResponse;
@@ -740,6 +789,11 @@ export type MutationCreateAdminNoteArgs = {
 
 export type MutationCreateBlockArgs = {
   data: CreateBlockInput;
+};
+
+
+export type MutationCreateEmailArgs = {
+  data: CreateEmailInput;
 };
 
 
@@ -823,6 +877,11 @@ export type MutationMemberLoginArgs = {
 };
 
 
+export type MutationMoveEmailToTrashArgs = {
+  data: IdInput;
+};
+
+
 export type MutationRemoveAdminNoteArgs = {
   data: IdInput;
 };
@@ -839,6 +898,11 @@ export type MutationRemoveBalanceArgs = {
 
 
 export type MutationRemoveCompleteMemberPlacementArgs = {
+  data: IdInput;
+};
+
+
+export type MutationRemoveEmailArgs = {
   data: IdInput;
 };
 
@@ -893,6 +957,11 @@ export type MutationRemoveProofArgs = {
 };
 
 
+export type MutationRemoveRecipientArgs = {
+  data: IdInput;
+};
+
+
 export type MutationRemoveSaleArgs = {
   data: IdInput;
 };
@@ -918,6 +987,16 @@ export type MutationResetTokenVerifyArgs = {
 };
 
 
+export type MutationRestoreEmailFromTrashArgs = {
+  data: IdInput;
+};
+
+
+export type MutationSendEmailArgs = {
+  data: IdInput;
+};
+
+
 export type MutationSendEmailVerificationArgs = {
   data: EmailInput;
 };
@@ -930,6 +1009,11 @@ export type MutationSendWelcomeEmailArgs = {
 
 export type MutationSetReadNotificationArgs = {
   data: IdInput;
+};
+
+
+export type MutationSetRecipientStatusArgs = {
+  data: EmailStatusInput;
 };
 
 
@@ -965,6 +1049,11 @@ export type MutationUpdateCommissionShortNoteArgs = {
 
 export type MutationUpdateCommissionsStatusArgs = {
   data: WeeklyCommissionsStatusUpdateInput;
+};
+
+
+export type MutationUpdateEmailArgs = {
+  data: UpdateEmailInput;
 };
 
 
@@ -1281,6 +1370,8 @@ export type Query = {
   countLeftMembers: CountResponse;
   countRightMembers: CountResponse;
   dailyRewards: DailyRewards;
+  emailById: Email;
+  emails: EmailResponse;
   generateReferenceLink: ReferenceLink;
   groupSettings: GroupSettingResponse;
   hashPowerResponse: HashPowerResponse;
@@ -1305,12 +1396,15 @@ export type Query = {
   prepaidCommissions: PrepaidCommissionResponse;
   proofById: Proof;
   proofs: ProofResponse;
+  recipientById: Recipient;
+  recipients: RecipientResponse;
   revenueOverview: RevenueOverviewResponse;
   rewardsByWallets: RewardsByWallets;
   sales: SalesResponse;
   statistics: StatisticsResponse;
   statisticsSales: StatisticsSaleResponse;
   teamCommissions: WeeklyCommissionResponse;
+  teamMembers: Array<Member>;
   topEarners: Array<TopEarnersResponse>;
   topRecruiters: Array<TopRecruitersResponse>;
   totalMemberCounts: Array<MinerCountStatsResponse>;
@@ -1399,6 +1493,18 @@ export type QueryDailyRewardsArgs = {
   from: Scalars['DateTimeISO']['input'];
   memberId?: InputMaybe<Scalars['ID']['input']>;
   to: Scalars['DateTimeISO']['input'];
+};
+
+
+export type QueryEmailByIdArgs = {
+  data: IdInput;
+};
+
+
+export type QueryEmailsArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1524,6 +1630,18 @@ export type QueryProofsArgs = {
 };
 
 
+export type QueryRecipientByIdArgs = {
+  data: IdInput;
+};
+
+
+export type QueryRecipientsArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryRewardsByWalletsArgs = {
   from: Scalars['DateTimeISO']['input'];
   memberId?: InputMaybe<Scalars['ID']['input']>;
@@ -1581,6 +1699,27 @@ export type QueryWeeklyReportsArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Recipient = {
+  __typename?: 'Recipient';
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  email?: Maybe<Email>;
+  emailId: Scalars['ID']['output'];
+  id: Scalars['ID']['output'];
+  isDeleted: Scalars['Boolean']['output'];
+  isRead: Scalars['Boolean']['output'];
+  isStarred: Scalars['Boolean']['output'];
+  recipient?: Maybe<Member>;
+  recipientId: Scalars['ID']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+export type RecipientResponse = {
+  __typename?: 'RecipientResponse';
+  recipients?: Maybe<Array<Recipient>>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type RefLink = {
@@ -1716,6 +1855,7 @@ export type StatisticsSaleResponse = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  newEmailReceived: Email;
   newNotification: Notification;
 };
 
@@ -1802,6 +1942,14 @@ export type UpdateBalanceInput = {
   memberId?: InputMaybe<Scalars['String']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateEmailInput = {
+  body?: InputMaybe<Scalars['String']['input']>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id: Scalars['ID']['input'];
+  subject?: InputMaybe<Scalars['String']['input']>;
+  to?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateGroupSettingInput = {
@@ -2030,6 +2178,85 @@ export type FetchCommissionStatsQueryVariables = Exact<{
 
 
 export type FetchCommissionStatsQuery = { __typename?: 'Query', all: { __typename?: 'WeeklyCommissionResponse', total?: number | null }, pending: { __typename?: 'WeeklyCommissionResponse', total?: number | null }, decline: { __typename?: 'WeeklyCommissionResponse', total?: number | null }, sent: { __typename?: 'WeeklyCommissionResponse', total?: number | null } };
+
+export type EmailsQueryVariables = Exact<{
+  sort?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+}>;
+
+
+export type EmailsQuery = { __typename?: 'Query', emails: { __typename?: 'EmailResponse', total?: number | null, emails?: Array<{ __typename?: 'Email', id: string, to: string, body: string, subject: string, isDraft: boolean, senderId: string, isDeleted: boolean, updatedAt?: any | null, sender?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number } | null, files?: Array<{ __typename?: 'PFile', id: string, url: string, size: number, mimeType: string, originalName: string }> | null }> | null } };
+
+export type RecipientsQueryVariables = Exact<{
+  sort?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+}>;
+
+
+export type RecipientsQuery = { __typename?: 'Query', recipients: { __typename?: 'RecipientResponse', total?: number | null, recipients?: Array<{ __typename?: 'Recipient', updatedAt?: any | null, id: string, emailId: string, recipientId: string, isRead: boolean, isDeleted: boolean, isStarred: boolean, email?: { __typename?: 'Email', id: string, to: string, body: string, subject: string, isDraft: boolean, senderId: string, isDeleted: boolean, updatedAt?: any | null, sender?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number } | null, files?: Array<{ __typename?: 'PFile', id: string, url: string, size: number, mimeType: string, originalName: string }> | null } | null, recipient?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number } | null }> | null } };
+
+export type TeamMembersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TeamMembersQuery = { __typename?: 'Query', teamMembers: Array<{ __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number }> };
+
+export type EmailByIdQueryVariables = Exact<{
+  data: IdInput;
+}>;
+
+
+export type EmailByIdQuery = { __typename?: 'Query', emailById: { __typename?: 'Email', id: string, to: string, body: string, subject: string, isDraft: boolean, senderId: string, isDeleted: boolean, updatedAt?: any | null, sender?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number } | null, files?: Array<{ __typename?: 'PFile', id: string, url: string, size: number, mimeType: string, originalName: string }> | null } };
+
+export type RecipientByIdQueryVariables = Exact<{
+  data: IdInput;
+}>;
+
+
+export type RecipientByIdQuery = { __typename?: 'Query', recipientById: { __typename?: 'Recipient', createdAt?: any | null, updatedAt?: any | null, deletedAt?: any | null, id: string, emailId: string, recipientId: string, isRead: boolean, isDeleted: boolean, isStarred: boolean, email?: { __typename?: 'Email', id: string, to: string, body: string, subject: string, isDraft: boolean, senderId: string, isDeleted: boolean, updatedAt?: any | null, sender?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number } | null, files?: Array<{ __typename?: 'PFile', id: string, url: string, size: number, mimeType: string, originalName: string }> | null } | null, recipient?: { __typename?: 'Member', id: string, email: string, point: number, mobile: string, status: boolean, username: string, fullName: string, groupName: string, teamReport: TeamReport, teamStrategy: TeamStrategy, syncWithSendy: boolean, emailVerified: boolean, primaryAddress: string, totalIntroducers: number, placementPosition: PlacementPosition, cmnCalculatedWeeks: number } | null } };
+
+export type CreateEmailMutationVariables = Exact<{
+  data: CreateEmailInput;
+}>;
+
+
+export type CreateEmailMutation = { __typename?: 'Mutation', createEmail: { __typename?: 'Email', id: string } };
+
+export type UpdateEmailMutationVariables = Exact<{
+  data: UpdateEmailInput;
+}>;
+
+
+export type UpdateEmailMutation = { __typename?: 'Mutation', updateEmail: { __typename?: 'Email', id: string } };
+
+export type RemoveEmailMutationVariables = Exact<{
+  data: IdInput;
+}>;
+
+
+export type RemoveEmailMutation = { __typename?: 'Mutation', removeEmail: { __typename?: 'Email', id: string } };
+
+export type SendEmailMutationVariables = Exact<{
+  data: IdInput;
+}>;
+
+
+export type SendEmailMutation = { __typename?: 'Mutation', sendEmail: { __typename?: 'SuccessResponse', message?: string | null, result: SuccessResult } };
+
+export type SetRecipientStatusMutationVariables = Exact<{
+  data: EmailStatusInput;
+}>;
+
+
+export type SetRecipientStatusMutation = { __typename?: 'Mutation', setRecipientStatus: { __typename?: 'Recipient', id: string } };
+
+export type MoveEmailToTrashMutationVariables = Exact<{
+  data: IdInput;
+}>;
+
+
+export type MoveEmailToTrashMutation = { __typename?: 'Mutation', moveEmailToTrash: { __typename?: 'Email', id: string } };
 
 export type NotificationsQueryVariables = Exact<{
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -2432,6 +2659,17 @@ export const ResetTokenVerifyDocument = {"kind":"Document","definitions":[{"kind
 export const CalculateProfitabilityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CalculateProfitability"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProfitabilityCalculationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"calculateProfitability"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"target"}},{"kind":"Field","name":{"kind":"Name","value":"init"}},{"kind":"Field","name":{"kind":"Name","value":"period"}},{"kind":"Field","name":{"kind":"Name","value":"txc"}},{"kind":"Field","name":{"kind":"Name","value":"txcCost"}},{"kind":"Field","name":{"kind":"Name","value":"extraTXC"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"txcPrice"}}]}}]}}]} as unknown as DocumentNode<CalculateProfitabilityQuery, CalculateProfitabilityQueryVariables>;
 export const WeeklyCommissionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WeeklyCommissions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyCommissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"memberId"}},{"kind":"Field","name":{"kind":"Name","value":"weekStartDate"}},{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}},{"kind":"Field","name":{"kind":"Name","value":"maxL"}},{"kind":"Field","name":{"kind":"Name","value":"maxR"}},{"kind":"Field","name":{"kind":"Name","value":"endL"}},{"kind":"Field","name":{"kind":"Name","value":"endR"}},{"kind":"Field","name":{"kind":"Name","value":"pkgL"}},{"kind":"Field","name":{"kind":"Name","value":"pkgR"}},{"kind":"Field","name":{"kind":"Name","value":"commission"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"member"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"sponsorId"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zipCode"}},{"kind":"Field","name":{"kind":"Name","value":"placementParentId"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<WeeklyCommissionsQuery, WeeklyCommissionsQueryVariables>;
 export const FetchCommissionStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchCommissionStats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pendingFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"declineFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sentFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"all"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"pending"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pendingFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"decline"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"declineFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"sent"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sentFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<FetchCommissionStatsQuery, FetchCommissionStatsQueryVariables>;
+export const EmailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Emails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emails"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emails"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"subject"}},{"kind":"Field","name":{"kind":"Name","value":"isDraft"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}},{"kind":"Field","name":{"kind":"Name","value":"files"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"mimeType"}},{"kind":"Field","name":{"kind":"Name","value":"originalName"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<EmailsQuery, EmailsQueryVariables>;
+export const RecipientsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Recipients"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recipients"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"emailId"}},{"kind":"Field","name":{"kind":"Name","value":"recipientId"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"isStarred"}},{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"subject"}},{"kind":"Field","name":{"kind":"Name","value":"isDraft"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}},{"kind":"Field","name":{"kind":"Name","value":"files"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"mimeType"}},{"kind":"Field","name":{"kind":"Name","value":"originalName"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<RecipientsQuery, RecipientsQueryVariables>;
+export const TeamMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TeamMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"teamMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}}]}}]} as unknown as DocumentNode<TeamMembersQuery, TeamMembersQueryVariables>;
+export const EmailByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"EmailById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emailById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"subject"}},{"kind":"Field","name":{"kind":"Name","value":"isDraft"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}},{"kind":"Field","name":{"kind":"Name","value":"files"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"mimeType"}},{"kind":"Field","name":{"kind":"Name","value":"originalName"}}]}}]}}]}}]} as unknown as DocumentNode<EmailByIdQuery, EmailByIdQueryVariables>;
+export const RecipientByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"RecipientById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"recipientById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"emailId"}},{"kind":"Field","name":{"kind":"Name","value":"recipientId"}},{"kind":"Field","name":{"kind":"Name","value":"isRead"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"isStarred"}},{"kind":"Field","name":{"kind":"Name","value":"email"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"body"}},{"kind":"Field","name":{"kind":"Name","value":"subject"}},{"kind":"Field","name":{"kind":"Name","value":"isDraft"}},{"kind":"Field","name":{"kind":"Name","value":"senderId"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"sender"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}},{"kind":"Field","name":{"kind":"Name","value":"files"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"mimeType"}},{"kind":"Field","name":{"kind":"Name","value":"originalName"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"recipient"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"groupName"}},{"kind":"Field","name":{"kind":"Name","value":"teamReport"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"syncWithSendy"}},{"kind":"Field","name":{"kind":"Name","value":"emailVerified"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"totalIntroducers"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}}]}}]}}]}}]} as unknown as DocumentNode<RecipientByIdQuery, RecipientByIdQueryVariables>;
+export const CreateEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateEmailMutation, CreateEmailMutationVariables>;
+export const UpdateEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateEmailMutation, UpdateEmailMutationVariables>;
+export const RemoveEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoveEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<RemoveEmailMutation, RemoveEmailMutationVariables>;
+export const SendEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SendEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sendEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"result"}}]}}]}}]} as unknown as DocumentNode<SendEmailMutation, SendEmailMutationVariables>;
+export const SetRecipientStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetRecipientStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EmailStatusInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setRecipientStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<SetRecipientStatusMutation, SetRecipientStatusMutationVariables>;
+export const MoveEmailToTrashDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"MoveEmailToTrash"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"moveEmailToTrash"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<MoveEmailToTrashMutation, MoveEmailToTrashMutationVariables>;
 export const NotificationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Notifications"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notifications"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"notifications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"read"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<NotificationsQuery, NotificationsQueryVariables>;
 export const SetReadNotificationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetReadNotification"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setReadNotification"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"result"}}]}}]}}]} as unknown as DocumentNode<SetReadNotificationMutation, SetReadNotificationMutationVariables>;
 export const SetReadAllNotificationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SetReadAllNotifications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setReadAllNotifications"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}}]} as unknown as DocumentNode<SetReadAllNotificationsMutation, SetReadAllNotificationsMutationVariables>;
