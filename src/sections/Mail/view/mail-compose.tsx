@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import { useBoolean } from 'src/hooks/useBoolean';
 import { useResponsive } from 'src/hooks/use-responsive';
 
+import { uuidv4 } from 'src/utils/uuidv4';
+
 import { varAlpha } from 'src/theme/styles';
 
 import { Editor } from 'src/components/editor';
@@ -21,7 +23,7 @@ import { Iconify } from 'src/components/Iconify';
 
 import { FileRecentItem } from './FileRecentItem';
 import { FileManagerNewFolderDialog } from './Upload';
-import { useSendEmail, useCreateEmail, useUpdateEmail } from '../useApollo';
+import { useSendEmail, useUpsertEmail } from '../useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -41,37 +43,29 @@ export function MailCompose({ onCloseCompose }: Props) {
   const [files, setFiles] = useState<string[]>();
   const [message, setMessage] = useState<any>('');
   const [subject, setSubject] = useState<string>('');
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [previousUpdate, setPreviousUpdate] = useState<boolean>(false);
 
   const { sendEmail } = useSendEmail();
-  const { createEmail } = useCreateEmail();
-  const { updateEmail } = useUpdateEmail();
+  const { upsertEmail } = useUpsertEmail();
 
   const onDelete = (fileId: string) => {
     setFiles(files?.filter((file: any) => fileId !== file.id));
   };
 
-  const handleChangeMessage = useCallback((value: string) => {
+  const handleChangeMessage = async (value: string) => {
     setMessage(value);
-    setIsUpdate(true);
-  }, []);
+  };
 
-  const handleChangeTo = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setTo(event.target.value);
-      setIsUpdate(true);
-    },
-    []
-  );
+  const handleChangeTo = async (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setTo(event.target.value);
+  };
 
-  const handleChangeSubject = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setSubject(event.target.value);
-      setIsUpdate(true);
-    },
-    []
-  );
+  const handleChangeSubject = async (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setSubject(event.target.value);
+  };
 
   const handleSend = async () => {
     if (to.length === 0 || subject.length === 0) {
@@ -94,27 +88,18 @@ export function MailCompose({ onCloseCompose }: Props) {
   };
 
   useEffect(() => {
-    console.log('files => ', files);
-    const handleCreate = async () => {
-      try {
-        const { data } = await createEmail({
-          variables: {
-            data: { subject, body: message, to, fileIds: files?.map((item: any) => item.id) },
-          },
-        });
-
-        setId(data?.createEmail.id);
-      } catch (error) {
-        console.log('error => ', error);
-      }
-    };
-
     const handleUpdate = async () => {
       try {
         if (id) {
-          updateEmail({
+          await upsertEmail({
             variables: {
-              data: { id, subject, body: message, to, fileIds: files?.map((item: any) => item.id) },
+              data: {
+                id,
+                subject,
+                body: message,
+                to,
+                fileIds: files?.map((item: any) => item.id),
+              },
             },
           });
         }
@@ -123,21 +108,15 @@ export function MailCompose({ onCloseCompose }: Props) {
       }
     };
 
-    if (!previousUpdate && isUpdate) {
-      handleCreate();
-    } else if (previousUpdate && isUpdate) {
+    if (!id && (to || subject || message)) {
+      setId(uuidv4());
+    }
+
+    if (id) {
       handleUpdate();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUpdate, to, subject, message, handleUpload]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (isUpdate) {
-        setPreviousUpdate(true);
-      }
-    }, 10);
-  }, [isUpdate]);
+  }, [id, to, subject, message]);
 
   return (
     <Portal>

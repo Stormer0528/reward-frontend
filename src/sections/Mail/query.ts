@@ -245,17 +245,9 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
   }
 `);
 
-export const CREATE_EMAIL = gql(/* GraphQL */ `
-  mutation CreateEmail($data: CreateEmailInput!) {
-    createEmail(data: $data) {
-      id
-    }
-  }
-`);
-
-export const UPDATE_EMAIL = gql(/* GraphQL */ `
-  mutation UpdateEmail($data: UpdateEmailInput!) {
-    updateEmail(data: $data) {
+export const UPSERT_EMAIL = gql(/* GraphQL */ `
+  mutation UpsertEmail($data: UpsertEmailInput!) {
+    upsertEmail(data: $data) {
       id
     }
   }

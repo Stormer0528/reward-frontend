@@ -37,9 +37,10 @@ type Props = {
   empty: boolean;
   loading: boolean;
   renderLabel: (id: string) => IMailLabel;
+  handleMoveTrash: Function;
 };
 
-export function SentDetails({ mail, renderLabel, empty, loading }: Props) {
+export function SentDetails({ mail, renderLabel, handleMoveTrash, empty, loading }: Props) {
   const theme = useTheme();
 
   if (loading) {
@@ -87,7 +88,7 @@ export function SentDetails({ mail, renderLabel, empty, loading }: Props) {
         </Tooltip>
 
         <Tooltip title="Trash">
-          <IconButton>
+          <IconButton onClick={() => handleMoveTrash(mail.id)}>
             <Iconify icon="solar:trash-bin-trash-bold" />
           </IconButton>
         </Tooltip>
