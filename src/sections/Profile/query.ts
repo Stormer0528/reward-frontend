@@ -4,6 +4,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
   query fetchMe {
     memberMe {
       id
+      balance
       username
       fullName
       email
@@ -38,6 +39,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       }
       sponsor {
         id
+        balance
         username
         fullName
         email
@@ -91,6 +93,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         }
         teamReport
         country
+        balance
         username
         fullName
         groupName
@@ -121,6 +124,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           newR
         }
         teamReport
+        balance
         username
         fullName
         groupName
@@ -191,6 +195,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
       members {
         id
         teamReport
+        balance
         username
         fullName
         email
@@ -224,6 +229,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         placementParentId
         sponsor {
           id
+          balance
           username
           fullName
           email
@@ -255,6 +261,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         placementParent {
           id
           teamReport
+          balance
           username
           fullName
           email
@@ -322,6 +329,7 @@ export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
     members(page: $page, filter: $filter, sort: $sort) {
       members {
         id
+        balance
         username
         email
         fullName
@@ -373,6 +381,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
       members {
         id
         teamReport
+        balance
         username
         fullName
         email
