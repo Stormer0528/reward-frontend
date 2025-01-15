@@ -14,6 +14,10 @@ import { SectionContent } from './components/SectionContent';
 import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
 
 export default function Packages({ sx, ...other }: StackProps) {
+  const goToJoin = () => {
+    window.scrollTo({ top: document.documentElement.scrollHeight - 2200, behavior: 'smooth' });
+  };
+
   const renderLines = (
     <>
       <Stack
@@ -45,149 +49,158 @@ export default function Packages({ sx, ...other }: StackProps) {
       title="3 Packages to Choose From..."
       description={
         <Container sx={{ position: 'relative' }}>
-          <Stack direction="row" justifyContent="space-between" columnGap={2} sx={{ py: 3 }}>
-            <Card
-              sx={{
-                p: 2,
-                boxShadow:
-                  '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-              }}
-            >
-              <Typography variant="h4">Single</Typography>
-              <Typography variant="h2" sx={{ py: 1 }}>
-                $995
-              </Typography>
-              <Typography variant="h5" sx={{ pb: 2 }}>
-                one-time fee
-              </Typography>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>100 megahash mining power</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>One affiliate tracking center</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Unique tracking code & URL</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Back-office training & tools</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Dedicated Customer Support</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Unlimited hosting & electricity</Typography>
-              </Stack>
-
-              <Button
-                variant="contained"
-                color="primary"
-                endIcon={<Iconify icon="pajamas:long-arrow" />}
+          <Grid container spacing={2} sx={{ py: 3 }}>
+            <Grid xl={4} md={6} xs={12}>
+              <Card
+                sx={{
+                  p: 2,
+                  boxShadow:
+                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                }}
               >
-                Get Started Now
-              </Button>
-            </Card>
-            <Card
-              sx={{
-                p: 2,
-                boxShadow:
-                  '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-              }}
-            >
-              <Typography variant="h4">TRIPLE Play</Typography>
-              <Typography variant="h2" sx={{ py: 1 }}>
-                $2985
-              </Typography>
-              <Typography variant="h5" sx={{ pb: 2 }}>
-                one-time fee
-              </Typography>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>300 megahash mining power</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>One affiliate tracking center</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Unique tracking code & URL</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Back-office training & tools</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Dedicated Customer Support</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Unlimited hosting & electricity</Typography>
-              </Stack>
+                <Typography variant="h4">Single</Typography>
+                <Typography variant="h2" sx={{ py: 1 }}>
+                  $995
+                </Typography>
+                <Typography variant="h5" sx={{ pb: 2 }}>
+                  one-time fee
+                </Typography>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>100 megahash mining power</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>One affiliate tracking center</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Unique tracking code & URL</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Back-office training & tools</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Dedicated Customer Support</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Unlimited hosting & electricity</Typography>
+                </Stack>
 
-              <Button
-                variant="contained"
-                color="primary"
-                endIcon={<Iconify icon="pajamas:long-arrow" />}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  endIcon={<Iconify icon="pajamas:long-arrow" />}
+                  onClick={goToJoin}
+                >
+                  Get Started Now
+                </Button>
+              </Card>
+            </Grid>
+            <Grid xl={4} md={6} xs={12}>
+              <Card
+                sx={{
+                  p: 2,
+                  boxShadow:
+                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                }}
               >
-                Triple Your Output
-              </Button>
-            </Card>
-            <Card
-              sx={{
-                p: 2,
-                boxShadow:
-                  '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-              }}
-            >
-              <Typography variant="h4">BUILDER Plan</Typography>
-              <Typography variant="h2" sx={{ py: 1 }}>
-                $8955
-              </Typography>
-              <Typography variant="h5" sx={{ pb: 2 }}>
-                one-time fee
-              </Typography>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>900 megahash mining power</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Three affiliate tracking center</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Unique tracking code & URL</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Back-office training & tools</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Dedicated Customer Support</Typography>
-              </Stack>
-              <Stack direction="row" sx={{ pb: 1 }}>
-                <Iconify icon="radix-icons:dot-filled" />
-                <Typography>Unlimited hosting & electricity</Typography>
-              </Stack>
+                <Typography variant="h4">TRIPLE Play</Typography>
+                <Typography variant="h2" sx={{ py: 1 }}>
+                  $2985
+                </Typography>
+                <Typography variant="h5" sx={{ pb: 2 }}>
+                  one-time fee
+                </Typography>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>300 megahash mining power</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>One affiliate tracking center</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Unique tracking code & URL</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Back-office training & tools</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Dedicated Customer Support</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Unlimited hosting & electricity</Typography>
+                </Stack>
 
-              <Button
-                variant="contained"
-                color="primary"
-                endIcon={<Iconify icon="pajamas:long-arrow" />}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  endIcon={<Iconify icon="pajamas:long-arrow" />}
+                  onClick={goToJoin}
+                >
+                  Triple Your Output
+                </Button>
+              </Card>
+            </Grid>
+            <Grid xl={4} md={6} xs={12}>
+              <Card
+                sx={{
+                  p: 2,
+                  boxShadow:
+                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                }}
               >
-                Build Your Network
-              </Button>
-            </Card>
-          </Stack>
+                <Typography variant="h4">BUILDER Plan</Typography>
+                <Typography variant="h2" sx={{ py: 1 }}>
+                  $8955
+                </Typography>
+                <Typography variant="h5" sx={{ pb: 2 }}>
+                  one-time fee
+                </Typography>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>900 megahash mining power</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Three affiliate tracking center</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Unique tracking code & URL</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Back-office training & tools</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Dedicated Customer Support</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                  <Iconify icon="radix-icons:dot-filled" />
+                  <Typography>Unlimited hosting & electricity</Typography>
+                </Stack>
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  endIcon={<Iconify icon="pajamas:long-arrow" />}
+                  onClick={goToJoin}
+                >
+                  Build Your Network
+                </Button>
+              </Card>
+            </Grid>
+          </Grid>
         </Container>
       }
       sx={{ textAlign: 'center' }}
@@ -212,7 +225,6 @@ export default function Packages({ sx, ...other }: StackProps) {
           <Grid
             container
             disableEqualOverflow
-            spacing={{ xs: 5, md: 8 }}
             sx={{ position: 'relative', zIndex: 9 }}
             display="flex"
             justifyContent="center"

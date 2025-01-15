@@ -112,22 +112,22 @@ export const _socials = [
   {
     value: 'facebook',
     name: 'Facebook',
-    path: 'https://www.facebook.com/caitlyn.kerluke',
+    path: 'https://www.facebook.com/profile.php?id=61559875176657',
   },
   {
     value: 'instagram',
     name: 'Instagram',
-    path: 'https://www.instagram.com/caitlyn.kerluke',
+    path: 'https://www.instagram.com/TEXITcoin_TXC',
   },
   {
-    value: 'linkedin',
-    name: 'Linkedin',
-    path: 'https://www.linkedin.com/caitlyn.kerluke',
+    value: 'tiktok',
+    name: 'TikTok',
+    path: 'https://www.tiktok.com/@TEXITcoin_TXC',
   },
   {
     value: 'twitter',
     name: 'Twitter',
-    path: 'https://www.twitter.com/caitlyn.kerluke',
+    path: 'https://twitter.com/TEXITcoin_TXC',
   },
 ];
 

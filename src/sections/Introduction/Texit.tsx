@@ -86,7 +86,7 @@ export default function Texit({ sx, ...other }: StackProps) {
       }}
     >
       <Grid container textAlign="center" spacing={2}>
-        <Grid xs={6}>
+        <Grid xl={6} xs={12}>
           <Card
             sx={{
               p: 2,
@@ -104,7 +104,7 @@ export default function Texit({ sx, ...other }: StackProps) {
             </Typography>
           </Card>
         </Grid>
-        <Grid xs={6}>
+        <Grid xl={6} xs={12}>
           <Card
             sx={{
               p: 2,
@@ -122,7 +122,7 @@ export default function Texit({ sx, ...other }: StackProps) {
             </Typography>
           </Card>
         </Grid>
-        <Grid xs={6}>
+        <Grid xl={6} xs={12}>
           <Card
             sx={{
               p: 2,
@@ -140,7 +140,7 @@ export default function Texit({ sx, ...other }: StackProps) {
             </Typography>
           </Card>
         </Grid>
-        <Grid xs={6}>
+        <Grid xl={6} xs={12}>
           <Card
             sx={{
               p: 2,

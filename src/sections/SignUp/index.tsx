@@ -125,27 +125,6 @@ export function SignUpView() {
       <Typography variant="h2" textAlign="center">
         Fill out the form and let us blast off...
       </Typography>
-
-      <Stack direction="row" spacing={0.5} justifyContent="center">
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Already have an account?
-        </Typography>
-
-        <Stack direction="row" columnGap={2}>
-          <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
-            Sign in
-          </Link>
-
-          <Link
-            component={RouterLink}
-            href={paths.calculator.root}
-            variant="subtitle2"
-            color="blue"
-          >
-            Calculator
-          </Link>
-        </Stack>
-      </Stack>
     </Stack>
   );
 
@@ -329,6 +308,24 @@ export function SignUpView() {
     </Stack>
   );
 
+  const renderFooter = (
+    <Stack direction="row" spacing={0.5} justifyContent="center" sx={{ mt: 3 }}>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        Already have an account?
+      </Typography>
+
+      <Stack direction="row" columnGap={2}>
+        <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
+          Sign in
+        </Link>
+
+        <Link component={RouterLink} href={paths.calculator.root} variant="subtitle2" color="blue">
+          Calculator
+        </Link>
+      </Stack>
+    </Stack>
+  );
+
   return (
     <Container>
       {renderHead}
@@ -342,6 +339,8 @@ export function SignUpView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
+
+      {renderFooter}
     </Container>
   );
 }

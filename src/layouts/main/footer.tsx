@@ -21,21 +21,38 @@ import { SocialIcon } from 'src/components/Iconify';
 
 const LINKS = [
   {
-    headline: 'Minimal',
+    headline: 'About',
     children: [
-      { name: 'About us', href: 'paths.about' },
-      { name: 'Contact us', href: 'paths.contact' },
-      { name: 'FAQs', href: 'paths.faqs' },
+      { name: 'Discover TEXITcoin', href: '#' },
+      { name: 'Letter from the Founder', href: '#' },
+      { name: 'The TEXITcoin Mission', href: '#' },
+      { name: 'News & Updates', href: '#' },
+      { name: 'Meet the Team', href: '#' },
+      { name: 'The Case for TEXITcoin', href: '#' },
+      { name: 'TXC Tokenomics', href: '#' },
+      { name: 'Events', href: '#' },
     ],
   },
   {
-    headline: 'Legal',
+    headline: 'Resources',
     children: [
-      { name: 'Terms and condition', href: '#' },
-      { name: 'Privacy policy', href: '#' },
+      { name: 'Block Explorer', href: '#' },
+      { name: 'Mine TEXITcoin', href: '#' },
+      { name: 'TXC Wallets', href: '#' },
+      { name: 'CoinMerketCap', href: '#' },
+      { name: 'Gear & Apparel', href: '#' },
     ],
   },
-  { headline: 'Contact', children: [{ name: 'support@minimals.cc', href: '#' }] },
+  {
+    headline: 'Discover Texas',
+    children: [
+      { name: 'The Early Days', href: '#' },
+      { name: 'The Rise of Modern Texas', href: '#' },
+      { name: 'Crisis at the Border', href: '#' },
+      { name: 'The Need to Secede', href: '#' },
+      { name: 'Beyond the Lone Star State', href: '#' },
+    ],
+  },
 ];
 
 // ----------------------------------------------------------------------
