@@ -21,6 +21,7 @@ const ROOTS = {
   COMMISSION: '/commission',
   RESOURCE: '/resource',
   CALCULATOR: '/calculator',
+  STATISTICS: '/statistics',
   PROFILE: '/profile',
   TEAM: '/team',
   MAIL: '/mail',
@@ -53,6 +54,9 @@ export const paths = {
 
   // CALCULATOR
   calculator: { root: ROOTS.CALCULATOR },
+
+  // STATISTICS
+  statistics: { root: ROOTS.STATISTICS },
 
   // DASHBOARD
   dashboard: {
