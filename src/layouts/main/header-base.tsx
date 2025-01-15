@@ -1,7 +1,9 @@
 import type { NavSectionProps } from 'src/components/nav-section';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
@@ -10,6 +12,7 @@ import { useRouter } from 'src/routes/hooks';
 import { STORAGE_TOKEN_KEY } from 'src/consts';
 
 import { Logo } from 'src/components/logo';
+import { Iconify } from 'src/components/Iconify';
 
 import { HeaderSection } from './header-section';
 import { _account } from '../config-nav-account';
@@ -98,6 +101,23 @@ export function HeaderBase({
                 gap: { xs: 1, sm: 1.5 },
               }}
             >
+              {settings && (
+                <Stack direction="row" columnGap={1}>
+                  <LoadingButton onClick={() => router.push(paths.intro.root)}>
+                    <Stack direction="row" columnGap={1} alignItems="center">
+                      <Iconify icon="ic:outline-home" />
+                      <Typography variant="button">Home</Typography>
+                    </Stack>
+                  </LoadingButton>
+                  <LoadingButton onClick={() => router.push(paths.statistics.root)}>
+                    <Stack direction="row" columnGap={1} alignItems="center">
+                      <Iconify icon="uil:statistics" />
+                      <Typography variant="button">Business Insights</Typography>
+                    </Stack>
+                  </LoadingButton>
+                </Stack>
+              )}
+
               {/* -- Settings button -- */}
               {settings && <SettingsButton data-slot="settings" />}
 
