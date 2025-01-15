@@ -5,7 +5,6 @@ import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,7 +18,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
@@ -188,17 +186,23 @@ export function SignUpView() {
         <Field.Text name="zipCode" label="Zip Code" />
       </Stack>
 
-      <Field.Select
-        name="packageId"
-        label="Pacakage"
-        inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
-      >
-        {packages.map((option) => (
-          <MenuItem key={option?.id} value={option?.id}>
-            {`$${option?.amount} @ ${option?.productName}`}
-          </MenuItem>
-        ))}
-      </Field.Select>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        <Field.Select
+          name="packageId"
+          label="Pacakage"
+          inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+        >
+          {packages.map((option) => (
+            <MenuItem key={option?.id} value={option?.id}>
+              {`$${option?.amount} @ ${option?.productName}`}
+            </MenuItem>
+          ))}
+        </Field.Select>
+
+        <IconButton>
+          <Iconify icon="system-uicons:calculator" width={30} />
+        </IconButton>
+      </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
         <Stack width={1}>
@@ -308,23 +312,23 @@ export function SignUpView() {
     </Stack>
   );
 
-  const renderFooter = (
-    <Stack direction="row" spacing={0.5} justifyContent="center" sx={{ mt: 3 }}>
-      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        Already have an account?
-      </Typography>
+  // const renderFooter = (
+  //   <Stack direction="row" spacing={0.5} justifyContent="center" sx={{ mt: 3 }}>
+  //     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+  //       Already have an account?
+  //     </Typography>
 
-      <Stack direction="row" columnGap={2}>
-        <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
-          Sign in
-        </Link>
+  //     <Stack direction="row" columnGap={2}>
+  //       <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
+  //         Sign in
+  //       </Link>
 
-        <Link component={RouterLink} href={paths.calculator.root} variant="subtitle2" color="blue">
-          Calculator
-        </Link>
-      </Stack>
-    </Stack>
-  );
+  //       <Link component={RouterLink} href={paths.calculator.root} variant="subtitle2" color="blue">
+  //         Calculator
+  //       </Link>
+  //     </Stack>
+  //   </Stack>
+  // );
 
   return (
     <Container>
@@ -339,8 +343,6 @@ export function SignUpView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
-
-      {renderFooter}
     </Container>
   );
 }

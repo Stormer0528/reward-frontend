@@ -28,7 +28,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
     }
 
     return (
-      <Link component={RouterLink} href="/statistics" sx={{ display: 'contents' }}>
+      <Link component={RouterLink} href="/intro" sx={{ display: 'contents' }}>
         {logo}
       </Link>
     );

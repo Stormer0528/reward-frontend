@@ -10,7 +10,7 @@ const ROOTS = {
   VERIFYRESULT: '/thanks',
 
   // Statistics
-  STATISTICS: '/statistics',
+  INTRO: '/intro',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -48,8 +48,8 @@ export const paths = {
   // RESULT
   verifyResult: ROOTS.VERIFYRESULT,
 
-  // STATISTICS
-  statistics: { root: ROOTS.STATISTICS },
+  // INTRO
+  intro: { root: ROOTS.INTRO },
 
   // CALCULATOR
   calculator: { root: ROOTS.CALCULATOR },

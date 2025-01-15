@@ -3,17 +3,13 @@ import type { StackProps } from '@mui/material/Stack';
 import { m } from 'framer-motion';
 
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
-import { Logo } from 'src/components/logo';
-import { Iconify } from 'src/components/Iconify';
 import { varFade, MotionViewport } from 'src/components/animate';
 
 import { SectionTitle } from './components/SectionTitle';
@@ -22,10 +18,6 @@ import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgEle
 // ----------------------------------------------------------------------
 
 export default function Brief({ sx, ...other }: StackProps) {
-  const goToJoin = () => {
-    window.scrollTo({ top: document.documentElement.scrollHeight - 2200, behavior: 'smooth' });
-  };
-
   const renderLines = (
     <>
       <Stack
@@ -54,19 +46,6 @@ export default function Brief({ sx, ...other }: StackProps) {
 
   const renderDescription = (
     <SectionTitle
-      caption={
-        <Card
-          sx={{
-            width: 100,
-            height: 100,
-            boxShadow: '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-            pt: 1,
-            borderRadius: '50%',
-          }}
-        >
-          <Logo sx={{ width: 80, height: 80 }} />
-        </Card>
-      }
       title="Texitcoin"
       txtGradient="is your second chance at Crypto"
       description="Faster, cheaper and better than Bitcoin in almost every way, our passionate affiliates are on track to make $TXC bigger than the world's leading crypto. Join us, help secure the TEXITcoin network, and play an active role in the success of $TXC."
@@ -100,21 +79,6 @@ export default function Brief({ sx, ...other }: StackProps) {
           border: (theme) => `solid 2px ${theme.vars.palette.common.white}`,
         }}
       />
-
-      <Box sx={{ p: 0.5, borderRadius: '0 0 8px 8px', bgcolor: 'common.white' }}>
-        <Button
-          variant="contained"
-          onClick={goToJoin}
-          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
-          sx={{
-            color: 'grey.800',
-            bgcolor: 'common.white',
-            '&:hover': { bgcolor: 'common.white' },
-          }}
-        >
-          Join Now
-        </Button>
-      </Box>
     </Stack>
   );
 
