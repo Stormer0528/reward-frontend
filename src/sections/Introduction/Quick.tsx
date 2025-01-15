@@ -44,7 +44,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
       description={
         <Container>
           <MediaPlayer
-            url="https://www.youtube.com/watch?v=-XP4Jz0FYFI"
+            url="https://www.youtube.com/watch?v=-XP4JzOFYFI"
             width={360}
             height={300}
             controls
