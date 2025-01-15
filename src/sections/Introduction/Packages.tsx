@@ -65,27 +65,27 @@ export default function Packages({ sx, ...other }: StackProps) {
                 <Typography variant="h5" sx={{ pb: 2 }}>
                   one-time fee
                 </Typography>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>100 megahash mining power</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>One affiliate tracking center</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Unique tracking code & URL</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Back-office training & tools</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Dedicated Customer Support</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Unlimited hosting & electricity</Typography>
                 </Stack>
@@ -95,6 +95,7 @@ export default function Packages({ sx, ...other }: StackProps) {
                   color="primary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
                   onClick={goToJoin}
+                  sx={{ my: 1 }}
                 >
                   Get Started Now
                 </Button>
@@ -115,27 +116,27 @@ export default function Packages({ sx, ...other }: StackProps) {
                 <Typography variant="h5" sx={{ pb: 2 }}>
                   one-time fee
                 </Typography>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>300 megahash mining power</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>One affiliate tracking center</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Unique tracking code & URL</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Back-office training & tools</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Dedicated Customer Support</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Unlimited hosting & electricity</Typography>
                 </Stack>
@@ -145,6 +146,7 @@ export default function Packages({ sx, ...other }: StackProps) {
                   color="primary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
                   onClick={goToJoin}
+                  sx={{ my: 1 }}
                 >
                   Triple Your Output
                 </Button>
@@ -165,27 +167,27 @@ export default function Packages({ sx, ...other }: StackProps) {
                 <Typography variant="h5" sx={{ pb: 2 }}>
                   one-time fee
                 </Typography>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>900 megahash mining power</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Three affiliate tracking center</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Unique tracking code & URL</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Back-office training & tools</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Dedicated Customer Support</Typography>
                 </Stack>
-                <Stack direction="row" justifyContent="center" sx={{ pb: 1 }}>
+                <Stack direction="row" sx={{ pb: 1 }}>
                   <Iconify icon="radix-icons:dot-filled" />
                   <Typography>Unlimited hosting & electricity</Typography>
                 </Stack>
@@ -195,6 +197,7 @@ export default function Packages({ sx, ...other }: StackProps) {
                   color="primary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
                   onClick={goToJoin}
+                  sx={{ my: 1 }}
                 >
                   Build Your Network
                 </Button>

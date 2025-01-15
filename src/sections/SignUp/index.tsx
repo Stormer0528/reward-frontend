@@ -199,7 +199,11 @@ export function SignUpView() {
           ))}
         </Field.Select>
 
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            window.open(paths.calculator.root, '_blank');
+          }}
+        >
           <Iconify icon="system-uicons:calculator" width={30} />
         </IconButton>
       </Stack>
@@ -242,7 +246,6 @@ export function SignUpView() {
           <Field.Text
             name="sponsorUserId"
             label="Sponsor ID"
-            // disabled={Boolean(refID)}
             InputLabelProps={{ shrink: true }}
             placeholder="name or ID of the person"
           />
