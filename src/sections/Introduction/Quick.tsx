@@ -73,7 +73,6 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
           <Grid
             container
             disableEqualOverflow
-            spacing={{ xs: 5, md: 8 }}
             sx={{ position: 'relative', zIndex: 9 }}
             display="flex"
             justifyContent="center"

@@ -44,56 +44,62 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
       title="Get Started in 3 Easy Steps..."
       description={
         <Container>
-          <Stack direction="row" justifyContent="space-between" columnGap={2} sx={{ py: 3 }}>
-            <Card
-              sx={{
-                p: 2,
-                boxShadow:
-                  '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-              }}
-            >
-              <Iconify icon="fluent-mdl2:join-online-meeting" width={60} />
-              <Typography variant="h4" sx={{ py: 3 }}>
-                Join Right Now
-              </Typography>
-              <Typography variant="h6">
-                {`Complete the form below and send your payment. We'll get you setup and point the
+          <Grid container spacing={2} sx={{ py: 3 }}>
+            <Grid xl={4} md={6} xs={12}>
+              <Card
+                sx={{
+                  p: 2,
+                  boxShadow:
+                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                }}
+              >
+                <Iconify icon="fluent-mdl2:join-online-meeting" width={60} />
+                <Typography variant="h4" sx={{ py: 3 }}>
+                  Join Right Now
+                </Typography>
+                <Typography variant="h6">
+                  {`Complete the form below and send your payment. We'll get you setup and point the
                   mine at your shiny new Cold Storage Coin.`}
-              </Typography>
-            </Card>
-            <Card
-              sx={{
-                p: 2,
-                boxShadow:
-                  '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-              }}
-            >
-              <Iconify icon="game-icons:money-stack" width={60} />
-              <Typography variant="h4" sx={{ py: 3 }}>
-                Begin Earning Immediately
-              </Typography>
-              <Typography variant="h6">
-                Once the mine is configured and connected to your Coin, your wallet will begin
-                receiving $TXC payouts daily. Save or monetize!
-              </Typography>
-            </Card>
-            <Card
-              sx={{
-                p: 2,
-                boxShadow:
-                  '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-              }}
-            >
-              <Iconify icon="pepicons-pop:speaker-high-circle-filled" width={60} />
-              <Typography variant="h4" sx={{ py: 3 }}>
-                Spread the Word
-              </Typography>
-              <Typography variant="h6">
-                {`You're on the rocket ship, and there's nothing left to do. But refer 3 and get
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid xl={4} md={6} xs={12}>
+              <Card
+                sx={{
+                  p: 2,
+                  boxShadow:
+                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                }}
+              >
+                <Iconify icon="game-icons:money-stack" width={60} />
+                <Typography variant="h4" sx={{ py: 3 }}>
+                  Begin Earning Immediately
+                </Typography>
+                <Typography variant="h6">
+                  Once the mine is configured and connected to your Coin, your wallet will begin
+                  receiving $TXC payouts daily. Save or monetize!
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid xl={4} md={6} xs={12}>
+              <Card
+                sx={{
+                  p: 2,
+                  boxShadow:
+                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                }}
+              >
+                <Iconify icon="pepicons-pop:speaker-high-circle-filled" width={60} />
+                <Typography variant="h4" sx={{ py: 3 }}>
+                  Spread the Word
+                </Typography>
+                <Typography variant="h6">
+                  {`You're on the rocket ship, and there's nothing left to do. But refer 3 and get
                   more mining power for free! Or use our Rapid Rewards and get cash!`}
-              </Typography>
-            </Card>
-          </Stack>
+                </Typography>
+              </Card>
+            </Grid>
+          </Grid>
         </Container>
       }
       sx={{ textAlign: 'center' }}
@@ -115,12 +121,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
         {renderLines}
 
         <Container sx={{ position: 'relative' }}>
-          <Grid
-            container
-            disableEqualOverflow
-            spacing={{ xs: 5, md: 8 }}
-            sx={{ position: 'relative', zIndex: 9 }}
-          >
+          <Grid container disableEqualOverflow sx={{ position: 'relative', zIndex: 9 }}>
             {renderContent}
           </Grid>
 

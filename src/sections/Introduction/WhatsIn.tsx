@@ -53,56 +53,62 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
       description={
         <Container>
           <Stack sx={{ textAlign: 'center' }}>
-            <Stack direction="row" justifyContent="space-between" columnGap={2} sx={{ py: 3 }}>
-              <Card
-                sx={{
-                  p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-                }}
-              >
-                <Iconify icon="octicon:feed-star-16" width={60} />
-                <Typography variant="h4" sx={{ py: 3 }}>
-                  UNLIMITED TXC
-                </Typography>
-                <Typography variant="h6">
-                  Once your enrollment is complete, freshly minted TXC is paid out to your wallet
-                  24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
-                </Typography>
-              </Card>
-              <Card
-                sx={{
-                  p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-                }}
-              >
-                <Iconify icon="el:group-alt" width={60} />
-                <Typography variant="h4" sx={{ py: 3 }}>
-                  ONE, TWO, FREE!
-                </Typography>
-                <Typography variant="h6">
-                  Once your enrollment is complete, freshly minted TXC is paid out to your wallet
-                  24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
-                </Typography>
-              </Card>
-              <Card
-                sx={{
-                  p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
-                }}
-              >
-                <Iconify icon="icon-park-solid:every-user" width={60} />
-                <Typography variant="h4" sx={{ py: 3 }}>
-                  LIMITLESS BINARY
-                </Typography>
-                <Typography variant="h6">
-                  Once your enrollment is complete, freshly minted TXC is paid out to your wallet
-                  24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
-                </Typography>
-              </Card>
-            </Stack>
+            <Grid container spacing={2} sx={{ py: 3 }}>
+              <Grid xl={4} md={6} xs={12}>
+                <Card
+                  sx={{
+                    p: 2,
+                    boxShadow:
+                      '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  }}
+                >
+                  <Iconify icon="octicon:feed-star-16" width={60} />
+                  <Typography variant="h4" sx={{ py: 3 }}>
+                    UNLIMITED TXC
+                  </Typography>
+                  <Typography variant="h6">
+                    Once your enrollment is complete, freshly minted TXC is paid out to your wallet
+                    24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
+                  </Typography>
+                </Card>
+              </Grid>
+              <Grid xl={4} md={6} xs={12}>
+                <Card
+                  sx={{
+                    p: 2,
+                    boxShadow:
+                      '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  }}
+                >
+                  <Iconify icon="el:group-alt" width={60} />
+                  <Typography variant="h4" sx={{ py: 3 }}>
+                    ONE, TWO, FREE!
+                  </Typography>
+                  <Typography variant="h6">
+                    Once your enrollment is complete, freshly minted TXC is paid out to your wallet
+                    24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
+                  </Typography>
+                </Card>
+              </Grid>
+              <Grid xl={4} md={6} xs={12}>
+                <Card
+                  sx={{
+                    p: 2,
+                    boxShadow:
+                      '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  }}
+                >
+                  <Iconify icon="icon-park-solid:every-user" width={60} />
+                  <Typography variant="h4" sx={{ py: 3 }}>
+                    LIMITLESS BINARY
+                  </Typography>
+                  <Typography variant="h6">
+                    Once your enrollment is complete, freshly minted TXC is paid out to your wallet
+                    24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
+                  </Typography>
+                </Card>
+              </Grid>
+            </Grid>
 
             <Typography
               variant="body2"
@@ -136,12 +142,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
         {renderLines}
 
         <Container sx={{ position: 'relative' }}>
-          <Grid
-            container
-            disableEqualOverflow
-            spacing={{ xs: 5, md: 8 }}
-            sx={{ position: 'relative', zIndex: 9 }}
-          >
+          <Grid container disableEqualOverflow sx={{ position: 'relative', zIndex: 9 }}>
             {renderContent}
           </Grid>
 

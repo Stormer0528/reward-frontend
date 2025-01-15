@@ -1,3 +1,5 @@
+import type { Breakpoint } from '@mui/material/styles';
+
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 
@@ -16,6 +18,7 @@ import { SignUpView } from '../SignUp';
 
 export default function Introduction() {
   const pageProgress = useScrollProgress();
+  const layoutQuery: Breakpoint = 'md';
 
   return (
     <>
@@ -44,7 +47,7 @@ export default function Introduction() {
           <SignUpView />
         </Container>
 
-        <Footer layoutQuery="xs" />
+        <Footer layoutQuery={layoutQuery} />
       </Stack>
     </>
   );
