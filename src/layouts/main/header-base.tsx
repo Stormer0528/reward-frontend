@@ -106,16 +106,33 @@ export function HeaderBase({
                 <AccountDrawer data-slot="account" data={_account} />
               ) : (
                 settings && (
-                  <LoadingButton
-                    color="inherit"
-                    size="medium"
-                    type="submit"
-                    onClick={() => router.push(paths.auth.signIn)}
-                    variant="contained"
-                    data-slot="login"
-                  >
-                    Login
-                  </LoadingButton>
+                  <>
+                    <LoadingButton
+                      color="inherit"
+                      size="medium"
+                      type="submit"
+                      onClick={() => router.push(paths.auth.signIn)}
+                      variant="contained"
+                      data-slot="login"
+                    >
+                      Sign In
+                    </LoadingButton>
+                    <LoadingButton
+                      color="inherit"
+                      size="medium"
+                      type="submit"
+                      onClick={() =>
+                        window.scrollTo({
+                          top: document.documentElement.scrollHeight - 2200,
+                          behavior: 'smooth',
+                        })
+                      }
+                      variant="contained"
+                      data-slot="login"
+                    >
+                      Join Now
+                    </LoadingButton>
+                  </>
                 )
               )}
             </Box>

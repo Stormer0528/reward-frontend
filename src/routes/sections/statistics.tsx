@@ -7,17 +7,17 @@ import { MainLayout } from 'src/layouts/main';
 import { LoadingScreen } from 'src/components/loading-screen';
 
 // ----------------------------------------------------------------------
-const StatisticsPage = lazy(() => import('src/pages/Statistics'));
+const IntroductionPage = lazy(() => import('src/pages/Introduction'));
 const RewardDetailPage = lazy(() => import('src/pages/MemberStatistics/List'));
 // ----------------------------------------------------------------------
 
 export const statisticsRoutes: RouteObject[] = [
   {
-    path: 'statistics',
+    path: 'intro',
     element: (
       <Suspense fallback={<LoadingScreen />}>
         <MainLayout>
-          <StatisticsPage />
+          <IntroductionPage />
         </MainLayout>
       </Suspense>
     ),

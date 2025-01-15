@@ -26,7 +26,7 @@ export function AuthGuard({ children }: Props) {
     }
 
     if (!isAuthenticated) {
-      router.replace(paths.statistics.root);
+      router.replace(paths.intro.root);
       return;
     }
 
