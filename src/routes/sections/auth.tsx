@@ -10,12 +10,12 @@ import { GuestGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const LoginPage = lazy(() => import('src/pages/SignIn'));
-const SignUpPage = lazy(() => import('src/pages/SignUp'));
-const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
-const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
-const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
-const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
+const IntroPage = lazy(() => import('src/sections/Introduction'));
 const CalculatorPage = lazy(() => import('src/pages/Calculator'));
+const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
+const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
+const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
+const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
 
 const signIn = {
   path: 'sign-in',
@@ -32,9 +32,7 @@ const signUp = {
   path: 'sign-up',
   element: (
     <GuestGuard>
-      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="620px" introVideo>
-        <SignUpPage />
-      </AuthSplitLayout>
+      <IntroPage />
     </GuestGuard>
   ),
 };

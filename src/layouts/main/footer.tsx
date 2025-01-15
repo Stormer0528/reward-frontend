@@ -79,8 +79,8 @@ export function Footer({ layoutQuery, sx }: FooterProps) {
                 [theme.breakpoints.up(layoutQuery)]: { mx: 'unset' },
               }}
             >
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+              Join us, help secure the TEXITcoin network, and play an active role in the success of
+              TXC.
             </Typography>
 
             <Stack
