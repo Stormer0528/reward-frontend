@@ -48,7 +48,7 @@ export default function HashRate() {
     },
     {
       name: 'Sold HashPower',
-      data: blocks!.map((item) => item.soldHashPower).reverse(),
+      data: blocks!.map((item) => item.soldHashPower / 1000).reverse(),
       type: 'line',
     },
   ];
@@ -90,8 +90,9 @@ export default function HashRate() {
           text: 'Sold HashPower',
         },
         labels: {
-          formatter: (value: number) => `${value}`,
+          formatter: (value: number) => `${value} GH/s`,
         },
+        min: 0,
       },
     ],
     colors: ['#228a7c', '#ca2f31'],
