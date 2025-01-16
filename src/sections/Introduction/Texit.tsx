@@ -6,6 +6,7 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
@@ -19,6 +20,8 @@ import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgEle
 // ----------------------------------------------------------------------
 
 export default function Texit({ sx, ...other }: StackProps) {
+  const customTheme = useTheme();
+
   const renderLines = (
     <>
       <Stack
@@ -85,13 +88,12 @@ export default function Texit({ sx, ...other }: StackProps) {
         },
       }}
     >
-      <Grid container textAlign="center" spacing={2}>
+      <Grid container textAlign="center" spacing={3}>
         <Grid xl={6} xs={12}>
           <Card
             sx={{
               p: 2,
-              boxShadow:
-                '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+              boxShadow: customTheme.customShadows.success,
             }}
           >
             <Iconify icon="octicon:feed-star-16" width={60} />
@@ -108,8 +110,7 @@ export default function Texit({ sx, ...other }: StackProps) {
           <Card
             sx={{
               p: 2,
-              boxShadow:
-                '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+              boxShadow: customTheme.customShadows.success,
             }}
           >
             <Iconify icon="game-icons:miner" width={60} />
@@ -126,8 +127,7 @@ export default function Texit({ sx, ...other }: StackProps) {
           <Card
             sx={{
               p: 2,
-              boxShadow:
-                '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+              boxShadow: customTheme.customShadows.success,
             }}
           >
             <Iconify icon="mdi:clock-fast" width={60} />
@@ -144,8 +144,7 @@ export default function Texit({ sx, ...other }: StackProps) {
           <Card
             sx={{
               p: 2,
-              boxShadow:
-                '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+              boxShadow: customTheme.customShadows.success,
             }}
           >
             <Iconify icon="game-icons:axe-in-stump" width={60} />

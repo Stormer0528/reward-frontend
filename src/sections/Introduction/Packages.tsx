@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { Iconify } from 'src/components/Iconify';
@@ -14,6 +15,8 @@ import { SectionContent } from './components/SectionContent';
 import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
 
 export default function Packages({ sx, ...other }: StackProps) {
+  const theme = useTheme();
+
   const goToJoin = () => {
     window.scrollTo({ top: document.documentElement.scrollHeight - 2200, behavior: 'smooth' });
   };
@@ -49,13 +52,12 @@ export default function Packages({ sx, ...other }: StackProps) {
       title="3 Packages to Choose From..."
       description={
         <Container sx={{ position: 'relative' }}>
-          <Grid container spacing={2} sx={{ py: 3 }}>
+          <Grid container spacing={3} sx={{ py: 3 }}>
             <Grid xl={4} md={6} xs={12}>
               <Card
                 sx={{
                   p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  boxShadow: theme.customShadows.success,
                 }}
               >
                 <Typography variant="h4">Single</Typography>
@@ -105,8 +107,7 @@ export default function Packages({ sx, ...other }: StackProps) {
               <Card
                 sx={{
                   p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  boxShadow: theme.customShadows.success,
                 }}
               >
                 <Typography variant="h4">TRIPLE Play</Typography>
@@ -156,8 +157,7 @@ export default function Packages({ sx, ...other }: StackProps) {
               <Card
                 sx={{
                   p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  boxShadow: theme.customShadows.success,
                 }}
               >
                 <Typography variant="h4">BUILDER Plan</Typography>

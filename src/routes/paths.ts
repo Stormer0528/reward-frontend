@@ -9,8 +9,11 @@ const ROOTS = {
   VERIFY_EMAIL: '/verify-email',
   VERIFYRESULT: '/thanks',
 
-  // Statistics
+  // Pages
   INTRO: '/intro',
+  CALCULATOR: '/calculator',
+  STATISTICS: '/statistics',
+  RAPIDREWARDS: '/rapid-rewards',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -20,8 +23,6 @@ const ROOTS = {
   PLACEMENT: '/placement',
   COMMISSION: '/commission',
   RESOURCE: '/resource',
-  CALCULATOR: '/calculator',
-  STATISTICS: '/statistics',
   PROFILE: '/profile',
   TEAM: '/team',
   MAIL: '/mail',
@@ -35,28 +36,34 @@ export const paths = {
   auth: {
     signIn: ROOTS.SIGN_IN,
     signUp: ROOTS.SIGN_UP,
+
+    // FORGOT PASSWORD
+    forgotPassword: ROOTS.FORGOT_PASSWORD,
+
+    // RESET PASSWORD
+    resetPassword: ROOTS.RESET_PASSWORD,
+
+    // VERIFY EMAIL
+    verifyEmail: ROOTS.VERIFY_EMAIL,
+
+    // RESULT
+    verifyResult: ROOTS.VERIFYRESULT,
   },
 
-  // FORGOT PASSWORD
-  forgotPassword: ROOTS.FORGOT_PASSWORD,
+  // PAGES
+  pages: {
+    // INTRO
+    intro: { root: ROOTS.INTRO },
 
-  // RESET PASSWORD
-  resetPassword: ROOTS.RESET_PASSWORD,
+    // RAPID REWARDS
+    rapidRewards: { root: ROOTS.RAPIDREWARDS },
 
-  // VERIFY EMAIL
-  verifyEmail: ROOTS.VERIFY_EMAIL,
+    // CALCULATOR
+    calculator: { root: ROOTS.CALCULATOR },
 
-  // RESULT
-  verifyResult: ROOTS.VERIFYRESULT,
-
-  // INTRO
-  intro: { root: ROOTS.INTRO },
-
-  // CALCULATOR
-  calculator: { root: ROOTS.CALCULATOR },
-
-  // STATISTICS
-  statistics: { root: ROOTS.STATISTICS },
+    // STATISTICS
+    statistics: { root: ROOTS.STATISTICS },
+  },
 
   // DASHBOARD
   dashboard: {

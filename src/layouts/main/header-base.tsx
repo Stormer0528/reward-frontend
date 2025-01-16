@@ -103,16 +103,22 @@ export function HeaderBase({
             >
               {settings && (
                 <Stack direction="row" columnGap={1}>
-                  <LoadingButton onClick={() => router.push(paths.intro.root)}>
+                  <LoadingButton onClick={() => router.push(paths.pages.intro.root)}>
                     <Stack direction="row" columnGap={1} alignItems="center">
-                      <Iconify icon="ic:outline-home" />
+                      <Iconify icon="octicon:home-16" />
                       <Typography variant="button">Home</Typography>
                     </Stack>
                   </LoadingButton>
-                  <LoadingButton onClick={() => router.push(paths.statistics.root)}>
+                  <LoadingButton onClick={() => router.push(paths.pages.statistics.root)}>
                     <Stack direction="row" columnGap={1} alignItems="center">
-                      <Iconify icon="uil:statistics" />
+                      <Iconify icon="wpf:statistics" />
                       <Typography variant="button">Business Insights</Typography>
+                    </Stack>
+                  </LoadingButton>
+                  <LoadingButton onClick={() => router.push(paths.pages.rapidRewards.root)}>
+                    <Stack direction="row" columnGap={1} alignItems="center">
+                      <Iconify icon="simple-icons:rapid" />
+                      <Typography variant="button">Rapid Rewards</Typography>
                     </Stack>
                   </LoadingButton>
                 </Stack>

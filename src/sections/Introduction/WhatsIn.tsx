@@ -53,13 +53,12 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
       description={
         <Container>
           <Stack sx={{ textAlign: 'center' }}>
-            <Grid container spacing={2} sx={{ py: 3 }}>
+            <Grid container spacing={3} sx={{ py: 3 }}>
               <Grid xl={4} md={6} xs={12}>
                 <Card
                   sx={{
                     p: 2,
-                    boxShadow:
-                      '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                    boxShadow: customTheme.customShadows.primary,
                   }}
                 >
                   <Iconify icon="octicon:feed-star-16" width={60} />
@@ -76,8 +75,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
                 <Card
                   sx={{
                     p: 2,
-                    boxShadow:
-                      '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                    boxShadow: customTheme.customShadows.primary,
                   }}
                 >
                   <Iconify icon="el:group-alt" width={60} />
@@ -94,8 +92,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
                 <Card
                   sx={{
                     p: 2,
-                    boxShadow:
-                      '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                    boxShadow: customTheme.customShadows.primary,
                   }}
                 >
                   <Iconify icon="icon-park-solid:every-user" width={60} />

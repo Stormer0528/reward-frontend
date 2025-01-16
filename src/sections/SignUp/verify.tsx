@@ -103,7 +103,7 @@ export default function AmplifyVerifyView() {
           } else if (current?.defaultLink) {
             window.location.href = current.defaultLink;
           } else {
-            router.push(paths.verifyResult);
+            router.push(paths.auth.verifyResult);
           }
         }, 1000);
       }

@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config';
 
-import Introduction from 'src/sections/Introduction';
+import RapidRewards from 'src/sections/RapidRewards';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `${CONFIG.site.name} / Introduction` };
+const metadata = { title: `${CONFIG.site.name} / Rapid Rewards` };
 
 export default function Page() {
   return (
@@ -15,7 +15,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <Introduction />
+      <RapidRewards />
     </>
   );
 }

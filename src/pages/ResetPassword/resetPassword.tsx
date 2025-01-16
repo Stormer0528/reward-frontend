@@ -44,7 +44,7 @@ export default function Page() {
       toast.error(error.message);
 
       setTimeout(() => {
-        window.location.href = paths.forgotPassword;
+        window.location.href = paths.auth.forgotPassword;
       }, 1000);
     }
   }, [loading, data, error]);
