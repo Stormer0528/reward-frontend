@@ -83,8 +83,9 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
                     ONE, TWO, FREE!
                   </Typography>
                   <Typography variant="h6">
-                    Once your enrollment is complete, freshly minted TXC is paid out to your wallet
-                    24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
+                    {`Share your experience with friends and family. Crypto is exciting and there's
+                    lots of room for everyone to win. Refer 3 and we'll light up more mining power
+                    just for you!`}
                   </Typography>
                 </Card>
               </Grid>
@@ -100,8 +101,8 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
                     LIMITLESS BINARY
                   </Typography>
                   <Typography variant="h6">
-                    Once your enrollment is complete, freshly minted TXC is paid out to your wallet
-                    24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
+                    Build out your network and acquire a point for each new member referred anywhere
+                    on your team. Get $1000 for each 3 matched points, up to 3 times per week!*
                   </Typography>
                 </Card>
               </Grid>
