@@ -8,6 +8,7 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 // ----------------------------------------------------------------------
 const IntroductionPage = lazy(() => import('src/pages/Introduction'));
+const RapidRewardsPage = lazy(() => import('src/pages/RapidRewards'));
 const StatisticsPage = lazy(() => import('src/pages/Statistics'));
 const RewardDetailPage = lazy(() => import('src/pages/MemberStatistics/List'));
 // ----------------------------------------------------------------------
@@ -19,6 +20,16 @@ export const statisticsRoutes: RouteObject[] = [
       <Suspense fallback={<LoadingScreen />}>
         <MainLayout>
           <IntroductionPage />
+        </MainLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: 'rapid-rewards',
+    element: (
+      <Suspense fallback={<LoadingScreen />}>
+        <MainLayout>
+          <RapidRewardsPage />
         </MainLayout>
       </Suspense>
     ),

@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { Iconify } from 'src/components/Iconify';
@@ -13,6 +14,8 @@ import { SectionContent } from './components/SectionContent';
 import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
 
 export default function WhatsIn({ sx, ...other }: StackProps) {
+  const theme = useTheme();
+
   const renderLines = (
     <>
       <Stack
@@ -49,8 +52,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
               <Card
                 sx={{
                   p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  boxShadow: theme.customShadows.success,
                 }}
               >
                 <Iconify icon="fluent-mdl2:join-online-meeting" width={60} />
@@ -67,8 +69,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
               <Card
                 sx={{
                   p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  boxShadow: theme.customShadows.success,
                 }}
               >
                 <Iconify icon="game-icons:money-stack" width={60} />
@@ -85,8 +86,7 @@ export default function WhatsIn({ sx, ...other }: StackProps) {
               <Card
                 sx={{
                   p: 2,
-                  boxShadow:
-                    '0 0 2px 0 rgba(145 158 171 / 0.2),0 12px 24px -4px rgba(145 158 171 / 0.3)',
+                  boxShadow: theme.customShadows.success,
                 }}
               >
                 <Iconify icon="pepicons-pop:speaker-high-circle-filled" width={60} />

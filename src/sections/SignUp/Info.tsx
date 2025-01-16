@@ -58,7 +58,7 @@ export default function Info() {
           sx={{
             cursor: 'pointer',
           }}
-          href={paths.intro.root}
+          href={paths.pages.intro.root}
         >
           Back to Homepage
         </Link>

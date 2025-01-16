@@ -109,7 +109,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
               const rootLabel = pathname.includes('/dashboard') ? 'Home' : 'Dashboard';
 
               const rootHref = pathname.includes('/dashboard')
-                ? paths.intro.root
+                ? paths.pages.intro.root
                 : paths.dashboard.root;
 
               return (

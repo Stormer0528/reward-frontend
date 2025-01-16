@@ -100,7 +100,7 @@ export function SignUpView() {
 
         if (data) {
           const searchParams = new URLSearchParams({ email: rest.email }).toString();
-          router.push(`${paths.verifyEmail}?${searchParams}`);
+          router.push(`${paths.auth.verifyEmail}?${searchParams}`);
         }
       } catch (error) {
         console.error(error);
@@ -201,7 +201,7 @@ export function SignUpView() {
 
         <IconButton
           onClick={() => {
-            window.open(paths.calculator.root, '_blank');
+            window.open(paths.pages.calculator.root, '_blank');
           }}
         >
           <Iconify icon="system-uicons:calculator" width={30} />

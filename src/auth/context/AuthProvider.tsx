@@ -59,7 +59,7 @@ export function AuthProvider({ children }: Props) {
   // LOGOUT ACTION
   const signOut = useCallback(() => {
     setToken(null);
-    router.push(paths.intro.root);
+    router.push(paths.pages.intro.root);
   }, [router]);
 
   const user = data?.memberMe;

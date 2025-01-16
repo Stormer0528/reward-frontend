@@ -84,7 +84,7 @@ export function SignInView() {
 
           <Link
             component={RouterLink}
-            href={paths.calculator.root}
+            href={paths.pages.calculator.root}
             variant="subtitle2"
             color="blue"
           >
@@ -102,7 +102,7 @@ export function SignInView() {
       <Stack spacing={1.5}>
         <Link
           component={RouterLink}
-          href={paths.forgotPassword}
+          href={paths.auth.forgotPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}

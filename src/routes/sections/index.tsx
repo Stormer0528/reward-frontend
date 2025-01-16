@@ -4,8 +4,8 @@ import { CONFIG } from 'src/config';
 
 import { authRoutes } from './auth';
 import { mainRoutes } from './main';
+import { statisticsRoutes } from './pages';
 import { dashboardRoutes } from './dashboard';
-import { statisticsRoutes } from './statistics';
 
 // ----------------------------------------------------------------------
 
