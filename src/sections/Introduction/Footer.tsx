@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 
 import { Iconify } from 'src/components/Iconify';
 import DarkLogo from 'src/components/logo/dark-logo';
@@ -27,10 +28,28 @@ export default function Footer() {
             display="flex"
             justifyContent={{ xs: 'flex-start', lg: 'flex-end' }}
           >
-            <SocialAvatar icon="mage:tiktok-circle" />
-            <SocialAvatar icon="logos:telegram" />
-            <SocialAvatar icon="skill-icons:instagram" />
-            <SocialAvatar icon="skill-icons:twitter" />
+            <Button
+              onClick={() => {
+                window.open('https://www.tiktok.com/@BlockchainMint', '_blank');
+              }}
+            >
+              <SocialAvatar icon="mage:tiktok-circle" />
+            </Button>
+            <Button
+              onClick={() => {
+                window.open('https://t.me/texitcoin_txc', '_blank');
+              }}
+            >
+              <SocialAvatar icon="logos:telegram" />
+            </Button>
+            <Button
+              onClick={() => window.open('https://www.instagram.com/coldstoragecoins/', '_blank')}
+            >
+              <SocialAvatar icon="skill-icons:instagram" />
+            </Button>
+            <Button onClick={() => window.open('https://twitter.com/texitcoin_txc', '_blank')}>
+              <SocialAvatar icon="skill-icons:twitter" />
+            </Button>
           </Grid>
         </Grid>
       </Container>
@@ -55,4 +74,8 @@ const SocialAvatar = styled(Iconify)`
   width: 25px;
   height: 25px;
   margin-right: 12px;
+`;
+
+const Button = styled(IconButton)`
+  padding: 0;
 `;
