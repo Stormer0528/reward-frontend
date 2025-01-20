@@ -310,7 +310,7 @@ export function SignUpView() {
         loading={isSubmitting}
         loadingIndicator="Join Now..."
       >
-        Join Now
+        Submit
       </LoadingButton>
     </Stack>
   );

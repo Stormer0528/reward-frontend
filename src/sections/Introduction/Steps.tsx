@@ -1,133 +1,123 @@
-import type { StackProps } from '@mui/material/Stack';
+import styled from 'styled-components';
 
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { Iconify } from 'src/components/Iconify';
-import { varFade, MotionViewport } from 'src/components/animate';
+import { CONFIG } from 'src/config';
 
-import { SectionContent } from './components/SectionContent';
-import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
+import { Image } from 'src/components/Image';
 
-export default function WhatsIn({ sx, ...other }: StackProps) {
-  const theme = useTheme();
-
-  const renderLines = (
-    <>
-      <Stack
-        spacing={8}
-        alignItems="center"
-        sx={{
-          top: 64,
-          left: 80,
-          position: 'absolute',
-          transform: 'translateX(-15px)',
-        }}
-      >
-        <FloatTriangleDownIcon sx={{ position: 'static', opacity: 0.12 }} />
-        <FloatTriangleDownIcon
-          sx={{
-            width: 30,
-            height: 15,
-            opacity: 0.24,
-            position: 'static',
-          }}
-        />
-      </Stack>
-      <FloatLine vertical sx={{ top: 0, left: 80 }} />
-    </>
-  );
-
-  const renderContent = (
-    <SectionContent
-      title="Get Started in 3 Easy Steps..."
-      description={
-        <Container>
-          <Grid container spacing={2} sx={{ py: 3 }}>
-            <Grid xl={4} md={6} xs={12}>
-              <Card
-                sx={{
-                  p: 2,
-                  boxShadow: theme.customShadows.success,
-                }}
-              >
-                <Iconify icon="fluent-mdl2:join-online-meeting" width={60} />
-                <Typography variant="h4" sx={{ py: 3 }}>
-                  Join Right Now
-                </Typography>
-                <Typography variant="h6">
-                  {`Complete the form below and send your payment. We'll get you setup and point the
-                  mine at your shiny new Cold Storage Coin.`}
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid xl={4} md={6} xs={12}>
-              <Card
-                sx={{
-                  p: 2,
-                  boxShadow: theme.customShadows.success,
-                }}
-              >
-                <Iconify icon="game-icons:money-stack" width={60} />
-                <Typography variant="h4" sx={{ py: 3 }}>
-                  Begin Earning Immediately
-                </Typography>
-                <Typography variant="h6">
-                  Once the mine is configured and connected to your Coin, your wallet will begin
-                  receiving $TXC payouts daily. Save or monetize!
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid xl={4} md={6} xs={12}>
-              <Card
-                sx={{
-                  p: 2,
-                  boxShadow: theme.customShadows.success,
-                }}
-              >
-                <Iconify icon="pepicons-pop:speaker-high-circle-filled" width={60} />
-                <Typography variant="h4" sx={{ py: 3 }}>
-                  Spread the Word
-                </Typography>
-                <Typography variant="h6">
-                  {`You're on the rocket ship, and there's nothing left to do. But refer 3 and get
-                  more mining power for free! Or use our Rapid Rewards and get cash!`}
-                </Typography>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
-      }
-      sx={{ textAlign: 'center' }}
-    />
-  );
-
+export default function Steps() {
   return (
-    <Stack
-      component="section"
-      sx={{
-        pt: 10,
-        pb: { xs: 10, md: 20 },
-        position: 'relative',
-        ...sx,
-      }}
-      {...other}
-    >
-      <MotionViewport>
-        {renderLines}
-
-        <Container sx={{ position: 'relative' }}>
-          <Grid container disableEqualOverflow sx={{ position: 'relative', zIndex: 9 }}>
-            {renderContent}
+    <CustomPaper>
+      <Container>
+        <Header>Get Started in 3 Easy Steps...</Header>
+        <Description container spacing={2.5}>
+          <Grid xs={12} md={6} lg={4}>
+            <ContentCard>
+              <ImageContent>
+                <Avatar>
+                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/step-icon1.png`} />
+                </Avatar>
+              </ImageContent>
+              <Title>Join Right Now</Title>
+              <Text>
+                {`Complete the form below and send your payment. We'll get you setup and point the
+                mine at your shiny new Cold Storage Coin.`}
+              </Text>
+            </ContentCard>
           </Grid>
-
-          <CircleSvg variants={varFade().in} sx={{ display: { xs: 'none', md: 'block' } }} />
-        </Container>
-      </MotionViewport>
-    </Stack>
+          <Grid xs={12} md={6} lg={4}>
+            <ContentCard>
+              <ImageContent>
+                <Avatar>
+                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/step-icon2.png`} />
+                </Avatar>
+              </ImageContent>
+              <Title>Begin Earning Immediately</Title>
+              <Text>
+                Once the mine is configured and connected to your Coin, your wallet will begin
+                receiving $TXC payouts daily. Save or monetize!
+              </Text>
+            </ContentCard>
+          </Grid>
+          <Grid xs={12} md={6} lg={4}>
+            <ContentCard>
+              <ImageContent>
+                <Avatar>
+                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/step-icon3.png`} />
+                </Avatar>
+              </ImageContent>
+              <Title>Spread the Word</Title>
+              <Text>
+                {`You're on the rocket ship, and there's nothing left to do. But refer 3 and get more
+                mining power for free! Or use our Rapid Rewards and get cash!`}
+              </Text>
+            </ContentCard>
+          </Grid>
+        </Description>
+        <Footer>
+          *Check out the <strong>Rapid Rewards</strong> page for more details on our compensation
+          plan.
+        </Footer>
+      </Container>
+    </CustomPaper>
   );
 }
+
+const CustomPaper = styled(Paper)`
+  border-radius: 0;
+  padding: 50px 0 20px;
+  text-align: center;
+`;
+
+const ContentCard = styled(Card)`
+  padding: 30px;
+  background-color: #f2f2f2;
+  border-radius: 0;
+`;
+
+const Description = styled(Grid)`
+  padding: 40px 20px;
+`;
+
+const Header = styled(Typography)`
+  font-size: 3rem;
+  font-wight: 700;
+`;
+
+const Footer = styled(Typography)`
+  color: #ffffff;
+`;
+
+const Avatar = styled(Typography)`
+  background-color: #262262;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  padding: 13px;
+`;
+
+const ImageContent = styled(Paper)`
+  display: flex;
+  justify-content: center;
+  background: transparent;
+`;
+
+const IconImg = styled(Image)`
+  width: 42px;
+  height: 42px;
+`;
+
+const Title = styled(Typography)`
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 20px 0;
+`;
+
+const Text = styled(Typography)`
+  font-style: italic;
+`;

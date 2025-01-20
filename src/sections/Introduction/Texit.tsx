@@ -1,199 +1,132 @@
-import type { StackProps } from '@mui/material/Stack';
-
-import { m } from 'framer-motion';
+import styled from 'styled-components';
 
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { varAlpha, stylesMode } from 'src/theme/styles';
+import { CONFIG } from 'src/config';
 
-import { Iconify } from 'src/components/Iconify';
-import { varFade, MotionViewport } from 'src/components/animate';
+import { Image } from 'src/components/Image';
 
-import { SectionTitle } from './components/SectionTitle';
-import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
-
-// ----------------------------------------------------------------------
-
-export default function Texit({ sx, ...other }: StackProps) {
-  const customTheme = useTheme();
-
-  const renderLines = (
-    <>
-      <Stack
-        spacing={8}
-        alignItems="center"
-        sx={{
-          top: 64,
-          left: 80,
-          position: 'absolute',
-          transform: 'translateX(-15px)',
-        }}
-      >
-        <FloatTriangleDownIcon sx={{ position: 'static', opacity: 0.12 }} />
-        <FloatTriangleDownIcon
-          sx={{
-            width: 30,
-            height: 15,
-            opacity: 0.24,
-            position: 'static',
-          }}
-        />
-      </Stack>
-      <FloatLine vertical sx={{ top: 0, left: 80 }} />
-    </>
-  );
-
-  const renderDescription = (
-    <SectionTitle
-      title="For Texas by Texans,"
-      txtGradient="TXC is built for us"
-      description={
-        <>
-          <Typography sx={{ pb: 2 }}>
-            The cryptocurrency revolution has brought many changes to banking, finance & trade.
-            Plenty of new and fancy technologies emerge on a regular basis that offer exotic
-            contributions to the digital money ecosystem.
-          </Typography>
-          <Typography sx={{ pb: 2 }}>
-            Unfortunately, few blockchains offer an incentive to participate in securing the network
-            through mining, directly support a world-changing mission, or work as a usable form of
-            money.
-          </Typography>
-          <Typography sx={{ pb: 2 }}>
-            TEXITcoin does all this and more. Join us on the ground floor and help take TXC to the
-            moon!
-          </Typography>
-        </>
-      }
-      sx={{ textAlign: 'center' }}
-    />
-  );
-
-  const renderImg = (
-    <Stack
-      component={m.div}
-      variants={varFade({ distance: 24 }).inDown}
-      alignItems="flex-end"
-      sx={{
-        filter: (theme) =>
-          `drop-shadow(0 24px 48px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)})`,
-        [stylesMode.dark]: {
-          filter: (theme) =>
-            `drop-shadow(0 24px 48px ${varAlpha(theme.vars.palette.common.blackChannel, 0.16)})`,
-        },
-      }}
-    >
-      <Grid container textAlign="center" spacing={3}>
-        <Grid xl={6} xs={12}>
-          <Card
-            sx={{
-              p: 2,
-              boxShadow: customTheme.customShadows.success,
-            }}
-          >
-            <Iconify icon="octicon:feed-star-16" width={60} />
-            <Typography variant="h4" sx={{ py: 3 }}>
-              254 Block Reward
-            </Typography>
-            <Typography variant="h6">
-              An inflation-crushing block is mined every 3 minutes with coins to compensate miners
-              for securing transactions.
-            </Typography>
-          </Card>
-        </Grid>
-        <Grid xl={6} xs={12}>
-          <Card
-            sx={{
-              p: 2,
-              boxShadow: customTheme.customShadows.success,
-            }}
-          >
-            <Iconify icon="game-icons:miner" width={60} />
-            <Typography variant="h4" sx={{ py: 3 }}>
-              O.OO pre-mine
-            </Typography>
-            <Typography variant="h6">
-              No pre-mined coins means everyone starts on a level playing field. Mining is
-              permissioned for Texas.
-            </Typography>
-          </Card>
-        </Grid>
-        <Grid xl={6} xs={12}>
-          <Card
-            sx={{
-              p: 2,
-              boxShadow: customTheme.customShadows.success,
-            }}
-          >
-            <Iconify icon="mdi:clock-fast" width={60} />
-            <Typography variant="h4" sx={{ py: 3 }}>
-              3-Minute Spacing
-            </Typography>
-            <Typography variant="h6">
-              Lightning fast transactions are processed every 3 minutes. Enhancements are easy to
-              code and deploy.
-            </Typography>
-          </Card>
-        </Grid>
-        <Grid xl={6} xs={12}>
-          <Card
-            sx={{
-              p: 2,
-              boxShadow: customTheme.customShadows.success,
-            }}
-          >
-            <Iconify icon="game-icons:axe-in-stump" width={60} />
-            <Typography variant="h4" sx={{ py: 3 }}>
-              695,662 Halving
-            </Typography>
-            <Typography variant="h6">
-              TXC is a blockchain designed to function for a century of growth. Future generations
-              of Texans will benefit.
-            </Typography>
-          </Card>
-        </Grid>
-      </Grid>
-    </Stack>
-  );
-
+export default function Texit() {
   return (
-    <Stack
-      component="section"
-      sx={{
-        pt: 10,
-        pb: { xs: 10, md: 20 },
-        position: 'relative',
-        ...sx,
-      }}
-      {...other}
-    >
-      <MotionViewport>
-        {renderLines}
-
-        <Container sx={{ position: 'relative' }}>
-          <Grid
-            container
-            disableEqualOverflow
-            spacing={{ xs: 5, md: 8 }}
-            sx={{ position: 'relative', zIndex: 9 }}
-          >
-            <Grid xs={12} md={6} lg={5}>
-              {renderDescription}
+    <CustomPaper>
+      <Container>
+        <Description container spacing={2.5} alignItems="center">
+          <Grid xs={12} md={6}>
+            <Container>
+              <TexitTitle>For Texas by Texans,</TexitTitle>
+              <TexitTitle>
+                <strong>TXC is built for us.</strong>
+              </TexitTitle>
+              <Line />
+              <Text>
+                The cryptocurrency revolution has brought many changes to banking, finance & trade.
+                Plenty of new and fancy technologies emerge on a regular basis that offer exotic
+                contributions to the digital money ecosystem.
+              </Text>
+              <Text>
+                Unfortunately, few blockchains offer an incentive to participate in securing the
+                network through mining, directly support a world-changing mission, or work as a
+                usable form of money.
+              </Text>
+              <Text>
+                TEXITcoin does all this and more. Join us on the ground floor and help take TXC to
+                the moon!
+              </Text>
+            </Container>
+          </Grid>
+          <Grid xs={12} md={6} container>
+            <Grid xs={12} md={6}>
+              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon1.png`} />
+                <Title>254 Block Reward</Title>
+                <Typography>
+                  An inflation-crushing block is mined every 3 minutes with coins to compensate
+                  miners for securing transactions.
+                </Typography>
+              </ContentCard>
             </Grid>
-
-            <Grid xs={12} md={6} lg={7}>
-              {renderImg}
+            <Grid xs={12} md={6}>
+              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon2.png`} />
+                <Title>O.OO pre-mine</Title>
+                <Typography>
+                  No pre-mined coins means everyone starts on a level playing field. Mining is
+                  permissioned for Texas.
+                </Typography>
+              </ContentCard>
+            </Grid>
+            <Grid xs={12} md={6}>
+              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon3.png`} />
+                <Title>3-Minute Spacing</Title>
+                <Typography>
+                  Lightning fast transactions are processed every 3 minutes. Enhancements are easy
+                  to code and deploy.
+                </Typography>
+              </ContentCard>
+            </Grid>
+            <Grid xs={12} md={6}>
+              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon4.png`} />
+                <Title>695,662 Halving</Title>
+                <Typography>
+                  TXC is a blockchain designed to function for a century of growth. Future
+                  generations of Texans will benefit.
+                </Typography>
+              </ContentCard>
             </Grid>
           </Grid>
-
-          <CircleSvg variants={varFade().in} sx={{ display: { xs: 'none', md: 'block' } }} />
-        </Container>
-      </MotionViewport>
-    </Stack>
+        </Description>
+      </Container>
+    </CustomPaper>
   );
 }
+
+const CustomPaper = styled(Paper)`
+  background-color: #f2f2f2;
+  border-radius: 0;
+  padding: 50px 0 20px;
+`;
+
+const ContentCard = styled(Card)`
+  padding: 25px;
+  border: 1px solid #000000;
+  box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 0;
+  text-align: center;
+`;
+
+const Description = styled(Grid)`
+  padding: 40px 20px;
+`;
+
+const IconImg = styled(Image)`
+  width: 42px;
+  height: 42px;
+`;
+
+const Title = styled(Typography)`
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 20px 0;
+`;
+
+const TexitTitle = styled(Typography)`
+  font-size: 3rem;
+  line-height: 1.1;
+`;
+
+const Line = styled(Divider)`
+  width: 80%;
+  margin: 20px 0px;
+  border: 1.2px solid #000000;
+`;
+
+const Text = styled(Typography)`
+  margin-bottom: 40px;
+`;

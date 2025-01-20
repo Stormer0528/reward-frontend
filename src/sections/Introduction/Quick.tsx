@@ -1,88 +1,41 @@
-import type { StackProps } from '@mui/material/Stack';
-
+import styled from 'styled-components';
 import MediaPlayer from 'react-player';
 
-import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
+import Typography from '@mui/material/Typography';
 
-import { varFade, MotionViewport } from 'src/components/animate';
+export default function Quick() {
+  return (
+    <Content>
+      <Container>
+        <Header>A Quick Introduction...</Header>
 
-import { SectionContent } from './components/SectionContent';
-import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
-
-export default function WhatsIn({ sx, ...other }: StackProps) {
-  const renderLines = (
-    <>
-      <Stack
-        spacing={8}
-        alignItems="center"
-        sx={{
-          top: 64,
-          left: 80,
-          position: 'absolute',
-          transform: 'translateX(-15px)',
-        }}
-      >
-        <FloatTriangleDownIcon sx={{ position: 'static', opacity: 0.12 }} />
-        <FloatTriangleDownIcon
-          sx={{
-            width: 30,
-            height: 15,
-            opacity: 0.24,
-            position: 'static',
-          }}
-        />
-      </Stack>
-      <FloatLine vertical sx={{ top: 0, left: 80 }} />
-    </>
-  );
-
-  const renderContent = (
-    <SectionContent
-      title="A Quick Introduction.."
-      description={
-        <Container>
+        <CustomContainer>
           <MediaPlayer
             url="https://www.youtube.com/watch?v=-XP4JzOFYFI"
             width={360}
             height={300}
             controls
           />
-        </Container>
-      }
-      sx={{ textAlign: 'center' }}
-    />
-  );
-
-  return (
-    <Stack
-      component="section"
-      sx={{
-        pt: 10,
-        pb: { xs: 10, md: 20 },
-        position: 'relative',
-        ...sx,
-      }}
-      {...other}
-    >
-      <MotionViewport>
-        {renderLines}
-
-        <Container sx={{ position: 'relative' }}>
-          <Grid
-            container
-            disableEqualOverflow
-            sx={{ position: 'relative', zIndex: 9 }}
-            display="flex"
-            justifyContent="center"
-          >
-            {renderContent}
-          </Grid>
-
-          <CircleSvg variants={varFade().in} sx={{ display: { xs: 'none', md: 'block' } }} />
-        </Container>
-      </MotionViewport>
-    </Stack>
+        </CustomContainer>
+      </Container>
+    </Content>
   );
 }
+
+const Content = styled(Paper)`
+  background-color: #e5e5e5;
+  padding: 50px 0 30px;
+  text-align: center;
+  border-radius: 0;
+`;
+
+const CustomContainer = styled(Container)`
+  padding: 40px 0;
+`;
+
+const Header = styled(Typography)`
+  font-size: 3rem;
+  font-wight: 700;
+`;
