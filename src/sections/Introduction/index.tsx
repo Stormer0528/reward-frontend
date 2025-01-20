@@ -31,6 +31,14 @@ export default function Introduction() {
     }
   }, [search]);
 
+  // useEffect(() => {
+  //   const signUp = document.getElementById('stormer-sign-up');
+
+  //   if (signUp) {
+  //     signUp.focus();
+  //   }
+  // }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY); // Update the state with the current scrollY value
@@ -75,7 +83,7 @@ export default function Introduction() {
 
         <Packages />
 
-        <Container>
+        <Container id="stormer-sign-up" tabIndex={-1}>
           <SignUpView />
         </Container>
 

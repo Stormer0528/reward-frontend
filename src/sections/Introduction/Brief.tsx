@@ -15,6 +15,7 @@ import { Image } from 'src/components/Image';
 
 export default function Brief() {
   const router = useRouter();
+
   return (
     <Container>
       <Content container sx={{ mt: '50px' }} alignItems="center">
