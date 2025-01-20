@@ -8,6 +8,32 @@ import { NavBasicDesktop } from 'src/components/NavBasic';
 // ----------------------------------------------------------------------
 
 export function NavBasic() {
+  const token = localStorage.getItem('token');
+
+  const NAV_ITEMS = [
+    {
+      title: 'Rapid Rewards',
+      path: paths.pages.rapidRewards.root,
+    },
+    {
+      title: 'Contact',
+      path: paths.pages.contact.root,
+    },
+    {
+      title: 'Dashboard',
+      path: token ? paths.dashboard.history.root : paths.pages.statistics.root,
+    },
+    {
+      title: 'TEXITcoin.org',
+      path: 'https://texitcoin.org/',
+    },
+    {
+      title: 'JOIN NOW!',
+      path: `${paths.pages.intro.root}?tab=sign-up`,
+      isJoin: true,
+    },
+  ];
+
   return (
     <Paper
       // variant="outlined"
@@ -55,23 +81,3 @@ export function NavBasic() {
     </Paper>
   );
 }
-
-export const NAV_ITEMS = [
-  {
-    title: 'Rapid Rewards',
-    path: paths.pages.rapidRewards.root,
-  },
-  {
-    title: 'Contact',
-    path: paths.pages.contact.root,
-  },
-  {
-    title: 'TEXITcoin.org',
-    path: 'https://texitcoin.org/',
-  },
-  {
-    title: 'JOIN NOW!',
-    path: '#',
-    isJoin: true,
-  },
-];

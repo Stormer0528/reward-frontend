@@ -57,7 +57,7 @@ export default function Packages() {
 
                 <CustomButton
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
                   onClick={goToJoin}
                   sx={{ my: 1 }}
@@ -105,7 +105,7 @@ export default function Packages() {
 
                   <CustomButton
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     endIcon={<Iconify icon="pajamas:long-arrow" />}
                     onClick={goToJoin}
                     sx={{ my: 1 }}
@@ -151,7 +151,7 @@ export default function Packages() {
 
                 <CustomButton
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
                   onClick={goToJoin}
                   sx={{ my: 1 }}
