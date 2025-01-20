@@ -9,19 +9,19 @@ import { CONFIG } from 'src/config';
 
 // ----------------------------------------------------------------------
 
-export interface LogoProps extends BoxProps {
+export interface DarkLogoProps extends BoxProps {
   disabledLink?: boolean;
 }
 
-export const Logo = forwardRef<HTMLDivElement, LogoProps>(
+const DarkLogo = forwardRef<HTMLDivElement, DarkLogoProps>(
   ({ disabledLink = false, sx, ...other }, ref) => {
     // OR using local (public folder)
     // -------------------------------------------------------
     const logo = (
       <Box
         component="img"
-        src={`${CONFIG.site.basePath}/assets/images/logo.png`}
-        sx={{ width: 60, height: 60, cursor: 'pointer', ...sx }}
+        src={`${CONFIG.site.basePath}/assets/images/dark-logo.png`}
+        sx={{ width: 70, height: 70, cursor: 'pointer', ...sx }}
       />
     );
 
@@ -36,3 +36,5 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
     );
   }
 );
+
+export default DarkLogo;

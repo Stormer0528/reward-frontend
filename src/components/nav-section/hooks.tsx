@@ -20,6 +20,7 @@ export type UseNavItemProps = {
   icon?: NavItemProps['icon'];
   info?: NavItemProps['info'];
   depth?: NavItemProps['depth'];
+  isJoin?: NavItemProps['isJoin'];
   render?: NavItemProps['render'];
   hasChild?: NavItemProps['hasChild'];
   externalLink?: NavItemProps['externalLink'];
@@ -31,6 +32,7 @@ export function useNavItem({
   icon,
   info,
   depth,
+  isJoin,
   render,
   hasChild,
   externalLink,
