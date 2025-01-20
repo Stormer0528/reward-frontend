@@ -9,14 +9,14 @@ export default function Rewards() {
     <Container>
       <CustomPaper>
         <Header>Our Rapid Rewards Program</Header>
-        <Description>
-          <Text>
+        <Paper sx={{ p: { lg: 40 } }}>
+          <Typography>
             In addition to our simple one, two, free referral program (refer three and get more
             mining hash power for free), we also offer a compensation plan that pays CASH for
             referrals. There are some important basics to understand so that you can make the most
             of our commission program.
-          </Text>
-        </Description>
+          </Typography>
+        </Paper>
       </CustomPaper>
     </Container>
   );
@@ -32,10 +32,4 @@ const Header = styled(Typography)`
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 40px;
-`;
-
-const Text = styled(Typography)``;
-
-const Description = styled(Paper)`
-  padding: 0 300px;
 `;

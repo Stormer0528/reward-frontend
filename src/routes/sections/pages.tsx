@@ -13,6 +13,7 @@ import { paths } from '../paths';
 // ----------------------------------------------------------------------
 const IntroductionPage = lazy(() => import('src/pages/Introduction'));
 const RapidRewardsPage = lazy(() => import('src/pages/RapidRewards'));
+const ContactPage = lazy(() => import('src/pages/Contact'));
 const StatisticsPage = lazy(() => import('src/pages/Statistics'));
 const RewardDetailPage = lazy(() => import('src/pages/MemberStatistics/List'));
 // ----------------------------------------------------------------------
@@ -32,6 +33,7 @@ export const statisticsRoutes: RouteObject[] = [
       { index: true, element: <Navigate to={paths.pages.intro.root} replace /> },
       { path: 'intro', element: <IntroductionPage /> },
       { path: 'rapid-rewards', element: <RapidRewardsPage /> },
+      { path: 'contact', element: <ContactPage /> },
     ],
   },
   {

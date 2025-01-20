@@ -334,7 +334,7 @@ export function SignUpView() {
   // );
 
   return (
-    <Container>
+    <Container sx={{ pb: 5 }}>
       {renderHead}
 
       {!!errorMsg && (

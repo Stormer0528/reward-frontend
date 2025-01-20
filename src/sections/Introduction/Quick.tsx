@@ -12,12 +12,7 @@ export default function Quick() {
         <Header>A Quick Introduction...</Header>
 
         <CustomContainer>
-          <MediaPlayer
-            url="https://www.youtube.com/watch?v=-XP4JzOFYFI"
-            width={360}
-            height={300}
-            controls
-          />
+          <MediaPlayer url="https://www.youtube.com/watch?v=-XP4JzOFYFI" controls />
         </CustomContainer>
       </Container>
     </Content>
@@ -33,6 +28,8 @@ const Content = styled(Paper)`
 
 const CustomContainer = styled(Container)`
   padding: 40px 0;
+  display: flex;
+  justify-content: center;
 `;
 
 const Header = styled(Typography)`
