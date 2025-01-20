@@ -39,7 +39,7 @@ export default function Introduction() {
 
         <Packages />
 
-        <Container sx={{ pb: 5 }}>
+        <Container>
           <SignUpView />
         </Container>
 

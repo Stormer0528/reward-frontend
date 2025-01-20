@@ -87,7 +87,7 @@ const Description = styled(Grid)`
 const Header = styled(Typography)`
   font-size: 3rem;
   color: #ffffff;
-  font-wight: 700;
+  font-weight: 700;
 `;
 
 const Footer = styled(Typography)`
