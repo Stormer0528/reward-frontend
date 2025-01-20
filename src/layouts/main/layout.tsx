@@ -30,11 +30,7 @@ export type MainLayoutProps = {
 export function MainLayout({ sx, data, children }: MainLayoutProps) {
   const theme = useTheme();
 
-  // const pathname = usePathname();
-
   const mobileNavOpen = useBoolean();
-
-  // const homePage = pathname === '/';
 
   const layoutQuery: Breakpoint = 'md';
 

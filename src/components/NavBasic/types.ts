@@ -1,3 +1,4 @@
+import type { StackProps } from '@mui/material/Stack';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 import type { Theme, SxProps, CSSObject } from '@mui/material/styles';
 
@@ -6,9 +7,7 @@ import type { Theme, SxProps, CSSObject } from '@mui/material/styles';
 export type SlotProps = {
   rootItem?: NavItemSlotProps;
   subItem?: NavItemSlotProps;
-  subheader?: SxProps<Theme>;
   paper?: SxProps<Theme>;
-  currentRole?: string;
 };
 
 export type NavItemRenderProps = {
@@ -30,6 +29,8 @@ export type NavItemStateProps = {
   depth?: number;
   open?: boolean;
   active?: boolean;
+  isJoin?: boolean;
+  disabled?: boolean;
   hasChild?: boolean;
   externalLink?: boolean;
   enabledRootRedirect?: boolean;
@@ -40,16 +41,15 @@ export type NavItemBaseProps = {
   title: string;
   children?: any;
   caption?: string;
-  roles?: string[];
-  isJoin?: boolean;
   disabled?: boolean;
   render?: NavItemRenderProps;
   slotProps?: NavItemSlotProps;
   icon?: string | React.ReactNode;
   info?: string[] | React.ReactNode;
+  isJoin?: boolean;
 };
 
-export type NavItemProps = ButtonBaseProps & NavItemStateProps & NavItemBaseProps;
+export type NavItemProps = ButtonBaseProps & NavItemBaseProps & NavItemStateProps;
 
 export type NavListProps = {
   depth: number;
@@ -64,15 +64,7 @@ export type NavSubListProps = Omit<NavListProps, 'data'> & {
   data: NavItemBaseProps[];
 };
 
-export type NavGroupProps = Omit<NavListProps, 'data' | 'depth'> & {
-  subheader?: string;
-  items: NavItemBaseProps[];
-};
-
-export type NavSectionProps = Omit<NavListProps, 'data' | 'depth'> & {
-  sx?: SxProps<Theme>;
-  data: {
-    subheader?: string;
-    items: NavItemBaseProps[];
-  }[];
-};
+export type NavBasicProps = StackProps &
+  Omit<NavListProps, 'data' | 'depth'> & {
+    data: NavItemBaseProps[];
+  };
