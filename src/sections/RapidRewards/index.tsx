@@ -1,16 +1,12 @@
-import type { Breakpoint } from '@mui/material';
-
 import Container from '@mui/material/Container';
-
-import { Footer } from 'src/layouts/main/footer';
 
 import Rewards from './Rewards';
 import { SignUpView } from '../SignUp';
 import Description from './Description';
+import Footer from '../Introduction/Footer';
 import Packages from '../Introduction/Packages';
 
 export default function RapidRewards() {
-  const layoutQuery: Breakpoint = 'md';
   return (
     <>
       <Rewards />
@@ -23,7 +19,7 @@ export default function RapidRewards() {
         <SignUpView />
       </Container>
 
-      <Footer layoutQuery={layoutQuery} />
+      <Footer />
     </>
   );
 }

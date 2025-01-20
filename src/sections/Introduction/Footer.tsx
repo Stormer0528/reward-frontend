@@ -42,6 +42,7 @@ const Content = styled(Paper)`
   background: #333333;
   padding: 30px;
   border-radius: 0;
+  margin-top: 40px;
 `;
 
 const Text = styled(Typography)`

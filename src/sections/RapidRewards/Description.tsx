@@ -1,57 +1,19 @@
-import type { StackProps } from '@mui/material/Stack';
+import styled from 'styled-components';
 
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { varFade, MotionViewport } from 'src/components/animate';
-
-import { SectionContent } from '../Introduction/components/SectionContent';
-import {
-  FloatLine,
-  CircleSvg,
-  FloatTriangleDownIcon,
-} from '../Introduction/components/SvgElements';
-
-export default function Description({ sx, ...other }: StackProps) {
-  const renderLines = (
-    <>
-      <Stack
-        spacing={8}
-        alignItems="center"
-        sx={{
-          top: 64,
-          left: 80,
-          position: 'absolute',
-          transform: 'translateX(-15px)',
-        }}
-      >
-        <FloatTriangleDownIcon sx={{ position: 'static', opacity: 0.12 }} />
-        <FloatTriangleDownIcon
-          sx={{
-            width: 30,
-            height: 15,
-            opacity: 0.24,
-            position: 'static',
-          }}
-        />
-      </Stack>
-      <FloatLine vertical sx={{ top: 0, left: 80 }} />
-    </>
-  );
-
-  const renderContent = (
-    <SectionContent
-      title=""
-      description={
+export default function Description() {
+  return (
+    <CustomPaper>
+      <Container>
         <Grid container spacing={3}>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.success }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -62,7 +24,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.success.dark,
+                    bgcolor: '#111111',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -74,12 +36,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   tracking centers for networking professionals.
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.info }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -90,7 +50,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.info.dark,
+                    bgcolor: '#262262',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -102,12 +62,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   tracking centers for networking professionals.
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.success }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -118,7 +76,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.success.dark,
+                    bgcolor: '#111111',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -130,12 +88,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   customers, down to infinity.`}
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.info }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -146,7 +102,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.info.dark,
+                    bgcolor: '#262262',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -158,12 +114,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   to be placed.
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.success }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -174,7 +128,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.success.dark,
+                    bgcolor: '#111111',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -186,12 +140,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   over until paid.`}
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.info }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -202,7 +154,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.info.dark,
+                    bgcolor: '#262262',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -212,12 +164,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   {`If, in one weekly commission period, you get 6 points in your left leg and 6 points in your right, you'll earn $2000 in commission. And it doesn't stop there!`}
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.success }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -228,7 +178,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.success.dark,
+                    bgcolor: '#111111',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -240,12 +190,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   you'll receive a maximum payout of $3000 per commission period.`}
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.info }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -256,7 +204,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.info.dark,
+                    bgcolor: '#262262',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -268,12 +216,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   right and 700 on your left, 2 will carry over on the right and 9 on the left.
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.success }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -284,7 +230,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.success.dark,
+                    bgcolor: '#111111',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -296,12 +242,10 @@ export default function Description({ sx, ...other }: StackProps) {
                   benefits.
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
           <Grid lg={6} md={12}>
-            <Card
-              sx={{ p: 2, height: { lg: 155 }, boxShadow: (theme) => theme.customShadows.info }}
-            >
+            <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
                   sx={{
@@ -312,7 +256,7 @@ export default function Description({ sx, ...other }: StackProps) {
                     alignItems: 'center',
                     color: 'white',
                     justifyContent: 'center',
-                    bgcolor: (theme) => theme.palette.info.dark,
+                    bgcolor: '#262262',
                     display: { xs: 'none', md: 'inline-flex' },
                   }}
                 >
@@ -324,36 +268,20 @@ export default function Description({ sx, ...other }: StackProps) {
                   coming soon!
                 </Typography>
               </Stack>
-            </Card>
+            </ContentCard>
           </Grid>
         </Grid>
-      }
-      sx={{ textAlign: 'center' }}
-    />
-  );
-
-  return (
-    <Stack
-      component="section"
-      sx={{
-        pt: 10,
-        pb: { xs: 10, md: 20 },
-        position: 'relative',
-        ...sx,
-      }}
-      {...other}
-    >
-      <MotionViewport>
-        {renderLines}
-
-        <Container sx={{ position: 'relative' }}>
-          <Grid container disableEqualOverflow sx={{ position: 'relative', zIndex: 9 }}>
-            {renderContent}
-          </Grid>
-
-          <CircleSvg variants={varFade().in} sx={{ display: { xs: 'none', md: 'block' } }} />
-        </Container>
-      </MotionViewport>
-    </Stack>
+      </Container>
+    </CustomPaper>
   );
 }
+
+const CustomPaper = styled(Paper)`
+  background: #f2f2f2;
+  padding: 50px 0;
+`;
+
+const ContentCard = styled(Paper)`
+  background: transparent;
+  padding: 16px;
+`;

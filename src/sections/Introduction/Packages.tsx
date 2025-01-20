@@ -169,13 +169,13 @@ export default function Packages() {
 
 const CustomPaper = styled(Paper)`
   border-radius: 0;
-  padding: 50px 0 20px;
+  padding: 50px 0;
   text-align: center;
 `;
 
 const Header = styled(Typography)`
   font-size: 3rem;
-  font-wight: 700;
+  font-weight: 700;
   margin: 30px 0;
 `;
 
