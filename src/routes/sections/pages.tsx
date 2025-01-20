@@ -24,8 +24,8 @@ export const statisticsRoutes: RouteObject[] = [
       <Suspense fallback={<LoadingScreen />}>
         <Container>
           <NavBasic />
-          <Outlet />
         </Container>
+        <Outlet />
       </Suspense>
     ),
     children: [

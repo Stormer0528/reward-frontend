@@ -1,152 +1,120 @@
-import type { StackProps } from '@mui/material/Stack';
+import styled from 'styled-components';
 
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { Iconify } from 'src/components/Iconify';
-import { varFade, MotionViewport } from 'src/components/animate';
+import { CONFIG } from 'src/config';
 
-import { SectionContent } from './components/SectionContent';
-import { FloatLine, CircleSvg, FloatTriangleDownIcon } from './components/SvgElements';
+import { Image } from 'src/components/Image';
 
-// ----------------------------------------------------------------------
-
-const smKey = 'sm';
-const lgKey = 'lg';
-
-export default function WhatsIn({ sx, ...other }: StackProps) {
-  const customTheme = useTheme();
-
-  const renderLines = (
-    <>
-      <Stack
-        spacing={8}
-        alignItems="center"
-        sx={{
-          top: 64,
-          left: 80,
-          position: 'absolute',
-          transform: 'translateX(-15px)',
-        }}
-      >
-        <FloatTriangleDownIcon sx={{ position: 'static', opacity: 0.12 }} />
-        <FloatTriangleDownIcon
-          sx={{
-            width: 30,
-            height: 15,
-            opacity: 0.24,
-            position: 'static',
-          }}
-        />
-      </Stack>
-      <FloatLine vertical sx={{ top: 0, left: 80 }} />
-    </>
-  );
-
-  const renderContent = (
-    <SectionContent
-      title="What's in it for you"
-      description={
-        <Container>
-          <Stack sx={{ textAlign: 'center' }}>
-            <Grid container spacing={3} sx={{ py: 3 }}>
-              <Grid xl={4} md={6} xs={12}>
-                <Card
-                  sx={{
-                    p: 2,
-                    boxShadow: customTheme.customShadows.primary,
-                  }}
-                >
-                  <Iconify icon="octicon:feed-star-16" width={60} />
-                  <Typography variant="h4" sx={{ py: 3 }}>
-                    UNLIMITED TXC
-                  </Typography>
-                  <Typography variant="h6">
-                    Once your enrollment is complete, freshly minted TXC is paid out to your wallet
-                    24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
-                  </Typography>
-                </Card>
-              </Grid>
-              <Grid xl={4} md={6} xs={12}>
-                <Card
-                  sx={{
-                    p: 2,
-                    boxShadow: customTheme.customShadows.primary,
-                  }}
-                >
-                  <Iconify icon="el:group-alt" width={60} />
-                  <Typography variant="h4" sx={{ py: 3 }}>
-                    ONE, TWO, FREE!
-                  </Typography>
-                  <Typography variant="h6">
-                    {`Share your experience with friends and family. Crypto is exciting and there's
-                    lots of room for everyone to win. Refer 3 and we'll light up more mining power
-                    just for you!`}
-                  </Typography>
-                </Card>
-              </Grid>
-              <Grid xl={4} md={6} xs={12}>
-                <Card
-                  sx={{
-                    p: 2,
-                    boxShadow: customTheme.customShadows.primary,
-                  }}
-                >
-                  <Iconify icon="icon-park-solid:every-user" width={60} />
-                  <Typography variant="h4" sx={{ py: 3 }}>
-                    LIMITLESS BINARY
-                  </Typography>
-                  <Typography variant="h6">
-                    Build out your network and acquire a point for each new member referred anywhere
-                    on your team. Get $1000 for each 3 matched points, up to 3 times per week!*
-                  </Typography>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Typography
-              variant="body2"
-              sx={{
-                mx: 'auto',
-                [customTheme.breakpoints.up(smKey)]: { whiteSpace: 'pre' },
-                [customTheme.breakpoints.up(lgKey)]: { fontSize: 20, lineHeight: '36px' },
-              }}
-            >
-              Check out the Rapid Rewards page for more details on our compensation plan
-            </Typography>
-          </Stack>
-        </Container>
-      }
-      sx={{ textAlign: 'center' }}
-    />
-  );
-
+export default function WhatsIn() {
   return (
-    <Stack
-      component="section"
-      sx={{
-        pt: 10,
-        pb: { xs: 10, md: 20 },
-        position: 'relative',
-        ...sx,
-      }}
-      {...other}
-    >
-      <MotionViewport>
-        {renderLines}
-
-        <Container sx={{ position: 'relative' }}>
-          <Grid container disableEqualOverflow sx={{ position: 'relative', zIndex: 9 }}>
-            {renderContent}
+    <CustomPaper>
+      <Container>
+        <Header>{`What's In It for You?`}</Header>
+        <Description container spacing={2.5}>
+          <Grid xs={12} md={6} lg={4}>
+            <ContentCard>
+              <ImageContent>
+                <Avatar>
+                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/what-icon1.png`} />
+                </Avatar>
+              </ImageContent>
+              <Title>UNLIMITED TXC</Title>
+              <Typography>
+                Once your enrollment is complete, freshly minted TXC is paid out to your wallet
+                24/7/365; no middle-man, commission manager or delays! $TXC direct to you!
+              </Typography>
+            </ContentCard>
           </Grid>
-
-          <CircleSvg variants={varFade().in} sx={{ display: { xs: 'none', md: 'block' } }} />
-        </Container>
-      </MotionViewport>
-    </Stack>
+          <Grid xs={12} md={6} lg={4}>
+            <ContentCard>
+              <ImageContent>
+                <Avatar>
+                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/what-icon2.png`} />
+                </Avatar>
+              </ImageContent>
+              <Title>ONE, TWO, FREE!</Title>
+              <Typography>
+                {`Share your experience with friends and family. Crypto is exciting and there's lots
+                of room for everyone to win. Refer 3 and we'll light up more mining power just for
+                you!`}
+              </Typography>
+            </ContentCard>
+          </Grid>
+          <Grid xs={12} md={6} lg={4}>
+            <ContentCard>
+              <ImageContent>
+                <Avatar>
+                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/what-icon3.png`} />
+                </Avatar>
+              </ImageContent>
+              <Title>LIMITLESS BINARY</Title>
+              <Typography>
+                {`Build out your network and acquire a point for each new member referred anywhere on
+                your team. Get $1000 for each 3 matched points, up to 3 times per week!*`}
+              </Typography>
+            </ContentCard>
+          </Grid>
+        </Description>
+        <Footer>
+          *Check out the <strong>Rapid Rewards</strong> page for more details on our compensation
+          plan.
+        </Footer>
+      </Container>
+    </CustomPaper>
   );
 }
+
+const CustomPaper = styled(Paper)`
+  background-color: #262262;
+  border-radius: 0;
+  padding: 50px 0 20px;
+  text-align: center;
+`;
+
+const ContentCard = styled(Card)`
+  padding: 30px;
+`;
+
+const Description = styled(Grid)`
+  padding: 40px 20px;
+`;
+
+const Header = styled(Typography)`
+  font-size: 3rem;
+  color: #ffffff;
+  font-wight: 700;
+`;
+
+const Footer = styled(Typography)`
+  color: #ffffff;
+`;
+
+const Avatar = styled(Typography)`
+  background-color: #262262;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  padding: 13px;
+`;
+
+const ImageContent = styled(Paper)`
+  display: flex;
+  justify-content: center;
+`;
+
+const IconImg = styled(Image)`
+  width: 42px;
+  height: 42px;
+`;
+
+const Title = styled(Typography)`
+  color: #262262;
+  font-size: 1.875rem;
+  font-weight: 500;
+  margin: 20px 0;
+`;

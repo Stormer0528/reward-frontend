@@ -75,7 +75,10 @@ export function Footer({ layoutQuery, sx }: FooterProps) {
   const theme = useTheme();
 
   return (
-    <Box component="footer" sx={{ position: 'relative', bgcolor: 'background.default', ...sx }}>
+    <Box
+      component="footer"
+      sx={{ position: 'relative', bgcolor: 'background.default', pt: 2, ...sx }}
+    >
       <Divider />
 
       <Container
