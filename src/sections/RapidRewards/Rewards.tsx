@@ -9,7 +9,7 @@ export default function Rewards() {
     <Container>
       <CustomPaper>
         <Header>Our Rapid Rewards Program</Header>
-        <Paper sx={{ p: { lg: 40 } }}>
+        <Paper sx={{ px: { lg: 40 } }}>
           <Typography>
             In addition to our simple one, two, free referral program (refer three and get more
             mining hash power for free), we also offer a compensation plan that pays CASH for

@@ -6,11 +6,15 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
 import { CONFIG } from 'src/config';
 
 import { Image } from 'src/components/Image';
 
 export default function Brief() {
+  const router = useRouter();
   return (
     <Container>
       <Content container sx={{ mt: '50px' }} alignItems="center">
@@ -28,7 +32,13 @@ export default function Brief() {
           TEXITcoin network, and play an active role in the success of $TXC.`}
           </Typography>
 
-          <JoinButton>Join Now</JoinButton>
+          <JoinButton
+            color="secondary"
+            variant="contained"
+            onClick={() => router.push(`${paths.pages.intro.root}?tab=sign-up`)}
+          >
+            Join Now
+          </JoinButton>
         </Grid>
         <Grid xs={12} md={6} display="flex" justifyContent="flex-end">
           <Image src={`${CONFIG.site.basePath}/assets/images/texitcoin-key.png`} />
