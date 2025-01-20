@@ -63,7 +63,7 @@ export const NAV_ITEMS = [
   },
   {
     title: 'Contact',
-    path: '#',
+    path: paths.pages.contact.root,
   },
   {
     title: 'TEXITcoin.org',

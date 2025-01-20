@@ -14,6 +14,7 @@ const ROOTS = {
   CALCULATOR: '/calculator',
   STATISTICS: '/statistics',
   RAPIDREWARDS: '/rapid-rewards',
+  CONTACT: '/contact',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -57,6 +58,9 @@ export const paths = {
 
     // RAPID REWARDS
     rapidRewards: { root: ROOTS.RAPIDREWARDS },
+
+    // CONTACT
+    contact: { root: ROOTS.CONTACT },
 
     // CALCULATOR
     calculator: { root: ROOTS.CALCULATOR },
