@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { Iconify } from 'src/components/Iconify';
+
+import ContactForm from './ContactForm';
 
 export default function Address() {
   return (
@@ -43,25 +44,14 @@ export default function Address() {
               Have an inquiry or some feedbak for us? Fill out the form below to contact our team.
             </Typography>
 
-            <Form>
-              <Typography>Name</Typography>
-              <CustomField fullWidth placeholder="Enter your Name" />
-
-              <Typography>Email</Typography>
-              <CustomField fullWidth placeholder="Enter a valid email address" />
-
-              <Typography>How can we help?</Typography>
-              <CustomField fullWidth rows={4} multiline />
-            </Form>
+            <ContactForm />
           </Grid>
           <Grid xs={12} md={6}>
             <Map
               title="McKinney"
               src="https://maps.google.com/maps?output=embed&amp;q=McKinney%2C%20Texas&amp;z=10&amp;t=m"
               data-map="JTdCJTIyYWRkcmVzcyUyMiUzQSUyMk1jS2lubmV5JTJDJTIwVGV4YXMlMjIlMkMlMjJ6b29tJTIyJTNBMTAlMkMlMjJ0eXBlSWQlMjIlM0ElMjJyb2FkJTIyJTJDJTIybGFuZyUyMiUzQW51bGwlMkMlMjJhcGlLZXklMjIlM0FudWxsJTJDJTIybWFya2VycyUyMiUzQSU1QiU1RCU3RA=="
-            >
-              {' '}
-            </Map>
+            />
           </Grid>
         </LocationContent>
       </Container>
@@ -93,11 +83,6 @@ const ContactItem = styled(Grid)`
   padding-bottom: 40px;
 `;
 
-const Form = styled(Paper)`
-  text-align: left;
-  padding: 20px 0;
-`;
-
 const Title = styled(Typography)`
   margin: 20px 0 10px;
   font-size: 1.25rem;
@@ -108,6 +93,7 @@ const Title = styled(Typography)`
 
 const Header = styled(Typography)`
   font-size: 3rem;
+  margin-bottom: 10px;
 `;
 
 const Text = styled(Typography)`
@@ -121,10 +107,6 @@ const ContactAvatar = styled(Iconify)`
   border: 2px solid #262262;
   border-radius: 50%;
   padding: 15px;
-`;
-
-const CustomField = styled(TextField)`
-  margin-bottom: 20px;
 `;
 
 const Map = styled.iframe`
