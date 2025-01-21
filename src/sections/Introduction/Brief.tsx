@@ -36,7 +36,7 @@ export default function Brief() {
           <JoinButton
             color="secondary"
             variant="contained"
-            onClick={() => router.push(`${paths.pages.intro.root}?tab=sign-up`)}
+            onClick={() => router.push(`${paths.pages.intro.root}#sign-up`)}
           >
             Join Now
           </JoinButton>

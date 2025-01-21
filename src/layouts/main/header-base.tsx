@@ -121,7 +121,7 @@ export function HeaderBase({
                       color="inherit"
                       size="medium"
                       type="submit"
-                      onClick={() => router.push(`${paths.pages.intro.root}?tab=sign-up`)}
+                      onClick={() => router.push(`${paths.pages.intro.root}#sign-up`)}
                       variant="contained"
                       data-slot="login"
                     >

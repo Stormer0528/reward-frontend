@@ -78,7 +78,11 @@ export function SignInView() {
         </Typography>
 
         <Stack direction="row" columnGap={2}>
-          <Link component={RouterLink} href={paths.pages.intro.root} variant="subtitle2">
+          <Link
+            component={RouterLink}
+            href={`${paths.pages.intro.root}#sign-up`}
+            variant="subtitle2"
+          >
             Join Now
           </Link>
 

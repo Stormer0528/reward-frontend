@@ -29,14 +29,13 @@ export function NavBasic() {
     },
     {
       title: 'JOIN NOW!',
-      path: `${paths.pages.intro.root}?tab=sign-up`,
+      path: `${paths.pages.intro.root}#sign-up`,
       isJoin: true,
     },
   ];
 
   return (
     <Paper
-      // variant="outlined"
       sx={{
         p: 2,
         gap: 2,
