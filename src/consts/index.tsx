@@ -73,6 +73,12 @@ export const OTHER_WALLET = [
   { id: 'ac26f196-d377-4846-8b86-7a7dda622d01', method: 'OTHER' },
 ];
 
+export const PACKAGES = [
+  '949e51a5-a05e-4377-9c09-69338ed832ca',
+  'eb7a23db-ef66-4775-ab9c-3d7c341361b3',
+  'aa4043ca-a950-415a-9497-be8d6687194e',
+];
+
 export const TARGET = [
   { label: '100, 000', value: 100000 },
   { label: '250, 000', value: 250000 },
