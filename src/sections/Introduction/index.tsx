@@ -21,9 +21,13 @@ import { SignUpView } from '../SignUp';
 
 export default function Introduction() {
   const router = useRouter();
-  const { hash } = useLocation();
+  const { pathname, hash, search } = useLocation();
   const pageProgress = useScrollProgress();
   const [scrollY, setScrollY] = useState(0);
+
+  if (pathname.includes('sign-up')) {
+    router.push(`${paths.pages.intro.root}${search}#sign-up`);
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,7 +53,7 @@ export default function Introduction() {
 
   useEffect(() => {
     if (scrollY < 4000) {
-      router.push(paths.pages.intro.root);
+      router.push(pathname);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollY]);

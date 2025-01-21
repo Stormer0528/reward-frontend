@@ -124,11 +124,8 @@ export function SignUpView() {
     setPackageId(value);
   };
 
-  console.log('location => ', location.state?.packageId);
-  console.log('packageId => ', packageId);
-
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }} id="sign-up" tabIndex={-1}>
+    <Stack spacing={1.5} sx={{ mb: 5, outline: 'none' }} id="sign-up" tabIndex={-1}>
       <Typography variant="h2" textAlign="center">
         Fill out the form and let us blast off...
       </Typography>
