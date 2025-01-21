@@ -36,6 +36,7 @@ import { useFetchPayments } from '../Payment/useApollo';
 export function SignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
   const [state, setState] = useState<string>();
+  const [packageId, setPackageId] = useState<string>();
   const [country, setCountry] = useState<string>();
 
   const location = useLocation();
@@ -94,6 +95,7 @@ export function SignUpView() {
               country,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
+              packageId,
             },
           },
         });
@@ -118,8 +120,15 @@ export function SignUpView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handlePackageChange = (value: string) => {
+    setPackageId(value);
+  };
+
+  console.log('location => ', location.state?.packageId);
+  console.log('packageId => ', packageId);
+
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
+    <Stack spacing={1.5} sx={{ mb: 5 }} id="sign-up" tabIndex={-1}>
       <Typography variant="h2" textAlign="center">
         Fill out the form and let us blast off...
       </Typography>
@@ -191,6 +200,8 @@ export function SignUpView() {
           name="packageId"
           label="Pacakage"
           inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+          value={location.state?.packageId ?? packageId}
+          onChange={(event) => handlePackageChange(event.target.value)}
         >
           {packages.map((option) => (
             <MenuItem key={option?.id} value={option?.id}>
@@ -215,7 +226,7 @@ export function SignUpView() {
         <Stack width={1}>
           <Field.Text
             name="username"
-            label="affiliate ID"
+            label="Affiliate ID"
             placeholder="5 characters or more"
             InputLabelProps={{ shrink: true }}
             required
@@ -301,17 +312,18 @@ export function SignUpView() {
         />
       </Stack>
 
-      <LoadingButton
-        fullWidth
-        color="inherit"
-        size="large"
-        type="submit"
-        variant="contained"
-        loading={isSubmitting}
-        loadingIndicator="Join Now..."
-      >
-        Submit
-      </LoadingButton>
+      <Stack alignItems="flex-end">
+        <LoadingButton
+          color="inherit"
+          size="large"
+          type="submit"
+          variant="contained"
+          loading={isSubmitting}
+          loadingIndicator="Submit..."
+        >
+          Submit
+        </LoadingButton>
+      </Stack>
     </Stack>
   );
 

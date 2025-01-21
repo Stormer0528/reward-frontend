@@ -15,7 +15,6 @@ export const Schema = zod
     zipCode: zod.string(),
     state: zod.string(),
     primaryAddress: zod.string(),
-    packageId: zod.string(),
     sponsorUserId: zod.string(),
     secondaryAddress: zod.string(),
     paymentMethod: zod.string(),

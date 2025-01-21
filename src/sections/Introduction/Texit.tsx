@@ -41,7 +41,7 @@ export default function Texit() {
           </Grid>
           <Grid xs={12} md={6} container>
             <Grid xs={12} md={6}>
-              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+              <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon1.png`} />
                 <Title>254 Block Reward</Title>
                 <Typography>
@@ -51,7 +51,7 @@ export default function Texit() {
               </ContentCard>
             </Grid>
             <Grid xs={12} md={6}>
-              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+              <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon2.png`} />
                 <Title>O.OO pre-mine</Title>
                 <Typography>
@@ -61,7 +61,7 @@ export default function Texit() {
               </ContentCard>
             </Grid>
             <Grid xs={12} md={6}>
-              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+              <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon3.png`} />
                 <Title>3-Minute Spacing</Title>
                 <Typography>
@@ -71,7 +71,7 @@ export default function Texit() {
               </ContentCard>
             </Grid>
             <Grid xs={12} md={6}>
-              <ContentCard sx={{ height: { xs: '290px', md: '370px' } }}>
+              <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon4.png`} />
                 <Title>695,662 Halving</Title>
                 <Typography>

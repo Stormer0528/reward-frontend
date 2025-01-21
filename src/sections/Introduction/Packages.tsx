@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -8,11 +9,17 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
+
+import { PACKAGES } from 'src/consts';
+
 import { Iconify } from 'src/components/Iconify';
 
 export default function Packages() {
-  const goToJoin = () => {
-    window.scrollTo({ top: document.documentElement.scrollHeight - 2200, behavior: 'smooth' });
+  const navigate = useNavigate();
+
+  const goToJoin = (packageId: string) => {
+    navigate(`${paths.pages.intro.root}#sign-up`, { state: { packageId } });
   };
 
   return (
@@ -59,7 +66,7 @@ export default function Packages() {
                   variant="contained"
                   color="secondary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
-                  onClick={goToJoin}
+                  onClick={() => goToJoin(PACKAGES[0])}
                   sx={{ my: 1 }}
                 >
                   Get Started Now
@@ -107,7 +114,7 @@ export default function Packages() {
                     variant="contained"
                     color="secondary"
                     endIcon={<Iconify icon="pajamas:long-arrow" />}
-                    onClick={goToJoin}
+                    onClick={() => goToJoin(PACKAGES[1])}
                     sx={{ my: 1 }}
                   >
                     Triple Your Output
@@ -153,7 +160,7 @@ export default function Packages() {
                   variant="contained"
                   color="secondary"
                   endIcon={<Iconify icon="pajamas:long-arrow" />}
-                  onClick={goToJoin}
+                  onClick={() => goToJoin(PACKAGES[2])}
                   sx={{ my: 1 }}
                 >
                   Build Your Network
