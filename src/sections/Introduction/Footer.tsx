@@ -18,7 +18,7 @@ export default function Footer() {
             <DarkLogo />
           </Grid>
           <Grid xs={12} md={6} lg={4} sx={{ textAlign: { xs: 'left', lg: 'center' } }}>
-            <Text>© Copyright 2024 TEXITcoin.</Text>
+            <Text>© Copyright 2025 TEXITcoin.</Text>
             <Text>All Rights Reserved.</Text>
           </Grid>
           <Grid

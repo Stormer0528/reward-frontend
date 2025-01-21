@@ -21,23 +21,17 @@ import { SignUpView } from '../SignUp';
 
 export default function Introduction() {
   const router = useRouter();
-  const { search } = useLocation();
+  const { hash } = useLocation();
   const pageProgress = useScrollProgress();
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    if (search.includes('sign-up')) {
-      window.scrollTo({ top: 4000, behavior: 'smooth' });
-    }
-  }, [search]);
-
-  // useEffect(() => {
-  //   const signUp = document.getElementById('stormer-sign-up');
-
-  //   if (signUp) {
-  //     signUp.focus();
-  //   }
-  // }, []);
+    setTimeout(() => {
+      if (hash.includes('sign-up')) {
+        document.getElementById('sign-up')?.focus();
+      }
+    }, 100);
+  }, [hash]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +48,7 @@ export default function Introduction() {
   }, []); // Empty dependency array ensures this effect runs only once
 
   useEffect(() => {
-    if (scrollY < 4000 && scrollY > 0) {
+    if (scrollY < 4000) {
       router.push(paths.pages.intro.root);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +77,7 @@ export default function Introduction() {
 
         <Packages />
 
-        <Container id="stormer-sign-up" tabIndex={-1}>
+        <Container>
           <SignUpView />
         </Container>
 
