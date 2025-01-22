@@ -15,8 +15,4 @@ export const navData = [
     title: 'Texitcoin.org',
     path: 'https://texitcoin.org/',
   },
-  {
-    title: 'Join Now',
-    path: `${paths.pages.intro.root}#sign-up`,
-  },
 ];
