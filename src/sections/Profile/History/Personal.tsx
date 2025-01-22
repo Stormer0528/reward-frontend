@@ -9,6 +9,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { formatID } from 'src/utils/helper';
+import { fCurrency } from 'src/utils/formatNumber';
 import { formatDate } from 'src/utils/format-time';
 
 interface Props {
@@ -172,6 +173,17 @@ export default function Personal({ me }: Props) {
             </Stack>
           </Stack>
 
+          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+            <Stack width={0.5}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                Balance:
+              </Typography>
+            </Stack>
+            <Stack width={1}>
+              <Typography variant="body2">{fCurrency(me.balance)}</Typography>
+            </Stack>
+          </Stack>
+
           <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
@@ -260,7 +272,10 @@ export default function Personal({ me }: Props) {
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                 {item?.payout?.method}
               </Typography>
-              <Typography variant="body2">{item?.address}</Typography>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="body2">{item?.address}</Typography>
+                <Typography variant="body2">{item.percent / 100} %</Typography>
+              </Stack>
             </Stack>
           ))}
         </Stack>
