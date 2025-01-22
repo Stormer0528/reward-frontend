@@ -58,6 +58,7 @@ export function SignUpView() {
     email: '',
     packageId: '',
     assetId: null,
+    promoCode: '',
     password: '',
     paymentMethod: '',
     primaryAddress: '',
@@ -193,27 +194,31 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Select
-          name="packageId"
-          label="Pacakage"
-          inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
-          value={location.state?.packageId ?? packageId}
-          onChange={(event) => handlePackageChange(event.target.value)}
-        >
-          {packages.map((option) => (
-            <MenuItem key={option?.id} value={option?.id}>
-              {`$${option?.amount} @ ${option?.productName}`}
-            </MenuItem>
-          ))}
-        </Field.Select>
+        <Field.Text name="promoCode" label="PromoCode" />
 
-        <IconButton
-          onClick={() => {
-            window.open(paths.pages.calculator.root, '_blank');
-          }}
-        >
-          <Iconify icon="system-uicons:calculator" width={30} />
-        </IconButton>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} width={1}>
+          <Field.Select
+            name="packageId"
+            label="Pacakage"
+            inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+            value={location.state?.packageId ?? packageId}
+            onChange={(event) => handlePackageChange(event.target.value)}
+          >
+            {packages.map((option) => (
+              <MenuItem key={option?.id} value={option?.id}>
+                {`$${option?.amount} @ ${option?.productName}`}
+              </MenuItem>
+            ))}
+          </Field.Select>
+
+          <IconButton
+            onClick={() => {
+              window.open(paths.pages.calculator.root, '_blank');
+            }}
+          >
+            <Iconify icon="system-uicons:calculator" width={30} />
+          </IconButton>
+        </Stack>
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
