@@ -3,6 +3,7 @@ import type { NavSectionProps } from 'src/components/nav-section';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
+import { Logo } from 'src/components/logo';
 import Password from 'src/components/Password';
 
 import Notification from 'src/sections/Notification';
@@ -51,6 +52,7 @@ export function HeaderBase({
   ...other
 }: HeaderBaseProps) {
   const theme = useTheme();
+  const token = localStorage.getItem('token');
 
   return (
     <HeaderSection
@@ -71,6 +73,8 @@ export function HeaderBase({
                 sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
               />
             )}
+
+            {!token && <Logo data-slot="logo" />}
 
             {slots?.leftAreaEnd}
           </>
