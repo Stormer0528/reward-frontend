@@ -27,6 +27,8 @@ export type Scalars = {
 export type AddBalanceInput = {
   amountInCents: Scalars['Int']['input'];
   date: Scalars['DateTimeISO']['input'];
+  extra1?: InputMaybe<Scalars['String']['input']>;
+  extra2?: InputMaybe<Scalars['String']['input']>;
   memberId: Scalars['String']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
   type: Scalars['String']['input'];
@@ -92,6 +94,8 @@ export type Balance = {
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   date: Scalars['DateTimeISO']['output'];
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  extra1?: Maybe<Scalars['String']['output']>;
+  extra2?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   member?: Maybe<Member>;
   memberId: Scalars['String']['output'];
@@ -241,6 +245,7 @@ export type CreateMemberInput = {
   preferredContact?: InputMaybe<Scalars['String']['input']>;
   preferredContactDetail?: InputMaybe<Scalars['String']['input']>;
   primaryAddress: Scalars['String']['input'];
+  promoCode?: InputMaybe<Scalars['String']['input']>;
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorId: Scalars['ID']['input'];
   state?: InputMaybe<Scalars['String']['input']>;
@@ -538,6 +543,7 @@ export type Member = {
   preferredContact?: Maybe<Scalars['String']['output']>;
   preferredContactDetail?: Maybe<Scalars['String']['output']>;
   primaryAddress: Scalars['String']['output'];
+  promoCode?: Maybe<Scalars['String']['output']>;
   sales?: Maybe<Array<Sale>>;
   secondaryAddress?: Maybe<Scalars['String']['output']>;
   sponsor?: Maybe<Member>;
@@ -558,6 +564,22 @@ export type Member = {
 
 export type MemberLogsArgs = {
   logsize?: Scalars['Float']['input'];
+};
+
+export type MemberInOutRevenue = {
+  __typename?: 'MemberInOutRevenue';
+  amount: Scalars['Int']['output'];
+  commission: Scalars['Int']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  percent?: Maybe<Scalars['Float']['output']>;
+  username: Scalars['String']['output'];
+};
+
+export type MemberInOutRevenueResponse = {
+  __typename?: 'MemberInOutRevenueResponse';
+  inOuts?: Maybe<Array<MemberInOutRevenue>>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type MemberLog = {
@@ -1398,6 +1420,7 @@ export type Query = {
   liveBlockStats: EntityStats;
   liveMiningStats: EntityStats;
   liveUserStats: EntityStats;
+  memberInOutRevenues: MemberInOutRevenueResponse;
   memberMe: Member;
   memberOverview: MemberOverview;
   memberStatistics: MemberStatisticsResponse;
@@ -1547,6 +1570,13 @@ export type QueryLiveBlockStatsArgs = {
 
 export type QueryLiveUserStatsArgs = {
   data: LiveStatsArgs;
+};
+
+
+export type QueryMemberInOutRevenuesArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1813,12 +1843,13 @@ export type SignupFormInput = {
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   mobile: Scalars['String']['input'];
-  packageId?: InputMaybe<Scalars['ID']['input']>;
+  packageId: Scalars['ID']['input'];
   password: Scalars['String']['input'];
-  paymentMethod?: InputMaybe<Scalars['String']['input']>;
+  paymentMethod: Scalars['String']['input'];
   preferredContact?: InputMaybe<Scalars['String']['input']>;
   preferredContactDetail?: InputMaybe<Scalars['String']['input']>;
   primaryAddress: Scalars['String']['input'];
+  promoCode?: InputMaybe<Scalars['String']['input']>;
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorUserId?: InputMaybe<Scalars['ID']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
@@ -1983,6 +2014,7 @@ export type UpdateMemberInput = {
   preferredContact?: InputMaybe<Scalars['String']['input']>;
   preferredContactDetail?: InputMaybe<Scalars['String']['input']>;
   primaryAddress?: InputMaybe<Scalars['String']['input']>;
+  promoCode?: InputMaybe<Scalars['String']['input']>;
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorId?: InputMaybe<Scalars['ID']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
@@ -2128,12 +2160,20 @@ export type WeeklyCommissionResponse = {
   weeklyCommissions?: Maybe<Array<WeeklyCommission>>;
 };
 
+export type WeeklyCommissionSplitWay = {
+  money: Scalars['Float']['input'];
+  note?: InputMaybe<Scalars['String']['input']>;
+  way: Scalars['String']['input'];
+};
+
 export type WeeklyCommissionUpdateInput = {
+  autoCreate?: InputMaybe<Scalars['Boolean']['input']>;
   fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
   reflinks?: InputMaybe<Array<LinkInput>>;
   shortNote?: InputMaybe<Scalars['String']['input']>;
+  splitWays?: InputMaybe<Array<WeeklyCommissionSplitWay>>;
   status?: InputMaybe<ConfirmationStatus>;
 };
 
