@@ -23,6 +23,7 @@ import { useBoolean } from 'src/hooks/useBoolean';
 
 import { removeSpecialCharacters } from 'src/utils/helper';
 
+import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
@@ -56,11 +57,9 @@ export function SignUpView() {
     username: '',
     sponsorUserId: refID,
     email: '',
-    packageId: '',
     assetId: null,
     promoCode: '',
     password: '',
-    paymentMethod: '',
     primaryAddress: '',
     secondaryAddress: '',
     state: '',
@@ -86,6 +85,10 @@ export function SignUpView() {
     async ({ confirmPassword, firstName, lastName, sponsorUserId, username, ...rest }) => {
       try {
         localStorage.setItem('payout_reference', refID || sponsorUserId);
+
+        if (!packageId) {
+          toast.error('PackageId is required');
+        }
 
         const { data } = await submitSignUp({
           variables: {
@@ -199,10 +202,11 @@ export function SignUpView() {
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} width={1}>
           <Field.Select
             name="packageId"
-            label="Pacakage"
+            label="Package"
             inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
             value={location.state?.packageId ?? packageId}
             onChange={(event) => handlePackageChange(event.target.value)}
+            required
           >
             {packages.map((option) => (
               <MenuItem key={option?.id} value={option?.id}>
@@ -241,7 +245,7 @@ export function SignUpView() {
           <Typography>How would you like to pay?</Typography>
         </Stack>
         <Stack width={1}>
-          <Field.Select name="paymentMethod" label="Payment Method">
+          <Field.Select name="paymentMethod" label="Payment Method" required>
             {payments.map((option) => (
               <MenuItem key={option.name} value={option.name}>
                 {option.name}
@@ -321,7 +325,6 @@ export function SignUpView() {
           type="submit"
           variant="contained"
           loading={isSubmitting}
-          loadingIndicator="Submit..."
         >
           Submit
         </LoadingButton>
