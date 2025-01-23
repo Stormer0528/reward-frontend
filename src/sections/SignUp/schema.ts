@@ -17,7 +17,7 @@ export const Schema = zod
     primaryAddress: zod.string(),
     sponsorUserId: zod.string(),
     secondaryAddress: zod.string(),
-    paymentMethod: zod.string(),
+    paymentMethod: zod.string({ required_error: 'Payment Method is requried' }),
     password: zod
       .string()
       .min(1, { message: 'Password is required!' })
