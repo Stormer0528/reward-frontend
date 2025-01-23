@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router';
 import { useLazyQuery } from '@apollo/client';
 import { useMemo, useEffect, useCallback } from 'react';
 
@@ -26,6 +27,8 @@ export function AuthProvider({ children }: Props) {
 
   const router = useRouter();
 
+  const { pathname } = useLocation();
+
   const [fetchMe, { loading, error, data }] = useLazyQuery(FETCH_ME_QUERY);
 
   const signIn = useCallback(
@@ -43,11 +46,15 @@ export function AuthProvider({ children }: Props) {
     if (token && isValidToken(token)) {
       fetchMe();
       timerId = setTokenTimer(token);
+    } else if (!token && pathname === paths.dashboard.history.root) {
+      router.push(paths.auth.signIn);
     }
+
     return () => {
       clearTimeout(timerId);
     };
-  }, [token, fetchMe]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, pathname, fetchMe]);
 
   useEffect(() => {
     if (error) {
