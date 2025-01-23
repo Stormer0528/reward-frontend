@@ -28,7 +28,7 @@ export function NavBasic() {
     },
     {
       title: 'Dashboard',
-      path: token ? paths.dashboard.history.root : paths.auth.signIn,
+      path: token ? paths.dashboard.history.root : paths.pages.statistics.root,
     },
     {
       title: 'TEXITcoin.org',
