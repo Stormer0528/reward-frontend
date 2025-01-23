@@ -99,7 +99,7 @@ export function SignUpView() {
               country,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId: refID || sponsorUserId,
-              packageId,
+              packageId: packageId!,
             },
           },
         });
