@@ -54,6 +54,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           username
           fullName
           groupName
+          allowState
           emailVerified
           totalIntroducers
           status
