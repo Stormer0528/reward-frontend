@@ -22,6 +22,7 @@ export const FETCH_EMAILS_QUERY = gql(/* GraphQL */ `
           username
           fullName
           groupName
+          allowState
           teamReport
           teamStrategy
           syncWithSendy
@@ -74,6 +75,7 @@ export const FETCH_RECIPIENTS_QUERY = gql(/* GraphQL */ `
             username
             fullName
             groupName
+            allowState
             teamReport
             teamStrategy
             syncWithSendy
@@ -101,6 +103,7 @@ export const FETCH_RECIPIENTS_QUERY = gql(/* GraphQL */ `
           username
           fullName
           groupName
+          allowState
           teamReport
           teamStrategy
           syncWithSendy
@@ -128,6 +131,7 @@ export const FETCH_TEAM_MEMBER_QUERY = gql(/* GraphQL */ `
       username
       fullName
       groupName
+      allowState
       teamReport
       teamStrategy
       syncWithSendy
@@ -161,6 +165,7 @@ export const FETCH_EMAILBYID_QUERY = gql(/* GraphQL */ `
         username
         fullName
         groupName
+        allowState
         teamReport
         teamStrategy
         syncWithSendy
@@ -212,6 +217,7 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
           username
           fullName
           groupName
+          allowState
           teamReport
           teamStrategy
           syncWithSendy
@@ -239,6 +245,7 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
         username
         fullName
         groupName
+        allowState
         teamReport
         teamStrategy
         syncWithSendy

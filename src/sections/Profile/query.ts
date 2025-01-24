@@ -10,6 +10,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       email
       point
       groupName
+      allowState
       primaryAddress
       secondaryAddress
       ID
@@ -44,6 +45,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         fullName
         email
         point
+        allowState
         groupName
         emailVerified
         totalIntroducers
@@ -91,6 +93,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           newL
           newR
         }
+        allowState
         teamReport
         country
         balance
@@ -123,6 +126,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           newL
           newR
         }
+        allowState
         teamReport
         balance
         username
@@ -217,6 +221,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           newL
           newR
         }
+        allowState
         emailVerified
         totalIntroducers
         syncWithSendy
@@ -244,6 +249,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
             newL
             newR
           }
+          allowState
           emailVerified
           totalIntroducers
           syncWithSendy
@@ -269,6 +275,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           totalIntroducers
           status
           point
+          allowState
           commission {
             begL
             begR
@@ -332,6 +339,7 @@ export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
         balance
         username
         email
+        allowState
         fullName
         sponsorId
         groupName
@@ -393,6 +401,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         primaryAddress
         secondaryAddress
         ID
+        allowState
         assetId
         memberWallets {
           createdAt
