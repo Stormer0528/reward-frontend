@@ -35,7 +35,7 @@ export function NavBasic() {
       path: '#',
       children: [
         {
-          title: 'Silver Guarantee',
+          title: 'Silverbugs',
           path: paths.pages.silverGuarantee.root,
         },
       ],
