@@ -31,6 +31,16 @@ export function NavBasic() {
       path: token ? paths.dashboard.history.root : paths.pages.statistics.root,
     },
     {
+      title: 'Communities',
+      path: '#',
+      children: [
+        {
+          title: 'Silver Guarantee',
+          path: paths.pages.silverGuarantee.root,
+        },
+      ],
+    },
+    {
       title: 'TEXITcoin.org',
       path: 'https://texitcoin.org/',
     },

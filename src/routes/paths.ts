@@ -27,6 +27,7 @@ const ROOTS = {
   PROFILE: '/profile',
   TEAM: '/team',
   MAIL: '/mail',
+  SILVER_GUARANTEE: '/silver-guarantee',
   NOTIFICATIONS: '/notifications',
 };
 
@@ -58,6 +59,9 @@ export const paths = {
 
     // RAPID REWARDS
     rapidRewards: { root: ROOTS.RAPIDREWARDS },
+
+    // SILVER GUARANTEE
+    silverGuarantee: { root: ROOTS.SILVER_GUARANTEE },
 
     // CONTACT
     contact: { root: ROOTS.CONTACT },
