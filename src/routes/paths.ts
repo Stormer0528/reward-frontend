@@ -27,7 +27,7 @@ const ROOTS = {
   PROFILE: '/profile',
   TEAM: '/team',
   MAIL: '/mail',
-  SILVER_GUARANTEE: '/silver-guarantee',
+  SILVER_GUARANTEE: '/silverbugs',
   NOTIFICATIONS: '/notifications',
 };
 

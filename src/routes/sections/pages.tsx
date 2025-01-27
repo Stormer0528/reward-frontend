@@ -34,7 +34,7 @@ export const statisticsRoutes: RouteObject[] = [
       { index: true, element: <Navigate to={paths.pages.intro.root} replace /> },
       { path: 'intro', element: <IntroductionPage /> },
       { path: 'rapid-rewards', element: <RapidRewardsPage /> },
-      { path: 'silver-guarantee', element: <SilverGuaranteePage /> },
+      { path: 'silverbugs', element: <SilverGuaranteePage /> },
       { path: 'contact', element: <ContactPage /> },
     ],
   },
