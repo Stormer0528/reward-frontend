@@ -16,6 +16,8 @@ export type Scalars = {
   Float: { input: number; output: number; }
   /** BigInt custom scalar type */
   BigInt: { input: any; output: any; }
+  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  Date: { input: any; output: any; }
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format. */
   DateTimeISO: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -298,6 +300,14 @@ export type CreatePrepaidCommissionInput = {
   reflinks?: InputMaybe<Array<LinkInput>>;
   txId?: InputMaybe<Scalars['ID']['input']>;
   txType?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreatePromoInput = {
+  code: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  endDate: Scalars['DateTimeISO']['input'];
+  startDate: Scalars['DateTimeISO']['input'];
+  status?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type CreateProofInput = {
@@ -727,6 +737,7 @@ export type Mutation = {
   createPaymentMethod: PaymentMethod;
   createPayout: Payout;
   createPrepaidCommission: PrepaidCommission;
+  createPromo: Promo;
   createProof: Proof;
   createSale: Sale;
   createStatistics: Statistics;
@@ -750,6 +761,7 @@ export type Mutation = {
   removePackage: SuccessResponse;
   removePaymentMethod: SuccessResponse;
   removePrepaidCommission: SuccessResponse;
+  removePromo: SuccessResponse;
   removeProof: SuccessResponse;
   removeRecipient: Recipient;
   removeSale: SuccessResponse;
@@ -781,6 +793,7 @@ export type Mutation = {
   updatePasswordMemberById: Member;
   updatePaymentMethod: PaymentMethod;
   updatePrepaidCommission: PrepaidCommission;
+  updatePromo: Promo;
   updateProof: Proof;
   updateSale: Sale;
   updateStatistics: Statistics;
@@ -885,6 +898,11 @@ export type MutationCreatePayoutArgs = {
 
 export type MutationCreatePrepaidCommissionArgs = {
   data: CreatePrepaidCommissionInput;
+};
+
+
+export type MutationCreatePromoArgs = {
+  data: CreatePromoInput;
 };
 
 
@@ -999,6 +1017,11 @@ export type MutationRemovePaymentMethodArgs = {
 
 
 export type MutationRemovePrepaidCommissionArgs = {
+  data: IdInput;
+};
+
+
+export type MutationRemovePromoArgs = {
   data: IdInput;
 };
 
@@ -1150,6 +1173,11 @@ export type MutationUpdatePaymentMethodArgs = {
 
 export type MutationUpdatePrepaidCommissionArgs = {
   data: UpdatePrepaidCommissionInput;
+};
+
+
+export type MutationUpdatePromoArgs = {
+  data: UpdatePromoInput;
 };
 
 
@@ -1360,6 +1388,25 @@ export type ProfitabilityCalculationResponse = {
   txcPrice: Scalars['Float']['output'];
 };
 
+export type Promo = {
+  __typename?: 'Promo';
+  code: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  description: Scalars['String']['output'];
+  endDate: Scalars['Date']['output'];
+  id: Scalars['ID']['output'];
+  startDate: Scalars['Date']['output'];
+  status: Scalars['Boolean']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+export type PromoResponse = {
+  __typename?: 'PromoResponse';
+  promos?: Maybe<Array<Promo>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
 export type Proof = {
   __typename?: 'Proof';
   amount: Scalars['Float']['output'];
@@ -1447,6 +1494,7 @@ export type Query = {
   paymentMethods: PaymentMethodResponse;
   payouts: PayoutResponse;
   prepaidCommissions: PrepaidCommissionResponse;
+  promos: PromoResponse;
   proofById: Proof;
   proofs: ProofResponse;
   recipientById: Recipient;
@@ -1672,6 +1720,13 @@ export type QueryPayoutsArgs = {
 
 
 export type QueryPrepaidCommissionsArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPromosArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -2014,7 +2069,6 @@ export type UpdateGroupSettingInput = {
 };
 
 export type UpdateMemberInput = {
-  allowState?: InputMaybe<MemberState>;
   assetId?: InputMaybe<Scalars['String']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
@@ -2031,7 +2085,6 @@ export type UpdateMemberInput = {
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorId?: InputMaybe<Scalars['ID']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<Scalars['Boolean']['input']>;
   syncWithSendy?: InputMaybe<Scalars['Boolean']['input']>;
   teamReport?: InputMaybe<TeamReport>;
   teamStrategy?: InputMaybe<TeamStrategy>;
@@ -2083,6 +2136,15 @@ export type UpdatePrepaidCommissionInput = {
   reflinks?: InputMaybe<Array<LinkInput>>;
   txId?: InputMaybe<Scalars['ID']['input']>;
   txType?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePromoInput = {
+  code?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  endDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  id: Scalars['ID']['input'];
+  startDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  status?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UpdateProofByIdInput = {
