@@ -1,4 +1,5 @@
-import { useMutation } from '@apollo/client';
+import { useRef, useMemo } from 'react';
+import { useMutation, useLazyQuery } from '@apollo/client';
 
 import { gql } from 'src/__generated__';
 
@@ -31,6 +32,25 @@ const VERIFY_EMAIL = gql(/* GraphQL */ `
   }
 `);
 
+const FETCH_PROMOS_QUERY = gql(/* GraphQL */ `
+  query Promos($sort: String, $page: String, $filter: JSONObject) {
+    promos(sort: $sort, page: $page, filter: $filter) {
+      promos {
+        createdAt
+        updatedAt
+        deletedAt
+        id
+        code
+        description
+        status
+        startDate
+        endDate
+      }
+      total
+    }
+  }
+`);
+
 export function useSignUp() {
   const [submitSignUp, { loading, data }] = useMutation(SIGN_UP_MEMBER);
 
@@ -47,4 +67,27 @@ export function useVerifyEmail() {
   const [verifyEmail, { loading, data }] = useMutation(VERIFY_EMAIL);
 
   return { loading, result: data, verifyEmail };
+}
+export function useFetchPromos() {
+  const [fetchPromos, { loading, data, called }] = useLazyQuery(FETCH_PROMOS_QUERY);
+
+  const rowCountRef = useRef(data?.promos.total ?? 0);
+
+  const rowCount = useMemo(() => {
+    const newTotal = data?.promos.total ?? undefined;
+
+    if (newTotal !== undefined) {
+      rowCountRef.current = newTotal;
+    }
+
+    return rowCountRef.current;
+  }, [data]);
+
+  return {
+    called,
+    loading,
+    rowCount,
+    promos: data?.promos.promos ?? [],
+    fetchPromos,
+  };
 }

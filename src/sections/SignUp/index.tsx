@@ -1,3 +1,5 @@
+import type { Promo } from 'src/__generated__/graphql';
+
 import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
@@ -27,10 +29,10 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
-import { useSignUp } from './useApollo';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
+import { useSignUp, useFetchPromos } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -78,6 +80,7 @@ export function SignUpView() {
   } = methods;
 
   const { payments } = useFetchPayments();
+  const { promos, fetchPromos } = useFetchPromos();
   const { packages, fetchPackages } = useFetchPackages();
   const { submitSignUp } = useSignUp();
 
@@ -119,6 +122,8 @@ export function SignUpView() {
     fetchPackages({
       variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
     });
+
+    fetchPromos({ variables: { filter: { status: true } } });
 
     localStorage.setItem('payout_reference', refID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -197,7 +202,13 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="promoCode" label="PromoCode" />
+        <Field.Select name="promoCode" label="PromoCode">
+          {promos.map((option: Promo) => (
+            <MenuItem key={option.id} value={option.code}>
+              {option.code}
+            </MenuItem>
+          ))}
+        </Field.Select>
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} width={1}>
           <Field.Select
