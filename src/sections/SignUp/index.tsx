@@ -202,10 +202,10 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Select name="promoCode" label="PromoCode">
+        <Field.Select name="promoCode" label="Promo">
           {promos.map((option: Promo) => (
             <MenuItem key={option.id} value={option.code}>
-              {option.code}
+              {option.description}
             </MenuItem>
           ))}
         </Field.Select>
