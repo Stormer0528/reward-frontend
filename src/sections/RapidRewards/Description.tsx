@@ -57,9 +57,9 @@ export default function Description() {
                   <Typography variant="h3">02</Typography>
                 </Box>
                 <Typography>
-                  Join today and get started. Each package includes one tracking center for you to
-                  begin building your network of affiliates. The 900 megahash pack includes THREE
-                  tracking centers for networking professionals.
+                  {`Refer others to our mining program via your unique tracking URL or sign them up
+                    directly. Encourage your team to do the same! We'll calculate commissions weekly
+                    on Sunday to Saturday period. Payouts are done by Wed!`}
                 </Typography>
               </Stack>
             </ContentCard>
