@@ -15,6 +15,7 @@ import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import Item from './item';
 import HowTo from './HowTo';
+import Mission from './Mission';
 
 export default function Resource() {
   const [data, setData] = useState<any[]>([]);
@@ -26,7 +27,10 @@ export default function Resource() {
   }`;
 
   const TABS = data.map((item) => ({ value: item.title, label: item.title }));
-  const initial = [{ value: 'howTo', label: 'How To' }];
+  const initial = [
+    { value: 'howTo', label: 'How To' },
+    { value: 'mission', label: 'Mission' },
+  ];
 
   const tabs = useTabs('howTo');
 
@@ -59,7 +63,10 @@ export default function Resource() {
           ))}
         </Tabs>
 
-        {tabs.value === 'howTo' ? <HowTo /> : <Item title={tabs.value} />}
+        {tabs.value === 'howTo' && <HowTo />}
+        {tabs.value === 'mission' && <Mission />}
+
+        {!initial.some((tab) => tab.value === tabs.value) && <Item title={tabs.value} />}
       </DashboardContent>
     </>
   );
