@@ -74,7 +74,7 @@ export default function TXCWallets({ wallets }: Props) {
             rowGap={3}
             columnGap={1}
             display="grid"
-            sx={{ mb: 1, gridTemplateColumns: '30% 50% auto' }}
+            sx={{ mb: 1, gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: '30% 50% auto' } }}
           >
             <Field.Select
               name={`txcWallets[${index}].payoutId`}

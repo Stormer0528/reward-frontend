@@ -92,8 +92,8 @@ export default function StatisticsTable() {
   const token = localStorage.getItem(STORAGE_TOKEN_KEY);
 
   const renderHeader = (
-    <Stack direction="row" justifyContent="flex-end">
-      <Stack direction="row" gap={2}>
+    <Stack direction="row" justifyContent={{ md: 'flex-end' }}>
+      <Stack direction={{ md: 'row' }} gap={2}>
         <DesktopDatePicker
           label="Start Date"
           minDate={dayjs('2024-04-01')}
