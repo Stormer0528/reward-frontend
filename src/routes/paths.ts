@@ -66,9 +66,6 @@ export const paths = {
     // CONTACT
     contact: { root: ROOTS.CONTACT },
 
-    // CALCULATOR
-    calculator: { root: ROOTS.CALCULATOR },
-
     // STATISTICS
     statistics: { root: ROOTS.STATISTICS },
   },
@@ -107,6 +104,7 @@ export const paths = {
     mail: {
       root: ROOTS.MAIL,
     },
+    calculator: { root: ROOTS.CALCULATOR },
   },
   notFound: '/404',
 };
