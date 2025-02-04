@@ -11,7 +11,6 @@ import { GuestGuard } from 'src/auth/guard';
 
 const LoginPage = lazy(() => import('src/pages/SignIn'));
 const IntroPage = lazy(() => import('src/sections/Introduction'));
-const CalculatorPage = lazy(() => import('src/pages/Calculator'));
 const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
 const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
 const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
@@ -81,15 +80,6 @@ const verifyResult = {
   ),
 };
 
-const calculator = {
-  path: 'calculator',
-  element: (
-    <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }} width="720px">
-      <CalculatorPage />
-    </AuthSplitLayout>
-  ),
-};
-
 export const authRoutes = [
   {
     path: '',
@@ -98,14 +88,6 @@ export const authRoutes = [
         <Outlet />
       </Suspense>
     ),
-    children: [
-      signIn,
-      signUp,
-      verifyEmail,
-      verifyResult,
-      forgotPassword,
-      resetPassword,
-      calculator,
-    ],
+    children: [signIn, signUp, verifyEmail, verifyResult, forgotPassword, resetPassword],
   },
 ];
