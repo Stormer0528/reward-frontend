@@ -66,7 +66,7 @@ export default function HashRate() {
     grid: { show: false },
     xaxis: {
       tooltip: { enabled: false },
-      tickAmount: 30,
+      tickAmount: 20,
       categories: blocks!
         .map((item) =>
           currentSeries?.value === 'week'
@@ -96,18 +96,6 @@ export default function HashRate() {
       },
     ],
     colors: ['#228a7c', '#ca2f31'],
-    // fill: {
-    //   type: 'gradient',
-    //   gradient: {
-    //     shade: 'light',
-    //     type: 'vertical',
-    //     gradientToColors: ['#d5e8e6'], // End color for line
-    //     shadeIntensity: 1,
-    //     opacityFrom: 1,
-    //     opacityTo: 0.3,
-    //     stops: [0, 90, 100],
-    //   },
-    // },
     fill: {
       opacity: 0.6,
     },
