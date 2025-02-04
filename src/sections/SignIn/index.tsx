@@ -88,7 +88,7 @@ export function SignInView() {
 
           <Link
             component={RouterLink}
-            href={paths.pages.calculator.root}
+            href={paths.dashboard.calculator.root}
             variant="subtitle2"
             color="blue"
           >

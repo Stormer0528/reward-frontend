@@ -228,7 +228,7 @@ export function SignUpView() {
 
           <IconButton
             onClick={() => {
-              window.open(paths.pages.calculator.root, '_blank');
+              window.open(paths.dashboard.calculator.root, '_blank');
             }}
           >
             <Iconify icon="system-uicons:calculator" width={30} />
