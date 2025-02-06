@@ -36,9 +36,9 @@ export default function OverView({ me }: Props) {
         </Stack>
 
         <Stack width={0.6}>
-          {me.point}
+          {fNumber((data?.memberOverview.cashCommissionPotential ?? 0) / 100)}
           <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
-            Point
+            Cash Potential
           </Box>
         </Stack>
 
