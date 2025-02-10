@@ -153,7 +153,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         status
         isMetal
         orderedAt
-        freeShareSale
+        sponsorCnt
       }
       memberWallets {
         createdAt

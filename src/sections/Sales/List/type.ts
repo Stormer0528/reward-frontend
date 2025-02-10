@@ -9,6 +9,7 @@ export type Sale = {
   ID?: number | null;
   memberId: string;
   packageId: string;
+  sponsorCnt: number;
   paymentMethod: string;
   proof?: Proof | null;
   member?: Member | null;
