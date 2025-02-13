@@ -692,6 +692,7 @@ export type MemberOverview = {
 export enum MemberState {
   Approved = 'APPROVED',
   Graveyard = 'GRAVEYARD',
+  Paid = 'PAID',
   Pending = 'PENDING'
 }
 
@@ -810,11 +811,14 @@ export type Mutation = {
   createSale: Sale;
   createStatistics: Statistics;
   createStatisticsSale: StatisticsSale;
+  duplicateMember: Member;
   emailVerify: EmailVerifyResult;
   generateWeeklyReport: SuccessResponse;
   memberLogin: MemberLoginResponse;
   moveEmailToTrash: Email;
   moveToGraveyard: SuccessResponse;
+  moveToPaid: SuccessResponse;
+  moveToPending: SuccessResponse;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
   removeBalance: SuccessResponse;
@@ -988,6 +992,11 @@ export type MutationCreateStatisticsSaleArgs = {
 };
 
 
+export type MutationDuplicateMemberArgs = {
+  data: IdInput;
+};
+
+
 export type MutationEmailVerifyArgs = {
   data: EmailVerificationInput;
 };
@@ -1009,6 +1018,16 @@ export type MutationMoveEmailToTrashArgs = {
 
 
 export type MutationMoveToGraveyardArgs = {
+  data: IdInput;
+};
+
+
+export type MutationMoveToPaidArgs = {
+  data: IdInput;
+};
+
+
+export type MutationMoveToPendingArgs = {
   data: IdInput;
 };
 
