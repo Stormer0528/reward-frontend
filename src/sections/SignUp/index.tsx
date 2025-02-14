@@ -29,6 +29,7 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
+import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
@@ -39,8 +40,8 @@ import { useSignUp, useFetchPromos } from './useApollo';
 export function SignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
   const [state, setState] = useState<string>();
-  const [packageId, setPackageId] = useState<string>();
   const [country, setCountry] = useState<string>();
+  const [packageId, setPackageId] = useState<string>();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -52,6 +53,7 @@ export function SignUpView() {
   const router = useRouter();
 
   const password = useBoolean();
+  const calculator = useBoolean();
 
   const defaultValues = {
     firstName: '',
@@ -226,11 +228,7 @@ export function SignUpView() {
             ))}
           </Field.Select>
 
-          <IconButton
-            onClick={() => {
-              window.open(paths.dashboard.calculator.root, '_blank');
-            }}
-          >
+          <IconButton onClick={calculator.onTrue}>
             <Iconify icon="system-uicons:calculator" width={30} />
           </IconButton>
         </Stack>
@@ -340,26 +338,10 @@ export function SignUpView() {
           Submit
         </LoadingButton>
       </Stack>
+
+      <Calculator open={calculator} />
     </Stack>
   );
-
-  // const renderFooter = (
-  //   <Stack direction="row" spacing={0.5} justifyContent="center" sx={{ mt: 3 }}>
-  //     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-  //       Already have an account?
-  //     </Typography>
-
-  //     <Stack direction="row" columnGap={2}>
-  //       <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
-  //         Sign in
-  //       </Link>
-
-  //       <Link component={RouterLink} href={paths.calculator.root} variant="subtitle2" color="blue">
-  //         Calculator
-  //       </Link>
-  //     </Stack>
-  //   </Stack>
-  // );
 
   return (
     <Container sx={{ pb: 5 }}>
