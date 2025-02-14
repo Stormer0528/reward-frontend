@@ -15,7 +15,7 @@ export default function Mission() {
       <Container>
         <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
           <DarkLogo />
-          <Typography variant="h2">Mission Control Panel</Typography>
+          <Typography variant="h2">Mission Control Manual</Typography>
         </Stack>
         <Stack sx={{ mb: 4 }}>
           {RESOURCE_CONTENT.map((item: RESOURCE_TYPE) => (
