@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -205,6 +206,8 @@ export function SignUpView() {
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Select name="promoCode" label="Promo">
+          <MenuItem value="">None</MenuItem>
+          <Divider sx={{ borderStyle: 'dashed' }} />
           {promos.map((option: Promo) => (
             <MenuItem key={option.id} value={option.code}>
               {option.description}
