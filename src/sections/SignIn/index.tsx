@@ -22,6 +22,7 @@ import { Form, Field } from 'src/components/Form';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { useApollo } from './useApollo';
+import Calculator from '../SignUp/Calculator';
 
 // ----------------------------------------------------------------------
 
@@ -47,6 +48,7 @@ export function SignInView() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const password = useBoolean();
+  const calculator = useBoolean();
 
   const methods = useForm<SignInSchemaType>({
     resolver: zodResolver(SignInSchema),
@@ -86,14 +88,14 @@ export function SignInView() {
             Join Now
           </Link>
 
-          <Link
-            component={RouterLink}
-            href={paths.dashboard.calculator.root}
+          <Typography
             variant="subtitle2"
             color="blue"
+            onClick={calculator.onTrue}
+            sx={{ cursor: 'pointer' }}
           >
             Calculator
-          </Link>
+          </Typography>
         </Stack>
       </Stack>
     </Stack>
@@ -159,6 +161,8 @@ export function SignInView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
+
+      <Calculator open={calculator} />
     </>
   );
 }
