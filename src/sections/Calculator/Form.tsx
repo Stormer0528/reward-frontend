@@ -79,7 +79,7 @@ export default function EditForm() {
             inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
           >
             {packages.map((option) => (
-              <MenuItem key={option?.id} value={option?.amount}>
+              <MenuItem key={option?.id} value={option?.token}>
                 {`$${option?.amount} @ ${option?.productName}`}
               </MenuItem>
             ))}
