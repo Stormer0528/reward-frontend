@@ -16,13 +16,20 @@ import type { NodeProps } from './type';
 
 export function StandardNode({
   id,
-  placementPosition,
   username,
   fullName,
-  commission,
   createdAt,
+  commission,
+  teamStrategy,
 }: NodeProps) {
   const { visibleMap, expandTree, collapseTree } = useContext(NodeContext);
+
+  const labelColor: any = {
+    LEFT: 'info',
+    RIGHT: 'primary',
+    MANUAL: 'secondary',
+    BALANCE: 'success',
+  };
 
   return (
     <Card
@@ -63,15 +70,9 @@ export function StandardNode({
         </Typography>
 
         <Stack>
-          {placementPosition !== 'NONE' && (
-            <Label
-              variant={placementPosition === 'LEFT' ? 'soft' : 'outlined'}
-              color="info"
-              sx={{ fontSize: 10, border: placementPosition === 'LEFT' ? 'none' : 1 }}
-            >
-              {placementPosition}
-            </Label>
-          )}
+          <Label variant="soft" color={labelColor[teamStrategy]} sx={{ fontSize: 10 }}>
+            {teamStrategy}
+          </Label>
         </Stack>
       </Stack>
 
