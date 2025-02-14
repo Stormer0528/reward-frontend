@@ -101,7 +101,7 @@ export function SignUpView() {
               state,
               country,
               fullName: `${firstName} ${lastName}`,
-              sponsorUserId: refID || sponsorUserId,
+              sponsorUserId,
               packageId: packageId!,
             },
           },
