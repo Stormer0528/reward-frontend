@@ -338,8 +338,6 @@ export function SignUpView() {
           Submit
         </LoadingButton>
       </Stack>
-
-      <Calculator open={calculator} />
     </Stack>
   );
 
@@ -356,6 +354,8 @@ export function SignUpView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
+
+      <Calculator open={calculator} />
     </Container>
   );
 }
