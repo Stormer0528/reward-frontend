@@ -46,40 +46,35 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
         percent
         issuedAt
         member {
-          createdAt
-          updatedAt
-          deletedAt
           id
+          ID
+          email
+          state
+          point
+          mobile
+          status
+          assetId
           balance
           username
           fullName
           groupName
           allowState
-          emailVerified
-          totalIntroducers
-          status
-          email
           teamReport
+          teamStrategy
+          emailVerified
+          syncWithSendy
+          totalIntroducers
+          preferredContact
+          commissionDefault
+          placementPosition
+          cmnCalculatedWeeks
+          preferredContactDetail
           commission {
             begL
             begR
             newL
             newR
           }
-          point
-          mobile
-          ID
-          assetId
-          emailVerified
-          totalIntroducers
-          syncWithSendy
-          preferredContact
-          preferredContactDetail
-          cmnCalculatedWeeks
-          status
-          state
-          placementPosition
-          teamStrategy
           memberWallets {
             createdAt
             updatedAt
