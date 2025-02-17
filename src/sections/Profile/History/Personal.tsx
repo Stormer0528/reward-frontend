@@ -39,6 +39,7 @@ export default function Personal({ me }: Props) {
         </Stack>
 
         <Stack>
+          {/* Basic info */}
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
@@ -184,8 +185,20 @@ export default function Personal({ me }: Props) {
             </Stack>
           </Stack>
 
+          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+            <Stack width={0.5}>
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                Commission Default:
+              </Typography>
+            </Stack>
+            <Stack width={1}>
+              <Typography variant="body2">{me?.commissionDefault}</Typography>
+            </Stack>
+          </Stack>
+
           <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
+          {/* Group info */}
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
@@ -266,6 +279,7 @@ export default function Personal({ me }: Props) {
 
         <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
+        {/* Wallet info */}
         <Stack sx={{ mt: 2 }}>
           {me?.memberWallets?.map((item) => (
             <Stack sx={{ pb: 1 }}>
