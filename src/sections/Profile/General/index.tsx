@@ -18,7 +18,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { CONTACT } from 'src/consts';
-import { type Member, TeamStrategy } from 'src/__generated__/graphql';
+import { type Member, TeamStrategy, CommissionDefaultEnum } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
@@ -113,6 +113,7 @@ export default function MemberGeneral({ me }: Props) {
               preferredContactDetail: newMember.preferredContactDetail,
               zipCode: newMember.zipCode,
               teamStrategy: newMember.teamStrategy as TeamStrategy,
+              commissionDefault: newMember.commissionDefault as CommissionDefaultEnum,
               wallets: [...newMember.txcWallets, ...newMember.otherWallets].map(
                 ({ percent, ...rest }) => ({
                   percent: percent * 100,
@@ -260,6 +261,13 @@ export default function MemberGeneral({ me }: Props) {
               <Field.Text name="preferredContactDetail" label="Preferred Contact Detail" />
               <Field.Select name="teamStrategy" label="Team Strategy">
                 {Object.values(TeamStrategy).map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Field.Select>
+              <Field.Select name="commissionDefault" label="Commission Default">
+                {Object.values(CommissionDefaultEnum).map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
