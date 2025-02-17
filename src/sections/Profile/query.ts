@@ -4,34 +4,33 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
   query fetchMe {
     memberMe {
       id
-      balance
-      username
-      fullName
+      ID
+      city
       email
       point
-      groupName
-      allowState
-      primaryAddress
-      secondaryAddress
-      ID
-      assetId
-      mobile
-      city
-      emailVerified
-      totalIntroducers
-      status
-      country
       state
-      totalIntroducers
-      syncWithSendy
-      preferredContact
-      preferredContactDetail
-      cmnCalculatedWeeks
+      mobile
       status
+      assetId
+      balance
+      country
       zipCode
+      username
+      fullName
+      groupName
       sponsorId
+      allowState
       teamReport
       teamStrategy
+      syncWithSendy
+      emailVerified
+      primaryAddress
+      secondaryAddress
+      totalIntroducers
+      preferredContact
+      commissionDefault
+      cmnCalculatedWeeks
+      preferredContactDetail
       commission {
         begL
         begR
@@ -40,109 +39,106 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       }
       sponsor {
         id
-        balance
-        username
-        fullName
+        ID
         email
         point
-        allowState
-        groupName
-        emailVerified
-        totalIntroducers
+        state
         status
+        mobile
+        assetId
+        balance
+        country
+        username
+        fullName
+        groupName
+        allowState
         teamReport
+        teamStrategy
+        emailVerified
+        emailVerified
+        syncWithSendy
+        primaryAddress
+        secondaryAddress
+        totalIntroducers
+        preferredContact
+        commissionDefault
+        placementPosition
+        cmnCalculatedWeeks
+        preferredContactDetail
         commission {
           begL
           begR
           newL
           newR
         }
-        primaryAddress
-        secondaryAddress
-        mobile
-        ID
-        assetId
-        groupName
-        emailVerified
-        totalIntroducers
-        syncWithSendy
-        preferredContact
-        preferredContactDetail
-        cmnCalculatedWeeks
-        status
-        state
-        country
-        placementPosition
-        teamStrategy
       }
       placementParentId
       placementPosition
       placementParent {
         id
+        ID
         email
         point
         state
         status
         mobile
-        ID
         assetId
-        groupName
-        commission {
-          begL
-          begR
-          newL
-          newR
-        }
-        allowState
-        teamReport
         country
         balance
         username
         fullName
         groupName
+        allowState
+        teamReport
+        teamStrategy
         emailVerified
         syncWithSendy
         primaryAddress
-        totalIntroducers
         secondaryAddress
         totalIntroducers
         preferredContact
-        preferredContactDetail
-        cmnCalculatedWeeks
+        commissionDefault
         placementPosition
-        teamStrategy
-      }
-      placementChildren {
-        id
-        email
-        point
-        mobile
-        status
-        ID
-        assetId
+        cmnCalculatedWeeks
+        preferredContactDetail
         commission {
           begL
           begR
           newL
           newR
         }
-        allowState
-        teamReport
+      }
+      placementChildren {
+        id
+        ID
+        email
+        point
+        mobile
+        status
+        assetId
         balance
         username
         fullName
         groupName
+        allowState
+        teamReport
+        teamStrategy
         emailVerified
         syncWithSendy
         primaryAddress
         secondaryAddress
         preferredContact
         totalIntroducers
+        commissionDefault
         placementPosition
-        preferredContactDetail
         cmnCalculatedWeeks
-        placementPosition
-        teamStrategy
+        preferredContactDetail
+        commission {
+          begL
+          begR
+          newL
+          newR
+        }
       }
       sales {
         id
@@ -199,101 +195,93 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
     members(page: $page, filter: $filter, sort: $sort) {
       members {
         id
-        teamReport
+        ID
+        city
+        email
+        state
+        point
+        status
+        mobile
+        status
+        country
+        assetId
         balance
+        zipCode
         username
         fullName
-        email
-        point
+        sponsorId
+        allowState
+        teamReport
+        emailVerified
+        syncWithSendy
         primaryAddress
         secondaryAddress
-        ID
-        assetId
-        mobile
-        city
-        country
-        emailVerified
         totalIntroducers
-        status
-        state
+        preferredContact
+        placementParentId
+        placementPosition
+        cmnCalculatedWeeks
+        preferredContactDetail
         commission {
           begL
           begR
           newL
           newR
         }
-        allowState
-        emailVerified
-        totalIntroducers
-        syncWithSendy
-        preferredContact
-        preferredContactDetail
-        cmnCalculatedWeeks
-        status
-        zipCode
-        sponsorId
-        placementParentId
         sponsor {
           id
+          email
+          point
+          mobile
+          status
           balance
+          assetId
           username
           fullName
-          email
-          emailVerified
-          totalIntroducers
-          status
-          point
           teamReport
+          allowState
+          emailVerified
+          syncWithSendy
+          primaryAddress
+          totalIntroducers
+          preferredContact
+          secondaryAddress
+          cmnCalculatedWeeks
+          preferredContactDetail
           commission {
             begL
             begR
             newL
             newR
           }
-          allowState
-          emailVerified
-          totalIntroducers
-          syncWithSendy
-          preferredContact
-          preferredContactDetail
-          cmnCalculatedWeeks
-          status
-          primaryAddress
-          secondaryAddress
-          mobile
-          assetId
         }
-        placementParentId
-        placementPosition
         placementParent {
           id
-          teamReport
+          email
+          point
+          status
+          mobile
+          assetId
           balance
           username
           fullName
-          email
-          emailVerified
-          totalIntroducers
-          status
-          point
           allowState
+          teamReport
+          emailVerified
+          syncWithSendy
+          primaryAddress
+          totalIntroducers
+          secondaryAddress
+          preferredContact
+          commissionDefault
+          cmnCalculatedWeeks
+          preferredContactDetail
           commission {
             begL
             begR
             newL
             newR
           }
-          emailVerified
-          totalIntroducers
-          syncWithSendy
-          preferredContact
-          preferredContactDetail
-          cmnCalculatedWeeks
-          status
-          primaryAddress
-          secondaryAddress
-          mobile
-          assetId
         }
         sales {
           id
@@ -338,19 +326,20 @@ export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
     members(page: $page, filter: $filter, sort: $sort) {
       members {
         id
+        email
+        status
         balance
         username
-        email
-        allowState
         fullName
-        sponsorId
         groupName
-        status
+        sponsorId
+        allowState
         teamReport
         teamStrategy
-        cmnCalculatedWeeks
+        commissionDefault
         placementParentId
         placementPosition
+        cmnCalculatedWeeks
         placementParent {
           id
           username
@@ -391,21 +380,22 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
     members(filter: $filter) {
       members {
         id
-        teamReport
+        ID
+        email
+        point
+        status
+        mobile
+        assetId
         balance
         username
         fullName
-        email
-        point
+        allowState
+        teamReport
         emailVerified
-        totalIntroducers
-        status
-        mobile
         primaryAddress
         secondaryAddress
-        ID
-        allowState
-        assetId
+        totalIntroducers
+        commissionDefault
         memberWallets {
           createdAt
           updatedAt
