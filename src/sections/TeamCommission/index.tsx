@@ -24,7 +24,7 @@ export default function TeamCommissionListView({ me }: Props) {
           mb: { xs: 1, md: 2 },
         }}
       />
-      {me.teamReport === 'NONE' ? (
+      {me.teamReport.length === 0 ? (
         <Typography variant="subtitle1" textAlign="center">
           Please contact the office to enable TEAM reporting!
         </Typography>
