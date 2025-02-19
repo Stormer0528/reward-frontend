@@ -78,3 +78,20 @@ export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const FETCH_INTRODUCERS_QUERY = gql(/* GraphQL */ `
+  query Introducers($sort: String, $page: String, $filter: JSONObject) {
+    introducers(sort: $sort, page: $page, filter: $filter) {
+      introducers {
+        id
+        ID
+        email
+        mobile
+        username
+        fullName
+        createdAt
+      }
+      total
+    }
+  }
+`);
