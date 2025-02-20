@@ -238,7 +238,14 @@ export function SignUpView() {
         </Stack>
       </Stack>
 
-      <Field.Text name="note" label="Note" multiline rows={3} />
+      <Field.Text
+        name="note"
+        label="Note"
+        multiline
+        rows={3}
+        placeholder="Write a comment here (optional)"
+        InputLabelProps={{ shrink: true }}
+      />
 
       <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
         <Stack width={1}>
