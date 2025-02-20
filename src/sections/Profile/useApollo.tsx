@@ -9,6 +9,7 @@ import {
   UPDATE_MEMBER_PASSWORD,
   FETCH_MEMBER_STATS_QUERY,
   FETCH_PLACEMENT_MEMBERS_QUERY,
+  FETCH_PLACEMENT_MEMBERS_O_QUERY,
 } from './query';
 
 export function useFetchMe() {
@@ -62,6 +63,19 @@ export function useFetchPlacementMembers() {
     rowCount,
     members: data?.members.members ?? [],
     fetchMembers,
+  };
+}
+
+export function useFetchPlacementOMembers() {
+  const [fetchPlacementMembers, { loading, data, called }] = useLazyQuery(
+    FETCH_PLACEMENT_MEMBERS_O_QUERY
+  );
+
+  return {
+    called,
+    loading,
+    members: data?.placementMembers ?? [],
+    fetchPlacementMembers,
   };
 }
 
