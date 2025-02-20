@@ -25,6 +25,7 @@ export const Schema = zod
     confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
     assetId: zod.string().optional().nullable(),
     promoCode: zod.string().optional().nullable(),
+    note: zod.string().optional().nullable(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match!',
