@@ -64,6 +64,7 @@ export function SignUpView() {
     email: '',
     assetId: null,
     promoCode: '',
+    note: '',
     password: '',
     primaryAddress: '',
     secondaryAddress: '',
@@ -236,6 +237,8 @@ export function SignUpView() {
           </IconButton>
         </Stack>
       </Stack>
+
+      <Field.Text name="note" label="Note" multiline rows={3} />
 
       <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
         <Stack width={1}>
