@@ -9,6 +9,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       email
       point
       state
+      avatar
       mobile
       status
       assetId
@@ -200,6 +201,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         email
         state
         point
+        avatar
         status
         mobile
         status
@@ -404,6 +406,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         ID
         email
         point
+        avatar
         status
         mobile
         assetId

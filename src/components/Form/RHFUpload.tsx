@@ -10,11 +10,12 @@ import { Upload, UploadBox, UploadAvatar } from 'src/components/Upload';
 
 type Props = UploadProps & {
   name: string;
+  current?: string;
 };
 
 // ----------------------------------------------------------------------
 
-export function RHFUploadAvatar({ name, ...other }: Props) {
+export function RHFUploadAvatar({ name, current, ...other }: Props) {
   const { control, setValue } = useFormContext();
 
   return (
@@ -30,7 +31,13 @@ export function RHFUploadAvatar({ name, ...other }: Props) {
 
         return (
           <div>
-            <UploadAvatar value={field.value} error={!!error} onDrop={onDrop} {...other} />
+            <UploadAvatar
+              value={field.value}
+              error={!!error}
+              onDrop={onDrop}
+              current={current}
+              {...other}
+            />
 
             {!!error && (
               <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>

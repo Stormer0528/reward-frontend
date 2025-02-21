@@ -1,8 +1,9 @@
+import axios from 'axios';
 import isEqual from 'lodash/isEqual';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
-import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { ApolloError, useMutation, useLazyQuery } from '@apollo/client';
 
 import Box from '@mui/material/Box';
@@ -17,6 +18,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
+import { fData } from 'src/utils/formatNumber';
+
+import { CONFIG } from 'src/config';
 import { CONTACT } from 'src/consts';
 import { type Member, TeamStrategy, CommissionDefaultEnum } from 'src/__generated__/graphql';
 
@@ -45,9 +49,11 @@ export default function MemberGeneral({ me }: Props) {
 
   const [txcWallets, otherWallets] = getWallets(me.memberWallets);
 
-  const [firstName, setFirstName] = useState<string>(me.fullName.split(' ')[0]);
-  const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
+  const [avatar, setAvatar] = useState<string>('');
   const [country, setCountry] = useState<string>();
+  const [avatarUrl, setAvatarUrl] = useState<File | string | null>(null);
+  const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
+  const [firstName, setFirstName] = useState<string>(me.fullName.split(' ')[0]);
 
   const [fetchMembers, { loading: memberLoading, data: memberData }] =
     useLazyQuery(FETCH_MEMBERS_QUERY);
@@ -97,6 +103,7 @@ export default function MemberGeneral({ me }: Props) {
           variables: {
             data: {
               id: me.id,
+              avatar,
               username: newMember.username,
               email: newMember.email,
               fullName: `${firstName} ${lastName}`,
@@ -141,6 +148,27 @@ export default function MemberGeneral({ me }: Props) {
     }
   });
 
+  const handleDrop = useCallback(async (acceptedFiles: File[]) => {
+    const newFile = acceptedFiles[0];
+    setAvatarUrl(newFile);
+
+    const formData = new FormData();
+
+    acceptedFiles.forEach((file) => formData.append('avatar', file));
+
+    try {
+      const { data } = await axios.post(`${CONFIG.SITE_URL}/api/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      if (data) {
+        setAvatar(data.files[0].url);
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  }, []);
+
   const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const { data } = await fetchMembers({
@@ -180,6 +208,36 @@ export default function MemberGeneral({ me }: Props) {
                 sm: 'repeat(2, 1fr)',
               }}
             >
+              <Field.UploadAvatar
+                name="avatar"
+                value={avatarUrl}
+                current={me?.avatar ?? ''}
+                validator={(fileData) => {
+                  if (fileData.size > 1000000) {
+                    return {
+                      code: 'file-too-large',
+                      message: `File is larger than ${fData(1000000)}`,
+                    };
+                  }
+                  return null;
+                }}
+                sx={{ width: 120, height: 120 }}
+                onDrop={handleDrop}
+              />
+              <Stack spacing={3}>
+                <Field.Text
+                  name="firstName"
+                  label="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <Field.Text
+                  name="lastName"
+                  label="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </Stack>
               <Field.Text name="username" label="Username" />
               <Field.Text
                 name="email"
@@ -191,18 +249,6 @@ export default function MemberGeneral({ me }: Props) {
 
                   setEmail(event.target.value);
                 }}
-              />
-              <Field.Text
-                name="firstName"
-                label="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              <Field.Text
-                name="lastName"
-                label="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
               />
               <Field.Phone name="mobile" label="Mobile" />
               <Autocomplete
