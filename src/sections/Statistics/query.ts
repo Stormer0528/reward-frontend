@@ -210,8 +210,9 @@ export const FETCH_TXC_SHARES = gql(/* GraphQL */ `
 export const FETCH_TOP_EARNERS = gql(/* GraphQL */ `
   query TopEarners {
     topEarners {
-      fullName
+      avatar
       earned
+      fullName
     }
   }
 `);
@@ -219,6 +220,7 @@ export const FETCH_TOP_EARNERS = gql(/* GraphQL */ `
 export const FETCH_TOP_RECRUITERS = gql(/* GraphQL */ `
   query TopRecruiters {
     topRecruiters {
+      avatar
       fullName
       totalIntroducers
     }
