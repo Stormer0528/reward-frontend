@@ -37,4 +37,5 @@ export type UploadProps = DropzoneOptions & {
   value?: FileUploadType | FilesUploadType;
   onRemove?: (file: File | string) => void;
   preview?: boolean;
+  current?: string;
 };
