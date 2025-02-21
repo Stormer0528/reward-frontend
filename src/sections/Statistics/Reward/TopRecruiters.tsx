@@ -11,9 +11,9 @@ import Typography from '@mui/material/Typography';
 
 import { customizeFullName } from 'src/utils/helper';
 
-import { varAlpha } from 'src/theme/styles';
+import { CONFIG } from 'src/config';
 
-import { Iconify } from 'src/components/Iconify';
+import { Image } from 'src/components/Image';
 import { ScrollBar } from 'src/components/ScrollBar';
 
 import { useFetchTopRecruiters } from '../useApollo';
@@ -70,23 +70,14 @@ export default function Latest() {
                         alignItems: 'center',
                         color: 'primary.main',
                         justifyContent: 'center',
-                        bgcolor: (theme) => varAlpha(theme.vars.palette.primary.mainChannel, 0.08),
-                        ...(index === 1 && {
-                          color: 'info.main',
-                          bgcolor: (theme) => varAlpha(theme.vars.palette.info.mainChannel, 0.08),
-                        }),
-                        ...(index === 2 && {
-                          color: 'error.main',
-                          bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
-                        }),
-                        ...(index === 3 && {
-                          color: 'warning.main',
-                          bgcolor: (theme) =>
-                            varAlpha(theme.vars.palette.warning.mainChannel, 0.08),
-                        }),
+                        background: `url(${CONFIG.SITE_PATH}/assets/medals/${index + 1}.png)`,
+                        backgroundSize: 'cover',
                       }}
                     >
-                      <Iconify width={24} icon="solar:cup-star-bold" />
+                      <Image
+                        src={item.avatar ?? `${CONFIG.SITE_PATH}/assets/avatar.jpg`}
+                        sx={{ width: 28, height: 28, borderRadius: 50, mt: 0.4 }}
+                      />
                     </Box>
                     <Typography variant="subtitle1">{customizeFullName(item.fullName)}</Typography>
                   </Stack>
