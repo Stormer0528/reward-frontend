@@ -49,7 +49,7 @@ export default function MemberGeneral({ me }: Props) {
 
   const [txcWallets, otherWallets] = getWallets(me.memberWallets);
 
-  const [avatar, setAvatar] = useState<string>('');
+  const [avatar, setAvatar] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [avatarUrl, setAvatarUrl] = useState<File | string | null>(null);
   const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
@@ -103,7 +103,7 @@ export default function MemberGeneral({ me }: Props) {
           variables: {
             data: {
               id: me.id,
-              avatar,
+              avatar: avatar ?? me?.avatar,
               username: newMember.username,
               email: newMember.email,
               fullName: `${firstName} ${lastName}`,
