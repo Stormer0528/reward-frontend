@@ -22,6 +22,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       sponsorId
       allowState
       teamReport
+      OTPEnabled
       teamStrategy
       syncWithSendy
       emailVerified
@@ -54,6 +55,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         groupName
         allowState
         teamReport
+        OTPEnabled
         teamStrategy
         emailVerified
         emailVerified
@@ -91,6 +93,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         groupName
         allowState
         teamReport
+        OTPEnabled
         teamStrategy
         emailVerified
         syncWithSendy
@@ -123,6 +126,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         groupName
         allowState
         teamReport
+        OTPEnabled
         teamStrategy
         emailVerified
         syncWithSendy
@@ -214,6 +218,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         sponsorId
         allowState
         teamReport
+        OTPEnabled
         emailVerified
         syncWithSendy
         primaryAddress
@@ -241,6 +246,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           username
           fullName
           teamReport
+          OTPEnabled
           allowState
           emailVerified
           syncWithSendy
@@ -269,6 +275,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
           fullName
           allowState
           teamReport
+          OTPEnabled
           emailVerified
           syncWithSendy
           primaryAddress
@@ -337,6 +344,7 @@ export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
         sponsorId
         allowState
         teamReport
+        OTPEnabled
         teamStrategy
         commissionDefault
         placementParentId
@@ -415,6 +423,7 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         fullName
         allowState
         teamReport
+        OTPEnabled
         emailVerified
         primaryAddress
         secondaryAddress

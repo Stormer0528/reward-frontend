@@ -24,6 +24,7 @@ export const FETCH_EMAILS_QUERY = gql(/* GraphQL */ `
           groupName
           allowState
           teamReport
+          OTPEnabled
           teamStrategy
           syncWithSendy
           emailVerified
@@ -78,6 +79,7 @@ export const FETCH_RECIPIENTS_QUERY = gql(/* GraphQL */ `
             groupName
             allowState
             teamReport
+            OTPEnabled
             teamStrategy
             syncWithSendy
             emailVerified
@@ -107,6 +109,7 @@ export const FETCH_RECIPIENTS_QUERY = gql(/* GraphQL */ `
           groupName
           allowState
           teamReport
+          OTPEnabled
           teamStrategy
           syncWithSendy
           emailVerified
@@ -136,6 +139,7 @@ export const FETCH_TEAM_MEMBER_QUERY = gql(/* GraphQL */ `
       groupName
       allowState
       teamReport
+      OTPEnabled
       teamStrategy
       syncWithSendy
       emailVerified
@@ -171,6 +175,7 @@ export const FETCH_EMAILBYID_QUERY = gql(/* GraphQL */ `
         groupName
         allowState
         teamReport
+        OTPEnabled
         teamStrategy
         syncWithSendy
         emailVerified
@@ -224,6 +229,7 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
           groupName
           allowState
           teamReport
+          OTPEnabled
           teamStrategy
           syncWithSendy
           emailVerified
@@ -253,6 +259,7 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
         groupName
         allowState
         teamReport
+        OTPEnabled
         teamStrategy
         syncWithSendy
         emailVerified
