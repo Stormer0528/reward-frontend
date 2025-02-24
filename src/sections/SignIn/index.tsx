@@ -16,12 +16,15 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
+import { CONFIG } from 'src/config';
+
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
 import { useAuthContext } from 'src/auth/hooks';
 
 import { useApollo } from './useApollo';
+import VerifyModal from './VerifyModal';
 import Calculator from '../SignUp/Calculator';
 
 // ----------------------------------------------------------------------
@@ -47,6 +50,7 @@ export function SignInView() {
 
   const [errorMsg, setErrorMsg] = useState('');
 
+  const open = useBoolean();
   const password = useBoolean();
   const calculator = useBoolean();
 
@@ -63,7 +67,13 @@ export function SignInView() {
     try {
       const response = await submitLogin({ variables: { data } });
       const token = response.data?.memberLogin.accessToken ?? '';
-      signIn(token);
+
+      if (response.data?.memberLogin.status === 'success') {
+        signIn(token);
+      } else {
+        localStorage.setItem(CONFIG.storageTokenKey, token);
+        open.onTrue();
+      }
     } catch (error) {
       console.error(error);
       setErrorMsg(error instanceof Error ? error.message : error);
@@ -163,6 +173,8 @@ export function SignInView() {
       </Form>
 
       <Calculator open={calculator} />
+
+      <VerifyModal open={open} signIn={signIn} />
     </>
   );
 }

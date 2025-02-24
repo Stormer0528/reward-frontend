@@ -9,6 +9,7 @@ import { ApolloError, useMutation, useLazyQuery } from '@apollo/client';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -17,6 +18,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
+
+import { useBoolean } from 'src/hooks/useBoolean';
 
 import { fData } from 'src/utils/formatNumber';
 
@@ -27,8 +30,12 @@ import { type Member, TeamStrategy, CommissionDefaultEnum } from 'src/__generate
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 import TXCWallets from './txcWallets';
 import OtherWallets from './otherWallets';
+import PasswordModal from './PasswordModal';
+import { useDisable2FA } from '../useApollo';
 import { Schema, type SchemaType } from './schema';
 import { getWallets, hasDuplicates } from './helper';
 import { UPDATE_MEMBER, FETCH_MEMBERS_QUERY } from '../query';
@@ -45,7 +52,10 @@ interface Edit {
 }
 
 export default function MemberGeneral({ me }: Props) {
+  const open = useBoolean();
   const router = useRouter();
+
+  const { user } = useAuthContext();
 
   const [txcWallets, otherWallets] = getWallets(me.memberWallets);
 
@@ -64,6 +74,7 @@ export default function MemberGeneral({ me }: Props) {
   const [member, setMember] = useState<Edit>();
 
   const [submit, { loading }] = useMutation(UPDATE_MEMBER);
+  const { loading: disableLoading, disable2FA } = useDisable2FA();
 
   const defaultValues = useMemo(() => {
     const { fullName } = me;
@@ -184,6 +195,14 @@ export default function MemberGeneral({ me }: Props) {
     }
   };
 
+  const handleDisable = async () => {
+    const { data } = await disable2FA();
+
+    if (data) {
+      localStorage.setItem(CONFIG.storageTokenKey, data.disable2FA.accessToken);
+    }
+  };
+
   useEffect(() => {
     fetchMembers({
       variables: {
@@ -195,144 +214,166 @@ export default function MemberGeneral({ me }: Props) {
   }, [member]);
 
   return (
-    <Form methods={methods} onSubmit={onSubmit}>
-      <Grid container spacing={3}>
-        <Grid md={12} xl={6}>
-          <Card sx={{ p: 3 }}>
-            <Box
-              rowGap={3}
-              columnGap={2}
-              display="grid"
-              gridTemplateColumns={{
-                xs: 'repeat(1, 1fr)',
-                sm: 'repeat(2, 1fr)',
-              }}
-            >
-              <Field.UploadAvatar
-                name="avatar"
-                value={avatarUrl}
-                current={me?.avatar ?? ''}
-                validator={(fileData) => {
-                  if (fileData.size > 1000000) {
-                    return {
-                      code: 'file-too-large',
-                      message: `File is larger than ${fData(1000000)}`,
-                    };
-                  }
-                  return null;
+    <>
+      <Form methods={methods} onSubmit={onSubmit}>
+        <Grid container spacing={3}>
+          <Grid md={12} xl={6}>
+            <Card sx={{ p: 3 }}>
+              <Box
+                rowGap={3}
+                columnGap={2}
+                display="grid"
+                gridTemplateColumns={{
+                  xs: 'repeat(1, 1fr)',
+                  sm: 'repeat(2, 1fr)',
                 }}
-                sx={{ width: 120, height: 120 }}
-                onDrop={handleDrop}
-              />
-              <Stack spacing={3}>
-                <Field.Text
-                  name="firstName"
-                  label="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+              >
+                <Field.UploadAvatar
+                  name="avatar"
+                  value={avatarUrl}
+                  current={me?.avatar ?? ''}
+                  validator={(fileData) => {
+                    if (fileData.size > 1000000) {
+                      return {
+                        code: 'file-too-large',
+                        message: `File is larger than ${fData(1000000)}`,
+                      };
+                    }
+                    return null;
+                  }}
+                  sx={{ width: 120, height: 120 }}
+                  onDrop={handleDrop}
                 />
+                <Stack spacing={3}>
+                  <Field.Text
+                    name="firstName"
+                    label="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                  <Field.Text
+                    name="lastName"
+                    label="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </Stack>
+                <Field.Text name="username" label="Username" />
                 <Field.Text
-                  name="lastName"
-                  label="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  name="email"
+                  label="Email"
+                  defaultValue={me.email}
+                  value={email}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    handleSearchChange(event);
+
+                    setEmail(event.target.value);
+                  }}
                 />
-              </Stack>
-              <Field.Text name="username" label="Username" />
-              <Field.Text
-                name="email"
-                label="Email"
-                defaultValue={me.email}
-                value={email}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleSearchChange(event);
-
-                  setEmail(event.target.value);
-                }}
-              />
-              <Field.Phone name="mobile" label="Mobile" />
-              <Autocomplete
-                disabled
-                fullWidth
-                options={members}
-                loading={memberLoading}
-                loadingText={<LoadingButton loading={memberLoading} />}
-                getOptionLabel={(option) => option!.username}
-                value={member ?? me!.sponsor}
-                renderInput={(params) => (
-                  <TextField {...params} label="Sponsor Name" margin="none" />
-                )}
-                renderOption={(props, option) => (
-                  <li {...props} key={option!.username}>
-                    {option!.username}
-                  </li>
-                )}
-                onInputChange={(_, username: string) => {
-                  setMember({ id: me?.sponsorId ?? '', username });
-                }}
-                onChange={(_, value) => {
-                  setMember({ id: value?.id ?? '', username: value?.username ?? '' });
-                }}
-              />
-              <Field.Text name="primaryAddress" label="Address" />
-              <Field.Text name="secondaryAddress" label="Address Line 2" />
-              <Autocomplete
-                freeSolo
-                fullWidth
-                options={countries.getNames()}
-                getOptionLabel={(option: any) => option}
-                value={country ?? me.country}
-                renderInput={(params) => (
-                  <TextField {...params} name="country" label="Country" margin="none" />
-                )}
-                renderOption={(props, option) => (
-                  <li {...props} key={option}>
-                    {option}
-                  </li>
-                )}
-                onChange={(_, value: any) => setCountry(value)}
-                onInputChange={(_, value: any) => setCountry(value)}
-              />
-              <Field.Text name="state" label="State" />
-              <Field.Text name="city" label="City" />
-              <Field.Text name="zipCode" label="ZIP Code" />
-              <Field.Text name="assetId" label="Asset ID" disabled />
-              <Field.Select name="preferredContact" label="Preferred Contact">
-                {CONTACT.map((option) => (
-                  <MenuItem key={option.label} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </Field.Select>
-              <Field.Text name="preferredContactDetail" label="Preferred Contact Detail" />
-              <Field.Select name="teamStrategy" label="Team Strategy">
-                {Object.values(TeamStrategy).map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Field.Select>
-              <Field.Select name="commissionDefault" label="Commission Default">
-                {Object.values(CommissionDefaultEnum).map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Field.Select>
-            </Box>
-          </Card>
+                <Field.Phone name="mobile" label="Mobile" />
+                <Autocomplete
+                  disabled
+                  fullWidth
+                  options={members}
+                  loading={memberLoading}
+                  loadingText={<LoadingButton loading={memberLoading} />}
+                  getOptionLabel={(option) => option!.username}
+                  value={member ?? me!.sponsor}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Sponsor Name" margin="none" />
+                  )}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option!.username}>
+                      {option!.username}
+                    </li>
+                  )}
+                  onInputChange={(_, username: string) => {
+                    setMember({ id: me?.sponsorId ?? '', username });
+                  }}
+                  onChange={(_, value) => {
+                    setMember({ id: value?.id ?? '', username: value?.username ?? '' });
+                  }}
+                />
+                <Field.Text name="primaryAddress" label="Address" />
+                <Field.Text name="secondaryAddress" label="Address Line 2" />
+                <Autocomplete
+                  freeSolo
+                  fullWidth
+                  options={countries.getNames()}
+                  getOptionLabel={(option: any) => option}
+                  value={country ?? me.country}
+                  renderInput={(params) => (
+                    <TextField {...params} name="country" label="Country" margin="none" />
+                  )}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option}>
+                      {option}
+                    </li>
+                  )}
+                  onChange={(_, value: any) => setCountry(value)}
+                  onInputChange={(_, value: any) => setCountry(value)}
+                />
+                <Field.Text name="state" label="State" />
+                <Field.Text name="city" label="City" />
+                <Field.Text name="zipCode" label="ZIP Code" />
+                <Field.Text name="assetId" label="Asset ID" disabled />
+                <Field.Select name="preferredContact" label="Preferred Contact">
+                  {CONTACT.map((option) => (
+                    <MenuItem key={option.label} value={option.value}>
+                      {option.value}
+                    </MenuItem>
+                  ))}
+                </Field.Select>
+                <Field.Text name="preferredContactDetail" label="Preferred Contact Detail" />
+                <Field.Select name="teamStrategy" label="Team Strategy">
+                  {Object.values(TeamStrategy).map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Field.Select>
+                <Field.Select name="commissionDefault" label="Commission Default">
+                  {Object.values(CommissionDefaultEnum).map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Field.Select>
+              </Box>
+            </Card>
+          </Grid>
+          <Grid md={12} xl={6}>
+            <TXCWallets wallets={txcWallets} />
+            <OtherWallets wallets={otherWallets} />
+          </Grid>
         </Grid>
-        <Grid md={12} xl={6}>
-          <TXCWallets wallets={txcWallets} />
-          <OtherWallets wallets={otherWallets} />
-        </Grid>
-      </Grid>
 
-      <Stack alignItems="flex-start" sx={{ mt: 2 }}>
-        <LoadingButton type="submit" variant="contained" loading={loading}>
-          Save Changes
-        </LoadingButton>
-      </Stack>
-    </Form>
+        <Stack direction="row" justifyContent="flex-start" spacing={2} sx={{ mt: 2 }}>
+          {me?.id === user?.id && (
+            <>
+              {me.OTPEnabled ? (
+                <LoadingButton
+                  type="button"
+                  variant="contained"
+                  loading={disableLoading}
+                  onClick={handleDisable}
+                >
+                  Disable 2FA
+                </LoadingButton>
+              ) : (
+                <Button type="button" variant="contained" onClick={open.onTrue}>
+                  2FA Settings
+                </Button>
+              )}
+            </>
+          )}
+          <LoadingButton type="submit" variant="contained" loading={loading}>
+            Save Changes
+          </LoadingButton>
+        </Stack>
+      </Form>
+
+      <PasswordModal open={open} />
+    </>
   );
 }
