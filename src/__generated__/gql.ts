@@ -46,6 +46,10 @@ const documents = {
     "\n  query MemberStatistics($sort: String, $page: String, $filter: JSONObject) {\n    memberStatistics(sort: $sort, page: $page, filter: $filter) {\n      memberStatistics {\n        issuedAt\n        hashPower\n        txcShared\n      }\n      total\n    }\n  }\n": types.MemberStatisticsDocument,
     "\n  query Payouts($filter: JSONObject, $page: String, $sort: String) {\n    payouts(filter: $filter, page: $page, sort: $sort) {\n      payouts {\n        id\n        method\n        display\n        name\n        status\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n": types.PayoutsDocument,
     "\n  mutation UpdatePasswordMember($data: UpdateMemberPasswordInput!) {\n    updatePasswordMember(data: $data) {\n      message\n      result\n    }\n  }\n": types.UpdatePasswordMemberDocument,
+    "\n  query generateQuery {\n    generate2FA\n  }\n": types.GenerateQueryDocument,
+    "\n  mutation Verify2FAAndEnable($data: Verify2FAInput!) {\n    verify2FAAndEnable(data: $data) {\n      accessToken\n    }\n  }\n": types.Verify2FaAndEnableDocument,
+    "\n  mutation Verify2FAToken($data: TokenInput!) {\n    verify2FAToken(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.Verify2FaTokenDocument,
+    "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n": types.Disable2FaDocument,
     "\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordRequestDocument,
     "\n  mutation ResetPasswordByToken($data: ResetPasswordTokenInput!) {\n    resetPasswordByToken(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordByTokenDocument,
     "\n  query Reward($sort: String, $page: String, $filter: JSONObject) {\n    statistics(sort: $sort, page: $page, filter: $filter) {\n      statistics {\n        id\n        issuedAt\n        newBlocks\n        totalBlocks\n        totalHashPower\n        totalMembers\n        txcShared\n        from\n        to\n        status\n        statisticsSales {\n          id\n          saleId\n          issuedAt\n        }\n        memberStatistics {\n          txcShared\n          memberStatisticsWallets {\n            id\n          }\n        }\n      }\n      total\n    }\n  }\n": types.RewardDocument,
@@ -61,7 +65,7 @@ const documents = {
     "\n  query FetchSales($sort: String, $page: String, $filter: JSONObject) {\n    sales(sort: $sort, page: $page, filter: $filter) {\n      sales {\n        id\n        ID\n        status\n        memberId\n        orderedAt\n        packageId\n        paymentMethod\n        sponsorCnt\n        member {\n          id\n          email\n          point\n          mobile\n          status\n          ID\n          assetId\n          commission {\n            begL\n            begR\n            newL\n            newR\n          }\n          username\n          fullName\n          emailVerified\n          syncWithSendy\n          primaryAddress\n          totalIntroducers\n          secondaryAddress\n          preferredContact\n          preferredContactDetail\n          cmnCalculatedWeeks\n          memberWallets {\n            createdAt\n            updatedAt\n            deletedAt\n            id\n            memberId\n            payoutId\n            address\n            percent\n            payout {\n              id\n              method\n              status\n              name\n              display\n              createdAt\n              updatedAt\n              deletedAt\n            }\n          }\n        }\n        package {\n          id\n          date\n          token\n          point\n          amount\n          status\n          createdAt\n          updatedAt\n          deletedAt\n          productName\n          enrollVisibility\n        }\n      }\n      total\n    }\n  }\n": types.FetchSalesDocument,
     "\n  query FetchSaleStats($allFilter: JSONObject, $inactiveFilter: JSONObject) {\n    all: sales(filter: $allFilter) {\n      total\n    }\n    inactive: sales(filter: $inactiveFilter) {\n      total\n    }\n  }\n": types.FetchSaleStatsDocument,
     "\n  query Packages($sort: String, $page: String, $filter: JSONObject) {\n    packages(sort: $sort, page: $page, filter: $filter) {\n      packages {\n        id\n        date\n        token\n        point\n        amount\n        status\n        createdAt\n        updatedAt\n        deletedAt\n        productName\n        enrollVisibility\n      }\n      total\n    }\n  }\n": types.PackagesDocument,
-    "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n    }\n  }\n": types.LoginDocument,
+    "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.LoginDocument,
     "\n  mutation SignUpMember($data: SignupFormInput!) {\n    signUpMember(data: $data) {\n      email\n      username\n      id\n    }\n  }\n": types.SignUpMemberDocument,
     "\n  mutation SendEmailVerification($data: EmailInput!) {\n    sendEmailVerification(data: $data) {\n      token\n    }\n  }\n": types.SendEmailVerificationDocument,
     "\n  mutation EmailVerify($data: EmailVerificationInput!) {\n    emailVerify(data: $data) {\n      result\n      message\n      packageId\n      paymentMethod\n    }\n  }\n": types.EmailVerifyDocument,
@@ -236,6 +240,22 @@ export function gql(source: "\n  mutation UpdatePasswordMember($data: UpdateMemb
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  query generateQuery {\n    generate2FA\n  }\n"): (typeof documents)["\n  query generateQuery {\n    generate2FA\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation Verify2FAAndEnable($data: Verify2FAInput!) {\n    verify2FAAndEnable(data: $data) {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Verify2FAAndEnable($data: Verify2FAInput!) {\n    verify2FAAndEnable(data: $data) {\n      accessToken\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation Verify2FAToken($data: TokenInput!) {\n    verify2FAToken(data: $data) {\n      accessToken\n      status\n    }\n  }\n"): (typeof documents)["\n  mutation Verify2FAToken($data: TokenInput!) {\n    verify2FAToken(data: $data) {\n      accessToken\n      status\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      message\n      result\n    }\n  }\n"): (typeof documents)["\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      message\n      result\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -296,7 +316,7 @@ export function gql(source: "\n  query Packages($sort: String, $page: String, $f
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n    }\n  }\n"];
+export function gql(source: "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
