@@ -40,6 +40,7 @@ const TABLE_HEAD = [
   { id: 'pkgLR', label: 'Package', sortable: true },
   { id: 'endLR', label: 'EndLR', sortable: true },
   { id: 'commission', label: 'Commissions', width: 200, sortable: true },
+  { id: 'status', label: 'Status', width: 100, sortable: true },
 ];
 
 const defaultFilter: ICommissionTableFilters = {

@@ -1,5 +1,3 @@
-import type { WeeklyCommission } from 'src/__generated__/graphql';
-
 import dayjs from 'dayjs';
 import utcPlugin from 'dayjs/plugin/utc';
 
@@ -8,6 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import ListItemText from '@mui/material/ListItemText';
 
 import { formatID } from 'src/utils/helper';
+
+import { ConfirmationStatus, type WeeklyCommission } from 'src/__generated__/graphql';
+
+import { Label } from 'src/components/Label';
 
 // ----------------------------------------------------------------------
 dayjs.extend(utcPlugin);
@@ -29,6 +31,7 @@ export default function CommissionTableRow({ row }: Props) {
     endR,
     pkgL,
     pkgR,
+    status,
     commission,
     weekStartDate,
   } = row;
@@ -53,6 +56,20 @@ export default function CommissionTableRow({ row }: Props) {
       <TableCell align="left">{`L${pkgL}, R${pkgR}`}</TableCell>
       <TableCell align="left">{`L${endL}, R${endR}`}</TableCell>
       <TableCell align="left">{commission ?? 0}</TableCell>
+      <TableCell align="left">
+        <Label
+          variant="soft"
+          color={
+            status === ConfirmationStatus.Approved
+              ? 'success'
+              : ConfirmationStatus.Pending
+                ? 'warning'
+                : 'error'
+          }
+        >
+          {status}
+        </Label>
+      </TableCell>
     </TableRow>
   );
 }

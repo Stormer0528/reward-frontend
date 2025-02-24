@@ -60,6 +60,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           groupName
           allowState
           teamReport
+          OTPEnabled
           teamStrategy
           emailVerified
           syncWithSendy
