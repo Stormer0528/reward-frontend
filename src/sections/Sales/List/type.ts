@@ -21,3 +21,28 @@ export type Sale = {
   updatedAt?: any | null;
   deletedAt?: any | null;
 };
+
+export type BasicSale = {
+  __typename?: 'BasicSale';
+  id: string;
+  email: string;
+  point: number;
+  token: number;
+  amount: number;
+  createdAt: any;
+  orderedAt: any;
+  status: boolean;
+  memberId: string;
+  username: string;
+  fullName: string;
+  isMetal: boolean;
+  ID?: number | null;
+  sponsorCnt: number;
+  productName: string;
+  paymentMethod: string;
+  assetId: string | null;
+  toEmail?: string | null;
+  toMemberId?: string | null;
+  toUsername?: string | null;
+  toFullName?: string | null;
+};
