@@ -1,4 +1,4 @@
-import type { Sale } from 'src/sections/Sales/List/type';
+import type { BasicSale } from 'src/sections/Sales/List/type';
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-community/core';
 
@@ -21,7 +21,7 @@ import { useFetchSales } from 'src/sections/Sales/useApollo';
 export default function SaleListView() {
   const { loading, rowCount, sales } = useFetchSales();
 
-  const colDefs = useMemo<ColDef<Sale>[]>(
+  const colDefs = useMemo<ColDef<BasicSale>[]>(
     () => [
       {
         field: 'ID',
@@ -30,11 +30,12 @@ export default function SaleListView() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellRenderer: ({ data }: CustomCellRendererProps<Sale>) => formatID(data?.ID ?? '', 'S'),
+        cellRenderer: ({ data }: CustomCellRendererProps<BasicSale>) =>
+          formatID(data?.ID ?? '', 'S'),
         cellClass: 'ag-number-cell',
       },
       {
-        field: 'member.assetId',
+        field: 'assetId',
         headerName: 'Asset ID',
         width: 110,
         filter: 'agTextColumnFilter',
@@ -43,7 +44,7 @@ export default function SaleListView() {
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
       },
       {
-        field: 'package.productName',
+        field: 'productName',
         headerName: 'ProductName',
         flex: 1,
         filter: 'agTextColumnFilter',
@@ -61,7 +62,7 @@ export default function SaleListView() {
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
       },
       {
-        field: 'package.amount',
+        field: 'amount',
         headerName: 'Amount',
         width: 100,
         filter: 'agNumberColumnFilter',
@@ -70,7 +71,7 @@ export default function SaleListView() {
         cellClass: 'ag-number-cell',
       },
       {
-        field: 'package.token',
+        field: 'token',
         headerName: 'Hash Power',
         width: 130,
         filter: 'agNumberColumnFilter',
@@ -78,7 +79,7 @@ export default function SaleListView() {
         editable: false,
       },
       {
-        field: 'package.point',
+        field: 'point',
         headerName: 'Point',
         width: 90,
         filter: 'agNumberColumnFilter',
@@ -99,7 +100,7 @@ export default function SaleListView() {
         resizable: true,
         editable: false,
         initialSort: 'desc',
-        cellRenderer: ({ data }: CustomCellRendererProps<Sale>) => formatDate(data?.createdAt),
+        cellRenderer: ({ data }: CustomCellRendererProps<BasicSale>) => formatDate(data?.createdAt),
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,7 +123,7 @@ export default function SaleListView() {
           overflow: 'hidden',
         }}
       >
-        <AgGrid<Sale>
+        <AgGrid<BasicSale>
           gridKey="sale-list"
           loading={loading}
           rowData={sales}
