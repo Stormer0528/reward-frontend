@@ -485,6 +485,19 @@ export type EmailVerifyResult = {
   result: SuccessResult;
 };
 
+export type EntityLog = {
+  __typename?: 'EntityLog';
+  action: Scalars['String']['output'];
+  after?: Maybe<Scalars['JSON']['output']>;
+  before?: Maybe<Scalars['JSON']['output']>;
+  entity: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  role: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  when: Scalars['DateTimeISO']['output'];
+  who: Scalars['String']['output'];
+};
+
 export type EntityStats = {
   __typename?: 'EntityStats';
   dailyData: Array<DailyStats>;
@@ -680,7 +693,7 @@ export type Member = {
   groupName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   introduceMembers?: Maybe<Array<Member>>;
-  logs?: Maybe<Array<MemberLog>>;
+  logs?: Maybe<Array<EntityLog>>;
   memberWallets?: Maybe<Array<MemberWallet>>;
   mobile: Scalars['String']['output'];
   placementChildren?: Maybe<Array<Member>>;
@@ -730,19 +743,6 @@ export type MemberInOutRevenueResponse = {
   __typename?: 'MemberInOutRevenueResponse';
   inOuts?: Maybe<Array<MemberInOutRevenue>>;
   total?: Maybe<Scalars['Int']['output']>;
-};
-
-export type MemberLog = {
-  __typename?: 'MemberLog';
-  action: Scalars['String']['output'];
-  after?: Maybe<Scalars['JSON']['output']>;
-  before?: Maybe<Scalars['JSON']['output']>;
-  entity: Scalars['String']['output'];
-  id: Scalars['String']['output'];
-  role: Scalars['String']['output'];
-  status: Scalars['String']['output'];
-  when: Scalars['DateTimeISO']['output'];
-  who: Scalars['String']['output'];
 };
 
 export type MemberLoginInput = {
@@ -2073,6 +2073,7 @@ export type Sale = {
   frontActions?: Maybe<Array<FrontAction>>;
   id: Scalars['ID']['output'];
   isMetal: Scalars['Boolean']['output'];
+  logs?: Maybe<Array<EntityLog>>;
   member?: Maybe<Member>;
   memberId: Scalars['ID']['output'];
   orderedAt: Scalars['DateTimeISO']['output'];
@@ -2086,6 +2087,11 @@ export type Sale = {
   toMember?: Maybe<Member>;
   toMemberId?: Maybe<Scalars['ID']['output']>;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+
+export type SaleLogsArgs = {
+  logsize?: Scalars['Float']['input'];
 };
 
 export type SignupFormInput = {
@@ -2102,7 +2108,6 @@ export type SignupFormInput = {
   preferredContact?: InputMaybe<Scalars['String']['input']>;
   preferredContactDetail?: InputMaybe<Scalars['String']['input']>;
   primaryAddress: Scalars['String']['input'];
-  promoCode?: InputMaybe<Scalars['String']['input']>;
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorUserId?: InputMaybe<Scalars['ID']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
