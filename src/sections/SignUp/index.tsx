@@ -1,5 +1,3 @@
-import type { Promo } from 'src/__generated__/graphql';
-
 import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
@@ -9,8 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
+import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -31,10 +29,10 @@ import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
 import Calculator from './Calculator';
+import { useSignUp } from './useApollo';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
-import { useSignUp, useFetchPromos } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -63,7 +61,6 @@ export function SignUpView() {
     sponsorUserId: refID,
     email: '',
     assetId: null,
-    promoCode: '',
     note: '',
     password: '',
     primaryAddress: '',
@@ -84,7 +81,6 @@ export function SignUpView() {
   } = methods;
 
   const { payments } = useFetchPayments();
-  const { promos, fetchPromos } = useFetchPromos();
   const { packages, fetchPackages } = useFetchPackages();
   const { submitSignUp } = useSignUp();
 
@@ -126,8 +122,6 @@ export function SignUpView() {
     fetchPackages({
       variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
     });
-
-    fetchPromos({ variables: { filter: { status: true } } });
 
     localStorage.setItem('payout_reference', refID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -206,36 +200,31 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Select name="promoCode" label="Promo">
-          <MenuItem value="">None</MenuItem>
-          <Divider sx={{ borderStyle: 'dashed' }} />
-          {promos.map((option: Promo) => (
-            <MenuItem key={option.id} value={option.code}>
-              {option.description}
-            </MenuItem>
-          ))}
-        </Field.Select>
+        <Grid xs={12} container alignItems="center">
+          <Grid md={11.4} xs={12}>
+            <Field.Select
+              name="packageId"
+              label="Package"
+              fullWidth
+              inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+              value={location.state?.packageId ?? packageId}
+              onChange={(event) => handlePackageChange(event.target.value)}
+              required
+            >
+              {packages.map((option) => (
+                <MenuItem key={option?.id} value={option?.id}>
+                  {`$${option?.amount} @ ${option?.productName}`}
+                </MenuItem>
+              ))}
+            </Field.Select>
+          </Grid>
 
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} width={1}>
-          <Field.Select
-            name="packageId"
-            label="Package"
-            inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
-            value={location.state?.packageId ?? packageId}
-            onChange={(event) => handlePackageChange(event.target.value)}
-            required
-          >
-            {packages.map((option) => (
-              <MenuItem key={option?.id} value={option?.id}>
-                {`$${option?.amount} @ ${option?.productName}`}
-              </MenuItem>
-            ))}
-          </Field.Select>
-
-          <IconButton onClick={calculator.onTrue}>
-            <Iconify icon="system-uicons:calculator" width={30} />
-          </IconButton>
-        </Stack>
+          <Grid md={0.6} xs={12} textAlign="center">
+            <IconButton onClick={calculator.onTrue}>
+              <Iconify icon="system-uicons:calculator" width={30} />
+            </IconButton>
+          </Grid>
+        </Grid>
       </Stack>
 
       <Field.Text

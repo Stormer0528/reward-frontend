@@ -24,7 +24,6 @@ export const Schema = zod
       .min(6, { message: 'Password must be at least 6 characters!' }),
     confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
     assetId: zod.string().optional().nullable(),
-    promoCode: zod.string().optional().nullable(),
     note: zod.string().optional().nullable(),
   })
   .refine((data) => data.password === data.confirmPassword, {
