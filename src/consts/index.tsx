@@ -72,6 +72,7 @@ export const OTHER_WALLET = [
   { id: '69f1351c-e7c8-4c98-9030-2f0469f86b76', method: 'ETH' },
   { id: 'fc6302d9-7819-4cd6-a1a4-68b03286c86f', method: 'BTC' },
   { id: 'f8717a04-6203-482a-bed0-58bfb9c6f7e0', method: 'USDT' },
+  { id: '770344a4-dd50-4d03-baab-825648962a37', method: 'USDC' },
   { id: 'ac26f196-d377-4846-8b86-7a7dda622d01', method: 'OTHER' },
 ];
 
