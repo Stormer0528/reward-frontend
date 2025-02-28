@@ -862,7 +862,8 @@ export type Mutation = {
   adminResetPasswordRequest: SuccessResponse;
   adminResetTokenVerify: VerifyTokenResponse;
   approveMember: SuccessResponse;
-  calculatePreview: SuccessResponse;
+  calculateCommissions: SuccessResponse;
+  calculatePreviewCommissions: SuccessResponse;
   confirmStatistics: Statistics;
   contactToAdmin: SuccessResponse;
   createAdmin: Admin;
@@ -900,6 +901,7 @@ export type Mutation = {
   removeManyStatistics: ManySuccessResponse;
   removeManyStatisticsSales: ManySuccessResponse;
   removeMember: SuccessResponse;
+  removeMemberFromPlacementTree: SuccessResponse;
   removeMemberStatisticsByStaitisId: ManySuccessResponse;
   removePackage: SuccessResponse;
   removePaymentMethod: SuccessResponse;
@@ -1152,6 +1154,11 @@ export type MutationRemoveManyStatisticsSalesArgs = {
 
 
 export type MutationRemoveMemberArgs = {
+  data: IdInput;
+};
+
+
+export type MutationRemoveMemberFromPlacementTreeArgs = {
   data: IdInput;
 };
 
