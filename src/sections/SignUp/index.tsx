@@ -3,9 +3,9 @@ import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
+import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -37,7 +37,6 @@ import { useFetchPayments } from '../Payment/useApollo';
 // ----------------------------------------------------------------------
 
 export function SignUpView() {
-  const [errorMsg, setErrorMsg] = useState('');
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [packageId, setPackageId] = useState<string>();
@@ -55,9 +54,6 @@ export function SignUpView() {
   const calculator = useBoolean();
 
   const defaultValues = {
-    firstName: '',
-    lastName: '',
-    username: '',
     sponsorUserId: refID,
     email: '',
     assetId: null,
@@ -76,6 +72,7 @@ export function SignUpView() {
   });
 
   const {
+    setError,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -91,6 +88,7 @@ export function SignUpView() {
 
         if (!packageId) {
           toast.error('PackageId is required');
+          return;
         }
 
         const { data } = await submitSignUp({
@@ -111,9 +109,14 @@ export function SignUpView() {
           const searchParams = new URLSearchParams({ email: rest.email }).toString();
           router.push(`${paths.auth.verifyEmail}?${searchParams}`);
         }
-      } catch (error) {
-        console.error(error);
-        setErrorMsg(error instanceof Error ? error.message : error);
+      } catch (err) {
+        if (err instanceof ApolloError) {
+          const [error] = err.graphQLErrors;
+
+          if (error.path?.includes('username')) {
+            setError('username', { type: 'manual', message: error?.message || '' });
+          }
+        }
       }
     }
   );
@@ -346,12 +349,6 @@ export function SignUpView() {
   return (
     <Container sx={{ pb: 5 }}>
       {renderHead}
-
-      {!!errorMsg && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {errorMsg}
-        </Alert>
-      )}
 
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
