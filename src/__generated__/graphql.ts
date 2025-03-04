@@ -52,6 +52,8 @@ export type Admin = {
   frontActions?: Maybe<Array<FrontAction>>;
   fullName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  role?: Maybe<Role>;
+  roleId: Scalars['ID']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   username: Scalars['String']['output'];
 };
@@ -257,6 +259,7 @@ export type CreateAdminInput = {
   email: Scalars['String']['input'];
   fullName: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  roleId: Scalars['String']['input'];
   username: Scalars['String']['input'];
 };
 
@@ -370,6 +373,14 @@ export type CreateProofInput = {
   refId: Scalars['ID']['input'];
   reflinks?: InputMaybe<Array<LinkInput>>;
   type: ProofType;
+};
+
+export type CreateRoleInput = {
+  commission: Scalars['Int']['input'];
+  description: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  role: Scalars['Int']['input'];
+  sale: Scalars['Int']['input'];
 };
 
 export type CreateSaleInput = {
@@ -719,6 +730,7 @@ export type Member = {
   totalIntroducers: Scalars['Float']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   username: Scalars['String']['output'];
+  weekIntroducers?: Maybe<Scalars['Int']['output']>;
   weeklyCommissions?: Maybe<Array<WeeklyCommission>>;
   zipCode?: Maybe<Scalars['String']['output']>;
 };
@@ -726,6 +738,11 @@ export type Member = {
 
 export type MemberLogsArgs = {
   logsize?: Scalars['Float']['input'];
+};
+
+
+export type MemberWeekIntroducersArgs = {
+  week: Scalars['Date']['input'];
 };
 
 export type MemberInOutRevenue = {
@@ -879,6 +896,7 @@ export type Mutation = {
   createPayout: Payout;
   createPromo: Promo;
   createProof: Proof;
+  createRole: Role;
   createSale: Sale;
   createStatistics: Statistics;
   createStatisticsSale: StatisticsSale;
@@ -908,6 +926,7 @@ export type Mutation = {
   removePromo: SuccessResponse;
   removeProof: SuccessResponse;
   removeRecipient: Recipient;
+  removeRole: SuccessResponse;
   removeSale: SuccessResponse;
   removeStatisticsSalesByStaitisId: ManySuccessResponse;
   resetBonusClock: SuccessResponse;
@@ -939,6 +958,7 @@ export type Mutation = {
   updatePaymentMethod: PaymentMethod;
   updatePromo: Promo;
   updateProof: Proof;
+  updateRole: Role;
   updateSale: Sale;
   updateStatistics: Statistics;
   upsertEmail: Email;
@@ -1050,6 +1070,11 @@ export type MutationCreatePromoArgs = {
 
 export type MutationCreateProofArgs = {
   data: CreateProofInput;
+};
+
+
+export type MutationCreateRoleArgs = {
+  data: CreateRoleInput;
 };
 
 
@@ -1189,6 +1214,11 @@ export type MutationRemoveProofArgs = {
 
 
 export type MutationRemoveRecipientArgs = {
+  data: IdInput;
+};
+
+
+export type MutationRemoveRoleArgs = {
   data: IdInput;
 };
 
@@ -1340,6 +1370,11 @@ export type MutationUpdatePromoArgs = {
 
 export type MutationUpdateProofArgs = {
   data: UpdateProofByIdInput;
+};
+
+
+export type MutationUpdateRoleArgs = {
+  data: UpdateRoleInput;
 };
 
 
@@ -1679,6 +1714,8 @@ export type Query = {
   recipients: RecipientResponse;
   revenueOverview: RevenueOverviewResponse;
   rewardsByWallets: RewardsByWallets;
+  roleById: Role;
+  roles: RoleResponse;
   saleById: Sale;
   saleBySID: Sale;
   sales: BasicSalesResponse;
@@ -1949,6 +1986,18 @@ export type QueryRewardsByWalletsArgs = {
 };
 
 
+export type QueryRoleByIdArgs = {
+  data: IdInput;
+};
+
+
+export type QueryRolesArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QuerySaleByIdArgs = {
   data: IdInput;
 };
@@ -2070,6 +2119,26 @@ export type RewardByWallet = {
 export type RewardsByWallets = {
   __typename?: 'RewardsByWallets';
   rewards: Array<RewardByWallet>;
+};
+
+export type Role = {
+  __typename?: 'Role';
+  commission: Scalars['Int']['output'];
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  description: Scalars['String']['output'];
+  frontActions?: Maybe<Array<FrontAction>>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  role: Scalars['Int']['output'];
+  sale: Scalars['Int']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+export type RoleResponse = {
+  __typename?: 'RoleResponse';
+  roles?: Maybe<Array<Role>>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Sale = {
@@ -2237,6 +2306,7 @@ export type UpdateAdminInput = {
   email?: InputMaybe<Scalars['String']['input']>;
   fullName?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
+  roleId?: InputMaybe<Scalars['String']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2353,6 +2423,15 @@ export type UpdateProofByIdInput = {
   refId?: InputMaybe<Scalars['ID']['input']>;
   reflinks?: InputMaybe<Array<LinkInput>>;
   type?: InputMaybe<ProofType>;
+};
+
+export type UpdateRoleInput = {
+  commission?: InputMaybe<Scalars['Int']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['Int']['input']>;
+  sale?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type UpdateSaleInput = {
