@@ -77,23 +77,18 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
             newR
           }
           memberWallets {
-            createdAt
-            updatedAt
-            deletedAt
             id
-            memberId
-            payoutId
             address
             percent
+            memberId
+            payoutId
+            isDefault
             payout {
               id
+              name
               method
               status
-              name
               display
-              createdAt
-              updatedAt
-              deletedAt
             }
           }
           primaryAddress

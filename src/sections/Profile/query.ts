@@ -148,33 +148,28 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       sales {
         id
         ID
-        memberId
-        packageId
-        paymentMethod
         status
         isMetal
+        memberId
+        packageId
         orderedAt
         sponsorCnt
+        paymentMethod
       }
       memberWallets {
-        createdAt
-        updatedAt
-        deletedAt
         id
-        memberId
-        payoutId
+        note
         address
         percent
-        note
+        memberId
+        payoutId
+        isDefault
         payout {
           id
           method
           status
           name
           display
-          createdAt
-          updatedAt
-          deletedAt
         }
       }
       createdAt
