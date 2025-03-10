@@ -27,6 +27,7 @@ export const Schema = zod.object({
       address: zod.string({ required_error: 'Address is required' }),
       note: zod.string().optional().nullable(),
       percent: zod.number({ required_error: 'Percent is required' }),
+      isDefault: zod.boolean().default(false),
     })
   ),
   otherWallets: zod.array(

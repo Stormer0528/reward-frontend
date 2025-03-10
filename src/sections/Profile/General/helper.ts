@@ -11,6 +11,7 @@ export const getWallets = (memberWallets: any) => {
       address: mw.address,
       note: mw.note,
       percent: mw.percent,
+      isDefault: mw.isDefault,
     }));
 
   const otherWallets: any = memberWallets
