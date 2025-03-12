@@ -63,6 +63,8 @@ export const CONTACT = [
   { label: 'OTHER', value: 'Other' },
 ];
 
+export const LAUNCH_GROUP = 'c3bca349-972c-485b-bbd6-4241c58b815c';
+
 export const TXC_WALLET = [
   { id: 'b3ed0e78-6cc8-465c-9454-0576534f06f2', method: 'TXC-HOT' },
   { id: '6f7681f0-9ccf-4a79-b1cb-f87e56cf7e8a', method: 'TXC-COLD' },
