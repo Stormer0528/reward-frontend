@@ -206,7 +206,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me.groupName}</Typography>
+              <Typography variant="body2">{me?.groupSetting?.name}</Typography>
             </Stack>
           </Stack>
 
