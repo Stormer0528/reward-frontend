@@ -39,7 +39,7 @@ export default function OverView({ me }: Props) {
 
         {me?.groupSetting?.id === LAUNCH_GROUP ? (
           <Stack width={0.6}>
-            {fNumber((data?.memberOverview.cashAvailable ?? 0) / 100)}
+            {fNumber(data?.memberOverview.cashAvailable ?? 0)}
             <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
               Cash Available
             </Box>
