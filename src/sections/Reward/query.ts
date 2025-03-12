@@ -5,15 +5,15 @@ export const FETCH_STATISTICS_QUERY = gql(/* GraphQL */ `
     statistics(sort: $sort, page: $page, filter: $filter) {
       statistics {
         id
+        to
+        from
+        status
         issuedAt
+        txcShared
         newBlocks
         totalBlocks
-        totalHashPower
         totalMembers
-        txcShared
-        from
-        to
-        status
+        totalHashPower
         statisticsSales {
           id
           saleId
@@ -35,16 +35,16 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
   query FetchMemberStatistics($sort: String, $page: String, $filter: JSONObject) {
     memberStatistics(sort: $sort, page: $page, filter: $filter) {
       memberStatistics {
+        id
+        percent
+        issuedAt
+        memberId
+        txcShared
+        hashPower
         createdAt
         updatedAt
         deletedAt
-        id
-        memberId
         statisticsId
-        txcShared
-        hashPower
-        percent
-        issuedAt
         member {
           id
           ID
@@ -57,13 +57,14 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           balance
           username
           fullName
-          groupName
           allowState
           teamReport
           OTPEnabled
           teamStrategy
           emailVerified
           syncWithSendy
+          primaryAddress
+          secondaryAddress
           totalIntroducers
           preferredContact
           commissionDefault
@@ -91,23 +92,18 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
               display
             }
           }
-          primaryAddress
-          secondaryAddress
         }
         statistics {
-          createdAt
-          updatedAt
-          deletedAt
           id
+          to
+          from
+          status
+          issuedAt
+          txcShared
           newBlocks
           totalBlocks
-          totalHashPower
           totalMembers
-          status
-          txcShared
-          issuedAt
-          from
-          to
+          totalHashPower
         }
       }
       total

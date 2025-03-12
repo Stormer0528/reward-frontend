@@ -6,9 +6,9 @@ import { gql } from 'src/__generated__';
 const SIGN_UP_MEMBER = gql(/* GraphQL */ `
   mutation SignUpMember($data: SignupFormInput!) {
     signUpMember(data: $data) {
+      id
       email
       username
-      id
     }
   }
 `);
@@ -16,17 +16,18 @@ const SIGN_UP_MEMBER = gql(/* GraphQL */ `
 const SEND_EMAIL_VERIFICATION = gql(/* GraphQL */ `
   mutation SendEmailVerification($data: EmailInput!) {
     sendEmailVerification(data: $data) {
-      token
+      result
+      message
     }
   }
 `);
 
 const VERIFY_EMAIL = gql(/* GraphQL */ `
-  mutation EmailVerify($data: EmailVerificationInput!) {
+  mutation EmailVerify($data: TokenInput!) {
     emailVerify(data: $data) {
       result
       message
-      packageId
+      packageID
       paymentMethod
     }
   }
@@ -36,15 +37,15 @@ const FETCH_PROMOS_QUERY = gql(/* GraphQL */ `
   query Promos($sort: String, $page: String, $filter: JSONObject) {
     promos(sort: $sort, page: $page, filter: $filter) {
       promos {
+        id
+        code
+        status
+        endDate
+        startDate
         createdAt
         updatedAt
         deletedAt
-        id
-        code
         description
-        status
-        startDate
-        endDate
       }
       total
     }
