@@ -14,6 +14,18 @@ export const FETCH_PAYMENT_QUERY = gql(/* GraphQL */ `
           link
           packageId
           paymentMethodId
+          package {
+            id
+            ID
+            date
+            point
+            token
+            amount
+            status
+            freeShare
+            productName
+            enrollVisibility
+          }
         }
       }
       total

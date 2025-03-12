@@ -18,7 +18,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       zipCode
       username
       fullName
-      groupName
       sponsorId
       allowState
       teamReport
@@ -33,6 +32,10 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       commissionDefault
       cmnCalculatedWeeks
       preferredContactDetail
+      groupSetting {
+        name
+        commissionDefaults
+      }
       commission {
         begL
         begR
@@ -52,7 +55,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         country
         username
         fullName
-        groupName
         allowState
         teamReport
         OTPEnabled
@@ -90,7 +92,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         balance
         username
         fullName
-        groupName
         allowState
         teamReport
         OTPEnabled
@@ -123,7 +124,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         balance
         username
         fullName
-        groupName
         allowState
         teamReport
         OTPEnabled
@@ -224,6 +224,10 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
         placementPosition
         cmnCalculatedWeeks
         preferredContactDetail
+        groupSetting {
+          name
+          commissionDefaults
+        }
         commission {
           begL
           begR
@@ -335,7 +339,6 @@ export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
         balance
         username
         fullName
-        groupName
         sponsorId
         allowState
         teamReport
@@ -373,30 +376,16 @@ export const FETCH_PLACEMENT_MEMBERS_O_QUERY = gql(/* GraphQL */ `
       username
       fullName
       createdAt
+      teamStrategy
+      placementPosition
+      placementParentId
+      cmnCalculatedWeeks
       commission {
         begL
         begR
         newL
         newR
       }
-      placementPosition
-      placementParentId
-      cmnCalculatedWeeks
-      teamStrategy
-    }
-  }
-`);
-
-export const CREATE_MEMBER = gql(/* GraphQL */ `
-  mutation CreateMember($data: CreateMemberInput!) {
-    createMember(data: $data) {
-      username
-      fullName
-      email
-      mobile
-      primaryAddress
-      secondaryAddress
-      assetId
     }
   }
 `);
@@ -425,23 +414,20 @@ export const FETCH_MEMBER = gql(/* GraphQL */ `
         totalIntroducers
         commissionDefault
         memberWallets {
+          id
+          address
+          percent
+          memberId
+          payoutId
           createdAt
           updatedAt
           deletedAt
-          id
-          memberId
-          payoutId
-          address
-          percent
           payout {
             id
+            name
             method
             status
-            name
             display
-            createdAt
-            updatedAt
-            deletedAt
           }
         }
         deletedAt
@@ -458,14 +444,11 @@ export const UPDATE_MEMBER = gql(/* GraphQL */ `
       primaryAddress
       secondaryAddress
       memberWallets {
-        createdAt
-        updatedAt
-        deletedAt
         id
-        memberId
-        payoutId
         address
         percent
+        memberId
+        payoutId
         payout {
           method
           display
