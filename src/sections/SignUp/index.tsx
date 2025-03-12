@@ -29,10 +29,10 @@ import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
 import Calculator from './Calculator';
-import { useSignUp } from './useApollo';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
+import { useSignUp, useSendEmailVerification } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -77,9 +77,10 @@ export function SignUpView() {
     formState: { isSubmitting },
   } = methods;
 
+  const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
   const { packages, fetchPackages } = useFetchPackages();
-  const { submitSignUp } = useSignUp();
+  const { sendVerification } = useSendEmailVerification();
 
   const onSubmit = handleSubmit(
     async ({ confirmPassword, firstName, lastName, sponsorUserId, username, ...rest }) => {
@@ -106,8 +107,10 @@ export function SignUpView() {
         });
 
         if (data) {
+          await sendVerification({ variables: { data: { email: rest.email } } });
+
           const searchParams = new URLSearchParams({ email: rest.email }).toString();
-          router.push(`${paths.auth.verifyEmail}?${searchParams}`);
+          router.push(`${paths.auth.verifyResult}?${searchParams}`);
         }
       } catch (err) {
         if (err instanceof ApolloError) {

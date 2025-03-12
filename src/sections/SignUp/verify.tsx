@@ -1,27 +1,19 @@
 import { z as zod } from 'zod';
-import { useForm } from 'react-hook-form';
-import { useEffect, useCallback } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
-import { useRouter, useSearchParams } from 'src/routes/hooks';
+import { useSearchParams } from 'src/routes/hooks';
 
-import { useCountdownSeconds } from 'src/hooks/use-countdown';
+import { useBoolean } from 'src/hooks/useBoolean';
 
-import { EmailInboxIcon } from 'src/assets/icons';
-
-import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
-import { Form, Field } from 'src/components/Form';
+import { LoadingScreen } from 'src/components/loading-screen';
 
-import { useFetchPayment } from '../Payment/useApollo';
-import { useVerifyEmail, useSendEmailVerification } from './useApollo';
+import { useVerifyEmail } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -41,163 +33,56 @@ export const VerifySchema = zod.object({
 // ----------------------------------------------------------------------
 
 export default function AmplifyVerifyView() {
-  const router = useRouter();
+  const loading = useBoolean();
 
   const searchParams = useSearchParams();
 
-  const email = searchParams.get('email');
+  const token = searchParams.get('token');
 
-  const { countdown, counting, startCountdown } = useCountdownSeconds(60);
-
-  const defaultValues = { code: '', email: email || '' };
-
-  const methods = useForm<VerifySchemaType>({
-    resolver: zodResolver(VerifySchema),
-    defaultValues,
-  });
-
-  const {
-    watch,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const values = watch();
-
-  const { result, sendVerification } = useSendEmailVerification();
-  const { fetchPayment } = useFetchPayment();
   const { verifyEmail } = useVerifyEmail();
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      const { data: verifyResult } = await verifyEmail({
-        variables: {
-          data: {
-            digit: data.code,
-            email: data.email,
-            token: result?.sendEmailVerification.token ?? '',
-          },
-        },
-      });
-
-      if (verifyResult) {
-        toast.success('Successfully verified!');
-
-        const {
-          emailVerify: { packageId, paymentMethod },
-        } = verifyResult;
-
-        const { data: paymentData } = await fetchPayment({
-          variables: { filter: { name: paymentMethod } },
-        });
-
-        setTimeout(() => {
-          const current = paymentData?.paymentMethods.paymentMethods?.[0];
-
-          if (packageId && current?.paymentMethodLinks?.length) {
-            current.paymentMethodLinks.forEach((item) => {
-              if (item.packageId === packageId) {
-                window.location.href = item.link;
-              }
-            });
-          } else if (current?.defaultLink) {
-            window.location.href = current.defaultLink;
-          } else {
-            router.push(paths.auth.verifyResult);
-          }
-        }, 1000);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  });
-
-  const handleResendCode = useCallback(async () => {
-    try {
-      startCountdown();
-      await sendVerification({ variables: { data: { email: values.email ?? '' } } });
-    } catch (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startCountdown, values.email]);
-
-  useEffect(() => {
-    sendVerification({ variables: { data: { email: email ?? '' } } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email]);
-
-  const renderHead = (
+  const info = (
     <>
-      <EmailInboxIcon sx={{ mx: 'auto' }} />
+      <Stack direction="row" justifyContent="center">
+        <Iconify icon="fa:check-circle" color="#008220" width={60} />
+      </Stack>
 
-      <Stack spacing={1} sx={{ mt: 3, mb: 5, textAlign: 'center', whiteSpace: 'pre-line' }}>
-        <Typography variant="h5">Please check your email!</Typography>
-
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {`We've emailed a 6-digit confirmation code. \nPlease enter the code in the box below to verify your email.`}
+      <Stack spacing={1} sx={{ mt: 3, mb: 8, textAlign: 'center', whiteSpace: 'pre-line' }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>
+          Successfully Verified!
         </Typography>
       </Stack>
-    </>
-  );
-
-  const renderForm = (
-    <Stack spacing={3}>
-      <Field.Text
-        name="email"
-        label="Email address"
-        placeholder="example@gmail.com"
-        InputLabelProps={{ shrink: true }}
-        disabled
-      />
-
-      <Field.Code name="code" />
-
-      <LoadingButton
-        fullWidth
-        size="large"
-        type="submit"
-        variant="contained"
-        loading={isSubmitting}
-        loadingIndicator="Verify..."
-      >
-        Verify
-      </LoadingButton>
-
-      <Typography variant="body2" sx={{ mx: 'auto' }}>
-        {`Don’t have a code? `}
-        <Link
-          variant="subtitle2"
-          onClick={handleResendCode}
-          sx={{
-            cursor: 'pointer',
-            ...(counting && { color: 'text.disabled', pointerEvents: 'none' }),
-          }}
-        >
-          Resend code {counting && `(${countdown}s)`}
-        </Link>
-      </Typography>
 
       <Link
-        component={RouterLink}
-        href={paths.auth.signIn}
-        color="inherit"
         variant="subtitle2"
-        sx={{ gap: 0.5, alignSelf: 'center', alignItems: 'center', display: 'inline-flex' }}
+        sx={{
+          cursor: 'pointer',
+          textAlign: 'center',
+        }}
+        href={paths.auth.signIn}
       >
-        <Iconify width={16} icon="eva:arrow-ios-back-fill" />
-        Return to sign in
+        Back to Sign In
       </Link>
-    </Stack>
-  );
-
-  return (
-    <>
-      {renderHead}
-
-      <Form methods={methods} onSubmit={onSubmit}>
-        {renderForm}
-      </Form>
     </>
   );
+
+  useEffect(() => {
+    async function handleVerify() {
+      try {
+        const { data } = await verifyEmail({ variables: { data: { token: token ?? '' } } });
+
+        if (data) {
+          loading.onTrue();
+        }
+      } catch (error) {
+        console.log('error => ', error);
+      }
+    }
+
+    handleVerify();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  return <>{loading.value ? info : <LoadingScreen />}</>;
 }
