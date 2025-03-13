@@ -337,7 +337,11 @@ export default function MemberGeneral({ me }: Props) {
                   ))}
                 </Field.Select>
                 <Field.Select name="commissionDefault" label="Commission Default">
-                  {Object.values(CommissionDefaultEnum).map((option) => (
+                  {Object.values(
+                    me.groupSetting?.commissionDefaults.length
+                      ? me.groupSetting.commissionDefaults
+                      : CommissionDefaultEnum
+                  ).map((option) => (
                     <MenuItem key={option} value={option}>
                       {option}
                     </MenuItem>
