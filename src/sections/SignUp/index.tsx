@@ -125,6 +125,8 @@ export function SignUpView() {
 
           if (error.path?.includes('username')) {
             setError('username', { type: 'manual', message: error?.message || '' });
+          } else {
+            toast.error(err);
           }
         } else {
           toast.error(err);
