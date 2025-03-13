@@ -28,6 +28,8 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
@@ -77,6 +79,7 @@ export function SignUpView() {
     formState: { isSubmitting },
   } = methods;
 
+  const { user } = useAuthContext();
   const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
   const { packages, fetchPackages } = useFetchPackages();
@@ -85,6 +88,10 @@ export function SignUpView() {
   const onSubmit = handleSubmit(
     async ({ confirmPassword, firstName, lastName, sponsorUserId, username, ...rest }) => {
       try {
+        if (user) {
+          toast.warning('You are already signed in!');
+          return;
+        }
         localStorage.setItem('payout_reference', refID || sponsorUserId);
 
         if (!packageId) {
@@ -119,6 +126,8 @@ export function SignUpView() {
           if (error.path?.includes('username')) {
             setError('username', { type: 'manual', message: error?.message || '' });
           }
+        } else {
+          toast.error(err);
         }
       }
     }
