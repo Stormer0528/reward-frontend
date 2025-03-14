@@ -2,10 +2,12 @@ import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
-import { useState, useEffect } from 'react';
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState, useEffect, useCallback } from 'react';
 
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -79,7 +81,7 @@ export function SignUpView() {
     formState: { isSubmitting },
   } = methods;
 
-  const { user } = useAuthContext();
+  const { user, signOut } = useAuthContext();
   const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
   const { packages, fetchPackages } = useFetchPackages();
@@ -147,6 +149,15 @@ export function SignUpView() {
   const handlePackageChange = (value: string) => {
     setPackageId(value);
   };
+
+  const handleSignOut = useCallback(async () => {
+    try {
+      signOut();
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [signOut, router]);
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 5, outline: 'none' }} id="sign-up" tabIndex={-1}>
@@ -346,7 +357,10 @@ export function SignUpView() {
         />
       </Stack>
 
-      <Stack alignItems="flex-end">
+      <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center">
+        <Link onClick={handleSignOut} variant="subtitle2" sx={{ cursor: 'pointer' }}>
+          Click here to sign out
+        </Link>
         <LoadingButton
           color="inherit"
           size="large"
@@ -356,7 +370,7 @@ export function SignUpView() {
         >
           Submit
         </LoadingButton>
-      </Stack>
+      </Box>
     </Stack>
   );
 
