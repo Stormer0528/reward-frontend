@@ -91,8 +91,7 @@ export function SignUpView() {
     async ({ confirmPassword, firstName, lastName, sponsorUserId, username, ...rest }) => {
       try {
         if (user) {
-          toast.warning('You are already signed in!');
-          return;
+          await handleSignOut();
         }
         localStorage.setItem('payout_reference', refID || sponsorUserId);
 
@@ -153,11 +152,10 @@ export function SignUpView() {
   const handleSignOut = useCallback(async () => {
     try {
       signOut();
-      router.refresh();
     } catch (error) {
       console.error(error);
     }
-  }, [signOut, router]);
+  }, [signOut]);
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 5, outline: 'none' }} id="sign-up" tabIndex={-1}>
