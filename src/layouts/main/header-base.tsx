@@ -9,7 +9,7 @@ import { useRouter } from 'src/routes/hooks';
 
 import { STORAGE_TOKEN_KEY } from 'src/consts';
 
-import { Logo } from 'src/components/logo';
+import DarkLogo from 'src/components/logo/dark-logo';
 
 import { HeaderSection } from './header-section';
 import { _account } from '../config-nav-account';
@@ -81,7 +81,7 @@ export function HeaderBase({
             )}
 
             {/* -- Logo -- */}
-            <Logo data-slot="logo" />
+            <DarkLogo data-slot="logo" />
 
             {slots?.leftAreaEnd}
           </>

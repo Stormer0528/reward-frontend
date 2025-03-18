@@ -14,8 +14,8 @@ import { RouterLink } from 'src/routes/components';
 
 import { _socials } from 'src/_mock';
 
-import { Logo } from 'src/components/logo';
 import { SocialIcon } from 'src/components/Iconify';
+import DarkLogo from 'src/components/logo/dark-logo';
 
 // ----------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ export function Footer({ layoutQuery, sx }: FooterProps) {
           [theme.breakpoints.up(layoutQuery)]: { textAlign: 'unset' },
         }}
       >
-        <Logo />
+        <DarkLogo />
 
         <Grid
           container
@@ -195,7 +195,7 @@ export function HomeFooter({ sx }: HomeFooterProps) {
       }}
     >
       <Container>
-        <Logo />
+        <DarkLogo />
         <Box sx={{ mt: 1, typography: 'caption' }}>
           © All rights reserved.
           <br /> made by

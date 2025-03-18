@@ -6,8 +6,8 @@ import { useTheme } from '@mui/material/styles';
 
 import { varAlpha, hideScrollY } from 'src/theme/styles';
 
-import { Logo } from 'src/components/logo';
 import { ScrollBar } from 'src/components/ScrollBar';
+import DarkLogo from 'src/components/logo/dark-logo';
 import { NavSectionMini, NavSectionVertical } from 'src/components/nav-section';
 
 import { NavToggleButton } from '../components/nav-toggle-button';
@@ -39,7 +39,7 @@ export function NavVertical({
     <>
       {slots?.topArea ?? (
         <Box sx={{ pt: 2.5, pb: 1 }} textAlign="center">
-          <Logo />
+          <DarkLogo />
         </Box>
       )}
 
@@ -53,7 +53,7 @@ export function NavVertical({
     <>
       {slots?.topArea ?? (
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 2.5 }}>
-          <Logo />
+          <DarkLogo />
         </Box>
       )}
 
