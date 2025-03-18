@@ -3,8 +3,8 @@ import type { NavSectionProps } from 'src/components/nav-section';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
-import { Logo } from 'src/components/logo';
 import Password from 'src/components/Password';
+import DarkLogo from 'src/components/logo/dark-logo';
 
 import Notification from 'src/sections/Notification';
 
@@ -74,7 +74,7 @@ export function HeaderBase({
               />
             )}
 
-            {!token && <Logo data-slot="logo" />}
+            {!token && <DarkLogo data-slot="logo" />}
 
             {slots?.leftAreaEnd}
           </>

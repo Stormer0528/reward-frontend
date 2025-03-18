@@ -7,8 +7,8 @@ import Drawer, { drawerClasses } from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
 
-import { Logo } from 'src/components/logo';
 import { ScrollBar } from 'src/components/ScrollBar';
+import DarkLogo from 'src/components/logo/dark-logo';
 import { NavSectionVertical } from 'src/components/nav-section';
 
 // ----------------------------------------------------------------------
@@ -47,7 +47,7 @@ export function NavMobile({ data, open, onClose, slots, sx, ...other }: NavMobil
     >
       {slots?.topArea ?? (
         <Box sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
-          <Logo />
+          <DarkLogo />
         </Box>
       )}
 

@@ -7,9 +7,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { paths } from 'src/routes/paths';
 import { useRouter, usePathname } from 'src/routes/hooks';
 
-import { Logo } from 'src/components/logo';
 import { NavUl } from 'src/components/nav-section';
 import { ScrollBar } from 'src/components/ScrollBar';
+import DarkLogo from 'src/components/logo/dark-logo';
 
 import { NavList } from './nav-mobile-list';
 
@@ -52,7 +52,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
     >
       {slots?.topArea ?? (
         <Box display="flex" sx={{ pt: 3, pb: 2, pl: 2.5 }}>
-          <Logo />
+          <DarkLogo />
         </Box>
       )}
 

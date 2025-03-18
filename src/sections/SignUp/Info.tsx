@@ -5,8 +5,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useSearchParams } from 'src/routes/hooks';
 
-import { Logo } from 'src/components/logo';
 import { toast } from 'src/components/SnackBar';
+import DarkLogo from 'src/components/logo/dark-logo';
 
 import { useSendEmailVerification } from './useApollo';
 
@@ -32,7 +32,7 @@ export default function Info() {
   return (
     <>
       <Stack direction="row" justifyContent="center">
-        <Logo />
+        <DarkLogo />
       </Stack>
 
       <Stack spacing={1} sx={{ mt: 3, mb: 5, textAlign: 'center', whiteSpace: 'pre-line' }}>
