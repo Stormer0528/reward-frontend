@@ -298,6 +298,18 @@ export type CreateGroupSettingInput = {
   sponsorBonusPackageId?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type CreateInvoiceInput = {
+  amount: Scalars['Float']['input'];
+  amountInCents: Scalars['Int']['input'];
+  description: Scalars['String']['input'];
+  dueDate: Scalars['Date']['input'];
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  name: Scalars['String']['input'];
+  note?: InputMaybe<Scalars['String']['input']>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
+  status: InvoiceStatusEnum;
+};
+
 export type CreateManyMemberStatisticsInput = {
   memberStatistics: Array<CreateMemberStatisticsInput>;
 };
@@ -666,6 +678,32 @@ export type IntroducersResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type Invoice = {
+  __typename?: 'Invoice';
+  amountInCents: Scalars['Int']['output'];
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  description: Scalars['String']['output'];
+  dueDate: Scalars['Date']['output'];
+  frontActions?: Maybe<Array<FrontAction>>;
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  proof?: Maybe<Proof>;
+  status: InvoiceStatusEnum;
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+export type InvoiceResponse = {
+  __typename?: 'InvoiceResponse';
+  invoices?: Maybe<Array<Invoice>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export enum InvoiceStatusEnum {
+  Paid = 'PAID',
+  Pending = 'PENDING'
+}
+
 export type LatestStatistics = {
   __typename?: 'LatestStatistics';
   id: Scalars['ID']['output'];
@@ -910,6 +948,7 @@ export type Mutation = {
   createAdminNote: AdminNotes;
   createBlock: Block;
   createGroupSetting: GroupSetting;
+  createInvoice: Invoice;
   createManyMemberStatistics: ManySuccessResponse;
   createManyStatisticsSales: ManySuccessResponse;
   createMember: Member;
@@ -929,6 +968,7 @@ export type Mutation = {
   generateWeeklyReport: SuccessResponse;
   memberLogin: LoginResponse;
   moveEmailToTrash: Email;
+  moveInvoicePaid: SuccessResponse;
   moveToGraveyard: SuccessResponse;
   moveToPaid: SuccessResponse;
   moveToPending: SuccessResponse;
@@ -938,6 +978,7 @@ export type Mutation = {
   removeCompleteMemberPlacement: SuccessResponse;
   removeEmail: Email;
   removeGroupSetting: GroupSetting;
+  removeInvoice: Invoice;
   removeManyMemberStatistics: ManySuccessResponse;
   removeManyStatistics: ManySuccessResponse;
   removeManyStatisticsSales: ManySuccessResponse;
@@ -965,6 +1006,7 @@ export type Mutation = {
   setReadNotification: SuccessResponse;
   setRecipientStatus: Recipient;
   signUpMember: Member;
+  testInvoice: SuccessResponse;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
   updateBalance: Balance;
@@ -973,6 +1015,7 @@ export type Mutation = {
   updateCommissionsStatus: SuccessResponse;
   updateEmailTemplate: EmailTemplate;
   updateGroupSetting: GroupSetting;
+  updateInvoice: Invoice;
   updateMember: Member;
   updateMemberWallet: SuccessResponse;
   updatePackage: Package;
@@ -1050,6 +1093,11 @@ export type MutationCreateBlockArgs = {
 
 export type MutationCreateGroupSettingArgs = {
   data: CreateGroupSettingInput;
+};
+
+
+export type MutationCreateInvoiceArgs = {
+  data: CreateInvoiceInput;
 };
 
 
@@ -1143,6 +1191,11 @@ export type MutationMoveEmailToTrashArgs = {
 };
 
 
+export type MutationMoveInvoicePaidArgs = {
+  data: IdnInput;
+};
+
+
 export type MutationMoveToGraveyardArgs = {
   data: IdInput;
 };
@@ -1185,6 +1238,11 @@ export type MutationRemoveEmailArgs = {
 
 export type MutationRemoveGroupSettingArgs = {
   data: IdInput;
+};
+
+
+export type MutationRemoveInvoiceArgs = {
+  data: IdnInput;
 };
 
 
@@ -1350,6 +1408,11 @@ export type MutationUpdateEmailTemplateArgs = {
 
 export type MutationUpdateGroupSettingArgs = {
   data: UpdateGroupSettingInput;
+};
+
+
+export type MutationUpdateInvoiceArgs = {
+  data: UpdateInvoiceInput;
 };
 
 
@@ -1679,6 +1742,7 @@ export enum ProofType {
   Developersweb = 'DEVELOPERSWEB',
   Exchangefee = 'EXCHANGEFEE',
   Infrastructure = 'INFRASTRUCTURE',
+  Invoice = 'INVOICE',
   Liquidity = 'LIQUIDITY',
   Marketingminetxcpromotion = 'MARKETINGMINETXCPROMOTION',
   Marketingtxcpromotion = 'MARKETINGTXCPROMOTION',
@@ -1721,6 +1785,8 @@ export type Query = {
   hashPowerResponse: HashPowerResponse;
   individualMembers: Array<IndividualMember>;
   introducers: IntroducersResponse;
+  invoiceById: Invoice;
+  invoices: InvoiceResponse;
   latestStatistics: Array<LatestStatistics>;
   liveBlockStats: EntityStats;
   liveMiningStats: EntityStats;
@@ -1887,6 +1953,18 @@ export type QueryGroupSettingsArgs = {
 
 
 export type QueryIntroducersArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryInvoiceByIdArgs = {
+  data: IdnInput;
+};
+
+
+export type QueryInvoicesArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -2194,6 +2272,7 @@ export type Sale = {
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   frontActions?: Maybe<Array<FrontAction>>;
   id: Scalars['ID']['output'];
+  invoice?: Maybe<Invoice>;
   isMetal: Scalars['Boolean']['output'];
   logs?: Maybe<Array<EntityLog>>;
   member?: Maybe<Member>;
@@ -2395,6 +2474,19 @@ export type UpdateGroupSettingInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   rollSponsorBonusPackageId?: InputMaybe<Scalars['ID']['input']>;
   sponsorBonusPackageId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type UpdateInvoiceInput = {
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  amountInCents?: InputMaybe<Scalars['Int']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  dueDate?: InputMaybe<Scalars['Date']['input']>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id: Scalars['Int']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
+  status?: InputMaybe<InvoiceStatusEnum>;
 };
 
 export type UpdateMemberInput = {
