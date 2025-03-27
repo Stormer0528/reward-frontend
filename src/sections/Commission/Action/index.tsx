@@ -25,15 +25,10 @@ export default function ActionView() {
   useEffect(() => {
     const handleGetApi = async () => {
       try {
-        const { data } = await axios.post(
-          `${CONFIG.SITE_URL}/api/commission/action${location.search}`,
-          {
-            data: {
-              token,
-              action,
-            },
-          }
-        );
+        const { data } = await axios.post(`${CONFIG.SITE_URL}/api/commission/action`, {
+          token,
+          action,
+        });
 
         if (data.message === 'success') {
           response.onTrue();
