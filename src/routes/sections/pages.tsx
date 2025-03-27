@@ -13,6 +13,7 @@ import { paths } from '../paths';
 // ----------------------------------------------------------------------
 const ContactPage = lazy(() => import('src/pages/Contact'));
 const StatisticsPage = lazy(() => import('src/pages/Statistics'));
+const ActionPage = lazy(() => import('src/pages/Commission/Action'));
 const IntroductionPage = lazy(() => import('src/pages/Introduction'));
 const RapidRewardsPage = lazy(() => import('src/pages/RapidRewards'));
 const SilverGuaranteePage = lazy(() => import('src/pages/SilverGuarantee'));
@@ -55,6 +56,14 @@ export const statisticsRoutes: RouteObject[] = [
         <MainLayout>
           <RewardDetailPage />
         </MainLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: `${paths.dashboard.commission.action}`,
+    element: (
+      <Suspense>
+        <ActionPage />
       </Suspense>
     ),
   },
