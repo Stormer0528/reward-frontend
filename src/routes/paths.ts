@@ -90,7 +90,7 @@ export const paths = {
     },
     sponsor: { root: ROOTS.SPONSOR },
     placement: { root: ROOTS.PLACEMENT },
-    commission: { root: ROOTS.COMMISSION },
+    commission: { root: ROOTS.COMMISSION, action: `${ROOTS.COMMISSION}/action` },
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },
     profile: {
       root: ROOTS.PROFILE,
