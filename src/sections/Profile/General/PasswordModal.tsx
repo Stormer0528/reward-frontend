@@ -18,13 +18,14 @@ import { useBoolean, type UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import { CONFIG } from 'src/config';
 
+import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
 import { useApollo } from 'src/sections/SignIn/useApollo';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-import { useGenerate2FA, useVerify2FAAndEnable } from '../useApollo';
+import { useFetchMe, useGenerate2FA, useVerify2FAAndEnable } from '../useApollo';
 
 interface Props {
   open: UseBooleanReturn;
@@ -40,6 +41,7 @@ export default function PasswordModal({ open }: Props) {
 
   const { loading, submitLogin } = useApollo();
   const { qrString, generate2FA } = useGenerate2FA();
+  const { fetchMe } = useFetchMe();
   const { loading: verifyLoading, verify2FAAndEnable } = useVerify2FAAndEnable();
 
   const confirmPassword = (
@@ -47,7 +49,7 @@ export default function PasswordModal({ open }: Props) {
       variant="outlined"
       type={password.value ? 'text' : 'password'}
       fullWidth
-      label="New Password"
+      label="Confirm Password"
       onChange={(e) => {
         setNewPassword(e.target.value);
       }}
@@ -119,6 +121,7 @@ export default function PasswordModal({ open }: Props) {
                 });
 
                 if (data) {
+                  localStorage.setItem(CONFIG.storageTokenKey, data.memberLogin.accessToken);
                   setStep(step + 1);
                   await generate2FA();
                 }
@@ -142,15 +145,24 @@ export default function PasswordModal({ open }: Props) {
               variant="contained"
               loading={verifyLoading}
               onClick={async () => {
-                setStep(step + 1);
-                const { data } = await verify2FAAndEnable({
-                  variables: { data: { token, uri: qrString! } },
-                });
-
-                if (data) {
+                try {
                   setStep(step + 1);
+                  const { data } = await verify2FAAndEnable({
+                    variables: { data: { token, uri: qrString! } },
+                  });
 
-                  localStorage.setItem(CONFIG.storageTokenKey, data.verify2FAAndEnable.accessToken);
+                  if (data) {
+                    localStorage.setItem(
+                      CONFIG.storageTokenKey,
+                      data.verify2FAAndEnable.accessToken
+                    );
+
+                    await fetchMe();
+
+                    setStep(step + 1);
+                  }
+                } catch (error) {
+                  toast.error(error.message);
                 }
               }}
             >

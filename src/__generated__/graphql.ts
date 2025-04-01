@@ -247,6 +247,7 @@ export type CampaignMember = {
   openTime?: Maybe<Scalars['DateTimeISO']['output']>;
   sent: Scalars['Boolean']['output'];
   sentTime?: Maybe<Scalars['DateTimeISO']['output']>;
+  subject?: Maybe<Scalars['String']['output']>;
 };
 
 export type CampaignResponse = {
@@ -828,6 +829,7 @@ export type Member = {
   cmnCalculatedWeeks: Scalars['Int']['output'];
   commission?: Maybe<CommissionStatus>;
   commissionDefault: CommissionDefaultEnum;
+  communications?: Maybe<Array<CampaignMember>>;
   country?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
@@ -1073,6 +1075,7 @@ export type Mutation = {
   moveToGraveyard: SuccessResponse;
   moveToPaid: SuccessResponse;
   moveToPending: SuccessResponse;
+  regenerateInvoiceById: SuccessResponse;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
   removeBalance: SuccessResponse;
@@ -1339,6 +1342,11 @@ export type MutationMoveToPaidArgs = {
 
 export type MutationMoveToPendingArgs = {
   data: IdInput;
+};
+
+
+export type MutationRegenerateInvoiceByIdArgs = {
+  data: IdnInput;
 };
 
 
@@ -1935,6 +1943,7 @@ export type Query = {
   liveBlockStats: EntityStats;
   liveMiningStats: EntityStats;
   liveUserStats: EntityStats;
+  memberById: Member;
   memberInOutRevenues: MemberInOutRevenueResponse;
   memberListById: MemberList;
   memberMe: Member;
@@ -2141,6 +2150,11 @@ export type QueryLiveBlockStatsArgs = {
 
 export type QueryLiveUserStatsArgs = {
   data: LiveStatsArgs;
+};
+
+
+export type QueryMemberByIdArgs = {
+  data: IdInput;
 };
 
 

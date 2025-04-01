@@ -35,9 +35,9 @@ import { useAuthContext } from 'src/auth/hooks';
 import TXCWallets from './txcWallets';
 import OtherWallets from './otherWallets';
 import PasswordModal from './PasswordModal';
-import { useDisable2FA } from '../useApollo';
 import { Schema, type SchemaType } from './schema';
 import { getWallets, hasDuplicates } from './helper';
+import { useFetchMe, useDisable2FA } from '../useApollo';
 import { UPDATE_MEMBER, FETCH_MEMBERS_QUERY } from '../query';
 
 // ----------------------------------------------------------------------
@@ -73,6 +73,7 @@ export default function MemberGeneral({ me }: Props) {
   const [email, setEmail] = useState<string>();
   const [member, setMember] = useState<Edit>();
 
+  const { fetchMe } = useFetchMe();
   const [submit, { loading }] = useMutation(UPDATE_MEMBER);
   const { loading: disableLoading, disable2FA } = useDisable2FA();
 
@@ -200,10 +201,16 @@ export default function MemberGeneral({ me }: Props) {
   };
 
   const handleDisable = async () => {
-    const { data } = await disable2FA();
+    try {
+      const { data } = await disable2FA();
 
-    if (data) {
-      localStorage.setItem(CONFIG.storageTokenKey, data.disable2FA.accessToken);
+      if (data) {
+        localStorage.setItem(CONFIG.storageTokenKey, data.disable2FA.accessToken);
+
+        await fetchMe();
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
