@@ -137,10 +137,7 @@ export function useGenerate2FA() {
 }
 
 export function useVerify2FAAndEnable() {
-  const [verify2FAAndEnable, { loading, data, error }] = useMutation(VERIFY_2FA_ENABLE, {
-    awaitRefetchQueries: true,
-    refetchQueries: ['fetchMe'],
-  });
+  const [verify2FAAndEnable, { loading, data, error }] = useMutation(VERIFY_2FA_ENABLE);
 
   return { loading, accessToken: data?.verify2FAAndEnable.accessToken, error, verify2FAAndEnable };
 }
@@ -152,10 +149,7 @@ export function useVerify2FAAndToken() {
 }
 
 export function useDisable2FA() {
-  const [disable2FA, { loading, data, error }] = useMutation(DISABLE_2FA, {
-    awaitRefetchQueries: true,
-    refetchQueries: ['fetchMe'],
-  });
+  const [disable2FA, { loading, data, error }] = useMutation(DISABLE_2FA);
 
   return { loading, data, error, disable2FA };
 }
