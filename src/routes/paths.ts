@@ -27,6 +27,7 @@ const ROOTS = {
   PROFILE: '/profile',
   TEAM: '/team',
   MAIL: '/mail',
+  COMMUNICATION: '/communication',
   SILVER_GUARANTEE: '/silverbugs',
   NOTIFICATIONS: '/notifications',
 };
@@ -97,6 +98,9 @@ export const paths = {
     },
     notifications: {
       root: ROOTS.NOTIFICATIONS,
+    },
+    communication: {
+      root: ROOTS.COMMUNICATION,
     },
     team: {
       root: ROOTS.TEAM,
