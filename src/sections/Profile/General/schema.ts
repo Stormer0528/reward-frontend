@@ -34,7 +34,7 @@ export const Schema = zod.object({
     zod.object({
       payoutId: zod.string(),
       address: zod.string(),
-      note: zod.string(),
+      note: zod.string().optional().nullable(),
       percent: zod.number().default(0),
     })
   ),
