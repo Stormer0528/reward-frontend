@@ -173,6 +173,15 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
           display
         }
       }
+      communications {
+        open
+        sent
+        body
+        email
+        subject
+        openTime
+        sentTime
+      }
       createdAt
       updatedAt
       deletedAt
