@@ -48,6 +48,10 @@ const MailPage = lazy(() => import('src/pages/Mail'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const CommunicationPage = lazy(() => import('src/pages/Communication'));
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
 const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
 // ----------------------------------------------------------------------
 
@@ -124,6 +128,7 @@ export const dashboardRoutes = [
       },
       { path: 'team', element: <TeamCommissionListPage /> },
       { path: 'mail', element: <MailPage /> },
+      { path: 'communication', element: <CommunicationPage /> },
       {
         path: 'calculator',
         element: (
