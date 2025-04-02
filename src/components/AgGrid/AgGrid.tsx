@@ -77,12 +77,12 @@ export const AgGrid = <TData,>(props: Props<TData>) => {
           rowBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
 
           // Overlay
-          // modalOverlayBackgroundColor: 'rgba(0, 0, 0, 0)',
 
           ...(colorScheme === 'light' && {
             accentColor: theme.palette.text.disabled,
             headerTextColor: theme.palette.text.secondary,
             headerBackgroundColor: theme.palette.grey.A100,
+            modalOverlayBackgroundColor: 'rgba(0, 0, 0, 0)',
           }),
         }),
     [theme, colorScheme]

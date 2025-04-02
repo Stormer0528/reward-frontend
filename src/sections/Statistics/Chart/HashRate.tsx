@@ -12,6 +12,7 @@ import CardHeader from '@mui/material/CardHeader';
 import { formatWeekNumber } from 'src/utils/format-time';
 
 import { ChartSelect } from 'src/components/chart';
+import { useSettingsContext } from 'src/components/settings';
 
 import { useFetchBlocks } from '../useApollo';
 
@@ -26,6 +27,7 @@ const series = [
 
 export default function HashRate() {
   const [selectedSeries, setSelectedSeries] = useState('Block');
+  const { colorScheme } = useSettingsContext();
 
   const handleChangeSeries = useCallback((newValue: string) => {
     setSelectedSeries(newValue);
@@ -66,7 +68,7 @@ export default function HashRate() {
     grid: { show: false },
     xaxis: {
       tooltip: { enabled: false },
-      tickAmount: 20,
+      tickAmount: 30,
       categories: blocks!
         .map((item) =>
           currentSeries?.value === 'week'
@@ -102,6 +104,24 @@ export default function HashRate() {
     tooltip: {
       shared: true,
       intersect: false,
+      custom: ({ dataPointIndex, w }) => {
+        const category = w.globals.categoryLabels.length
+          ? w.globals.categoryLabels[dataPointIndex]
+          : w.globals.labels[dataPointIndex];
+        const data = w.globals.initialSeries.map((item: any) => item.data[dataPointIndex]);
+
+        const chartData = data.reduce(
+          (
+            prev: any,
+            item: any,
+            index: number
+          ) => `${prev}<div style="display: flex; padding: 10px;"><div style="margin-right: 8px; width: 12px; height: 12px; border-radius: 50%; background-color: ${w.globals.colors[index]}; margin-top: 4px;">
+          </div><div><span style="color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; margin-right: 5px;">${w.globals.seriesNames[index]}:</span> <span style="font-weight: bold;">${item} GH/s</span></div></div>`,
+          ''
+        );
+
+        return `<div style="background: ${colorScheme === 'dark' ? '#141A21' : '#ffffff'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#6a7987'};"><div style="background: ${colorScheme === 'dark' ? '#28323D' : '#f4f6f8'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; font-weight: bold; padding: 5px 10px;">${category}</div>${chartData}</div>`;
+      },
     },
     legend: { show: false },
   };

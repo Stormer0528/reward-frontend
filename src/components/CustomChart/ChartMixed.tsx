@@ -5,6 +5,8 @@ import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
 
 import { Chart, useChart } from 'src/components/chart';
 
+import { useSettingsContext } from '../settings';
+
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -23,6 +25,7 @@ type Props = {
 
 export function ChartMixed({ loading, chart }: Props) {
   const theme = useTheme();
+  const { colorScheme } = useSettingsContext();
 
   const chartColors = chart.colors ?? [
     hexAlpha(theme.palette.primary.dark, 0.8),
@@ -52,11 +55,11 @@ export function ChartMixed({ loading, chart }: Props) {
             item: any,
             index: number
           ) => `${prev}<div style="display: flex; padding: 10px;"><div style="margin-right: 8px; width: 12px; height: 12px; border-radius: 50%; background-color: ${w.globals.colors[index]}; margin-top: 4px;">
-          </div><div><span style="color: #637381; margin-right: 5px;">${w.globals.seriesNames[index]}:</span> <span style="font-weight: bold;">${item}K</span></div></div>`,
+          </div><div><span style="color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; margin-right: 5px;">${w.globals.seriesNames[index]}:</span> <span style="font-weight: bold;">${item}K</span></div></div>`,
           ''
         );
 
-        return `<div style="background: #ffffff; color: #6a7987;"><div style="background: #f4f6f8; color: #637381; font-weight: bold; padding: 5px 10px;">${category}</div>${chartData}</div>`;
+        return `<div style="background: ${colorScheme === 'dark' ? '#141A21' : '#ffffff'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#6a7987'};"><div style="background: ${colorScheme === 'dark' ? '#28323D' : '#f4f6f8'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; font-weight: bold; padding: 5px 10px;">${category}</div>${chartData}</div>`;
       },
     },
     ...chart.options,

@@ -9,6 +9,7 @@ import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
 import { formatCurrency } from 'src/utils/formatCurrency';
 
 import { Chart, useChart } from 'src/components/chart';
+import { useSettingsContext } from 'src/components/settings';
 
 import { useFetchRevenue } from '../useApollo';
 
@@ -16,6 +17,7 @@ import { useFetchRevenue } from '../useApollo';
 
 export default function RevenueOverview() {
   const theme = useTheme();
+  const { colorScheme } = useSettingsContext();
 
   const chartColors = [
     hexAlpha(theme.palette.primary.dark, 0.8),
@@ -27,6 +29,7 @@ export default function RevenueOverview() {
     theme.palette.primary.main,
     theme.palette.info.light,
     theme.palette.warning.main,
+    theme.palette.secondary.light,
   ];
 
   const { loading, revenue, fetchRevenue } = useFetchRevenue();
@@ -73,10 +76,10 @@ export default function RevenueOverview() {
         const legend = w.globals.seriesNames[seriesIndex];
         const color = w.globals.colors[seriesIndex];
 
-        return `<div style="background: #ffffff; color: #6a7987;"><div style="display: flex; padding: 10px;">
+        return `<div style="background: ${colorScheme === 'dark' ? '#141A21' : '#ffffff'} ; color: ${colorScheme === 'dark' ? '#ffffff' : '#6a7987'};"><div style="display: flex; padding: 10px;">
         <div style="margin-right: 8px; width: 12px; height: 12px; border-radius: 50%; background-color: ${color}; margin-top: 4px;">
         </div>
-        <div><span style="color: #637381; margin-right: 5px;">${legend}:</span> <span style="font-weight: bold;">${formatCurrency(data)}</span></div></div></div>`;
+        <div><span style="color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; margin-right: 5px;">${legend}:</span> <span style="font-weight: bold;">${formatCurrency(data)}</span></div></div></div>`;
       },
     },
     dataLabels: {
