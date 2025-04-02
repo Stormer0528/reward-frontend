@@ -30,6 +30,8 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       totalIntroducers
       preferredContact
       commissionDefault
+      placementParentId
+      placementPosition
       cmnCalculatedWeeks
       preferredContactDetail
       groupSetting {
@@ -71,15 +73,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         placementPosition
         cmnCalculatedWeeks
         preferredContactDetail
-        commission {
-          begL
-          begR
-          newL
-          newR
-        }
       }
-      placementParentId
-      placementPosition
       placementParent {
         id
         ID
@@ -107,12 +101,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         placementPosition
         cmnCalculatedWeeks
         preferredContactDetail
-        commission {
-          begL
-          begR
-          newL
-          newR
-        }
       }
       placementChildren {
         id
@@ -139,12 +127,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         placementPosition
         cmnCalculatedWeeks
         preferredContactDetail
-        commission {
-          begL
-          begR
-          newL
-          newR
-        }
       }
       sales {
         id
@@ -205,174 +187,7 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
     members(page: $page, filter: $filter, sort: $sort) {
       members {
         id
-        ID
-        city
-        email
-        state
-        point
-        avatar
-        status
-        mobile
-        status
-        country
-        assetId
-        balance
-        zipCode
         username
-        fullName
-        sponsorId
-        allowState
-        teamReport
-        OTPEnabled
-        emailVerified
-        syncWithSendy
-        primaryAddress
-        secondaryAddress
-        totalIntroducers
-        preferredContact
-        placementParentId
-        placementPosition
-        cmnCalculatedWeeks
-        preferredContactDetail
-        groupSetting {
-          name
-          commissionDefaults
-        }
-        commission {
-          begL
-          begR
-          newL
-          newR
-        }
-        sponsor {
-          id
-          email
-          point
-          mobile
-          status
-          balance
-          assetId
-          username
-          fullName
-          teamReport
-          OTPEnabled
-          allowState
-          emailVerified
-          syncWithSendy
-          primaryAddress
-          totalIntroducers
-          preferredContact
-          secondaryAddress
-          cmnCalculatedWeeks
-          preferredContactDetail
-          commission {
-            begL
-            begR
-            newL
-            newR
-          }
-        }
-        placementParent {
-          id
-          email
-          point
-          status
-          mobile
-          assetId
-          balance
-          username
-          fullName
-          allowState
-          teamReport
-          OTPEnabled
-          emailVerified
-          syncWithSendy
-          primaryAddress
-          totalIntroducers
-          secondaryAddress
-          preferredContact
-          commissionDefault
-          cmnCalculatedWeeks
-          preferredContactDetail
-          commission {
-            begL
-            begR
-            newL
-            newR
-          }
-        }
-        sales {
-          id
-          memberId
-          packageId
-          paymentMethod
-          status
-          isMetal
-          orderedAt
-        }
-        memberWallets {
-          createdAt
-          updatedAt
-          deletedAt
-          id
-          memberId
-          payoutId
-          address
-          percent
-          payout {
-            id
-            method
-            status
-            name
-            display
-            createdAt
-            updatedAt
-            deletedAt
-          }
-        }
-        createdAt
-        updatedAt
-        deletedAt
-      }
-      total
-    }
-  }
-`);
-
-export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
-  query FetchPlacementMembers($page: String, $filter: JSONObject, $sort: String) {
-    members(page: $page, filter: $filter, sort: $sort) {
-      members {
-        id
-        email
-        status
-        balance
-        username
-        fullName
-        sponsorId
-        allowState
-        teamReport
-        OTPEnabled
-        teamStrategy
-        commissionDefault
-        placementParentId
-        placementPosition
-        cmnCalculatedWeeks
-        placementParent {
-          id
-          username
-          fullName
-        }
-        sponsor {
-          username
-        }
-        commission {
-          begL
-          begR
-          newL
-          newR
-        }
-        createdAt
       }
       total
     }
@@ -395,52 +210,6 @@ export const FETCH_PLACEMENT_MEMBERS_O_QUERY = gql(/* GraphQL */ `
         begR
         newL
         newR
-      }
-    }
-  }
-`);
-
-export const FETCH_MEMBER = gql(/* GraphQL */ `
-  query FetchMember($filter: JSONObject) {
-    members(filter: $filter) {
-      members {
-        id
-        ID
-        email
-        point
-        avatar
-        status
-        mobile
-        assetId
-        balance
-        username
-        fullName
-        allowState
-        teamReport
-        OTPEnabled
-        emailVerified
-        primaryAddress
-        secondaryAddress
-        totalIntroducers
-        commissionDefault
-        memberWallets {
-          id
-          address
-          percent
-          memberId
-          payoutId
-          createdAt
-          updatedAt
-          deletedAt
-          payout {
-            id
-            name
-            method
-            status
-            display
-          }
-        }
-        deletedAt
       }
     }
   }
