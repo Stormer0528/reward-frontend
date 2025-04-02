@@ -28,13 +28,8 @@ export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
     teamCommissions(sort: $sort, page: $page, filter: $filter, teamReport: $teamReport) {
       total
       weeklyCommissions {
-        createdAt
-        updatedAt
-        deletedAt
         id
         ID
-        memberId
-        weekStartDate
         begL
         begR
         newL
@@ -45,34 +40,13 @@ export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
         endR
         pkgL
         pkgR
-        commission
-        shortNote
         status
+        shortNote
+        commission
+        weekStartDate
         member {
-          createdAt
-          updatedAt
-          deletedAt
-          id
-          ID
-          username
-          fullName
-          sponsorId
-          email
-          mobile
           assetId
-          primaryAddress
-          secondaryAddress
-          city
-          state
-          zipCode
-          placementParentId
-          placementPosition
-          point
-          emailVerified
-          status
-          totalIntroducers
-          cmnCalculatedWeeks
-          syncWithSendy
+          username
         }
       }
     }
