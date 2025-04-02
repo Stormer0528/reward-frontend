@@ -35,7 +35,7 @@ import { useAuthContext } from 'src/auth/hooks';
 import { StandardNode } from './node';
 import CustomEdge from './customEdge';
 import NodeContext from './nodeContext';
-import { useFetchMembers } from '../Profile/useApollo';
+import { useFetchSponsors } from './useApollo';
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -202,7 +202,7 @@ function PlacementListView() {
   const popover = usePopover();
 
   const { user: me } = useAuthContext();
-  const { fetchMembers, members, loading, called } = useFetchMembers();
+  const { fetchSponsors, sponsors, loading, called } = useFetchSponsors();
 
   const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
   const exSetVisibleMap = useCallback((newVisibleMap: Record<string, number>) => {
@@ -211,19 +211,13 @@ function PlacementListView() {
   }, []);
 
   useEffect(() => {
-    fetchMembers({
-      variables: {
-        filter: {
-          status: true
-        }
-      }
-    });
+    fetchSponsors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const nodes: Node[] = useMemo(() => {
-    if (!members || members.length === 0) return [];
-    const { result: placementTree } = buildSponsorTree(members, me);
+    if (!sponsors || sponsors.length === 0) return [];
+    const { result: placementTree } = buildSponsorTree(sponsors, me);
 
     const resultTree: any[] = [];
 
@@ -231,11 +225,11 @@ function PlacementListView() {
 
     return resultTree;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [members, visibleMap]);
+  }, [sponsors, visibleMap]);
 
   const edges: Edge[] = useMemo(
     () =>
-      members
+      sponsors
         .filter((member) => member?.sponsorId)
         .map((member) => ({
           id: `${member?.sponsorId}:${member?.id}`,
@@ -243,38 +237,38 @@ function PlacementListView() {
           target: member?.id ?? '',
           type: 'customEdge',
         })),
-    [members]
+    [sponsors]
   );
 
   const expandTree = useCallback(
     async (id: string) => {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
-      members
+      sponsors
         .filter((mb) => mb?.sponsorId === id)
         .forEach((mb) => {
           if (!newVisibleMap[mb?.id ?? '']) {
             newVisibleMap[mb?.id ?? ''] =
-              members.findIndex((mber) => mber?.sponsorId === mb?.id) === -1 ? 3 : 1;
+              sponsors.findIndex((mber) => mber?.sponsorId === mb?.id) === -1 ? 3 : 1;
           }
         });
 
-      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 2;
+      newVisibleMap[id] = sponsors.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 2;
 
       exSetVisibleMap(newVisibleMap);
     },
-    [members, visibleMap, exSetVisibleMap]
+    [sponsors, visibleMap, exSetVisibleMap]
   );
 
   const collapseTree = useCallback(
     async (id: string) => {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
-      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 1;
+      newVisibleMap[id] = sponsors.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 1;
 
       exSetVisibleMap(newVisibleMap);
     },
-    [members, visibleMap, exSetVisibleMap]
+    [sponsors, visibleMap, exSetVisibleMap]
   );
 
   const contextValue = useMemo(
@@ -289,7 +283,7 @@ function PlacementListView() {
   const { fitView } = useReactFlow();
 
   const resetVisibleMap = useCallback(() => {
-    const newVisibleMap = getResetVisibleMap(members, me);
+    const newVisibleMap = getResetVisibleMap(sponsors, me);
     exSetVisibleMap(newVisibleMap);
 
     setTimeout(() => {
@@ -298,12 +292,12 @@ function PlacementListView() {
         nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
       });
     }, 100);
-  }, [members, fitView, exSetVisibleMap, me]);
+  }, [sponsors, fitView, exSetVisibleMap, me]);
 
   const reSyncVisibleMap = useCallback(() => {
     const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
     const newVisibleMap = storageVisibleMap
-      ? getNewVisibleMap(members, me, JSON.parse(storageVisibleMap))
+      ? getNewVisibleMap(sponsors, me, JSON.parse(storageVisibleMap))
       : {};
     exSetVisibleMap(newVisibleMap);
     setTimeout(() => {
@@ -312,7 +306,7 @@ function PlacementListView() {
         nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
       });
     }, 100);
-  }, [members, exSetVisibleMap, fitView, me]);
+  }, [sponsors, exSetVisibleMap, fitView, me]);
 
   useEffect(() => {
     if (!called || loading) return;
@@ -321,11 +315,11 @@ function PlacementListView() {
     if (!storageVisibleMap || _.isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
     else reSyncVisibleMap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [members, loading]);
+  }, [sponsors, loading]);
 
   const reset = useCallback(async () => {
-    const { data } = await fetchMembers();
-    const newVisibleMap = getResetVisibleMap(data?.members.members, me);
+    const { data } = await fetchSponsors();
+    const newVisibleMap = getResetVisibleMap(data?.sponsorMembers, me);
 
     exSetVisibleMap(newVisibleMap);
 
@@ -335,13 +329,13 @@ function PlacementListView() {
         nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
       });
     }, 100);
-  }, [fetchMembers, exSetVisibleMap, fitView, me]);
+  }, [fetchSponsors, exSetVisibleMap, fitView, me]);
 
   const refresh = useCallback(async () => {
-    const { data } = await fetchMembers();
+    const { data } = await fetchSponsors();
     const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
     const newVisibleMap = storageVisibleMap
-      ? getNewVisibleMap(data?.members.members, me, JSON.parse(storageVisibleMap))
+      ? getNewVisibleMap(data?.sponsorMembers, me, JSON.parse(storageVisibleMap))
       : {};
     exSetVisibleMap(newVisibleMap);
 
@@ -351,7 +345,7 @@ function PlacementListView() {
         nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
       });
     }, 100);
-  }, [fetchMembers, exSetVisibleMap, fitView, me]);
+  }, [fetchSponsors, exSetVisibleMap, fitView, me]);
 
   return (
     <DashboardContent sx={{ overflowX: 'hidden' }}>

@@ -68,6 +68,7 @@ const documents = {
     "\n  mutation SendEmailVerification($data: EmailInput!) {\n    sendEmailVerification(data: $data) {\n      result\n      message\n    }\n  }\n": types.SendEmailVerificationDocument,
     "\n  mutation EmailVerify($data: TokenInput!) {\n    emailVerify(data: $data) {\n      result\n      message\n      packageID\n      paymentMethod\n    }\n  }\n": types.EmailVerifyDocument,
     "\n  query Promos($sort: String, $page: String, $filter: JSONObject) {\n    promos(sort: $sort, page: $page, filter: $filter) {\n      promos {\n        id\n        code\n        status\n        endDate\n        startDate\n        createdAt\n        updatedAt\n        deletedAt\n        description\n      }\n      total\n    }\n  }\n": types.PromosDocument,
+    "\n  query SponsorMembers {\n    sponsorMembers {\n      id\n      username\n      fullName\n      sponsorId\n      createdAt\n    }\n  }\n": types.SponsorMembersDocument,
     "\n  query Query($data: LiveStatsArgs!) {\n    liveBlockStats(data: $data) {\n      dailyData {\n        count\n        field\n      }\n      meta\n      total\n    }\n    liveMiningStats {\n      dailyData {\n        count\n        field\n      }\n      meta\n      total\n    }\n    liveUserStats(data: $data) {\n      dailyData {\n        count\n        field\n      }\n      meta\n      total\n    }\n  }\n": types.QueryDocument,
     "\n  query Blocks($page: String, $filter: JSONObject, $sort: String) {\n    blocks(page: $page, filter: $filter, sort: $sort) {\n      blocks {\n        id\n        blockNo\n        hashRate\n        difficulty\n        issuedAt\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n": types.BlocksDocument,
     "\n  query Statistics($page: String, $filter: JSONObject, $sort: String) {\n    statistics(page: $page, filter: $filter, sort: $sort) {\n      statistics {\n        id\n        totalHashPower\n        newBlocks\n        totalBlocks\n        totalMembers\n        txcShared\n        issuedAt\n        from\n        to\n        status\n        createdAt\n        updatedAt\n        deletedAt\n      }\n      total\n    }\n  }\n": types.StatisticsDocument,
@@ -323,6 +324,10 @@ export function gql(source: "\n  mutation EmailVerify($data: TokenInput!) {\n   
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query Promos($sort: String, $page: String, $filter: JSONObject) {\n    promos(sort: $sort, page: $page, filter: $filter) {\n      promos {\n        id\n        code\n        status\n        endDate\n        startDate\n        createdAt\n        updatedAt\n        deletedAt\n        description\n      }\n      total\n    }\n  }\n"): (typeof documents)["\n  query Promos($sort: String, $page: String, $filter: JSONObject) {\n    promos(sort: $sort, page: $page, filter: $filter) {\n      promos {\n        id\n        code\n        status\n        endDate\n        startDate\n        createdAt\n        updatedAt\n        deletedAt\n        description\n      }\n      total\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query SponsorMembers {\n    sponsorMembers {\n      id\n      username\n      fullName\n      sponsorId\n      createdAt\n    }\n  }\n"): (typeof documents)["\n  query SponsorMembers {\n    sponsorMembers {\n      id\n      username\n      fullName\n      sponsorId\n      createdAt\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
