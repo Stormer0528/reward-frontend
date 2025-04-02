@@ -13,7 +13,7 @@ import isEqual from 'lodash/isEqual';
 import { useRef, useMemo, useCallback } from 'react';
 
 import { AgGridReact } from '@ag-grid-community/react';
-import { themeQuartz, iconSetQuartzLight } from '@ag-grid-community/theming';
+import { themeQuartz, iconSetQuartzLight, colorSchemeDarkBlue } from '@ag-grid-community/theming';
 
 import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
 
@@ -25,6 +25,7 @@ import { useAgQuery } from 'src/routes/hooks';
 import { debounce } from 'src/utils/lodash';
 
 import { Pagination } from './Pagination';
+import { useSettingsContext } from '../settings';
 import { SkeletonLoader } from './SkeletonLoader';
 import { ClientSideRowModelModule } from './ClientSideRowModel';
 
@@ -39,45 +40,52 @@ interface Props<TData = any> extends AgGridReactProps<TData> {
 export const AgGrid = <TData,>(props: Props<TData>) => {
   const { gridKey, totalRowCount, pagination = true, modules, ...restProps } = props;
 
+  const { colorScheme } = useSettingsContext();
+
   const gridRef = useRef<AgGridReact<TData>>(null);
   const gridWrapperRef = useRef<HTMLDivElement>(null);
 
   const [query, { setPage, setPageSize, setSort, setFilter }] = useAgQuery<FilterModel>();
-  const { pageModel = { page: 1, pageSize: 25 }, sortModel, filter } = query;
+  const { pageModel = { page: 1, pageSize: 50 }, sortModel, filter } = query;
   const theme = useTheme();
 
   const agGridTheme = useMemo(
     () =>
-      themeQuartz.withPart(iconSetQuartzLight).withParams({
-        backgroundColor: '#ffffff',
-        browserColorScheme: 'light',
-        columnBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
-        textColor: theme.palette.text.primary,
-        accentColor: theme.palette.text.disabled,
-        fontFamily: {
-          ref: 'fontFamily', // Use System Font
-        },
-        spacing: 6,
-        // iconSize: 14,
-        wrapperBorder: false,
-        wrapperBorderRadius: 0,
-        borderRadius: 0,
-        sidePanelBorder: false,
-        // Header
-        // headerBackgroundColor: '#eaeaea',
-        headerBackgroundColor: theme.palette.grey.A100,
-        headerFontSize: 14,
-        headerFontWeight: 600,
-        headerTextColor: theme.palette.text.secondary,
-        pinnedColumnBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
-        // Row
-        oddRowBackgroundColor: '#FFF',
-        rowBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
+      themeQuartz
+        .withPart(colorScheme === 'dark' ? colorSchemeDarkBlue : iconSetQuartzLight)
+        .withParams({
+          // backgroundColor: '#ffffff',
+          // browserColorScheme: 'light',
+          // columnBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
+          // textColor: theme.palette.text.primary,
 
-        // Overlay
-        modalOverlayBackgroundColor: 'rgba(0, 0, 0, 0)',
-      }),
-    [theme]
+          fontFamily: {
+            ref: 'fontFamily', // Use System Font
+          },
+          spacing: 6,
+          // iconSize: 14,
+          wrapperBorder: false,
+          wrapperBorderRadius: 0,
+          borderRadius: 0,
+          sidePanelBorder: false,
+          // Header
+          headerFontSize: 14,
+          headerFontWeight: 600,
+          pinnedColumnBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
+          // Row
+          // oddRowBackgroundColor: '#FFF',
+          rowBorder: { style: 'dashed', width: 1, color: theme.vars.palette.divider },
+
+          // Overlay
+          // modalOverlayBackgroundColor: 'rgba(0, 0, 0, 0)',
+
+          ...(colorScheme === 'light' && {
+            accentColor: theme.palette.text.disabled,
+            headerTextColor: theme.palette.text.secondary,
+            headerBackgroundColor: theme.palette.grey.A100,
+          }),
+        }),
+    [theme, colorScheme]
   );
 
   const initialState = useMemo<GridState>(
