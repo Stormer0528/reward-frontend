@@ -1,13 +1,11 @@
 import { gql } from 'src/__generated__';
 
 export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
-  query WeeklyCommissions($page: String, $sort: String, $filter: JSONObject) {
-    weeklyCommissions(page: $page, sort: $sort, filter: $filter) {
+  query WeeklyCommissions($sort: String, $page: String, $filter: JSONObject) {
+    weeklyCommissions(sort: $sort, page: $page, filter: $filter) {
       weeklyCommissions {
         id
         ID
-        memberId
-        weekStartDate
         begL
         begR
         newL
@@ -18,35 +16,16 @@ export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
         endR
         pkgL
         pkgR
-        commission
+        note
         status
-        member {
-          createdAt
-          updatedAt
-          deletedAt
-          id
-          ID
-          username
-          fullName
-          sponsorId
-          email
-          mobile
-          assetId
-          primaryAddress
-          secondaryAddress
-          city
-          state
-          zipCode
-          placementParentId
-          placementPosition
-          point
-          emailVerified
-          status
-          totalIntroducers
-        }
+        username
+        fullName
+        memberId
         createdAt
-        updatedAt
-        deletedAt
+        shortNote
+        commission
+        weekStartDate
+        commissionDefault
       }
       total
     }

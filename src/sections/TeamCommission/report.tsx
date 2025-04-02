@@ -45,8 +45,8 @@ export default function Report({ teamReport }: Props) {
           `week #${formatWeekNumber(data?.weekStartDate)} (${dayjs(data?.weekStartDate).utc().format('MM/DD')} - ${dayjs(data?.weekStartDate).utc().add(6, 'day').format('MM/DD')})`,
       },
       {
-        field: 'member.username',
-        headerName: 'Username',
+        field: 'fullName',
+        headerName: 'Name',
         width: 140,
         filter: 'agTextColumnFilter',
         resizable: true,
@@ -54,8 +54,8 @@ export default function Report({ teamReport }: Props) {
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
       },
       {
-        field: 'member.assetId',
-        headerName: 'Asset ID',
+        field: 'username',
+        headerName: 'Username',
         width: 110,
         filter: 'agTextColumnFilter',
         resizable: true,
