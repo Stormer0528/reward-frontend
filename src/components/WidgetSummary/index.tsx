@@ -11,6 +11,8 @@ import { fNumber } from 'src/utils/formatNumber';
 import { Iconify } from 'src/components/Iconify';
 import { Chart, useChart } from 'src/components/chart';
 
+import { useSettingsContext } from '../settings';
+
 // ----------------------------------------------------------------------
 
 type Props = CardProps & {
@@ -38,6 +40,7 @@ export default function WidgetSummary({
   ...other
 }: Props) {
   const theme = useTheme();
+  const { colorScheme } = useSettingsContext();
 
   const chartColors = chart.colors ?? [theme.palette.primary.main];
 
@@ -54,8 +57,8 @@ export default function WidgetSummary({
           : w.globals.labels[dataPointIndex];
         const color = w.globals.colors[seriesIndex];
 
-        return `<div style="background: #ffffff; color: #6a7987;">
-          <div style="background: #f4f6f8; color: #637381; font-weight: bold; padding: 5px 10px;">${category}</div>
+        return `<div style="background: ${colorScheme === 'dark' ? '#141A21' : '#ffffff'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#6a7987'};">
+          <div style="background: ${colorScheme === 'dark' ? '#28323D' : '#f4f6f8'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; font-weight: bold; padding: 5px 10px;">${category}</div>
           <div style="display: flex; padding: 10px;">
           <div style="margin-right: 8px; width: 12px; height: 12px; border-radius: 50%; background-color: ${color}; margin-top: 4px;">
           </div>
