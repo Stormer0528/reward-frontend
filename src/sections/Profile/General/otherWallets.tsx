@@ -68,7 +68,7 @@ export default function OtherWallets({ wallets }: Props) {
         Other Wallets
       </Typography>
       {forms?.map((item, index) => (
-        <Stack key={item.id} sx={{ mb: 1 }}>
+        <Stack key={item.id} sx={{ mb: 3 }}>
           <Box
             key={item.id}
             rowGap={3}
@@ -102,7 +102,7 @@ export default function OtherWallets({ wallets }: Props) {
             <Button
               size="small"
               color="error"
-              sx={{ mt: 1.5, width: 80 }}
+              sx={{ mt: 0.5, width: 80 }}
               startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
               onClick={() => handleRemove(index)}
             />

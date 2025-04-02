@@ -2,9 +2,9 @@ import axios from 'axios';
 import isEqual from 'lodash/isEqual';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
+import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo, useState, useEffect, useCallback } from 'react';
-import { ApolloError, useMutation, useLazyQuery } from '@apollo/client';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -37,8 +37,7 @@ import OtherWallets from './otherWallets';
 import PasswordModal from './PasswordModal';
 import { Schema, type SchemaType } from './schema';
 import { getWallets, hasDuplicates } from './helper';
-import { useFetchMe, useDisable2FA } from '../useApollo';
-import { UPDATE_MEMBER, FETCH_MEMBERS_QUERY } from '../query';
+import { useFetchMe, useDisable2FA, useFetchMembers, useUpdateMember } from '../useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -65,16 +64,13 @@ export default function MemberGeneral({ me }: Props) {
   const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
   const [firstName, setFirstName] = useState<string>(me.fullName.split(' ')[0]);
 
-  const [fetchMembers, { loading: memberLoading, data: memberData }] =
-    useLazyQuery(FETCH_MEMBERS_QUERY);
-
-  const members = memberData?.members.members ?? [];
+  const { loading: memberLoading, members, fetchMembers } = useFetchMembers();
 
   const [email, setEmail] = useState<string>();
   const [member, setMember] = useState<Edit>();
 
   const { fetchMe } = useFetchMe();
-  const [submit, { loading }] = useMutation(UPDATE_MEMBER);
+  const { loading, updateMember } = useUpdateMember();
   const { loading: disableLoading, disable2FA } = useDisable2FA();
 
   const defaultValues = useMemo(() => {
@@ -115,7 +111,7 @@ export default function MemberGeneral({ me }: Props) {
       }
 
       if (total === 100) {
-        await submit({
+        await updateMember({
           variables: {
             data: {
               id: me.id,
