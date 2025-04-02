@@ -29,7 +29,6 @@ export default function TeamCommissionTable() {
   const [teamReport, setTeamReport] = useState<TeamReportSection>(TeamReportSection.Left);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: any) => {
-    console.log('newvalue => ', newValue);
     if (
       Object.values(TeamReportSection).includes(newValue) &&
       user?.teamReport.includes(newValue)
