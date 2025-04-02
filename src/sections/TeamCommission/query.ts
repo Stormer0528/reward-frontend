@@ -20,13 +20,12 @@ export const FETCH_TEAM_COMMISSION_STATS_QUERY = gql(/* GraphQL */ `
 
 export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
   query TeamCommissions(
+    $teamReport: TeamReportSection!
     $sort: String
     $page: String
     $filter: JSONObject
-    $teamReport: TeamReportSection!
   ) {
-    teamCommissions(sort: $sort, page: $page, filter: $filter, teamReport: $teamReport) {
-      total
+    teamCommissions(teamReport: $teamReport, sort: $sort, page: $page, filter: $filter) {
       weeklyCommissions {
         id
         ID
@@ -40,15 +39,18 @@ export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
         endR
         pkgL
         pkgR
+        note
         status
+        username
+        fullName
+        memberId
+        createdAt
         shortNote
         commission
         weekStartDate
-        member {
-          assetId
-          username
-        }
+        commissionDefault
       }
+      total
     }
   }
 `);
