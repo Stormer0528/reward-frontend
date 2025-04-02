@@ -72,7 +72,7 @@ export default function TXCWallets({ wallets }: Props) {
         TXC Wallets
       </Typography>
       {forms?.map((item, index) => (
-        <Stack key={item.id} sx={{ mb: 1 }}>
+        <Stack key={item.id} sx={{ mb: 3 }}>
           <Box
             key={item.id}
             rowGap={3}
