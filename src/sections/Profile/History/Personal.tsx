@@ -177,17 +177,6 @@ export default function Personal({ me }: Props) {
           <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
             <Stack width={0.5}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                Balance:
-              </Typography>
-            </Stack>
-            <Stack width={1}>
-              <Typography variant="body2">{fCurrency(me.balance)}</Typography>
-            </Stack>
-          </Stack>
-
-          <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
-            <Stack width={0.5}>
-              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                 Commission Default:
               </Typography>
             </Stack>

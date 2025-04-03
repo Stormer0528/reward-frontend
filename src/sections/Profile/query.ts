@@ -13,7 +13,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       mobile
       status
       assetId
-      balance
       country
       zipCode
       username
@@ -54,7 +53,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         status
         mobile
         assetId
-        balance
         country
         username
         fullName
@@ -84,7 +82,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         assetId
         country
-        balance
         username
         fullName
         allowState
@@ -110,7 +107,6 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         mobile
         status
         assetId
-        balance
         username
         fullName
         allowState
@@ -258,8 +254,8 @@ export const UPDATE_MEMBER = gql(/* GraphQL */ `
 export const FETCH_MEMBER_HISTORY = gql(/* GraphQL */ `
   query MemberOverview($data: IDInput!) {
     memberOverview(data: $data) {
+      point
       joinDate
-      cashAvailable
       totalTXCShared
       currentHashPower
       cashCommissionPotential

@@ -54,7 +54,6 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           mobile
           status
           assetId
-          balance
           username
           fullName
           allowState
