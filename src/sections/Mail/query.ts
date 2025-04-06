@@ -25,6 +25,7 @@ export const FETCH_EMAILS_QUERY = gql(/* GraphQL */ `
           OTPEnabled
           teamStrategy
           syncWithSendy
+          isTexitRanger
           emailVerified
           primaryAddress
           totalIntroducers
@@ -78,6 +79,7 @@ export const FETCH_RECIPIENTS_QUERY = gql(/* GraphQL */ `
             OTPEnabled
             teamStrategy
             syncWithSendy
+            isTexitRanger
             emailVerified
             primaryAddress
             totalIntroducers
@@ -106,6 +108,7 @@ export const FETCH_RECIPIENTS_QUERY = gql(/* GraphQL */ `
           OTPEnabled
           teamStrategy
           syncWithSendy
+          isTexitRanger
           emailVerified
           primaryAddress
           totalIntroducers
@@ -134,6 +137,7 @@ export const FETCH_TEAM_MEMBER_QUERY = gql(/* GraphQL */ `
       OTPEnabled
       teamStrategy
       syncWithSendy
+      isTexitRanger
       emailVerified
       primaryAddress
       totalIntroducers
@@ -168,6 +172,7 @@ export const FETCH_EMAILBYID_QUERY = gql(/* GraphQL */ `
         OTPEnabled
         teamStrategy
         syncWithSendy
+        isTexitRanger
         emailVerified
         primaryAddress
         totalIntroducers
@@ -220,6 +225,7 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
           OTPEnabled
           teamStrategy
           syncWithSendy
+          isTexitRanger
           emailVerified
           primaryAddress
           totalIntroducers
@@ -248,6 +254,7 @@ export const FETCH_RECIPIENTBYID_QUERY = gql(/* GraphQL */ `
         OTPEnabled
         teamStrategy
         syncWithSendy
+        isTexitRanger
         emailVerified
         primaryAddress
         totalIntroducers

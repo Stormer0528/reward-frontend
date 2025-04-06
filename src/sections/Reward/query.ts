@@ -62,6 +62,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           teamStrategy
           emailVerified
           syncWithSendy
+          isTexitRanger
           primaryAddress
           secondaryAddress
           totalIntroducers
