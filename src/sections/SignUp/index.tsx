@@ -62,6 +62,7 @@ export function SignUpView() {
     email: '',
     assetId: null,
     note: '',
+    uname: '',
     password: '',
     primaryAddress: '',
     secondaryAddress: '',
@@ -88,7 +89,7 @@ export function SignUpView() {
   const { sendVerification } = useSendEmailVerification();
 
   const onSubmit = handleSubmit(
-    async ({ confirmPassword, firstName, lastName, sponsorUserId, username, ...rest }) => {
+    async ({ confirmPassword, firstName, lastName, sponsorUserId, uname, ...rest }) => {
       try {
         if (user) {
           await handleSignOut();
@@ -104,7 +105,7 @@ export function SignUpView() {
           variables: {
             data: {
               ...rest,
-              username: removeSpecialCharacters(username),
+              username: removeSpecialCharacters(uname),
               state,
               country,
               fullName: `${firstName} ${lastName}`,
@@ -125,7 +126,7 @@ export function SignUpView() {
           const [error] = err.graphQLErrors;
 
           if (error.path?.includes('username')) {
-            setError('username', { type: 'manual', message: error?.message || '' });
+            setError('uname', { type: 'manual', message: error?.message || '' });
           }
 
           toast.error(error.message);
@@ -268,7 +269,7 @@ export function SignUpView() {
         </Stack>
         <Stack width={1}>
           <Field.Text
-            name="username"
+            name="uname"
             label="Affiliate ID"
             placeholder="5 characters or more"
             InputLabelProps={{ shrink: true }}
