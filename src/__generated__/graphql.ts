@@ -346,7 +346,9 @@ export type CreateEmailTemplateInput = {
 export type CreateGroupSettingCommissionBonusInput = {
   commission: Scalars['Int']['input'];
   lPoint: Scalars['Int']['input'];
+  qPackageId: Scalars['ID']['input'];
   rPoint: Scalars['Int']['input'];
+  uPackageId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type CreateGroupSettingInput = {
@@ -686,7 +688,9 @@ export type GroupSettingCommissionBonus = {
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   frontActions?: Maybe<Array<FrontAction>>;
   lPoint: Scalars['Int']['output'];
+  qPackageId: Scalars['ID']['output'];
   rPoint: Scalars['Int']['output'];
+  uPackageId?: Maybe<Scalars['ID']['output']>;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };
 
