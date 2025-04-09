@@ -160,6 +160,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         sent
         body
         email
+        sender
         subject
         openTime
         sentTime
