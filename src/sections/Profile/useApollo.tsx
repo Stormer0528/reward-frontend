@@ -10,6 +10,7 @@ import {
   VERIFY_2FA_ENABLE,
   FETCH_MEMBERS_QUERY,
   FETCH_PAYOUTS_QUERY,
+  UPDATE_SETTING_MEMBER,
   UPDATE_MEMBER_PASSWORD,
   FETCH_MEMBER_STATS_QUERY,
   FETCH_PLACEMENT_MEMBERS_QUERY,
@@ -152,4 +153,13 @@ export function useDisable2FA() {
   const [disable2FA, { loading, data, error }] = useMutation(DISABLE_2FA);
 
   return { loading, data, error, disable2FA };
+}
+
+export function useUpdateSettingMember() {
+  const [updateSettingMember, { loading, data, error }] = useMutation(UPDATE_SETTING_MEMBER, {
+    awaitRefetchQueries: true,
+    refetchQueries: ['fetchMe'],
+  });
+
+  return { loading, data, error, updateSettingMember };
 }
