@@ -165,6 +165,11 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         openTime
         sentTime
       }
+      setting {
+        id
+        memberId
+        communication
+      }
       createdAt
       updatedAt
       deletedAt
@@ -335,6 +340,14 @@ export const DISABLE_2FA = gql(/* GraphQL */ `
   mutation Disable2FA {
     disable2FA {
       accessToken
+    }
+  }
+`);
+
+export const UPDATE_SETTING_MEMBER = gql(/* GraphQL */ `
+  mutation UpsertSettingByMemberId($data: UpsertSettingInput!) {
+    upsertSettingByMemberId(data: $data) {
+      id
     }
   }
 `);
