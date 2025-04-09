@@ -94,6 +94,7 @@ export const TARGET = [
 
 export const NOTIFICATION_LEVEL = {
   ALL: 'All',
+  ADMIN: 'Admin',
   INDIVIDUAL: 'Individual',
   TEAMLEADER: 'Team Leader',
 };
