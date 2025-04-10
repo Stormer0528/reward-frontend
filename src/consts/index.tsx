@@ -107,3 +107,6 @@ export enum State {
   Printed = 'Printed',
   Voided = 'Voided',
 }
+
+export const HELP_MINETXC = 'https://help.minetxc.com/';
+export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';

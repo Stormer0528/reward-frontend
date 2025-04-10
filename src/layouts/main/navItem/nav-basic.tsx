@@ -7,6 +7,8 @@ import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
+import { HELP_MINETXC } from 'src/consts';
+
 import { Iconify } from 'src/components/Iconify';
 import DarkLogo from 'src/components/logo/dark-logo';
 import { NavBasicMobile, NavBasicDesktop } from 'src/components/NavBasic';
@@ -43,6 +45,10 @@ export function NavBasic() {
     {
       title: 'TEXITcoin.org',
       path: 'https://texitcoin.org/',
+    },
+    {
+      title: 'Help',
+      path: HELP_MINETXC,
     },
     {
       title: 'JOIN NOW!',
