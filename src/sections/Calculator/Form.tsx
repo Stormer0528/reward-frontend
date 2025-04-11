@@ -104,7 +104,7 @@ export default function EditForm() {
         </Box>
 
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-          <LoadingButton type="submit" variant="contained" loading={loading}>
+          <LoadingButton type="submit" variant="contained" color="primary" loading={loading}>
             Calculate
           </LoadingButton>
         </Stack>
