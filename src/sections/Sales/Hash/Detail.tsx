@@ -105,10 +105,10 @@ export default function Detail({
 
           setOrderId(data?.createOrder.id);
           setWalletId(data?.createOrder.waitAddressId ?? '');
-          setBalance(data?.createOrder.waitAddress?.initBalance);
+          setBalance(data?.createOrder.waitAddress?.totalBalance);
           setAddress(data?.createOrder.waitAddress?.address ?? '');
           setQrCode(
-            `${paymentType === ChainType.Txc ? 'texitcoin' : 'ethereum'}:${data?.createOrder.waitAddress?.address}[value=${data?.createOrder.waitAddress?.initBalance}]`
+            `${paymentType === ChainType.Txc ? 'texitcoin' : 'ethereum'}:${data?.createOrder.waitAddress?.address}[value=${data?.createOrder.waitAddress?.totalBalance}]`
           );
         }
       } catch (error) {

@@ -79,7 +79,7 @@ export const CREATE_ORDER = gql(/* GraphQL */ `
       waitAddress {
         id
         address
-        initBalance
+        totalBalance
       }
     }
   }
