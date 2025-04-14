@@ -12,6 +12,7 @@ export const SPONSORTREE_NODE_HEIGHT = 100;
 
 export const PASSWORD_REGEXP =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.>])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.>]{8,}$/;
+export const TIME_LEFT = 1200;
 
 export const COMMISSION_TYPE = {
   PENDING: 'PENDING',
