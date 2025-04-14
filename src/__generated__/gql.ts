@@ -71,7 +71,7 @@ const documents = {
     "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      status\n      accessToken\n      passwordExpired\n    }\n  }\n": types.LoginDocument,
 =======
     "\n  query CheckAddressWaitStatus($data: IDInput!) {\n    checkAddressWaitStatus(data: $data) {\n      status\n    }\n  }\n": types.CheckAddressWaitStatusDocument,
-    "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        initBalance\n      }\n    }\n  }\n": types.CreateOrderDocument,
+    "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        totalBalance\n      }\n    }\n  }\n": types.CreateOrderDocument,
     "\n  mutation CompleteOrder($data: CompleteOrderInput!) {\n    completeOrder(data: $data) {\n      status\n    }\n  }\n": types.CompleteOrderDocument,
     "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      result\n      message\n    }\n  }\n": types.CancelOrderDocument,
     "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.LoginDocument,
@@ -344,7 +344,7 @@ export function gql(source: "\n  query CheckAddressWaitStatus($data: IDInput!) {
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        initBalance\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        initBalance\n      }\n    }\n  }\n"];
+export function gql(source: "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        totalBalance\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        totalBalance\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
