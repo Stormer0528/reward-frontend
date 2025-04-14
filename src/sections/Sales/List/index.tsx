@@ -5,8 +5,11 @@ import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-comm
 import { useMemo } from 'react';
 
 import Card from '@mui/material/Card';
+import Button from '@mui/material/Button';
 
 import { paths } from 'src/routes/paths';
+
+import { useBoolean } from 'src/hooks/useBoolean';
 
 import { formatID } from 'src/utils/helper';
 import { formatDate } from 'src/utils/format-time';
@@ -14,11 +17,16 @@ import { formatDate } from 'src/utils/format-time';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { AgGrid } from 'src/components/AgGrid';
+import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { useFetchSales } from 'src/sections/Sales/useApollo';
 
+import Hash from '../Hash';
+
 export default function SaleListView() {
+  const open = useBoolean();
+
   const { loading, rowCount, sales } = useFetchSales();
 
   const colDefs = useMemo<ColDef<BasicSale>[]>(
@@ -115,7 +123,18 @@ export default function SaleListView() {
         sx={{
           mb: { xs: 1, md: 2 },
         }}
+        action={
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+            onClick={open.onTrue}
+          >
+            Add Hash
+          </Button>
+        }
       />
+
       <Card
         sx={{
           flexGrow: 1,
@@ -131,6 +150,8 @@ export default function SaleListView() {
           totalRowCount={rowCount}
         />
       </Card>
+
+      <Hash open={open} />
     </DashboardContent>
   );
 }
