@@ -62,3 +62,42 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const CHECK_ADDRESS_WAIT_STATUS = gql(/* GraphQL */ `
+  query CheckAddressWaitStatus($data: IDInput!) {
+    checkAddressWaitStatus(data: $data) {
+      status
+    }
+  }
+`);
+
+export const CREATE_ORDER = gql(/* GraphQL */ `
+  mutation CreateOrder($data: CreateOrderInput!) {
+    createOrder(data: $data) {
+      id
+      waitAddressId
+      waitAddress {
+        id
+        address
+        initBalance
+      }
+    }
+  }
+`);
+
+export const COMPLETE_ORDER = gql(/* GraphQL */ `
+  mutation CompleteOrder($data: CompleteOrderInput!) {
+    completeOrder(data: $data) {
+      status
+    }
+  }
+`);
+
+export const CANCEL_ORDER = gql(/* GraphQL */ `
+  mutation CancelOrder($data: IDInput!) {
+    cancelOrder(data: $data) {
+      result
+      message
+    }
+  }
+`);
