@@ -1,11 +1,19 @@
 import { useRef, useMemo } from 'react';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
 
 import { useAgQuery as useQueryString } from 'src/routes/hooks';
 
 import { parseFilterModel } from 'src/utils/parseFilter';
 
-import { FETCH_SALES_QUERY, FETCH_PACKAGES_QUERY, FETCH_SALES_STATS_QUERY } from './query';
+import {
+  CREATE_ORDER,
+  CANCEL_ORDER,
+  COMPLETE_ORDER,
+  FETCH_SALES_QUERY,
+  FETCH_PACKAGES_QUERY,
+  FETCH_SALES_STATS_QUERY,
+  CHECK_ADDRESS_WAIT_STATUS,
+} from './query';
 
 export function useFetchSales() {
   const [{ page = '1,25', sort = 'orderedAt', filter }] = useQueryString();
@@ -63,4 +71,29 @@ export function useFetchPackages() {
     packages: data?.packages.packages ?? [],
     fetchPackages,
   };
+}
+
+export function useCheckAddressWaitStatus() {
+  const [checkAddressWaitStatus, { loading, data, error }] =
+    useLazyQuery(CHECK_ADDRESS_WAIT_STATUS);
+
+  return { loading, status: data?.checkAddressWaitStatus.status, error, checkAddressWaitStatus };
+}
+
+export function useCreateOrder() {
+  const [createOrder, { loading, data, error }] = useMutation(CREATE_ORDER);
+
+  return { loading, data, error, createOrder };
+}
+
+export function useCompleteOrder() {
+  const [completeOrder, { loading, data, error }] = useMutation(COMPLETE_ORDER);
+
+  return { loading, data, error, completeOrder };
+}
+
+export function useCancelOrder() {
+  const [cancelOrder, { loading, data, error }] = useMutation(CANCEL_ORDER);
+
+  return { loading, data, error, cancelOrder };
 }
