@@ -15,7 +15,7 @@ export default function Footer() {
       <Container>
         <Grid container alignItems="center" spacing={2}>
           <Grid xs={12} md={6} lg={4}>
-            <DarkLogo />
+            <DarkLogo sx={{ background: '#ffffff', borderRadius: 50 }} />
           </Grid>
           <Grid xs={12} md={6} lg={4} sx={{ textAlign: { xs: 'left', lg: 'center' } }}>
             <Text>© Copyright 2025 TEXITcoin.</Text>
