@@ -7,6 +7,8 @@ import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config';
 
+import { useSettingsContext } from '../settings';
+
 // ----------------------------------------------------------------------
 
 export interface DarkLogoProps extends BoxProps {
@@ -15,13 +17,23 @@ export interface DarkLogoProps extends BoxProps {
 
 const DarkLogo = forwardRef<HTMLDivElement, DarkLogoProps>(
   ({ disabledLink = false, sx, ...other }, ref) => {
+    const { colorScheme } = useSettingsContext();
     // OR using local (public folder)
     // -------------------------------------------------------
     const logo = (
       <Box
         component="img"
         src={`${CONFIG.site.basePath}/assets/images/dark-logo.png`}
-        sx={{ width: 70, height: 70, cursor: 'pointer', ...sx }}
+        sx={{
+          width: 70,
+          height: 70,
+          cursor: 'pointer',
+          ...(colorScheme === 'dark' && {
+            background: '#ffffff',
+            borderRadius: 50,
+          }),
+          ...sx,
+        }}
       />
     );
 
