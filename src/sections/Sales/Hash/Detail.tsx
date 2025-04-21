@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography';
 import { truncateMiddle } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
-import { ChainType, WaitTransactionStatus } from 'src/__generated__/graphql';
+import { PAYMENT_METHOD } from 'src/consts';
+import { type PaymentType, WaitTransactionStatus } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
@@ -24,7 +25,7 @@ interface Props {
   setOrderId: Function;
   setWalletId: Function;
   setTimeLeft: Function;
-  paymentType: ChainType;
+  paymentType: PaymentType;
 }
 
 export default function Detail({
@@ -64,8 +65,8 @@ export default function Detail({
         icon: 'entypo:wallet',
       },
       {
-        label: balance / (paymentType === ChainType.Txc ? 10 ** 9 : 10 ** 18),
-        value: balance / (paymentType === ChainType.Txc ? 10 ** 9 : 10 ** 18),
+        label: balance / PAYMENT_METHOD[paymentType].balance,
+        value: balance / PAYMENT_METHOD[paymentType].balance,
         icon: 'lsicon:amount-dollar-filled',
       },
     ],
@@ -108,7 +109,7 @@ export default function Detail({
           setBalance(data?.createOrder.waitAddress?.totalBalance);
           setAddress(data?.createOrder.waitAddress?.address ?? '');
           setQrCode(
-            `${paymentType === ChainType.Txc ? 'texitcoin' : 'ethereum'}:${data?.createOrder.waitAddress?.address}[value=${data?.createOrder.waitAddress?.totalBalance}]`
+            `${PAYMENT_METHOD[paymentType].label}:${data?.createOrder.waitAddress?.address}?value=${data?.createOrder.waitAddress?.totalBalance}${PAYMENT_METHOD[paymentType].token && `&token=${PAYMENT_METHOD[paymentType].token}`}`
           );
         }
       } catch (error) {
@@ -136,11 +137,11 @@ export default function Detail({
                 transform: 'translate(-50%, -50%)',
                 background: theme.palette.background.paper,
                 borderRadius: '50%',
-                padding: 1,
+                padding: 0.5,
               }}
             >
               <Avatar
-                src={`${CONFIG.site.basePath}/assets/logo-100.png`}
+                src={`${CONFIG.site.basePath}/assets/${paymentType}.png`}
                 sx={{ width: 50, height: 50 }}
               />
             </Box>

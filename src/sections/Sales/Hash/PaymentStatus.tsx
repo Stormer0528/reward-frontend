@@ -12,7 +12,7 @@ import { useCompleteOrder } from '../useApollo';
 
 interface Props {
   status: string;
-  orderId: string;
+  orderId: number;
   paymentId: string;
 }
 

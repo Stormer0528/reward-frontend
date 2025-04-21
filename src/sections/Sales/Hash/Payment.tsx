@@ -5,23 +5,40 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
-import { ChainType } from 'src/__generated__/graphql';
+import { PaymentType } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-const payments = [
+import type { PAYMENT_METHOD_TYPE } from './type';
+
+const payments: PAYMENT_METHOD_TYPE[] = [
   {
-    value: ChainType.Txc,
+    value: PaymentType.Txc,
     label: 'Texitcoin',
-    icon: `${CONFIG.site.basePath}/assets/logo-100.png`,
+    icon: `${CONFIG.site.basePath}/assets/TXC.png`,
     backgroundColor: '#eeeeee',
+    disable: true,
+  },
+  // {
+  //   value: PaymentType.Eth,
+  //   label: 'Ethereum',
+  //   icon: `${CONFIG.site.basePath}/assets/ETH.png`,
+  //   backgroundColor: '#ffffff',
+  // },
+  {
+    value: PaymentType.Usdc,
+    label: 'USDC',
+    icon: `${CONFIG.site.basePath}/assets/USDC.png`,
+    backgroundColor: '#ffffff',
+    disable: false,
   },
   {
-    value: ChainType.Eth,
-    label: 'Ethereum',
-    icon: `${CONFIG.site.basePath}/assets/ethereum.png`,
+    value: PaymentType.Usdt,
+    label: 'USDT',
+    icon: `${CONFIG.site.basePath}/assets/USDT.png`,
     backgroundColor: '#ffffff',
+    disable: false,
   },
 ];
 
@@ -54,10 +71,10 @@ export default function Payment({ paymentType, setPaymentType }: Props) {
           alignItems="center"
           justifyContent="space-between"
           onClick={() => {
-            if (payment.value === ChainType.Eth) {
+            if (!payment.disable) {
               setPaymentType(payment.value);
             } else {
-              toast.info('TXC is currently unavailable');
+              toast.info('This payment is currently unavailable');
             }
           }}
         >
