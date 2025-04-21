@@ -36,12 +36,13 @@ export type AccessTokenResponse = {
 export type Address = {
   __typename?: 'Address';
   address: Scalars['ID']['output'];
-  type: ChainType;
+  balance: Scalars['BigInt']['output'];
+  type: PaymentType;
 };
 
 export type AddressInput = {
   address: Scalars['ID']['input'];
-  type: ChainType;
+  type: PaymentType;
 };
 
 export type AddressResponse = {
@@ -296,11 +297,6 @@ export type CampaignResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
-export enum ChainType {
-  Eth = 'ETH',
-  Txc = 'TXC'
-}
-
 export enum CommissionDefaultEnum {
   Bogo = 'BOGO',
   CashCrypto = 'CASH_CRYPTO',
@@ -347,7 +343,7 @@ export type CommissionStatus = {
 };
 
 export type CompleteOrderInput = {
-  orderId: Scalars['String']['input'];
+  orderId: Scalars['Int']['input'];
   paymentId: Scalars['String']['input'];
 };
 
@@ -493,7 +489,7 @@ export type CreateMemberStatisticsInput = {
 
 export type CreateOrderInput = {
   packageId: Scalars['String']['input'];
-  paymentType: ChainType;
+  paymentType: PaymentType;
 };
 
 export type CreatePackageInput = {
@@ -1274,7 +1270,7 @@ export type MutationApproveMemberArgs = {
 
 
 export type MutationCancelOrderArgs = {
-  data: IdInput;
+  data: IdnInput;
 };
 
 
@@ -1838,7 +1834,7 @@ export type Order = {
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   frontActions?: Maybe<Array<FrontAction>>;
-  id: Scalars['ID']['output'];
+  id: Scalars['Int']['output'];
   member?: Maybe<Member>;
   memberId: Scalars['String']['output'];
   package?: Maybe<Package>;
@@ -1949,6 +1945,12 @@ export type PaymentMethodResponse = {
   paymentMethods?: Maybe<Array<PaymentMethod>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
+
+export enum PaymentType {
+  Txc = 'TXC',
+  Usdc = 'USDC',
+  Usdt = 'USDT'
+}
 
 export type Payout = {
   __typename?: 'Payout';
@@ -2144,6 +2146,7 @@ export type Query = {
   newMemberCounts: Array<MinerCountStatsResponse>;
   notifications: NotificationResponse;
   onepointAwayMembers: MembersResponse;
+  orderById: Order;
   orders: OrderResponse;
   packages: PackageResponse;
   paymentMethodLinks: PaymentMethodLinkResponse;
@@ -2446,6 +2449,11 @@ export type QueryNotificationsArgs = {
 export type QueryOnepointAwayMembersArgs = {
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryOrderByIdArgs = {
+  data: IdnInput;
 };
 
 
@@ -2896,19 +2904,17 @@ export type TopRecruitersResponse = {
 
 export type Transaction = {
   __typename?: 'Transaction';
-  address: Scalars['String']['output'];
+  balance: Scalars['BigInt']['output'];
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  expiredAt: Scalars['DateTimeISO']['output'];
+  from: Scalars['String']['output'];
   frontActions?: Maybe<Array<FrontAction>>;
-  id: Scalars['ID']['output'];
-  initBalance: Scalars['BigInt']['output'];
-  initUnitPrice: Scalars['Float']['output'];
-  receivedAt: Scalars['DateTimeISO']['output'];
-  receivedBalance: Scalars['BigInt']['output'];
-  status: WaitTransactionStatus;
-  type: ChainType;
+  hash: Scalars['ID']['output'];
+  to: Scalars['String']['output'];
+  type: PaymentType;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  waitAddress?: Maybe<WaitAddress>;
+  waitAddressId?: Maybe<Scalars['String']['output']>;
 };
 
 export type TransactionResponse = {
@@ -3157,11 +3163,11 @@ export type WaitAddress = {
   initBalance: Scalars['BigInt']['output'];
   initUnitPrice: Scalars['Float']['output'];
   order: Order;
-  receivedAt: Scalars['DateTimeISO']['output'];
+  receivedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   receivedBalance: Scalars['BigInt']['output'];
   status: WaitTransactionStatus;
   totalBalance: Scalars['BigInt']['output'];
-  type: ChainType;
+  type: PaymentType;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };
 
@@ -3681,7 +3687,7 @@ export type CreateOrderMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'Order', id: string, waitAddressId: string, waitAddress?: { __typename?: 'WaitAddress', id: string, address: string, totalBalance: any } | null } };
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'Order', id: number, waitAddressId: string, waitAddress?: { __typename?: 'WaitAddress', id: string, address: string, totalBalance: any } | null } };
 
 export type CompleteOrderMutationVariables = Exact<{
   data: CompleteOrderInput;
@@ -3691,7 +3697,7 @@ export type CompleteOrderMutationVariables = Exact<{
 export type CompleteOrderMutation = { __typename?: 'Mutation', completeOrder: { __typename?: 'OrderStatusResponse', status: OrderStatus } };
 
 export type CancelOrderMutationVariables = Exact<{
-  data: IdInput;
+  data: IdnInput;
 }>;
 
 
@@ -3954,7 +3960,7 @@ export const LoginDocument = {"kind":"Document","definitions":[{"kind":"Operatio
 export const CheckAddressWaitStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CheckAddressWaitStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"checkAddressWaitStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<CheckAddressWaitStatusQuery, CheckAddressWaitStatusQueryVariables>;
 export const CreateOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"waitAddressId"}},{"kind":"Field","name":{"kind":"Name","value":"waitAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}}]}}]}}]}}]} as unknown as DocumentNode<CreateOrderMutation, CreateOrderMutationVariables>;
 export const CompleteOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CompleteOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CompleteOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"completeOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<CompleteOrderMutation, CompleteOrderMutationVariables>;
-export const CancelOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CancelOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cancelOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<CancelOrderMutation, CancelOrderMutationVariables>;
+export const CancelOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CancelOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDNInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cancelOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<CancelOrderMutation, CancelOrderMutationVariables>;
 export const LoginDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Login"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"MemberLoginInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberLogin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<LoginMutation, LoginMutationVariables>;
 >>>>>>> 28c9c57 (Add order operation query)
 export const SignUpMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignUpMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SignupFormInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signUpMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<SignUpMemberMutation, SignUpMemberMutationVariables>;
