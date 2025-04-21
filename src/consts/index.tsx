@@ -112,5 +112,28 @@ export enum State {
   Voided = 'Voided',
 }
 
+export const PAYMENT_METHOD = {
+  TXC: {
+    label: 'Texitcoin',
+    balance: 10 ** 9,
+    token: null,
+  },
+  USDC: {
+    label: 'Ethereum',
+    balance: 10 ** 6,
+    token: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606e48',
+  },
+  USDT: {
+    label: 'Ethereum',
+    balance: 10 ** 6,
+    token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+  },
+  ETH: {
+    label: 'Ethereum',
+    balance: 10 ** 18,
+    token: null,
+  },
+};
+
 export const HELP_MINETXC = 'https://help.minetxc.com/';
 export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';
