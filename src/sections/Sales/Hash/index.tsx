@@ -77,6 +77,7 @@ export default function Hash({ open }: Props) {
           {step === 2 && (
             <Detail
               setStep={setStep}
+              timeLeft={timeLeft}
               walletId={walletId}
               setStatus={setStatus}
               packageId={packageId!}
@@ -129,6 +130,7 @@ export default function Hash({ open }: Props) {
             }
 
             setTimeLeft(TIME_LEFT);
+            setWalletId('');
           }}
         >
           {step === 3 ? 'Close' : 'Cancel'}

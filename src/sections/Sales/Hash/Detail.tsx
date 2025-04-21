@@ -18,6 +18,7 @@ import { Iconify } from 'src/components/Iconify';
 import { useCreateOrder, useCheckAddressWaitStatus } from '../useApollo';
 
 interface Props {
+  timeLeft: number;
   walletId: string;
   packageId: string;
   setStep: Function;
@@ -30,6 +31,7 @@ interface Props {
 
 export default function Detail({
   setStep,
+  timeLeft,
   walletId,
   packageId,
   setStatus,
@@ -75,7 +77,7 @@ export default function Detail({
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (walletId) {
+      if (walletId && timeLeft % 10 === 0) {
         checkAddressWaitStatus({ variables: { data: { id: walletId } } });
 
         if (status && status !== WaitTransactionStatus.Wait) {
@@ -92,11 +94,11 @@ export default function Detail({
 
         return prev - 1;
       });
-    }, 10000);
+    }, 1000);
 
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, walletId]);
+  }, [status, walletId, timeLeft]);
 
   useEffect(() => {
     const create = async () => {
