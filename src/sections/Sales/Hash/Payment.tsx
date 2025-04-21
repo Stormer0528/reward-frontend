@@ -54,6 +54,7 @@ export default function Payment({ paymentType, setPaymentType }: Props) {
     <Box sx={{ backgroundColor: 'background.neutral', borderRadius: 1, p: 1 }}>
       {payments.map((payment) => (
         <Box
+          key={payment.value}
           sx={{
             p: 1,
             my: 1,
