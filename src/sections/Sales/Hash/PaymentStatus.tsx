@@ -42,11 +42,11 @@ export default function PaymentStatus({ status, orderId, paymentId }: Props) {
         </>
       )}
 
-      {status === WaitTransactionStatus.Failed && (
+      {status === WaitTransactionStatus.Canceled && (
         <>
           <Iconify icon="ix:namur-failure-filled" width={80} height={80} color="red" />
           <Typography variant="h6">
-            The transaction failed. Please contact our support team for assistance.
+            The transaction canceled. Please contact our support team for assistance.
           </Typography>
         </>
       )}
