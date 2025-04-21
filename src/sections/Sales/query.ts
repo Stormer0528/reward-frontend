@@ -94,7 +94,7 @@ export const COMPLETE_ORDER = gql(/* GraphQL */ `
 `);
 
 export const CANCEL_ORDER = gql(/* GraphQL */ `
-  mutation CancelOrder($data: IDInput!) {
+  mutation CancelOrder($data: IDNInput!) {
     cancelOrder(data: $data) {
       result
       message
