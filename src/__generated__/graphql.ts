@@ -3178,7 +3178,8 @@ export type WaitAddressResponse = {
 };
 
 export enum WaitTransactionStatus {
-  Failed = 'FAILED',
+  Canceled = 'CANCELED',
+  Expired = 'EXPIRED',
   Received = 'RECEIVED',
   Wait = 'WAIT'
 }
