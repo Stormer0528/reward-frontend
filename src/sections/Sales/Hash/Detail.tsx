@@ -92,7 +92,7 @@ export default function Detail({
 
         return prev - 1;
       });
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
