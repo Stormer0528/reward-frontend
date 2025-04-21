@@ -1,4 +1,4 @@
-import type { ChainType } from 'src/__generated__/graphql';
+import type { PaymentType } from 'src/__generated__/graphql';
 import type { UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import { useState, useEffect } from 'react';
@@ -33,11 +33,11 @@ export default function Hash({ open }: Props) {
 
   const [step, setStep] = useState<number>(0);
   const [status, setStatus] = useState<string>('');
-  const [orderId, setOrderId] = useState<string>('');
+  const [orderId, setOrderId] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState(TIME_LEFT);
   const [packageId, setPackageId] = useState<string>();
   const [walletId, setWalletId] = useState<string>('');
-  const [paymentType, setPaymentType] = useState<ChainType>();
+  const [paymentType, setPaymentType] = useState<PaymentType>();
 
   const { cancelOrder } = useCancelOrder();
 
@@ -125,7 +125,7 @@ export default function Hash({ open }: Props) {
             setStep(0);
 
             if (step !== 3) {
-              await cancelOrder({ variables: { data: { id: orderId } } });
+              await cancelOrder({ variables: { data: { ID: orderId } } });
             }
 
             setTimeLeft(TIME_LEFT);
