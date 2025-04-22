@@ -226,3 +226,12 @@ export const FETCH_TOP_RECRUITERS = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const FETCH_MEMBERS_BY_COUNTRY = gql(/* GraphQL */ `
+  query MembersByCountry {
+    membersByCountry {
+      country
+      memberCount
+    }
+  }
+`);

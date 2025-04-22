@@ -83,6 +83,7 @@ const documents = {
     "\n  query TxcShares($data: PeriodStatsArgs!) {\n    txcShares(data: $data) {\n      base\n      baseDate\n      txc\n    }\n  }\n": types.TxcSharesDocument,
     "\n  query TopEarners {\n    topEarners {\n      avatar\n      earned\n      fullName\n    }\n  }\n": types.TopEarnersDocument,
     "\n  query TopRecruiters {\n    topRecruiters {\n      avatar\n      fullName\n      totalIntroducers\n    }\n  }\n": types.TopRecruitersDocument,
+    "\n  query MembersByCountry {\n    membersByCountry {\n      country\n      memberCount\n    }\n  }\n": types.MembersByCountryDocument,
     "\n  query FetchTeamCommissionStats(\n    $leftFilter: TeamReportSection!\n    $rightFilter: TeamReportSection!\n    $referralFilter: TeamReportSection!\n  ) {\n    LEFT: teamCommissions(teamReport: $leftFilter) {\n      total\n    }\n    RIGHT: teamCommissions(teamReport: $rightFilter) {\n      total\n    }\n    REFERRAL: teamCommissions(teamReport: $referralFilter) {\n      total\n    }\n  }\n": types.FetchTeamCommissionStatsDocument,
     "\n  query TeamCommissions(\n    $teamReport: TeamReportSection!\n    $sort: String\n    $page: String\n    $filter: JSONObject\n  ) {\n    teamCommissions(teamReport: $teamReport, sort: $sort, page: $page, filter: $filter) {\n      weeklyCommissions {\n        id\n        ID\n        begL\n        begR\n        newL\n        newR\n        maxL\n        maxR\n        endL\n        endR\n        pkgL\n        pkgR\n        note\n        status\n        username\n        fullName\n        memberId\n        createdAt\n        shortNote\n        commission\n        weekStartDate\n        commissionDefault\n      }\n      total\n    }\n  }\n": types.TeamCommissionsDocument,
     "\n  query Introducers($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        email\n        mobile\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n": types.IntroducersDocument,
@@ -383,6 +384,10 @@ export function gql(source: "\n  query TopEarners {\n    topEarners {\n      ava
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query TopRecruiters {\n    topRecruiters {\n      avatar\n      fullName\n      totalIntroducers\n    }\n  }\n"): (typeof documents)["\n  query TopRecruiters {\n    topRecruiters {\n      avatar\n      fullName\n      totalIntroducers\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query MembersByCountry {\n    membersByCountry {\n      country\n      memberCount\n    }\n  }\n"): (typeof documents)["\n  query MembersByCountry {\n    membersByCountry {\n      country\n      memberCount\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

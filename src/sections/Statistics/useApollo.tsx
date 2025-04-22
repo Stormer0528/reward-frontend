@@ -13,6 +13,7 @@ import {
   FETCH_STATISTICS_QUERY,
   FETCH_TOTAL_MINER_QUERY,
   FETCH_BLOCKS_DATA_QUERY,
+  FETCH_MEMBERS_BY_COUNTRY,
   FETCH_COMMISSION_BY_PERIOD,
 } from './query';
 
@@ -99,4 +100,10 @@ export function useFetchTopRecruiters() {
   const [fetchTopRecruiters, { loading, data }] = useLazyQuery(FETCH_TOP_RECRUITERS);
 
   return { loading, topRecruiteres: data?.topRecruiters ?? [], fetchTopRecruiters };
+}
+
+export function useFetchMemberByCountry() {
+  const [fetchMembersByCountry, { loading, data }] = useLazyQuery(FETCH_MEMBERS_BY_COUNTRY);
+
+  return { loading, members: data?.membersByCountry ?? [], fetchMembersByCountry };
 }
