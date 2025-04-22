@@ -62,6 +62,10 @@ export default function MemberCount() {
             },
           ],
           options: {
+            stroke: { width: 0 },
+            plotOptions: {
+              bar: { columnWidth: '80%' },
+            },
             xaxis: {
               tooltip: { enabled: false },
               tickAmount: 10,
@@ -81,8 +85,9 @@ export default function MemberCount() {
               },
             },
           },
-          colors: [alpha(theme.palette.secondary.dark, 0.8)],
+          colors: [alpha(theme.palette.success.darker, 0.8)],
         }}
+        type="bar"
         card
       />
     </Card>
