@@ -1,5 +1,4 @@
 import type { PaymentType } from 'src/__generated__/graphql';
-import type { UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import { useState, useEffect } from 'react';
 
@@ -13,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+
+import { useBoolean, type UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import { TIME_LEFT } from 'src/consts';
 
@@ -30,6 +31,8 @@ interface Props {
 
 export default function Hash({ open }: Props) {
   const theme = useTheme();
+
+  const confirm = useBoolean();
 
   const [step, setStep] = useState<number>(0);
   const [status, setStatus] = useState<string>('');
@@ -49,93 +52,110 @@ export default function Hash({ open }: Props) {
   }, [timeLeft]);
 
   return (
-    <Dialog open={open.value} fullWidth maxWidth="xs">
-      <DialogTitle>
-        {step === 0 && 'Select Package'}
-        {step === 1 && 'Select Payment Method'}
-        {step === 2 && (
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">Detail</Typography>
-            <Box
-              width={105}
-              border={`2px solid ${theme.palette.success.main}`}
-              borderRadius={0.5}
-              p={1}
-            >
-              <Typography>
-                {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
-              </Typography>
-            </Box>
-          </Stack>
-        )}
-        {step === 3 && 'Status'}
-      </DialogTitle>
-      <DialogContent>
-        <Paper sx={{ my: 1 }}>
-          {step === 0 && <Packages setPackageId={setPackageId} />}
-          {step === 1 && <Payment paymentType={paymentType!} setPaymentType={setPaymentType} />}
+    <>
+      <Dialog open={open.value} fullWidth maxWidth="xs">
+        <DialogTitle>
+          {step === 0 && 'Select Package'}
+          {step === 1 && 'Select Payment Method'}
           {step === 2 && (
-            <Detail
-              setStep={setStep}
-              timeLeft={timeLeft}
-              walletId={walletId}
-              setStatus={setStatus}
-              packageId={packageId!}
-              setOrderId={setOrderId}
-              setWalletId={setWalletId}
-              setTimeLeft={setTimeLeft}
-              paymentType={paymentType!}
-            />
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Typography variant="h6">Detail</Typography>
+              <Box
+                width={105}
+                border={`2px solid ${theme.palette.success.main}`}
+                borderRadius={0.5}
+                p={1}
+              >
+                <Typography>
+                  {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
+                </Typography>
+              </Box>
+            </Stack>
           )}
-          {step === 3 && <PaymentStatus status={status} orderId={orderId} paymentId={walletId} />}
-        </Paper>
-      </DialogContent>
-      <DialogActions>
-        {step < 2 && (
-          <>
-            {step > 0 && (
-              <Button variant="soft" onClick={() => setStep((prev) => prev - 1)}>
-                Previous
-              </Button>
+          {step === 3 && 'Status'}
+        </DialogTitle>
+        <DialogContent>
+          <Paper sx={{ my: 1 }}>
+            {step === 0 && <Packages setPackageId={setPackageId} />}
+            {step === 1 && <Payment paymentType={paymentType!} setPaymentType={setPaymentType} />}
+            {step === 2 && (
+              <Detail
+                setStep={setStep}
+                timeLeft={timeLeft}
+                walletId={walletId}
+                setStatus={setStatus}
+                packageId={packageId!}
+                setOrderId={setOrderId}
+                setWalletId={setWalletId}
+                setTimeLeft={setTimeLeft}
+                paymentType={paymentType!}
+              />
             )}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                if (step === 0 && !packageId) {
-                  toast.error('Package is required');
-                  return;
-                }
+            {step === 3 && <PaymentStatus status={status} orderId={orderId} paymentId={walletId} />}
+          </Paper>
+        </DialogContent>
+        <DialogActions>
+          {step < 2 && (
+            <>
+              {step > 0 && (
+                <Button variant="soft" onClick={() => setStep((prev) => prev - 1)}>
+                  Previous
+                </Button>
+              )}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  if (step === 0 && !packageId) {
+                    toast.error('Package is required');
+                    return;
+                  }
 
-                if (step === 1 && !paymentType) {
-                  toast.error('Payment is required');
-                  return;
-                }
+                  if (step === 1 && !paymentType) {
+                    toast.error('Payment is required');
+                    return;
+                  }
 
-                setStep((prev) => prev + 1);
-              }}
-            >
-              Next
-            </Button>
-          </>
-        )}
-        <Button
-          variant="outlined"
-          onClick={async () => {
-            open.onFalse();
-            setStep(0);
+                  setStep((prev) => prev + 1);
+                }}
+              >
+                Next
+              </Button>
+            </>
+          )}
+          <Button variant="outlined" onClick={confirm.onTrue}>
+            {step === 3 ? 'Close' : 'Cancel'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
-            if (step !== 3) {
-              await cancelOrder({ variables: { data: { ID: orderId } } });
-            }
+      <Dialog open={confirm.value} onClose={confirm.onFalse} maxWidth="xs" fullWidth>
+        <DialogTitle>Confirm</DialogTitle>
+        <DialogContent>Are you sure you want to cancel your order?</DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={async () => {
+              open.onFalse();
+              confirm.onFalse();
+              setStep(0);
 
-            setTimeLeft(TIME_LEFT);
-            setWalletId('');
-          }}
-        >
-          {step === 3 ? 'Close' : 'Cancel'}
-        </Button>
-      </DialogActions>
-    </Dialog>
+              if (step !== 3) {
+                await cancelOrder({ variables: { data: { ID: orderId } } });
+              }
+
+              setTimeLeft(TIME_LEFT);
+              setWalletId('');
+            }}
+          >
+            Yes
+          </Button>
+          <Button variant="outlined" onClick={confirm.onFalse}>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
