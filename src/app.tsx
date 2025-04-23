@@ -14,6 +14,7 @@ import { ProgressBar } from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
 
+import Report from './components/Report';
 import ApolloProvider from './ApolloProvider';
 import { DayjsProvider } from './DayjsProvider';
 
@@ -29,6 +30,7 @@ export default function App() {
           <SettingsProvider settings={defaultSettings}>
             <ThemeProvider>
               <MotionLazy>
+                <Report />
                 <SnackBar />
                 <ProgressBar />
                 <SettingsDrawer />
