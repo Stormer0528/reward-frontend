@@ -207,6 +207,33 @@ export type BlocksResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type BugReport = {
+  __typename?: 'BugReport';
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  description: Scalars['String']['output'];
+  files?: Maybe<Array<PFile>>;
+  frontActions?: Maybe<Array<FrontAction>>;
+  id: Scalars['ID']['output'];
+  solvedBy?: Maybe<Admin>;
+  solvedById?: Maybe<Scalars['ID']['output']>;
+  status: BugReportStatus;
+  subject: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+export type BugReportResponse = {
+  __typename?: 'BugReportResponse';
+  bugReports?: Maybe<Array<BugReport>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+export enum BugReportStatus {
+  Backlog = 'BACKLOG',
+  Done = 'DONE',
+  Wip = 'WIP'
+}
+
 export type Campaign = {
   __typename?: 'Campaign';
   body: Scalars['String']['output'];
@@ -332,6 +359,12 @@ export type CreateBlockInput = {
   issuedAt: Scalars['DateTimeISO']['input'];
 };
 
+export type CreateBugReportInput = {
+  description: Scalars['String']['input'];
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  subject: Scalars['String']['input'];
+};
+
 export type CreateCampaignInput = {
   body: Scalars['String']['input'];
   listExtra?: InputMaybe<Scalars['String']['input']>;
@@ -344,6 +377,7 @@ export type CreateEmailTemplateInput = {
   body: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   subject: Scalars['String']['input'];
+  templateID: Scalars['Int']['input'];
 };
 
 export type CreateGroupSettingCommissionBonusInput = {
@@ -579,6 +613,7 @@ export type EmailTemplate = {
   frontActions?: Maybe<Array<FrontAction>>;
   id: Scalars['ID']['output'];
   subject: Scalars['String']['output'];
+  templateID: Scalars['Int']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };
 
@@ -1049,6 +1084,7 @@ export type Mutation = {
   createAdminNote: AdminNotes;
   createAndSendCampaign: Campaign;
   createBlock: Block;
+  createBugReport: SuccessResponse;
   createEmailTemplate: EmailTemplate;
   createGroupSetting: GroupSetting;
   createInvoice: Invoice;
@@ -1079,6 +1115,8 @@ export type Mutation = {
   moveToGraveyard: SuccessResponse;
   moveToPaid: SuccessResponse;
   moveToPending: SuccessResponse;
+  moveToSolve: SuccessResponse;
+  moveToWIP: SuccessResponse;
   regenerateInvoiceById: SuccessResponse;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
@@ -1115,6 +1153,7 @@ export type Mutation = {
   signUpMember: Member;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
+  updateBugReport: BugReport;
   updateCommission: WeeklyCommission;
   updateCommissionShortNote: WeeklyCommission;
   updateCommissionsStatus: SuccessResponse;
@@ -1195,6 +1234,11 @@ export type MutationCreateAndSendCampaignArgs = {
 
 export type MutationCreateBlockArgs = {
   data: CreateBlockInput;
+};
+
+
+export type MutationCreateBugReportArgs = {
+  data: CreateBugReportInput;
 };
 
 
@@ -1339,6 +1383,16 @@ export type MutationMoveToPaidArgs = {
 
 
 export type MutationMoveToPendingArgs = {
+  data: IdInput;
+};
+
+
+export type MutationMoveToSolveArgs = {
+  data: IdInput;
+};
+
+
+export type MutationMoveToWipArgs = {
   data: IdInput;
 };
 
@@ -1515,6 +1569,11 @@ export type MutationUpdateAdminArgs = {
 
 export type MutationUpdateAdminNoteArgs = {
   data: UpdateAdminNotesInput;
+};
+
+
+export type MutationUpdateBugReportArgs = {
+  data: UpdateBugReportInput;
 };
 
 
@@ -1905,6 +1964,8 @@ export type Query = {
   averageMemberReward: Array<AverageMinerRewardStatsResponse>;
   blocks: BlocksResponse;
   blocksData: Array<BlockStatsResponse>;
+  bugReportById: BugReport;
+  bugReports: BugReportResponse;
   calculateProfitability: ProfitabilityCalculationResponse;
   campaignById: Campaign;
   campaigns: CampaignResponse;
@@ -2007,6 +2068,18 @@ export type QueryBlocksArgs = {
 
 export type QueryBlocksDataArgs = {
   data: PeriodStatsArgs;
+};
+
+
+export type QueryBugReportByIdArgs = {
+  data: IdInput;
+};
+
+
+export type QueryBugReportsArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -2642,11 +2715,19 @@ export type UpdateAdminPasswordInput = {
   oldPassword: Scalars['String']['input'];
 };
 
+export type UpdateBugReportInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id: Scalars['ID']['input'];
+  subject?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type UpdateEmailTemplateInput = {
   body?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   subject?: InputMaybe<Scalars['String']['input']>;
+  templateID?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type UpdateGroupSettingInput = {
@@ -2919,6 +3000,13 @@ export type ResetTokenVerifyMutationVariables = Exact<{
 
 
 export type ResetTokenVerifyMutation = { __typename?: 'Mutation', resetTokenVerify: { __typename?: 'VerifyTokenResponse', email: string, token: string } };
+
+export type CreateBugReportMutationVariables = Exact<{
+  data: CreateBugReportInput;
+}>;
+
+
+export type CreateBugReportMutation = { __typename?: 'Mutation', createBugReport: { __typename?: 'SuccessResponse', message?: string | null, result: SuccessResult } };
 
 export type CalculateProfitabilityQueryVariables = Exact<{
   data: ProfitabilityCalculationInput;
@@ -3461,6 +3549,7 @@ export type BlocksdataQuery = { __typename?: 'Query', blocksData: Array<{ __type
 
 export const GenerateReferenceLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateReferenceLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateReferenceLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"link"}}]}}]}}]} as unknown as DocumentNode<GenerateReferenceLinkQuery, GenerateReferenceLinkQueryVariables>;
 export const ResetTokenVerifyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ResetTokenVerify"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"TokenInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resetTokenVerify"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"token"}}]}}]}}]} as unknown as DocumentNode<ResetTokenVerifyMutation, ResetTokenVerifyMutationVariables>;
+export const CreateBugReportDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateBugReport"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateBugReportInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createBugReport"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"result"}}]}}]}}]} as unknown as DocumentNode<CreateBugReportMutation, CreateBugReportMutationVariables>;
 export const CalculateProfitabilityDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CalculateProfitability"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ProfitabilityCalculationInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"calculateProfitability"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startDate"}},{"kind":"Field","name":{"kind":"Name","value":"target"}},{"kind":"Field","name":{"kind":"Name","value":"init"}},{"kind":"Field","name":{"kind":"Name","value":"period"}},{"kind":"Field","name":{"kind":"Name","value":"txc"}},{"kind":"Field","name":{"kind":"Name","value":"txcCost"}},{"kind":"Field","name":{"kind":"Name","value":"extraTXC"}},{"kind":"Field","name":{"kind":"Name","value":"endDate"}},{"kind":"Field","name":{"kind":"Name","value":"txcPrice"}}]}}]}}]} as unknown as DocumentNode<CalculateProfitabilityQuery, CalculateProfitabilityQueryVariables>;
 export const WeeklyCommissionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"WeeklyCommissions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weeklyCommissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"ID"}},{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}},{"kind":"Field","name":{"kind":"Name","value":"maxL"}},{"kind":"Field","name":{"kind":"Name","value":"maxR"}},{"kind":"Field","name":{"kind":"Name","value":"endL"}},{"kind":"Field","name":{"kind":"Name","value":"endR"}},{"kind":"Field","name":{"kind":"Name","value":"pkgL"}},{"kind":"Field","name":{"kind":"Name","value":"pkgR"}},{"kind":"Field","name":{"kind":"Name","value":"note"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"memberId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"shortNote"}},{"kind":"Field","name":{"kind":"Name","value":"commission"}},{"kind":"Field","name":{"kind":"Name","value":"weekStartDate"}},{"kind":"Field","name":{"kind":"Name","value":"commissionDefault"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<WeeklyCommissionsQuery, WeeklyCommissionsQueryVariables>;
 export const FetchCommissionStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchCommissionStats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pendingFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"declineFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sentFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"all"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"pending"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pendingFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"decline"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"declineFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"sent"},"name":{"kind":"Name","value":"weeklyCommissions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sentFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<FetchCommissionStatsQuery, FetchCommissionStatsQueryVariables>;
