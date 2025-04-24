@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 
 import { useRouter } from 'src/routes/hooks';
 
+import { useMemberLogout } from 'src/sections/Profile/useApollo';
+
 import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
@@ -21,15 +23,18 @@ export function SignOutButton({ onClose, ...other }: Props) {
 
   const { signOut } = useAuthContext();
 
+  const { memberLogout } = useMemberLogout();
+
   const handleLogout = useCallback(async () => {
     try {
+      await memberLogout();
       signOut();
       onClose?.();
       router.refresh();
     } catch (error) {
       console.error(error);
     }
-  }, [signOut, onClose, router]);
+  }, [signOut, onClose, memberLogout, router]);
 
   return (
     <Button fullWidth variant="soft" size="large" color="error" onClick={handleLogout} {...other}>

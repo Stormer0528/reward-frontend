@@ -49,6 +49,7 @@ const documents = {
     "\n  mutation Verify2FAToken($data: TokenInput!) {\n    verify2FAToken(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.Verify2FaTokenDocument,
     "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n": types.Disable2FaDocument,
     "\n  mutation UpsertSettingByMemberId($data: UpsertSettingInput!) {\n    upsertSettingByMemberId(data: $data) {\n      id\n    }\n  }\n": types.UpsertSettingByMemberIdDocument,
+    "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n": types.MemberLogoutDocument,
     "\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordRequestDocument,
     "\n  mutation ResetPasswordByToken($data: ResetPasswordTokenInput!) {\n    resetPasswordByToken(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordByTokenDocument,
     "\n  query Reward($sort: String, $page: String, $filter: JSONObject) {\n    statistics(sort: $sort, page: $page, filter: $filter) {\n      statistics {\n        id\n        to\n        from\n        status\n        issuedAt\n        txcShared\n        newBlocks\n        totalBlocks\n        totalMembers\n        totalHashPower\n        statisticsSales {\n          id\n          saleId\n          issuedAt\n        }\n        memberStatistics {\n          txcShared\n          memberStatisticsWallets {\n            id\n          }\n        }\n      }\n      total\n    }\n  }\n": types.RewardDocument,
@@ -249,6 +250,10 @@ export function gql(source: "\n  mutation Disable2FA {\n    disable2FA {\n      
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation UpsertSettingByMemberId($data: UpsertSettingInput!) {\n    upsertSettingByMemberId(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpsertSettingByMemberId($data: UpsertSettingInput!) {\n    upsertSettingByMemberId(data: $data) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
