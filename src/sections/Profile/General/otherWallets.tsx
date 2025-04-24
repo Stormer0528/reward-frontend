@@ -30,14 +30,22 @@ export default function OtherWallets({ wallets }: Props) {
   const { control, setValue } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: 'otherWallets' });
 
-  const forms: Wallet[] = fields?.length
-    ? fields
-    : wallets.map(({ id, payoutId, address, percent }) => ({
-        id,
-        payoutId,
-        address,
-        percent,
-      }));
+  const forms = fields as Wallet[];
+
+  useEffect(() => {
+    if (fields.length === 0) {
+      wallets.forEach(({ id, payoutId, address, percent, note }) => {
+        append({
+          id,
+          payoutId,
+          address,
+          percent: percent || 0,
+          note: note || '',
+        });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     wallets.forEach(({ payoutId, address, note }, index) => {
