@@ -4,16 +4,13 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { TXC_WALLET } from 'src/consts';
 
 import { Field } from 'src/components/Form';
-import { Iconify } from 'src/components/Iconify';
 
 interface Props {
   wallets: any[];
@@ -29,17 +26,7 @@ interface Wallet {
 
 export default function TXCWallets({ wallets }: Props) {
   const { control, setValue } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ control, name: 'txcWallets' });
-
-  // const forms: Wallet[] = fields?.length
-  //   ? fields
-  //   : wallets.map(({ id, payoutId, address, percent, isDefault }) => ({
-  //       id,
-  //       payoutId,
-  //       address,
-  //       percent,
-  //       isDefault,
-  //     }));
+  const { fields, append } = useFieldArray({ control, name: 'txcWallets' });
 
   const forms = fields as Wallet[];
 
@@ -70,19 +57,19 @@ export default function TXCWallets({ wallets }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallets]);
 
-  const addWallet = () => {
-    append({
-      payoutId: '',
-      address: '',
-      note: '',
-      percent: 0,
-      isDefault: false,
-    });
-  };
+  // const addWallet = () => {
+  //   append({
+  //     payoutId: '',
+  //     address: '',
+  //     note: '',
+  //     percent: 0,
+  //     isDefault: false,
+  //   });
+  // };
 
-  const handleRemove = (index: number) => {
-    remove(index);
-  };
+  // const handleRemove = (index: number) => {
+  //   remove(index);
+  // };
 
   return (
     <Card sx={{ p: 3, mb: 2 }}>
@@ -103,6 +90,7 @@ export default function TXCWallets({ wallets }: Props) {
               label="Payout"
               defaultValue={item.payoutId}
               size="small"
+              disabled
             >
               {TXC_WALLET.map((option) => (
                 <MenuItem key={option?.id} value={option?.id}>
@@ -116,6 +104,7 @@ export default function TXCWallets({ wallets }: Props) {
               label="Address"
               defaultValue={item.address}
               size="small"
+              disabled
             />
 
             <Field.Text
@@ -124,26 +113,27 @@ export default function TXCWallets({ wallets }: Props) {
               type="number"
               defaultValue={item.percent}
               size="small"
+              disabled
             />
           </Box>
 
           <Box columnGap={2} display="grid" sx={{ gridTemplateColumns: '70% 15% auto' }}>
-            <Field.Text name={`txcWallets[${index}].note`} label="Note" size="small" />
+            <Field.Text name={`txcWallets[${index}].note`} label="Note" size="small" disabled />
 
-            <Field.Switch name={`txcWallets[${index}].isDefault`} label="Default" />
+            <Field.Switch name={`txcWallets[${index}].isDefault`} label="Default" disabled />
 
-            <Button
+            {/* <Button
               size="small"
               color="error"
               sx={{ mt: 0.5 }}
               startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
               onClick={() => handleRemove(index)}
-            />
+            /> */}
           </Box>
         </Stack>
       ))}
       <Divider flexItem sx={{ borderStyle: 'dashed', mb: 1 }} />
-      <IconButton
+      {/* <IconButton
         size="small"
         color="default"
         sx={{
@@ -154,7 +144,7 @@ export default function TXCWallets({ wallets }: Props) {
       >
         <Iconify icon="bxs:plus-circle" sx={{ mr: 1 }} />
         <Typography>Add Item</Typography>
-      </IconButton>
+      </IconButton> */}
     </Card>
   );
 }

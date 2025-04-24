@@ -4,16 +4,13 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { OTHER_WALLET } from 'src/consts';
 
 import { Field } from 'src/components/Form';
-import { Iconify } from 'src/components/Iconify';
 
 interface Props {
   wallets: any[];
@@ -28,7 +25,7 @@ interface Wallet {
 
 export default function OtherWallets({ wallets }: Props) {
   const { control, setValue } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ control, name: 'otherWallets' });
+  const { fields, append } = useFieldArray({ control, name: 'otherWallets' });
 
   const forms = fields as Wallet[];
 
@@ -57,18 +54,18 @@ export default function OtherWallets({ wallets }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallets]);
 
-  const addWallet = () => {
-    append({
-      payoutId: '',
-      address: '',
-      note: '',
-      percent: 0,
-    });
-  };
+  // const addWallet = () => {
+  //   append({
+  //     payoutId: '',
+  //     address: '',
+  //     note: '',
+  //     percent: 0,
+  //   });
+  // };
 
-  const handleRemove = (index: number) => {
-    remove(index);
-  };
+  // const handleRemove = (index: number) => {
+  //   remove(index);
+  // };
 
   return (
     <Card sx={{ p: 3, mb: 2 }}>
@@ -89,6 +86,7 @@ export default function OtherWallets({ wallets }: Props) {
               label="Payout"
               defaultValue={item.payoutId}
               size="small"
+              disabled
             >
               {OTHER_WALLET.map((option) => (
                 <MenuItem key={option?.id} value={option?.id}>
@@ -102,23 +100,24 @@ export default function OtherWallets({ wallets }: Props) {
               label="Address"
               defaultValue={item.address}
               size="small"
+              disabled
             />
           </Box>
           <Box display="grid" sx={{ gridTemplateColumns: '90% auto' }}>
-            <Field.Text name={`otherWallets[${index}].note`} label="Note" size="small" />
+            <Field.Text name={`otherWallets[${index}].note`} label="Note" size="small" disabled />
 
-            <Button
+            {/* <Button
               size="small"
               color="error"
               sx={{ mt: 0.5, width: 80 }}
               startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
               onClick={() => handleRemove(index)}
-            />
+            /> */}
           </Box>
         </Stack>
       ))}
       <Divider flexItem sx={{ borderStyle: 'dashed', mb: 1 }} />
-      <IconButton
+      {/* <IconButton
         size="small"
         color="default"
         sx={{
@@ -129,7 +128,7 @@ export default function OtherWallets({ wallets }: Props) {
       >
         <Iconify icon="bxs:plus-circle" sx={{ mr: 1 }} />
         <Typography>Add Item</Typography>
-      </IconButton>
+      </IconButton> */}
     </Card>
   );
 }
