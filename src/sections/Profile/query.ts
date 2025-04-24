@@ -351,3 +351,12 @@ export const UPDATE_SETTING_MEMBER = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const MEMBER_LOGOUT = gql(/* GraphQL */ `
+  mutation MemberLogout {
+    memberLogout {
+      result
+      message
+    }
+  }
+`);

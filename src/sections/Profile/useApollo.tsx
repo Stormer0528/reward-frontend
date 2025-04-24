@@ -4,6 +4,7 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 import {
   DISABLE_2FA,
   GENERATE_2FA,
+  MEMBER_LOGOUT,
   UPDATE_MEMBER,
   FETCH_ME_QUERY,
   VERIFY_2FA_TOKEN,
@@ -162,4 +163,10 @@ export function useUpdateSettingMember() {
   });
 
   return { loading, data, error, updateSettingMember };
+}
+
+export function useMemberLogout() {
+  const [memberLogout, { loading, data, error }] = useMutation(MEMBER_LOGOUT);
+
+  return { loading, data, error, memberLogout };
 }
