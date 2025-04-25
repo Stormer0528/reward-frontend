@@ -32,6 +32,8 @@ export default function ReportModal({ open }: Props) {
 
   const defaultValues = useMemo<SchemaType>(
     () => ({
+      who: '',
+      contact: '',
       subject: '',
       description: '',
     }),
@@ -50,10 +52,12 @@ export default function ReportModal({ open }: Props) {
     setFiles(files?.filter((file) => file.id !== fileId));
   };
 
-  const onSubmit = handleSubmit(async ({ subject, description }) => {
+  const onSubmit = handleSubmit(async (newData) => {
     try {
       const { data } = await createBugReport({
-        variables: { data: { subject, description, fileIds: files.map((file) => file.id) } },
+        variables: {
+          data: { ...newData, fileIds: files.map((file) => file.id) },
+        },
       });
 
       if (data) {
@@ -78,6 +82,19 @@ export default function ReportModal({ open }: Props) {
 
         <Form methods={methods} onSubmit={onSubmit}>
           <Box pb={3} px={3}>
+            <Box
+              mb={2}
+              columnGap={2}
+              rowGap={2}
+              display="grid"
+              gridTemplateColumns={{
+                xs: 'repeat(1, 1fr)',
+                sm: 'repeat(2, 1fr)',
+              }}
+            >
+              <Field.Text name="who" label="Name" />
+              <Field.Text name="contact" label="Contact" />
+            </Box>
             <Stack rowGap={2}>
               <Field.Text name="subject" label="Subject" />
               <Field.Text name="description" label="Description" multiline rows={5} />
@@ -99,7 +116,13 @@ export default function ReportModal({ open }: Props) {
                 <LoadingButton type="submit" variant="contained" color="primary" loading={loading}>
                   Report
                 </LoadingButton>
-                <Button variant="outlined" onClick={open.onFalse}>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    open.onFalse();
+                    reset();
+                  }}
+                >
                   Close
                 </Button>
               </Stack>
