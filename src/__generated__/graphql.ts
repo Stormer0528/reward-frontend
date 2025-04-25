@@ -209,6 +209,7 @@ export type BlocksResponse = {
 
 export type BugReport = {
   __typename?: 'BugReport';
+  contact?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   description: Scalars['String']['output'];
@@ -220,6 +221,7 @@ export type BugReport = {
   status: BugReportStatus;
   subject: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  who?: Maybe<Scalars['String']['output']>;
 };
 
 export type BugReportResponse = {
@@ -360,9 +362,11 @@ export type CreateBlockInput = {
 };
 
 export type CreateBugReportInput = {
+  contact?: InputMaybe<Scalars['String']['input']>;
   description: Scalars['String']['input'];
   fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   subject: Scalars['String']['input'];
+  who?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateCampaignInput = {
@@ -2730,10 +2734,12 @@ export type UpdateAdminPasswordInput = {
 };
 
 export type UpdateBugReportInput = {
+  contact?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   subject?: InputMaybe<Scalars['String']['input']>;
+  who?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateEmailTemplateInput = {
