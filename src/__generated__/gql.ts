@@ -47,9 +47,11 @@ const documents = {
     "\n  query generateQuery {\n    generate2FA\n  }\n": types.GenerateQueryDocument,
     "\n  mutation Verify2FAAndEnable($data: Verify2FAInput!) {\n    verify2FAAndEnable(data: $data) {\n      accessToken\n    }\n  }\n": types.Verify2FaAndEnableDocument,
     "\n  mutation Verify2FAToken($data: TokenInput!) {\n    verify2FAToken(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.Verify2FaTokenDocument,
-    "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n": types.Disable2FaDocument,
+    "\n  mutation Disable2FA($data: VerificationCodeInput!) {\n    disable2FA(data: $data) {\n      accessToken\n    }\n  }\n": types.Disable2FaDocument,
     "\n  mutation UpsertSettingByMemberId($data: UpsertSettingInput!) {\n    upsertSettingByMemberId(data: $data) {\n      id\n    }\n  }\n": types.UpsertSettingByMemberIdDocument,
     "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n": types.MemberLogoutDocument,
+    "\n  mutation MemberExchangeLogin($data: MemberLoginInput!) {\n    memberExchangeLogin(data: $data) {\n      status\n      accessToken\n    }\n  }\n": types.MemberExchangeLoginDocument,
+    "\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      result\n      message\n    }\n  }\n": types.EmailVerifyCodeDocument,
     "\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordRequestDocument,
     "\n  mutation ResetPasswordByToken($data: ResetPasswordTokenInput!) {\n    resetPasswordByToken(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordByTokenDocument,
     "\n  query Reward($sort: String, $page: String, $filter: JSONObject) {\n    statistics(sort: $sort, page: $page, filter: $filter) {\n      statistics {\n        id\n        to\n        from\n        status\n        issuedAt\n        txcShared\n        newBlocks\n        totalBlocks\n        totalMembers\n        totalHashPower\n        statisticsSales {\n          id\n          saleId\n          issuedAt\n        }\n        memberStatistics {\n          txcShared\n          memberStatisticsWallets {\n            id\n          }\n        }\n      }\n      total\n    }\n  }\n": types.RewardDocument,
@@ -67,7 +69,8 @@ const documents = {
     "\n  query Packages($sort: String, $page: String, $filter: JSONObject) {\n    packages(sort: $sort, page: $page, filter: $filter) {\n      packages {\n        id\n        date\n        token\n        point\n        amount\n        status\n        createdAt\n        updatedAt\n        deletedAt\n        productName\n        enrollVisibility\n      }\n      total\n    }\n  }\n": types.PackagesDocument,
     "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.LoginDocument,
     "\n  mutation SignUpMember($data: SignupFormInput!) {\n    signUpMember(data: $data) {\n      id\n      email\n      username\n    }\n  }\n": types.SignUpMemberDocument,
-    "\n  mutation SendEmailVerification($data: EmailInput!) {\n    sendEmailVerification(data: $data) {\n      result\n      message\n    }\n  }\n": types.SendEmailVerificationDocument,
+    "\n  mutation SendEmailVerificationCode {\n    sendEmailVerificationCode {\n      message\n      result\n    }\n  }\n": types.SendEmailVerificationCodeDocument,
+    "\n  mutation SendEmailVerificationLink($data: EmailInput!) {\n    sendEmailVerificationLink(data: $data) {\n      result\n      message\n    }\n  }\n": types.SendEmailVerificationLinkDocument,
     "\n  mutation EmailVerify($data: TokenInput!) {\n    emailVerify(data: $data) {\n      result\n      message\n      packageID\n      paymentMethod\n    }\n  }\n": types.EmailVerifyDocument,
     "\n  query Promos($sort: String, $page: String, $filter: JSONObject) {\n    promos(sort: $sort, page: $page, filter: $filter) {\n      promos {\n        id\n        code\n        status\n        endDate\n        startDate\n        createdAt\n        updatedAt\n        deletedAt\n        description\n      }\n      total\n    }\n  }\n": types.PromosDocument,
     "\n  query Query($data: LiveStatsArgs!) {\n    liveBlockStats(data: $data) {\n      dailyData {\n        count\n        field\n      }\n      meta\n      total\n    }\n    liveMiningStats {\n      dailyData {\n        count\n        field\n      }\n      meta\n      total\n    }\n    liveUserStats(data: $data) {\n      dailyData {\n        count\n        field\n      }\n      meta\n      total\n    }\n  }\n": types.QueryDocument,
@@ -245,7 +248,7 @@ export function gql(source: "\n  mutation Verify2FAToken($data: TokenInput!) {\n
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n"];
+export function gql(source: "\n  mutation Disable2FA($data: VerificationCodeInput!) {\n    disable2FA(data: $data) {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Disable2FA($data: VerificationCodeInput!) {\n    disable2FA(data: $data) {\n      accessToken\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -254,6 +257,14 @@ export function gql(source: "\n  mutation UpsertSettingByMemberId($data: UpsertS
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation MemberExchangeLogin($data: MemberLoginInput!) {\n    memberExchangeLogin(data: $data) {\n      status\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation MemberExchangeLogin($data: MemberLoginInput!) {\n    memberExchangeLogin(data: $data) {\n      status\n      accessToken\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      result\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      result\n      message\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -325,7 +336,11 @@ export function gql(source: "\n  mutation SignUpMember($data: SignupFormInput!) 
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation SendEmailVerification($data: EmailInput!) {\n    sendEmailVerification(data: $data) {\n      result\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation SendEmailVerification($data: EmailInput!) {\n    sendEmailVerification(data: $data) {\n      result\n      message\n    }\n  }\n"];
+export function gql(source: "\n  mutation SendEmailVerificationCode {\n    sendEmailVerificationCode {\n      message\n      result\n    }\n  }\n"): (typeof documents)["\n  mutation SendEmailVerificationCode {\n    sendEmailVerificationCode {\n      message\n      result\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation SendEmailVerificationLink($data: EmailInput!) {\n    sendEmailVerificationLink(data: $data) {\n      result\n      message\n    }\n  }\n"): (typeof documents)["\n  mutation SendEmailVerificationLink($data: EmailInput!) {\n    sendEmailVerificationLink(data: $data) {\n      result\n      message\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

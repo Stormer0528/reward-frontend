@@ -9,9 +9,11 @@ import {
   FETCH_ME_QUERY,
   VERIFY_2FA_TOKEN,
   VERIFY_2FA_ENABLE,
+  EMAIL_VERIFY_CODE,
   FETCH_MEMBERS_QUERY,
   FETCH_PAYOUTS_QUERY,
   UPDATE_SETTING_MEMBER,
+  MEMBER_EXCHANGE_LOGIN,
   UPDATE_MEMBER_PASSWORD,
   FETCH_MEMBER_STATS_QUERY,
   FETCH_PLACEMENT_MEMBERS_QUERY,
@@ -169,4 +171,16 @@ export function useMemberLogout() {
   const [memberLogout, { loading, data, error }] = useMutation(MEMBER_LOGOUT);
 
   return { loading, data, error, memberLogout };
+}
+
+export function useMemberExchangeLogin() {
+  const [memberExChangeLogin, { loading, data, error }] = useMutation(MEMBER_EXCHANGE_LOGIN);
+
+  return { loading, data, error, memberExChangeLogin };
+}
+
+export function useEmailVerifyCode() {
+  const [emailVerifyCode, { loading, data, error }] = useMutation(EMAIL_VERIFY_CODE);
+
+  return { loading, data, error, emailVerifyCode };
 }
