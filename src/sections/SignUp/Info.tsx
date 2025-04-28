@@ -8,18 +8,18 @@ import { useSearchParams } from 'src/routes/hooks';
 import { toast } from 'src/components/SnackBar';
 import DarkLogo from 'src/components/logo/dark-logo';
 
-import { useSendEmailVerification } from './useApollo';
+import { useSendEmailVerificationLink } from './useApollo';
 
 export default function Info() {
   const searchParams = useSearchParams();
 
   const email = searchParams.get('email');
 
-  const { loading, sendVerification } = useSendEmailVerification();
+  const { loading, sendVerificationLink } = useSendEmailVerificationLink();
 
   const handleSend = async () => {
     try {
-      const { data } = await sendVerification({ variables: { data: { email: email ?? '' } } });
+      const { data } = await sendVerificationLink({ variables: { data: { email: email ?? '' } } });
 
       if (data) {
         toast.success('Successfully sent!');
