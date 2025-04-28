@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router';
 import { useLazyQuery } from '@apollo/client';
-import { useMemo, useEffect, useCallback } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -26,6 +26,7 @@ export function AuthProvider({ children }: Props) {
   const token = localStorage.getItem(STORAGE_TOKEN_KEY);
 
   const router = useRouter();
+  const [code, setCode] = useState<any>('');
 
   const { pathname } = useLocation();
 
@@ -63,6 +64,18 @@ export function AuthProvider({ children }: Props) {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (code) {
+      const timer = setTimeout(() => {
+        setCode(null);
+      }, 1800000); // 30 minutes
+
+      return () => clearTimeout(timer); // Cleanup timer on unmount or code change
+    }
+
+    return undefined;
+  }, [code]);
+
   // LOGOUT ACTION
   const signOut = useCallback(() => {
     setToken(null);
@@ -72,8 +85,8 @@ export function AuthProvider({ children }: Props) {
   const user = data?.memberMe;
 
   const memoizedValue: AuthContextValue = useMemo(
-    () => ({ user, token, isAuthenticated: !!token, loading, signIn, signOut }),
-    [user, token, loading, signIn, signOut]
+    () => ({ user, token, code, isAuthenticated: !!token, loading, signIn, signOut, setCode }),
+    [user, code, token, loading, signIn, signOut, setCode]
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
