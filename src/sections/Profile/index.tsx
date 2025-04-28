@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
 
@@ -7,6 +8,7 @@ import Tabs from '@mui/material/Tabs';
 import { paths } from 'src/routes/paths';
 
 import { useTabs } from 'src/hooks/use-tabs';
+import { useBoolean } from 'src/hooks/useBoolean';
 
 import { CONFIG } from 'src/config';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -19,6 +21,7 @@ import { useAuthContext } from 'src/auth/hooks';
 
 import General from './General';
 import History from './History';
+import VerifyModal from './Verify';
 
 const TABS = [
   {
@@ -32,8 +35,9 @@ const TABS = [
 // ----------------------------------------------------------------------
 export default function Profile() {
   const tabs = useTabs('history');
-
-  const { user, loading } = useAuthContext();
+  const [tabEvent, setTabEvent] = useState<any>(null);
+  const open = useBoolean();
+  const { user, code, loading } = useAuthContext();
 
   if (loading) {
     return <LoadingScreen />;
@@ -43,11 +47,26 @@ export default function Profile() {
     return <Navigate to={paths.notFound} replace />;
   }
 
+  const onTabChange = (event: any, newValue: any) => {
+    if (newValue === 'edit') {
+      if (code) {
+        tabs.onChange(event, newValue);
+        return;
+      }
+
+      open.onTrue();
+      setTabEvent(event);
+    } else {
+      tabs.onChange(event, newValue);
+    }
+  };
+
   return (
     <>
       <Helmet>
         <title>{`${CONFIG.site.name}: ${user?.username}`}</title>
       </Helmet>
+
       <DashboardContent>
         <Breadcrumbs
           heading={user?.username}
@@ -57,7 +76,7 @@ export default function Profile() {
           }}
         />
 
-        <Tabs value={tabs.value} onChange={tabs.onChange} sx={{ mb: { xs: 2, md: 3 } }}>
+        <Tabs value={tabs.value} onChange={onTabChange} sx={{ mb: { xs: 2, md: 3 } }}>
           {TABS.map((tab) => (
             <Tab key={tab.value} label={tab.label} icon={tab.icon} value={tab.value} />
           ))}
@@ -67,6 +86,8 @@ export default function Profile() {
 
         {tabs.value === 'history' && <History me={user} />}
       </DashboardContent>
+
+      <VerifyModal open={open} tabs={tabs} event={tabEvent} />
     </>
   );
 }
