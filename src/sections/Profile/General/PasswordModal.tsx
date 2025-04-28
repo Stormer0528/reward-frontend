@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import QRCode from 'react-qr-code';
+import { useState, useEffect } from 'react';
 
 import Alert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
@@ -32,7 +32,7 @@ interface Props {
 }
 
 export default function PasswordModal({ open }: Props) {
-  const { user } = useAuthContext();
+  const { user, code } = useAuthContext();
   const password = useBoolean();
 
   const [step, setStep] = useState<number>(0);
@@ -88,6 +88,13 @@ export default function PasswordModal({ open }: Props) {
       onChange={(e) => setToken(e.target.value)}
     />
   );
+
+  useEffect(() => {
+    if (code) {
+      setStep(1);
+      generate2FA();
+    }
+  }, [code, generate2FA]);
 
   return (
     <Dialog fullWidth maxWidth="xs" open={open.value} onClose={open.onFalse}>
