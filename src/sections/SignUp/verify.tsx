@@ -1,4 +1,3 @@
-import { z as zod } from 'zod';
 import { useEffect } from 'react';
 
 import Link from '@mui/material/Link';
@@ -14,23 +13,6 @@ import { Iconify } from 'src/components/Iconify';
 import { LoadingScreen } from 'src/components/loading-screen';
 
 import { useVerifyEmail } from './useApollo';
-
-// ----------------------------------------------------------------------
-
-export type VerifySchemaType = zod.infer<typeof VerifySchema>;
-
-export const VerifySchema = zod.object({
-  code: zod
-    .string()
-    .min(1, { message: 'Code is required!' })
-    .min(6, { message: 'Code must be at least 6 characters!' }),
-  email: zod
-    .string()
-    .min(1, { message: 'Email is required!' })
-    .email({ message: 'Email must be a valid email address!' }),
-});
-
-// ----------------------------------------------------------------------
 
 export default function AmplifyVerifyView() {
   const loading = useBoolean();
