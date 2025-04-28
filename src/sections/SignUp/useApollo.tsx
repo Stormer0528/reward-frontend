@@ -1,56 +1,13 @@
 import { useRef, useMemo } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/client';
 
-import { gql } from 'src/__generated__';
-
-const SIGN_UP_MEMBER = gql(/* GraphQL */ `
-  mutation SignUpMember($data: SignupFormInput!) {
-    signUpMember(data: $data) {
-      id
-      email
-      username
-    }
-  }
-`);
-
-const SEND_EMAIL_VERIFICATION = gql(/* GraphQL */ `
-  mutation SendEmailVerification($data: EmailInput!) {
-    sendEmailVerification(data: $data) {
-      result
-      message
-    }
-  }
-`);
-
-const VERIFY_EMAIL = gql(/* GraphQL */ `
-  mutation EmailVerify($data: TokenInput!) {
-    emailVerify(data: $data) {
-      result
-      message
-      packageID
-      paymentMethod
-    }
-  }
-`);
-
-const FETCH_PROMOS_QUERY = gql(/* GraphQL */ `
-  query Promos($sort: String, $page: String, $filter: JSONObject) {
-    promos(sort: $sort, page: $page, filter: $filter) {
-      promos {
-        id
-        code
-        status
-        endDate
-        startDate
-        createdAt
-        updatedAt
-        deletedAt
-        description
-      }
-      total
-    }
-  }
-`);
+import {
+  VERIFY_EMAIL,
+  SIGN_UP_MEMBER,
+  FETCH_PROMOS_QUERY,
+  SEND_EMAIL_VERIFICATION_CODE,
+  SEND_EMAIL_VERIFICATION_LINK,
+} from './query';
 
 export function useSignUp() {
   const [submitSignUp, { loading, data }] = useMutation(SIGN_UP_MEMBER);
@@ -58,10 +15,16 @@ export function useSignUp() {
   return { loading, result: data, submitSignUp };
 }
 
-export function useSendEmailVerification() {
-  const [sendVerification, { loading, data }] = useMutation(SEND_EMAIL_VERIFICATION);
+export function useSendEmailVerificationCode() {
+  const [sendVerificationCode, { loading, data }] = useMutation(SEND_EMAIL_VERIFICATION_CODE);
 
-  return { loading, result: data, sendVerification };
+  return { loading, result: data, sendVerificationCode };
+}
+
+export function useSendEmailVerificationLink() {
+  const [sendVerificationLink, { loading, data }] = useMutation(SEND_EMAIL_VERIFICATION_LINK);
+
+  return { loading, result: data, sendVerificationLink };
 }
 
 export function useVerifyEmail() {

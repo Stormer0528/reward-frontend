@@ -337,8 +337,8 @@ export const VERIFY_2FA_TOKEN = gql(/* GraphQL */ `
 `);
 
 export const DISABLE_2FA = gql(/* GraphQL */ `
-  mutation Disable2FA {
-    disable2FA {
+  mutation Disable2FA($data: VerificationCodeInput!) {
+    disable2FA(data: $data) {
       accessToken
     }
   }
@@ -355,6 +355,24 @@ export const UPDATE_SETTING_MEMBER = gql(/* GraphQL */ `
 export const MEMBER_LOGOUT = gql(/* GraphQL */ `
   mutation MemberLogout {
     memberLogout {
+      result
+      message
+    }
+  }
+`);
+
+export const MEMBER_EXCHANGE_LOGIN = gql(/* GraphQL */ `
+  mutation MemberExchangeLogin($data: MemberLoginInput!) {
+    memberExchangeLogin(data: $data) {
+      status
+      accessToken
+    }
+  }
+`);
+
+export const EMAIL_VERIFY_CODE = gql(/* GraphQL */ `
+  mutation EmailVerifyCode($data: VerificationCodeInput!) {
+    emailVerifyCode(data: $data) {
       result
       message
     }
