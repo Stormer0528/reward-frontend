@@ -36,7 +36,7 @@ import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
-import { useSignUp, useSendEmailVerification } from './useApollo';
+import { useSignUp, useSendEmailVerificationLink } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -86,7 +86,7 @@ export function SignUpView() {
   const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
   const { packages, fetchPackages } = useFetchPackages();
-  const { sendVerification } = useSendEmailVerification();
+  const { sendVerificationLink } = useSendEmailVerificationLink();
 
   const onSubmit = handleSubmit(
     async ({ confirmPassword, firstName, lastName, sponsorUserId, uname, ...rest }) => {
@@ -116,7 +116,7 @@ export function SignUpView() {
         });
 
         if (data) {
-          await sendVerification({ variables: { data: { email: rest.email } } });
+          await sendVerificationLink({ variables: { data: { email: rest.email } } });
 
           const searchParams = new URLSearchParams({ email: rest.email }).toString();
           router.push(`${paths.auth.verifyResult}?${searchParams}`);
