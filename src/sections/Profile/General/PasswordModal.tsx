@@ -90,9 +90,13 @@ export default function PasswordModal({ open }: Props) {
   );
 
   useEffect(() => {
+    const handleGenerate = async () => {
+      await generate2FA();
+    };
+
     if (code) {
       setStep(1);
-      generate2FA();
+      handleGenerate();
     }
   }, [code, generate2FA]);
 
@@ -154,6 +158,7 @@ export default function PasswordModal({ open }: Props) {
               onClick={async () => {
                 try {
                   setStep(step + 1);
+
                   const { data } = await verify2FAAndEnable({
                     variables: { data: { token, uri: qrString! } },
                   });
@@ -177,11 +182,7 @@ export default function PasswordModal({ open }: Props) {
             </LoadingButton>
           )}
 
-          {step === 3 ? (
-            <Button variant="contained" onClick={open.onFalse}>
-              OK
-            </Button>
-          ) : (
+          {step !== 3 && (
             <Button variant="outlined" onClick={open.onFalse}>
               Cancel
             </Button>
