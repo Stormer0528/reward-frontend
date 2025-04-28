@@ -47,7 +47,7 @@ const documents = {
     "\n  query generateQuery {\n    generate2FA\n  }\n": types.GenerateQueryDocument,
     "\n  mutation Verify2FAAndEnable($data: Verify2FAInput!) {\n    verify2FAAndEnable(data: $data) {\n      accessToken\n    }\n  }\n": types.Verify2FaAndEnableDocument,
     "\n  mutation Verify2FAToken($data: TokenInput!) {\n    verify2FAToken(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.Verify2FaTokenDocument,
-    "\n  mutation Disable2FA($data: VerificationCodeInput!) {\n    disable2FA(data: $data) {\n      accessToken\n    }\n  }\n": types.Disable2FaDocument,
+    "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n": types.Disable2FaDocument,
     "\n  mutation UpsertSettingByMemberId($data: UpsertSettingInput!) {\n    upsertSettingByMemberId(data: $data) {\n      id\n    }\n  }\n": types.UpsertSettingByMemberIdDocument,
     "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n": types.MemberLogoutDocument,
     "\n  mutation MemberExchangeLogin($data: MemberLoginInput!) {\n    memberExchangeLogin(data: $data) {\n      status\n      accessToken\n    }\n  }\n": types.MemberExchangeLoginDocument,
@@ -248,7 +248,7 @@ export function gql(source: "\n  mutation Verify2FAToken($data: TokenInput!) {\n
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation Disable2FA($data: VerificationCodeInput!) {\n    disable2FA(data: $data) {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Disable2FA($data: VerificationCodeInput!) {\n    disable2FA(data: $data) {\n      accessToken\n    }\n  }\n"];
+export function gql(source: "\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation Disable2FA {\n    disable2FA {\n      accessToken\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

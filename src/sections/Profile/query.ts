@@ -337,8 +337,8 @@ export const VERIFY_2FA_TOKEN = gql(/* GraphQL */ `
 `);
 
 export const DISABLE_2FA = gql(/* GraphQL */ `
-  mutation Disable2FA($data: VerificationCodeInput!) {
-    disable2FA(data: $data) {
+  mutation Disable2FA {
+    disable2FA {
       accessToken
     }
   }
