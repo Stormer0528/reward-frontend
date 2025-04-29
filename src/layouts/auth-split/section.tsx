@@ -37,7 +37,7 @@ export function Section({
   methods,
   title = 'Manage the job',
   imgUrl = `${CONFIG.site.basePath}/assets/illustrations/illustration-dashboard.webp`,
-  subtitle = 'More effectively with optimized workflows.',
+  subtitle = 'TEXITcoin is the future of money in Texas.',
   introVideo = false,
   ...other
 }: SectionProps) {
