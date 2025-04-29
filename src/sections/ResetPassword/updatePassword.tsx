@@ -35,7 +35,7 @@ export const UpdatePasswordSchema = zod
       .string()
       .min(1, { message: 'Password is required!' })
       .min(8, { message: 'Password must be at least 8 characters!' })
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-])[A-Za-z\d@$!%*?&-]{8,}$/, {
         message: 'Password must include uppercase, lowercase, number, and special character!',
       }),
     confirmPassword: zod.string().min(1, { message: 'Confirm password is required!' }),
