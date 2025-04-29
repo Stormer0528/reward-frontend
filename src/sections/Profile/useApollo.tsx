@@ -126,12 +126,12 @@ export function useFetchPayouts() {
 }
 
 export function useUpdatePassword() {
-  const [updatePassword] = useMutation(UPDATE_MEMBER_PASSWORD, {
+  const [updatePassword, { loading, data, error }] = useMutation(UPDATE_MEMBER_PASSWORD, {
     awaitRefetchQueries: true,
     refetchQueries: ['FetchMembers'],
   });
 
-  return { updatePassword };
+  return { loading, data, error, updatePassword };
 }
 
 export function useGenerate2FA() {
