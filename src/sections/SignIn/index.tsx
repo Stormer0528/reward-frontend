@@ -1,6 +1,7 @@
 import { z as zod } from 'zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
@@ -18,6 +19,7 @@ import { useBoolean } from 'src/hooks/useBoolean';
 
 import { CONFIG } from 'src/config';
 
+import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
@@ -45,6 +47,7 @@ export const SignInSchema = zod.object({
 // ----------------------------------------------------------------------
 
 export function SignInView() {
+  const navigate = useNavigate();
   const { signIn } = useAuthContext();
   const { submitLogin } = useApollo();
 
@@ -68,7 +71,13 @@ export function SignInView() {
       const response = await submitLogin({ variables: { data } });
       const token = response.data?.memberLogin.accessToken ?? '';
 
-      if (response.data?.memberLogin.status === 'success') {
+      if (response.data?.memberLogin.passwordExpired) {
+        toast.warning('Your Password Token has expired. Please reset your password');
+
+        setTimeout(() => {
+          navigate(paths.auth.updatePassword, { state: { token } });
+        }, 2000);
+      } else if (response.data?.memberLogin.status === 'success') {
         signIn(token);
       } else {
         localStorage.setItem(CONFIG.storageTokenKey, token);

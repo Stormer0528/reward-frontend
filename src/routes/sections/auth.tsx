@@ -14,6 +14,7 @@ const IntroPage = lazy(() => import('src/sections/Introduction'));
 const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
 const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
 const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
+const UpdatePasswordPage = lazy(() => import('src/pages/ResetPassword/updatePassword'));
 const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
 
 const signIn = {
@@ -58,6 +59,17 @@ const resetPassword = {
   ),
 };
 
+const updatePassword = {
+  path: 'update-password',
+  element: (
+    <GuestGuard>
+      <AuthSplitLayout section={{ title: 'Hi, Welcome mineTXC' }}>
+        <UpdatePasswordPage />
+      </AuthSplitLayout>
+    </GuestGuard>
+  ),
+};
+
 const verifyEmail = {
   path: 'verify-email',
   element: (
@@ -88,6 +100,14 @@ export const authRoutes = [
         <Outlet />
       </Suspense>
     ),
-    children: [signIn, signUp, verifyEmail, verifyResult, forgotPassword, resetPassword],
+    children: [
+      signIn,
+      signUp,
+      verifyEmail,
+      verifyResult,
+      resetPassword,
+      forgotPassword,
+      updatePassword,
+    ],
   },
 ];

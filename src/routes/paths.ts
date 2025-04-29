@@ -6,6 +6,7 @@ const ROOTS = {
   SIGN_UP: '/sign-up',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
+  UPDATE_PASSWORD: '/update-password',
   VERIFY_EMAIL: '/verify-email',
   VERIFYRESULT: '/thanks',
 
@@ -45,6 +46,9 @@ export const paths = {
 
     // RESET PASSWORD
     resetPassword: ROOTS.RESET_PASSWORD,
+
+    // RESET PASSWORD
+    updatePassword: ROOTS.UPDATE_PASSWORD,
 
     // VERIFY EMAIL
     verifyEmail: ROOTS.VERIFY_EMAIL,
