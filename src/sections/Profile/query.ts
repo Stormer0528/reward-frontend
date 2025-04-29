@@ -366,6 +366,7 @@ export const MEMBER_EXCHANGE_LOGIN = gql(/* GraphQL */ `
     memberExchangeLogin(data: $data) {
       status
       accessToken
+      passwordExpired
     }
   }
 `);
