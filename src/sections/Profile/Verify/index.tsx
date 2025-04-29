@@ -2,6 +2,7 @@ import type { UseTabsReturn } from 'src/hooks/use-tabs';
 import type { UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
@@ -10,6 +11,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+
+import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config';
 
@@ -31,6 +34,7 @@ interface Props {
 
 export default function VerifyModal({ tabs, open, event }: Props) {
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const [step, setStep] = useState<number>(0);
   const [password, setPassword] = useState<string>();
@@ -55,7 +59,15 @@ export default function VerifyModal({ tabs, open, event }: Props) {
         variables: { data: { email: user?.email!, password } },
       });
 
-      if (data) {
+      if (data?.memberExchangeLogin.passwordExpired) {
+        toast.warning('Your Password Token has expired. Please reset your password');
+
+        localStorage.removeItem(CONFIG.storageTokenKey);
+
+        navigate(paths.auth.updatePassword, {
+          state: { token: data.memberExchangeLogin.accessToken },
+        });
+      } else if (data) {
         localStorage.setItem(CONFIG.storageTokenKey, data.memberExchangeLogin.accessToken);
 
         setStep((prev) => prev + 1);
