@@ -67,7 +67,7 @@ const documents = {
     "\n  query Sales($sort: String, $page: String, $filter: JSONObject) {\n    sales(sort: $sort, page: $page, filter: $filter) {\n      sales {\n        id\n        ID\n        email\n        token\n        point\n        amount\n        status\n        isMetal\n        toEmail\n        assetId\n        memberId\n        username\n        fullName\n        orderedAt\n        createdAt\n        sponsorCnt\n        toMemberId\n        toUsername\n        toFullName\n        productName\n        paymentMethod\n      }\n      total\n    }\n  }\n": types.SalesDocument,
     "\n  query FetchSaleStats($allFilter: JSONObject, $inactiveFilter: JSONObject) {\n    all: sales(filter: $allFilter) {\n      total\n    }\n    inactive: sales(filter: $inactiveFilter) {\n      total\n    }\n  }\n": types.FetchSaleStatsDocument,
     "\n  query Packages($sort: String, $page: String, $filter: JSONObject) {\n    packages(sort: $sort, page: $page, filter: $filter) {\n      packages {\n        id\n        date\n        token\n        point\n        amount\n        status\n        createdAt\n        updatedAt\n        deletedAt\n        productName\n        enrollVisibility\n      }\n      total\n    }\n  }\n": types.PackagesDocument,
-    "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n": types.LoginDocument,
+    "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      status\n      accessToken\n      passwordExpired\n    }\n  }\n": types.LoginDocument,
     "\n  mutation SignUpMember($data: SignupFormInput!) {\n    signUpMember(data: $data) {\n      id\n      email\n      username\n    }\n  }\n": types.SignUpMemberDocument,
     "\n  mutation SendEmailVerificationCode {\n    sendEmailVerificationCode {\n      message\n      result\n    }\n  }\n": types.SendEmailVerificationCodeDocument,
     "\n  mutation SendEmailVerificationLink($data: EmailInput!) {\n    sendEmailVerificationLink(data: $data) {\n      result\n      message\n    }\n  }\n": types.SendEmailVerificationLinkDocument,
@@ -328,7 +328,7 @@ export function gql(source: "\n  query Packages($sort: String, $page: String, $f
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      accessToken\n      status\n    }\n  }\n"];
+export function gql(source: "\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      status\n      accessToken\n      passwordExpired\n    }\n  }\n"): (typeof documents)["\n  mutation Login($data: MemberLoginInput!) {\n    memberLogin(data: $data) {\n      status\n      accessToken\n      passwordExpired\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
