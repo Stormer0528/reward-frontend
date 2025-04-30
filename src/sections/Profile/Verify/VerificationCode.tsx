@@ -54,9 +54,11 @@ export default function VerificationCode({ setSuccess }: Props) {
     try {
       const { data } = await emailVerifyCode({ variables: { data: { verificationCode: code } } });
 
-      if (data) {
+      if (data?.emailVerifyCode.result === 'success') {
         setCode(code);
         setSuccess(true);
+      } else {
+        toast.error(data?.emailVerifyCode.result);
       }
     } catch (error) {
       console.error(error);
@@ -79,7 +81,7 @@ export default function VerificationCode({ setSuccess }: Props) {
         <Typography variant="h5">Please check your email!</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {`We've emailed a 6-digit confirmation code. \nPlease enter the code in the box below to verify your email.`}
+          {`We've emailed a 8-digit confirmation code. \nPlease enter the code in the box below to verify your email.`}
         </Typography>
       </Stack>
     </>
