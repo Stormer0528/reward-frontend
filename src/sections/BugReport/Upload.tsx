@@ -45,7 +45,7 @@ export function FileManagerNewFolderDialog({
       const formData = new FormData();
 
       // Append all accepted files to FormData
-      acceptedFiles.forEach((file) => formData.append('payment', file));
+      acceptedFiles.forEach((file) => formData.append('bug-report', file));
 
       try {
         const { data } = await axios.post(`${CONFIG.SITE_URL}/api/upload`, formData, {
