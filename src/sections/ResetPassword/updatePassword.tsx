@@ -17,6 +17,7 @@ import { useBoolean } from 'src/hooks/useBoolean';
 
 import { CONFIG } from 'src/config';
 import { SentIcon } from 'src/assets/icons';
+import { PASSWORD_REGEXP } from 'src/consts';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
@@ -35,8 +36,9 @@ export const UpdatePasswordSchema = zod
       .string()
       .min(1, { message: 'Password is required!' })
       .min(8, { message: 'Password must be at least 8 characters!' })
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-])[A-Za-z\d@$!%*?&-]{8,}$/, {
-        message: 'Password must include uppercase, lowercase, number, and special character!',
+      .regex(PASSWORD_REGEXP, {
+        message:
+          'Password must include uppercase, lowercase, number, and special character! Available special characters: ! @ # $ % ^ & * ( ) _ + [ ] { } | ; : , . < > ?',
       }),
     confirmPassword: zod.string().min(1, { message: 'Confirm password is required!' }),
   })
@@ -96,7 +98,7 @@ export function UpdatePasswordView() {
       <SentIcon sx={{ mx: 'auto' }} />
 
       <Stack spacing={1} sx={{ mt: 3, mb: 5, textAlign: 'center', whiteSpace: 'pre-line' }}>
-        <Typography variant="h5">Request sent successfully!</Typography>
+        <Typography variant="h5">Update your password</Typography>
       </Stack>
     </>
   );

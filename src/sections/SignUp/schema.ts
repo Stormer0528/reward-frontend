@@ -1,5 +1,7 @@
 import { z as zod } from 'zod';
 
+import { PASSWORD_REGEXP } from 'src/consts';
+
 export type SchemaType = zod.infer<typeof Schema>;
 
 export const Schema = zod
@@ -22,8 +24,9 @@ export const Schema = zod
       .string()
       .min(1, { message: 'Password is required!' })
       .min(8, { message: 'Password must be at least 8 characters!' })
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&-])[A-Za-z\d@$!%*?&-]{8,}$/, {
-        message: 'Password must include uppercase, lowercase, number, and special character!',
+      .regex(PASSWORD_REGEXP, {
+        message:
+          'Password must include uppercase, lowercase, number, and special character! Available special characters: ! @ # $ % ^ & * ( ) _ + [ ] { } | ; : , . < > ?',
       }),
     confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
     assetId: zod.string().optional().nullable(),

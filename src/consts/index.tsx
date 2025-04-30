@@ -10,6 +10,9 @@ export const PLACEMENTTREE_NODE_Y_SPACE = 60;
 
 export const SPONSORTREE_NODE_HEIGHT = 100;
 
+export const PASSWORD_REGEXP =
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.>])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.>]{8,}$/;
+
 export const COMMISSION_TYPE = {
   PENDING: 'PENDING',
   CONFIRM: 'CONFIRM',

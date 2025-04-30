@@ -325,7 +325,7 @@ export function SignUpView() {
         <Field.Text
           name="password"
           label="Password"
-          placeholder="6+ characters"
+          placeholder="8+ characters"
           type={password.value ? 'text' : 'password'}
           required
           InputProps={{
