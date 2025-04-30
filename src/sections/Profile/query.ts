@@ -374,8 +374,7 @@ export const MEMBER_EXCHANGE_LOGIN = gql(/* GraphQL */ `
 export const EMAIL_VERIFY_CODE = gql(/* GraphQL */ `
   mutation EmailVerifyCode($data: VerificationCodeInput!) {
     emailVerifyCode(data: $data) {
-      result
-      message
+      accessToken
     }
   }
 `);
