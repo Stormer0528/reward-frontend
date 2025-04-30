@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
+import { CONFIG } from 'src/config';
 import { EmailInboxIcon } from 'src/assets/icons';
 
 import { toast } from 'src/components/SnackBar';
@@ -54,11 +55,13 @@ export default function VerificationCode({ setSuccess }: Props) {
     try {
       const { data } = await emailVerifyCode({ variables: { data: { verificationCode: code } } });
 
-      if (data?.emailVerifyCode.result === 'success') {
+      if (data?.emailVerifyCode.accessToken) {
         setCode(code);
         setSuccess(true);
+
+        localStorage.setItem(CONFIG.storageTokenKey, data?.emailVerifyCode.accessToken);
       } else {
-        toast.error(data?.emailVerifyCode.result);
+        toast.error('Failed to verify code');
       }
     } catch (error) {
       console.error(error);
