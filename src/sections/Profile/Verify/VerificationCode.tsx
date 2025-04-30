@@ -89,7 +89,20 @@ export default function VerificationCode({ setSuccess }: Props) {
 
   const renderForm = (
     <Stack spacing={3}>
-      <Field.Code name="code" length={8} />
+      <Field.Code
+        name="code"
+        length={8}
+        sx={{
+          [`& .css-wpbnuu-MuiInputBase-input-MuiOutlinedInput-input`]: {
+            height: {
+              xs: '0.4rem !important ',
+              md: '1rem !important ',
+              lg: '1.4rem !important ',
+            },
+            padding: { xs: '16px 4px !important', md: '16.5px 14px !important' },
+          },
+        }}
+      />
 
       <LoadingButton
         fullWidth
