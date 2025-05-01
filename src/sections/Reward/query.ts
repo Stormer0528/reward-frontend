@@ -70,6 +70,7 @@ export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
           commissionDefault
           placementPosition
           cmnCalculatedWeeks
+          placementRequested
           preferredContactDetail
           commission {
             begL
