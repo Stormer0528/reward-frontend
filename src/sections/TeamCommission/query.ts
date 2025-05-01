@@ -62,6 +62,7 @@ export const FETCH_INTRODUCERS_QUERY = gql(/* GraphQL */ `
         id
         ID
         email
+        point
         mobile
         username
         fullName

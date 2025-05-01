@@ -33,6 +33,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       placementParentId
       placementPosition
       cmnCalculatedWeeks
+      placementRequested
       preferredContactDetail
       groupSetting {
         id
@@ -71,6 +72,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         preferredContact
         commissionDefault
         placementPosition
+        placementRequested
         cmnCalculatedWeeks
         preferredContactDetail
       }
@@ -99,6 +101,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         preferredContact
         commissionDefault
         placementPosition
+        placementRequested
         cmnCalculatedWeeks
         preferredContactDetail
       }
@@ -125,6 +128,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         totalIntroducers
         commissionDefault
         placementPosition
+        placementRequested
         cmnCalculatedWeeks
         preferredContactDetail
       }
