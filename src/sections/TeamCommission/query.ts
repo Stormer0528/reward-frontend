@@ -72,3 +72,19 @@ export const FETCH_INTRODUCERS_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const FETCH_SPONSOR_QUERY = gql(/* GraphQL */ `
+  query Sponsors($sort: String, $page: String, $filter: JSONObject) {
+    introducers(sort: $sort, page: $page, filter: $filter) {
+      introducers {
+        id
+        ID
+        point
+        username
+        fullName
+        createdAt
+      }
+      total
+    }
+  }
+`);

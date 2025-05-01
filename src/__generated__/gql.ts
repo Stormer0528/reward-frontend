@@ -92,6 +92,7 @@ const documents = {
     "\n  query FetchTeamCommissionStats(\n    $leftFilter: TeamReportSection!\n    $rightFilter: TeamReportSection!\n    $referralFilter: TeamReportSection!\n  ) {\n    LEFT: teamCommissions(teamReport: $leftFilter) {\n      total\n    }\n    RIGHT: teamCommissions(teamReport: $rightFilter) {\n      total\n    }\n    REFERRAL: teamCommissions(teamReport: $referralFilter) {\n      total\n    }\n  }\n": types.FetchTeamCommissionStatsDocument,
     "\n  query TeamCommissions(\n    $teamReport: TeamReportSection!\n    $sort: String\n    $page: String\n    $filter: JSONObject\n  ) {\n    teamCommissions(teamReport: $teamReport, sort: $sort, page: $page, filter: $filter) {\n      weeklyCommissions {\n        id\n        ID\n        begL\n        begR\n        newL\n        newR\n        maxL\n        maxR\n        endL\n        endR\n        pkgL\n        pkgR\n        note\n        status\n        username\n        fullName\n        memberId\n        createdAt\n        shortNote\n        commission\n        weekStartDate\n        commissionDefault\n      }\n      total\n    }\n  }\n": types.TeamCommissionsDocument,
     "\n  query Introducers($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        email\n        point\n        mobile\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n": types.IntroducersDocument,
+    "\n  query Sponsors($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        point\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n": types.SponsorsDocument,
     "\n  query Blocksdata($data: PeriodStatsArgs!) {\n    blocksData(data: $data) {\n      base\n      difficulty\n      hashRate\n    }\n  }\n": types.BlocksdataDocument,
 };
 
@@ -425,6 +426,10 @@ export function gql(source: "\n  query TeamCommissions(\n    $teamReport: TeamRe
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query Introducers($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        email\n        point\n        mobile\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n"): (typeof documents)["\n  query Introducers($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        email\n        point\n        mobile\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query Sponsors($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        point\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n"): (typeof documents)["\n  query Sponsors($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        point\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
