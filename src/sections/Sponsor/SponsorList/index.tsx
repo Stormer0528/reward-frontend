@@ -13,18 +13,18 @@ import { formatID, customizeFullName } from 'src/utils/helper';
 
 import { AgGrid } from 'src/components/AgGrid';
 
-import { useFetchIntroducers } from 'src/sections/TeamCommission/useApollo';
+import { useFetchSponsors } from 'src/sections/TeamCommission/useApollo';
 
 import type { Introducer } from './type';
 
 export default function SPonsorListView() {
-  const { loading, introducers, rowCount, fetchIntroducers } = useFetchIntroducers();
+  const { loading, introducers, rowCount, fetchSponsors } = useFetchSponsors();
   const [{ page = '1,50', sort = 'createdAt', filter }] = useQueryString();
 
   const graphQueryFilter = useMemo(() => parseFilterModel({}, filter), [filter]);
 
   useEffect(() => {
-    fetchIntroducers({ variables: { filter: graphQueryFilter, page, sort } });
+    fetchSponsors({ variables: { filter: graphQueryFilter, page, sort } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, page, sort]);
 
