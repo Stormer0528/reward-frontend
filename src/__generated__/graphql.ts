@@ -1123,6 +1123,7 @@ export type Mutation = {
   emailVerify: EmailVerifyResult;
   emailVerifyCode: AccessTokenResponse;
   forceMemberLogout: SuccessResponse;
+  generateWDMSVegasReport: SuccessResponse;
   generateWeekP2PInvoice: SuccessResponse;
   generateWeeklyReport: SuccessResponse;
   memberExchangeLogin: LoginResponse;
@@ -1988,6 +1989,7 @@ export enum ProofType {
 
 export type Query = {
   __typename?: 'Query';
+  WDMSVegasContestWinners: WdmsvegasContestWinnerResponse;
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
   admins: AdminsResponse;
@@ -2068,6 +2070,13 @@ export type Query = {
   weeklyCommissionById: WeeklyCommission;
   weeklyCommissions: BasicWeeklyCommissionResponse;
   weeklyReports: WeeklyReportResponse;
+};
+
+
+export type QueryWdmsVegasContestWinnersArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -2959,6 +2968,21 @@ export type VerifyTokenResponse = {
   __typename?: 'VerifyTokenResponse';
   email: Scalars['String']['output'];
   token: Scalars['String']['output'];
+};
+
+export type WdmsvegasContestWinner = {
+  __typename?: 'WDMSVEGASContestWinner';
+  fullName: Scalars['String']['output'];
+  level: Scalars['Int']['output'];
+  points: Scalars['Int']['output'];
+  sponsored: Scalars['Int']['output'];
+  username: Scalars['String']['output'];
+};
+
+export type WdmsvegasContestWinnerResponse = {
+  __typename?: 'WDMSVEGASContestWinnerResponse';
+  total?: Maybe<Scalars['Int']['output']>;
+  winners?: Maybe<Array<WdmsvegasContestWinner>>;
 };
 
 export type WeekPlacementMember = {
