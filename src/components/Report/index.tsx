@@ -28,7 +28,7 @@ export default function Report({ value = 90, sx, ...other }: BackToTopProps) {
           height: 48,
           position: 'fixed',
           right: 16,
-          bottom: 148,
+          bottom: 16,
           zIndex: (theme) => theme.zIndex.speedDial,
           transition: (theme) => theme.transitions.create(['transform']),
           ...sx,
