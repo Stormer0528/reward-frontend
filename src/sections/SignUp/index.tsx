@@ -32,6 +32,7 @@ import { Form, Field } from 'src/components/Form';
 
 import { useAuthContext } from 'src/auth/hooks';
 
+import Hash from '../Sales/Hash';
 import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
@@ -41,6 +42,7 @@ import { useSignUp, useSendEmailVerificationLink } from './useApollo';
 // ----------------------------------------------------------------------
 
 export function SignUpView() {
+  const [email, setEmail] = useState<string>();
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [packageId, setPackageId] = useState<string>();
@@ -54,6 +56,7 @@ export function SignUpView() {
 
   const router = useRouter();
 
+  const open = useBoolean();
   const password = useBoolean();
   const calculator = useBoolean();
 
@@ -82,9 +85,9 @@ export function SignUpView() {
     formState: { isSubmitting },
   } = methods;
 
-  const { user, signOut } = useAuthContext();
   const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
+  const { user, signOut } = useAuthContext();
   const { packages, fetchPackages } = useFetchPackages();
   const { sendVerificationLink } = useSendEmailVerificationLink();
 
@@ -115,11 +118,17 @@ export function SignUpView() {
           },
         });
 
+        setEmail(rest.email);
+
         if (data) {
           await sendVerificationLink({ variables: { data: { email: rest.email } } });
 
-          const searchParams = new URLSearchParams({ email: rest.email }).toString();
-          router.push(`${paths.auth.verifyResult}?${searchParams}`);
+          if (rest.paymentMethod === 'Crypto') {
+            open.onTrue();
+          } else {
+            const searchParams = new URLSearchParams({ email: rest.email }).toString();
+            router.push(`${paths.auth.verifyResult}?${searchParams}`);
+          }
         }
       } catch (err) {
         if (err instanceof ApolloError) {
@@ -382,6 +391,8 @@ export function SignUpView() {
       </Form>
 
       <Calculator open={calculator} />
+
+      <Hash open={open} email={email} />
     </Container>
   );
 }
