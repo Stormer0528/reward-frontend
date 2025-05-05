@@ -30,9 +30,10 @@ import { useCancelOrder } from '../useApollo';
 interface Props {
   email?: string;
   open: UseBooleanReturn;
+  selectedPackageId?: string;
 }
 
-export default function Hash({ open, email }: Props) {
+export default function Hash({ open, email, selectedPackageId }: Props) {
   const theme = useTheme();
 
   const router = useRouter();
@@ -55,6 +56,12 @@ export default function Hash({ open, email }: Props) {
       setStatus('EXPIRED');
     }
   }, [timeLeft]);
+
+  useEffect(() => {
+    if (selectedPackageId) {
+      setStep(1);
+    }
+  }, [selectedPackageId]);
 
   return (
     <>
@@ -90,7 +97,7 @@ export default function Hash({ open, email }: Props) {
                 timeLeft={timeLeft}
                 walletId={walletId}
                 setStatus={setStatus}
-                packageId={packageId!}
+                packageId={selectedPackageId ?? packageId!}
                 setOrderId={setOrderId}
                 setWalletId={setWalletId}
                 setTimeLeft={setTimeLeft}
@@ -133,9 +140,11 @@ export default function Hash({ open, email }: Props) {
             variant="outlined"
             onClick={() => {
               confirm.onTrue();
-              router.push(
-                `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: status === WaitTransactionStatus.Received ? 'success' : 'failed' }).toString()}`
-              );
+              if (email) {
+                router.push(
+                  `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: status === WaitTransactionStatus.Received ? 'success' : 'failed' }).toString()}`
+                );
+              }
             }}
           >
             {step === 3 ? 'Close' : 'Cancel'}
@@ -162,9 +171,11 @@ export default function Hash({ open, email }: Props) {
               setTimeLeft(TIME_LEFT);
               setWalletId('');
 
-              router.push(
-                `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: 'failed' }).toString()}`
-              );
+              if (email) {
+                router.push(
+                  `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: 'failed' }).toString()}`
+                );
+              }
             }}
           >
             Yes
