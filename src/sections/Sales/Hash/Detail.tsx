@@ -15,9 +15,10 @@ import { type PaymentType, WaitTransactionStatus } from 'src/__generated__/graph
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-import { useCreateOrder, useCheckAddressWaitStatus } from '../useApollo';
+import { useCreateOrder, useCreateSignUpOrder, useCheckAddressWaitStatus } from '../useApollo';
 
 interface Props {
+  email?: string;
   timeLeft: number;
   walletId: string;
   packageId: string;
@@ -30,6 +31,7 @@ interface Props {
 }
 
 export default function Detail({
+  email,
   setStep,
   timeLeft,
   walletId,
@@ -49,6 +51,7 @@ export default function Detail({
 
   const { loading, createOrder } = useCreateOrder();
   const { status, checkAddressWaitStatus } = useCheckAddressWaitStatus();
+  const { loading: signUpLoading, createSignUpOrder } = useCreateSignUpOrder();
 
   const handleCopy = async (value: any) => {
     setCopy(value);
@@ -104,15 +107,29 @@ export default function Detail({
     const create = async () => {
       try {
         if (!walletId) {
-          const { data } = await createOrder({ variables: { data: { packageId, paymentType } } });
+          if (email) {
+            const { data } = await createSignUpOrder({
+              variables: { data: { email, packageId, paymentType } },
+            });
 
-          setOrderId(data?.createOrder.id);
-          setWalletId(data?.createOrder.waitAddressId ?? '');
-          setBalance(data?.createOrder.waitAddress?.totalBalance);
-          setAddress(data?.createOrder.waitAddress?.address ?? '');
-          setQrCode(
-            `${PAYMENT_METHOD[paymentType].label}:${data?.createOrder.waitAddress?.address}?value=${data?.createOrder.waitAddress?.totalBalance}${PAYMENT_METHOD[paymentType].token && `&token=${PAYMENT_METHOD[paymentType].token}`}`
-          );
+            setOrderId(data?.createSignUpOrder.id);
+            setWalletId(data?.createSignUpOrder.waitAddressId ?? '');
+            setBalance(data?.createSignUpOrder.waitAddress?.totalBalance);
+            setAddress(data?.createSignUpOrder.waitAddress?.address ?? '');
+            setQrCode(
+              `${PAYMENT_METHOD[paymentType].label}:${data?.createSignUpOrder.waitAddress?.address}?value=${data?.createSignUpOrder.waitAddress?.totalBalance}${PAYMENT_METHOD[paymentType].token && `&token=${PAYMENT_METHOD[paymentType].token}`}`
+            );
+          } else {
+            const { data } = await createOrder({ variables: { data: { packageId, paymentType } } });
+
+            setOrderId(data?.createOrder.id);
+            setWalletId(data?.createOrder.waitAddressId ?? '');
+            setBalance(data?.createOrder.waitAddress?.totalBalance);
+            setAddress(data?.createOrder.waitAddress?.address ?? '');
+            setQrCode(
+              `${PAYMENT_METHOD[paymentType].label}:${data?.createOrder.waitAddress?.address}?value=${data?.createOrder.waitAddress?.totalBalance}${PAYMENT_METHOD[paymentType].token && `&token=${PAYMENT_METHOD[paymentType].token}`}`
+            );
+          }
         }
       } catch (error) {
         toast.error('Something went wrong!');
@@ -126,7 +143,7 @@ export default function Detail({
   return (
     <Box>
       <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', mb: 2 }}>
-        {loading ? (
+        {loading || signUpLoading ? (
           <Iconify icon="eos-icons:bubble-loading" />
         ) : (
           <>

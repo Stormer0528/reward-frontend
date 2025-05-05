@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -14,6 +16,7 @@ export default function Info() {
   const searchParams = useSearchParams();
 
   const email = searchParams.get('email');
+  const paymentStatus = searchParams.get('paymentStatus');
 
   const { loading, sendVerificationLink } = useSendEmailVerificationLink();
 
@@ -28,6 +31,14 @@ export default function Info() {
       console.log('error => ', error);
     }
   };
+
+  useEffect(() => {
+    if (paymentStatus === 'success') {
+      toast.success('Your payment attempt was successful');
+    } else {
+      toast.error('Your payment attempt failed');
+    }
+  }, [paymentStatus]);
 
   return (
     <>

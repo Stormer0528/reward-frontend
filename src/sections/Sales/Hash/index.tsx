@@ -1,5 +1,3 @@
-import type { PaymentType } from 'src/__generated__/graphql';
-
 import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
@@ -13,9 +11,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
 import { useBoolean, type UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import { TIME_LEFT } from 'src/consts';
+import { type PaymentType, WaitTransactionStatus } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 
@@ -26,11 +28,14 @@ import PaymentStatus from './PaymentStatus';
 import { useCancelOrder } from '../useApollo';
 
 interface Props {
+  email?: string;
   open: UseBooleanReturn;
 }
 
-export default function Hash({ open }: Props) {
+export default function Hash({ open, email }: Props) {
   const theme = useTheme();
+
+  const router = useRouter();
 
   const confirm = useBoolean();
 
@@ -80,6 +85,7 @@ export default function Hash({ open }: Props) {
             {step === 1 && <Payment paymentType={paymentType!} setPaymentType={setPaymentType} />}
             {step === 2 && (
               <Detail
+                email={email}
                 setStep={setStep}
                 timeLeft={timeLeft}
                 walletId={walletId}
@@ -123,7 +129,15 @@ export default function Hash({ open }: Props) {
               </Button>
             </>
           )}
-          <Button variant="outlined" onClick={confirm.onTrue}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              confirm.onTrue();
+              router.push(
+                `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: status === WaitTransactionStatus.Received ? 'success' : 'failed' }).toString()}`
+              );
+            }}
+          >
             {step === 3 ? 'Close' : 'Cancel'}
           </Button>
         </DialogActions>
@@ -147,6 +161,10 @@ export default function Hash({ open }: Props) {
 
               setTimeLeft(TIME_LEFT);
               setWalletId('');
+
+              router.push(
+                `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: 'failed' }).toString()}`
+              );
             }}
           >
             Yes
