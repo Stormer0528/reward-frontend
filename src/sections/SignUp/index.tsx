@@ -392,7 +392,7 @@ export function SignUpView() {
 
       <Calculator open={calculator} />
 
-      <Hash open={open} email={email} />
+      <Hash open={open} email={email} selectedPackageId={packageId} />
     </Container>
   );
 }
