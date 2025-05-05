@@ -37,6 +37,8 @@ export default function Info() {
       toast.success('Your payment attempt was successful');
     } else if (paymentStatus === 'failed') {
       toast.error('Your payment attempt failed');
+    } else if (paymentStatus === 'canceled') {
+      toast.error('Your payment attempt was canceled');
     }
   }, [paymentStatus]);
 

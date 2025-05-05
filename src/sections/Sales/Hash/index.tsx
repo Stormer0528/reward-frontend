@@ -173,7 +173,7 @@ export default function Hash({ open, email, selectedPackageId }: Props) {
 
               if (email) {
                 router.push(
-                  `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: 'failed' }).toString()}`
+                  `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: 'canceled' }).toString()}`
                 );
               }
             }}
