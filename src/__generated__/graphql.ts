@@ -108,6 +108,26 @@ export type ApproveCommissionWithTxIdInput = {
   txData: Array<ApproveCommissionWithTxId>;
 };
 
+export type AutoCampaign = {
+  __typename?: 'AutoCampaign';
+  approvedCommission: Scalars['Boolean']['output'];
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  frontActions?: Maybe<Array<FrontAction>>;
+  id: Scalars['ID']['output'];
+  sender: Scalars['String']['output'];
+  subject: Scalars['String']['output'];
+  template?: Maybe<EmailTemplate>;
+  templateId: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+};
+
+export type AutoCampaignResponse = {
+  __typename?: 'AutoCampaignResponse';
+  autoCampaigns?: Maybe<Array<AutoCampaign>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
 export type AverageMinerRewardStatsResponse = {
   __typename?: 'AverageMinerRewardStatsResponse';
   base: Scalars['String']['output'];
@@ -378,6 +398,13 @@ export type CreateAdminNotesInput = {
   memberId: Scalars['ID']['input'];
 };
 
+export type CreateAutoCampaignInput = {
+  approvedCommission: Scalars['Boolean']['input'];
+  sender: Scalars['String']['input'];
+  subject: Scalars['String']['input'];
+  templateId: Scalars['String']['input'];
+};
+
 export type CreateBlockInput = {
   blockNo: Scalars['Float']['input'];
   difficulty: Scalars['Float']['input'];
@@ -553,6 +580,16 @@ export type CreateSaleInput = {
   sponsorCnt?: InputMaybe<Scalars['Float']['input']>;
   status: Scalars['Boolean']['input'];
   toMemberId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type CreateScheduleCampaignInput = {
+  listExtra?: InputMaybe<Scalars['String']['input']>;
+  listType: CampaignListType;
+  sender: Scalars['String']['input'];
+  status: Scalars['Boolean']['input'];
+  subject: Scalars['String']['input'];
+  templateId: Scalars['String']['input'];
+  when: Scalars['String']['input'];
 };
 
 export type CreateSignUpOrderInput = {
@@ -1133,8 +1170,10 @@ export type Mutation = {
   createAdmin: Admin;
   createAdminNote: AdminNotes;
   createAndSendCampaign: Campaign;
+  createAutoCampaign: AutoCampaign;
   createBlock: Block;
   createBugReport: SuccessResponse;
+  createCampaignSchedule: ScheduleCampaign;
   createEmailTemplate: EmailTemplate;
   createGroupSetting: GroupSetting;
   createInvoice: Invoice;
@@ -1177,6 +1216,8 @@ export type Mutation = {
   regenerateInvoiceById: SuccessResponse;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
+  removeAutoCampaign: AutoCampaign;
+  removeCampaignSchedule: ScheduleCampaign;
   removeCompleteMemberPlacement: SuccessResponse;
   removeEmail: Email;
   removeGroupSetting: GroupSetting;
@@ -1211,7 +1252,9 @@ export type Mutation = {
   signUpMember: SignupMemberResponse;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
+  updateAutoCampaign: AutoCampaign;
   updateBugReport: BugReport;
+  updateCampaignSchedule: ScheduleCampaign;
   updateCommission: WeeklyCommission;
   updateCommissionShortNote: WeeklyCommission;
   updateCommissionsStatus: SuccessResponse;
@@ -1305,6 +1348,11 @@ export type MutationCreateAndSendCampaignArgs = {
 };
 
 
+export type MutationCreateAutoCampaignArgs = {
+  data: CreateAutoCampaignInput;
+};
+
+
 export type MutationCreateBlockArgs = {
   data: CreateBlockInput;
 };
@@ -1312,6 +1360,11 @@ export type MutationCreateBlockArgs = {
 
 export type MutationCreateBugReportArgs = {
   data: CreateBugReportInput;
+};
+
+
+export type MutationCreateCampaignScheduleArgs = {
+  data: CreateScheduleCampaignInput;
 };
 
 
@@ -1510,6 +1563,16 @@ export type MutationRemoveAdminsArgs = {
 };
 
 
+export type MutationRemoveAutoCampaignArgs = {
+  data: IdInput;
+};
+
+
+export type MutationRemoveCampaignScheduleArgs = {
+  data: IdInput;
+};
+
+
 export type MutationRemoveCompleteMemberPlacementArgs = {
   data: IdInput;
 };
@@ -1670,8 +1733,18 @@ export type MutationUpdateAdminNoteArgs = {
 };
 
 
+export type MutationUpdateAutoCampaignArgs = {
+  data: UpdateAutoCampaignInput;
+};
+
+
 export type MutationUpdateBugReportArgs = {
   data: UpdateBugReportInput;
+};
+
+
+export type MutationUpdateCampaignScheduleArgs = {
+  data: UpdateScheduleCampaignInput;
 };
 
 
@@ -2073,6 +2146,7 @@ export type Query = {
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
   admins: AdminsResponse;
+  autoCampaigns: AutoCampaignResponse;
   averageMemberReward: Array<AverageMinerRewardStatsResponse>;
   blocks: BlocksResponse;
   blocksData: Array<BlockStatsResponse>;
@@ -2140,6 +2214,7 @@ export type Query = {
   saleById: Sale;
   saleBySID: Sale;
   sales: BasicSalesResponse;
+  scheduleCampaigns: ScheduleCampaignResponse;
   settingByMemberId: Setting;
   statistics: StatisticsResponse;
   statisticsSales: StatisticsSaleResponse;
@@ -2179,6 +2254,13 @@ export type QueryAdminNotesArgs = {
 
 
 export type QueryAdminsArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryAutoCampaignsArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -2534,6 +2616,13 @@ export type QuerySalesArgs = {
 };
 
 
+export type QueryScheduleCampaignsArgs = {
+  filter?: InputMaybe<Scalars['JSONObject']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QuerySettingByMemberIdArgs = {
   data: IdInput;
 };
@@ -2712,6 +2801,31 @@ export type Sale = {
 
 export type SaleLogsArgs = {
   logsize?: Scalars['Float']['input'];
+};
+
+export type ScheduleCampaign = {
+  __typename?: 'ScheduleCampaign';
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  frontActions?: Maybe<Array<FrontAction>>;
+  id: Scalars['ID']['output'];
+  lastRun?: Maybe<Scalars['DateTime']['output']>;
+  listExtra?: Maybe<Scalars['String']['output']>;
+  listType: CampaignListType;
+  nextRun: Scalars['DateTime']['output'];
+  sender: Scalars['String']['output'];
+  status: Scalars['Boolean']['output'];
+  subject: Scalars['String']['output'];
+  template?: Maybe<EmailTemplate>;
+  templateId: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  when: Scalars['String']['output'];
+};
+
+export type ScheduleCampaignResponse = {
+  __typename?: 'ScheduleCampaignResponse';
+  scheduleCampaigns?: Maybe<Array<ScheduleCampaign>>;
+  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Session = {
@@ -2926,6 +3040,14 @@ export type UpdateAdminPasswordInput = {
   oldPassword: Scalars['String']['input'];
 };
 
+export type UpdateAutoCampaignInput = {
+  approvedCommission?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['ID']['input'];
+  sender?: InputMaybe<Scalars['String']['input']>;
+  subject?: InputMaybe<Scalars['String']['input']>;
+  templateId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type UpdateBugReportInput = {
   contact?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -3077,6 +3199,17 @@ export type UpdateSaleInput = {
   sponsorCnt?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   toMemberId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type UpdateScheduleCampaignInput = {
+  id: Scalars['ID']['input'];
+  listExtra?: InputMaybe<Scalars['String']['input']>;
+  listType?: InputMaybe<CampaignListType>;
+  sender?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['Boolean']['input']>;
+  subject?: InputMaybe<Scalars['String']['input']>;
+  templateId?: InputMaybe<Scalars['String']['input']>;
+  when?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateStatisticsInput = {

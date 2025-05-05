@@ -140,7 +140,7 @@ export default function Hash({ open, email, selectedPackageId }: Props) {
             variant="outlined"
             onClick={() => {
               confirm.onTrue();
-              if (email) {
+              if (step === 3 && email) {
                 router.push(
                   `${paths.auth.verifyResult}?${new URLSearchParams({ email: email!, paymentStatus: status === WaitTransactionStatus.Received ? 'success' : 'failed' }).toString()}`
                 );
