@@ -135,7 +135,7 @@ export type BasicSale = {
   __typename?: 'BasicSale';
   ID: Scalars['Int']['output'];
   amount: Scalars['Float']['output'];
-  assetId: Scalars['String']['output'];
+  assetId?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTimeISO']['output'];
   email: Scalars['String']['output'];
   fullName: Scalars['String']['output'];
@@ -3633,7 +3633,7 @@ export type SalesQueryVariables = Exact<{
 }>;
 
 
-export type SalesQuery = { __typename?: 'Query', sales: { __typename?: 'BasicSalesResponse', total?: number | null, sales?: Array<{ __typename?: 'BasicSale', id: string, ID: number, email: string, token: number, point: number, amount: number, status: boolean, isMetal: boolean, toEmail?: string | null, assetId: string, memberId: string, username: string, fullName: string, orderedAt: any, createdAt: any, sponsorCnt: number, toMemberId?: string | null, toUsername?: string | null, toFullName?: string | null, productName: string, paymentMethod: string }> | null } };
+export type SalesQuery = { __typename?: 'Query', sales: { __typename?: 'BasicSalesResponse', total?: number | null, sales?: Array<{ __typename?: 'BasicSale', id: string, ID: number, email: string, token: number, point: number, amount: number, status: boolean, isMetal: boolean, toEmail?: string | null, assetId?: string | null, memberId: string, username: string, fullName: string, orderedAt: any, createdAt: any, sponsorCnt: number, toMemberId?: string | null, toUsername?: string | null, toFullName?: string | null, productName: string, paymentMethod: string }> | null } };
 
 export type FetchSaleStatsQueryVariables = Exact<{
   allFilter?: InputMaybe<Scalars['JSONObject']['input']>;

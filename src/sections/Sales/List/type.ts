@@ -25,6 +25,7 @@ export type Sale = {
 export type BasicSale = {
   __typename?: 'BasicSale';
   id: string;
+  ID: number;
   email: string;
   point: number;
   token: number;
@@ -36,11 +37,10 @@ export type BasicSale = {
   username: string;
   fullName: string;
   isMetal: boolean;
-  ID?: number | null;
   sponsorCnt: number;
   productName: string;
   paymentMethod: string;
-  assetId: string | null;
+  assetId?: string | null;
   toEmail?: string | null;
   toMemberId?: string | null;
   toUsername?: string | null;
