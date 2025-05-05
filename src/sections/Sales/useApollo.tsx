@@ -10,6 +10,7 @@ import {
   CANCEL_ORDER,
   COMPLETE_ORDER,
   FETCH_SALES_QUERY,
+  CREATE_SIGNUP_ORDER,
   FETCH_PACKAGES_QUERY,
   FETCH_SALES_STATS_QUERY,
   CHECK_ADDRESS_WAIT_STATUS,
@@ -84,6 +85,12 @@ export function useCreateOrder() {
   const [createOrder, { loading, data, error }] = useMutation(CREATE_ORDER);
 
   return { loading, data, error, createOrder };
+}
+
+export function useCreateSignUpOrder() {
+  const [createSignUpOrder, { loading, data, error }] = useMutation(CREATE_SIGNUP_ORDER);
+
+  return { loading, data, error, createSignUpOrder };
 }
 
 export function useCompleteOrder() {

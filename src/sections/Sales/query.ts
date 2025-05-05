@@ -85,6 +85,20 @@ export const CREATE_ORDER = gql(/* GraphQL */ `
   }
 `);
 
+export const CREATE_SIGNUP_ORDER = gql(/* GraphQL */ `
+  mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {
+    createSignUpOrder(data: $data) {
+      id
+      waitAddressId
+      waitAddress {
+        id
+        address
+        totalBalance
+      }
+    }
+  }
+`);
+
 export const COMPLETE_ORDER = gql(/* GraphQL */ `
   mutation CompleteOrder($data: CompleteOrderInput!) {
     completeOrder(data: $data) {
