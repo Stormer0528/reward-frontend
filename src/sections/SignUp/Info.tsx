@@ -35,7 +35,7 @@ export default function Info() {
   useEffect(() => {
     if (paymentStatus === 'success') {
       toast.success('Your payment attempt was successful');
-    } else {
+    } else if (paymentStatus === 'failed') {
       toast.error('Your payment attempt failed');
     }
   }, [paymentStatus]);
