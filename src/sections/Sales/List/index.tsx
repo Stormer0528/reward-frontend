@@ -20,13 +20,14 @@ import { AgGrid } from 'src/components/AgGrid';
 import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
-import { useFetchSales } from 'src/sections/Sales/useApollo';
+import { useFetchSales, useOrderAvailablePoint } from 'src/sections/Sales/useApollo';
 
 import Hash from '../Hash';
 
 export default function SaleListView() {
   const open = useBoolean();
 
+  const { available } = useOrderAvailablePoint();
   const { loading, rowCount, sales } = useFetchSales();
 
   const colDefs = useMemo<ColDef<BasicSale>[]>(
@@ -123,16 +124,17 @@ export default function SaleListView() {
         sx={{
           mb: { xs: 1, md: 2 },
         }}
-        // action={
-        //   <Button
-        //     variant="contained"
-        //     color="primary"
-        //     startIcon={<Iconify icon="mingcute:add-line" />}
-        //     onClick={open.onTrue}
-        //   >
-        //     Add Hash
-        //   </Button>
-        // }
+        action={
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+            onClick={open.onTrue}
+            disabled={available === 0}
+          >
+            Add Hash
+          </Button>
+        }
       />
 
       <Card
@@ -151,7 +153,7 @@ export default function SaleListView() {
         />
       </Card>
 
-      <Hash open={open} />
+      <Hash open={open} available={available} />
     </DashboardContent>
   );
 }

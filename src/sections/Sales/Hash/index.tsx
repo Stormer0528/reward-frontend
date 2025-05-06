@@ -29,11 +29,12 @@ import { useCancelOrder } from '../useApollo';
 
 interface Props {
   email?: string;
+  available?: number;
   open: UseBooleanReturn;
   selectedPackageId?: string;
 }
 
-export default function Hash({ open, email, selectedPackageId }: Props) {
+export default function Hash({ open, email, available, selectedPackageId }: Props) {
   const theme = useTheme();
 
   const router = useRouter();
@@ -88,7 +89,7 @@ export default function Hash({ open, email, selectedPackageId }: Props) {
         </DialogTitle>
         <DialogContent>
           <Paper sx={{ my: 1 }}>
-            {step === 0 && <Packages setPackageId={setPackageId} />}
+            {step === 0 && <Packages setPackageId={setPackageId} available={available} />}
             {step === 1 && <Payment paymentType={paymentType!} setPaymentType={setPaymentType} />}
             {step === 2 && (
               <Detail

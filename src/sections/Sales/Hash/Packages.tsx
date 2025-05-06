@@ -6,16 +6,20 @@ import TextField from '@mui/material/TextField';
 import { useFetchPackages } from '../useApollo';
 
 interface Props {
+  available?: number;
   setPackageId: Function;
 }
 
-export default function Packages({ setPackageId }: Props) {
+export default function Packages({ available, setPackageId }: Props) {
   const { packages, fetchPackages } = useFetchPackages();
 
   useEffect(
     () => {
       fetchPackages({
-        variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
+        variables: {
+          filter: { status: true, enrollVisibility: true, point: { lte: available } },
+          sort: '-amount',
+        },
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
