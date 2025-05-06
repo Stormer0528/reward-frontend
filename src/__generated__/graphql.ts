@@ -108,26 +108,6 @@ export type ApproveCommissionWithTxIdInput = {
   txData: Array<ApproveCommissionWithTxId>;
 };
 
-export type AutoCampaign = {
-  __typename?: 'AutoCampaign';
-  approvedCommission: Scalars['Boolean']['output'];
-  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  frontActions?: Maybe<Array<FrontAction>>;
-  id: Scalars['ID']['output'];
-  sender: Scalars['String']['output'];
-  subject: Scalars['String']['output'];
-  template?: Maybe<EmailTemplate>;
-  templateId: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-};
-
-export type AutoCampaignResponse = {
-  __typename?: 'AutoCampaignResponse';
-  autoCampaigns?: Maybe<Array<AutoCampaign>>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
 export type AverageMinerRewardStatsResponse = {
   __typename?: 'AverageMinerRewardStatsResponse';
   base: Scalars['String']['output'];
@@ -398,13 +378,6 @@ export type CreateAdminNotesInput = {
   memberId: Scalars['ID']['input'];
 };
 
-export type CreateAutoCampaignInput = {
-  approvedCommission: Scalars['Boolean']['input'];
-  sender: Scalars['String']['input'];
-  subject: Scalars['String']['input'];
-  templateId: Scalars['String']['input'];
-};
-
 export type CreateBlockInput = {
   blockNo: Scalars['Float']['input'];
   difficulty: Scalars['Float']['input'];
@@ -580,16 +553,6 @@ export type CreateSaleInput = {
   sponsorCnt?: InputMaybe<Scalars['Float']['input']>;
   status: Scalars['Boolean']['input'];
   toMemberId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type CreateScheduleCampaignInput = {
-  listExtra?: InputMaybe<Scalars['String']['input']>;
-  listType: CampaignListType;
-  sender: Scalars['String']['input'];
-  status: Scalars['Boolean']['input'];
-  subject: Scalars['String']['input'];
-  templateId: Scalars['String']['input'];
-  when: Scalars['String']['input'];
 };
 
 export type CreateSignUpOrderInput = {
@@ -1170,10 +1133,8 @@ export type Mutation = {
   createAdmin: Admin;
   createAdminNote: AdminNotes;
   createAndSendCampaign: Campaign;
-  createAutoCampaign: AutoCampaign;
   createBlock: Block;
   createBugReport: SuccessResponse;
-  createCampaignSchedule: ScheduleCampaign;
   createEmailTemplate: EmailTemplate;
   createGroupSetting: GroupSetting;
   createInvoice: Invoice;
@@ -1216,8 +1177,6 @@ export type Mutation = {
   regenerateInvoiceById: SuccessResponse;
   removeAdminNote: SuccessResponse;
   removeAdmins: ManySuccessResponse;
-  removeAutoCampaign: AutoCampaign;
-  removeCampaignSchedule: ScheduleCampaign;
   removeCompleteMemberPlacement: SuccessResponse;
   removeEmail: Email;
   removeGroupSetting: GroupSetting;
@@ -1252,9 +1211,7 @@ export type Mutation = {
   signUpMember: SignupMemberResponse;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
-  updateAutoCampaign: AutoCampaign;
   updateBugReport: BugReport;
-  updateCampaignSchedule: ScheduleCampaign;
   updateCommission: WeeklyCommission;
   updateCommissionShortNote: WeeklyCommission;
   updateCommissionsStatus: SuccessResponse;
@@ -1348,11 +1305,6 @@ export type MutationCreateAndSendCampaignArgs = {
 };
 
 
-export type MutationCreateAutoCampaignArgs = {
-  data: CreateAutoCampaignInput;
-};
-
-
 export type MutationCreateBlockArgs = {
   data: CreateBlockInput;
 };
@@ -1360,11 +1312,6 @@ export type MutationCreateBlockArgs = {
 
 export type MutationCreateBugReportArgs = {
   data: CreateBugReportInput;
-};
-
-
-export type MutationCreateCampaignScheduleArgs = {
-  data: CreateScheduleCampaignInput;
 };
 
 
@@ -1563,16 +1510,6 @@ export type MutationRemoveAdminsArgs = {
 };
 
 
-export type MutationRemoveAutoCampaignArgs = {
-  data: IdInput;
-};
-
-
-export type MutationRemoveCampaignScheduleArgs = {
-  data: IdInput;
-};
-
-
 export type MutationRemoveCompleteMemberPlacementArgs = {
   data: IdInput;
 };
@@ -1733,18 +1670,8 @@ export type MutationUpdateAdminNoteArgs = {
 };
 
 
-export type MutationUpdateAutoCampaignArgs = {
-  data: UpdateAutoCampaignInput;
-};
-
-
 export type MutationUpdateBugReportArgs = {
   data: UpdateBugReportInput;
-};
-
-
-export type MutationUpdateCampaignScheduleArgs = {
-  data: UpdateScheduleCampaignInput;
 };
 
 
@@ -1918,6 +1845,7 @@ export type Order = {
   memberId: Scalars['String']['output'];
   package?: Maybe<Package>;
   packageId: Scalars['String']['output'];
+  signUpOrder: Scalars['Boolean']['output'];
   status: OrderStatus;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   waitAddress?: Maybe<WaitAddress>;
@@ -2146,7 +2074,6 @@ export type Query = {
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
   admins: AdminsResponse;
-  autoCampaigns: AutoCampaignResponse;
   averageMemberReward: Array<AverageMinerRewardStatsResponse>;
   blocks: BlocksResponse;
   blocksData: Array<BlockStatsResponse>;
@@ -2195,6 +2122,7 @@ export type Query = {
   newMemberCounts: Array<MinerCountStatsResponse>;
   notifications: NotificationResponse;
   onepointAwayMembers: MembersResponse;
+  orderAvailablePoint: Scalars['Int']['output'];
   orderById: Order;
   orders: OrderResponse;
   packages: PackageResponse;
@@ -2214,7 +2142,6 @@ export type Query = {
   saleById: Sale;
   saleBySID: Sale;
   sales: BasicSalesResponse;
-  scheduleCampaigns: ScheduleCampaignResponse;
   settingByMemberId: Setting;
   statistics: StatisticsResponse;
   statisticsSales: StatisticsSaleResponse;
@@ -2254,13 +2181,6 @@ export type QueryAdminNotesArgs = {
 
 
 export type QueryAdminsArgs = {
-  filter?: InputMaybe<Scalars['JSONObject']['input']>;
-  page?: InputMaybe<Scalars['String']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryAutoCampaignsArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -2616,13 +2536,6 @@ export type QuerySalesArgs = {
 };
 
 
-export type QueryScheduleCampaignsArgs = {
-  filter?: InputMaybe<Scalars['JSONObject']['input']>;
-  page?: InputMaybe<Scalars['String']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
 export type QuerySettingByMemberIdArgs = {
   data: IdInput;
 };
@@ -2801,31 +2714,6 @@ export type Sale = {
 
 export type SaleLogsArgs = {
   logsize?: Scalars['Float']['input'];
-};
-
-export type ScheduleCampaign = {
-  __typename?: 'ScheduleCampaign';
-  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  frontActions?: Maybe<Array<FrontAction>>;
-  id: Scalars['ID']['output'];
-  lastRun?: Maybe<Scalars['DateTime']['output']>;
-  listExtra?: Maybe<Scalars['String']['output']>;
-  listType: CampaignListType;
-  nextRun: Scalars['DateTime']['output'];
-  sender: Scalars['String']['output'];
-  status: Scalars['Boolean']['output'];
-  subject: Scalars['String']['output'];
-  template?: Maybe<EmailTemplate>;
-  templateId: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  when: Scalars['String']['output'];
-};
-
-export type ScheduleCampaignResponse = {
-  __typename?: 'ScheduleCampaignResponse';
-  scheduleCampaigns?: Maybe<Array<ScheduleCampaign>>;
-  total?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Session = {
@@ -3040,14 +2928,6 @@ export type UpdateAdminPasswordInput = {
   oldPassword: Scalars['String']['input'];
 };
 
-export type UpdateAutoCampaignInput = {
-  approvedCommission?: InputMaybe<Scalars['Boolean']['input']>;
-  id: Scalars['ID']['input'];
-  sender?: InputMaybe<Scalars['String']['input']>;
-  subject?: InputMaybe<Scalars['String']['input']>;
-  templateId?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type UpdateBugReportInput = {
   contact?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -3199,17 +3079,6 @@ export type UpdateSaleInput = {
   sponsorCnt?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<Scalars['Boolean']['input']>;
   toMemberId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type UpdateScheduleCampaignInput = {
-  id: Scalars['ID']['input'];
-  listExtra?: InputMaybe<Scalars['String']['input']>;
-  listType?: InputMaybe<CampaignListType>;
-  sender?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<Scalars['Boolean']['input']>;
-  subject?: InputMaybe<Scalars['String']['input']>;
-  templateId?: InputMaybe<Scalars['String']['input']>;
-  when?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateStatisticsInput = {
@@ -3792,6 +3661,11 @@ export type CheckAddressWaitStatusQueryVariables = Exact<{
 
 export type CheckAddressWaitStatusQuery = { __typename?: 'Query', checkAddressWaitStatus: { __typename?: 'WaitTransactionStatusResponse', status: WaitTransactionStatus } };
 
+export type OrderAvailablePointQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OrderAvailablePointQuery = { __typename?: 'Query', orderAvailablePoint: number };
+
 export type CreateOrderMutationVariables = Exact<{
   data: CreateOrderInput;
 }>;
@@ -4072,6 +3946,7 @@ export const SalesDocument = {"kind":"Document","definitions":[{"kind":"Operatio
 export const FetchSaleStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchSaleStats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inactiveFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"all"},"name":{"kind":"Name","value":"sales"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"allFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"inactive"},"name":{"kind":"Name","value":"sales"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inactiveFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<FetchSaleStatsQuery, FetchSaleStatsQueryVariables>;
 export const PackagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Packages"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"packages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"packages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"deletedAt"}},{"kind":"Field","name":{"kind":"Name","value":"productName"}},{"kind":"Field","name":{"kind":"Name","value":"enrollVisibility"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<PackagesQuery, PackagesQueryVariables>;
 export const CheckAddressWaitStatusDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CheckAddressWaitStatus"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"checkAddressWaitStatus"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<CheckAddressWaitStatusQuery, CheckAddressWaitStatusQueryVariables>;
+export const OrderAvailablePointDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OrderAvailablePoint"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"orderAvailablePoint"}}]}}]} as unknown as DocumentNode<OrderAvailablePointQuery, OrderAvailablePointQueryVariables>;
 export const CreateOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"waitAddressId"}},{"kind":"Field","name":{"kind":"Name","value":"waitAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}}]}}]}}]}}]} as unknown as DocumentNode<CreateOrderMutation, CreateOrderMutationVariables>;
 export const CreateSignUpOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSignUpOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateSignUpOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSignUpOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"waitAddressId"}},{"kind":"Field","name":{"kind":"Name","value":"waitAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"totalBalance"}}]}}]}}]}}]} as unknown as DocumentNode<CreateSignUpOrderMutation, CreateSignUpOrderMutationVariables>;
 export const CompleteOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CompleteOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CompleteOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"completeOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<CompleteOrderMutation, CompleteOrderMutationVariables>;

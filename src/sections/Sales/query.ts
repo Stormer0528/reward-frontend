@@ -71,6 +71,12 @@ export const CHECK_ADDRESS_WAIT_STATUS = gql(/* GraphQL */ `
   }
 `);
 
+export const ORDER_AVAILABLE_POINT = gql(/* GraphQL */ `
+  query OrderAvailablePoint {
+    orderAvailablePoint
+  }
+`);
+
 export const CREATE_ORDER = gql(/* GraphQL */ `
   mutation CreateOrder($data: CreateOrderInput!) {
     createOrder(data: $data) {

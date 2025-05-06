@@ -68,6 +68,7 @@ const documents = {
     "\n  query FetchSaleStats($allFilter: JSONObject, $inactiveFilter: JSONObject) {\n    all: sales(filter: $allFilter) {\n      total\n    }\n    inactive: sales(filter: $inactiveFilter) {\n      total\n    }\n  }\n": types.FetchSaleStatsDocument,
     "\n  query Packages($sort: String, $page: String, $filter: JSONObject) {\n    packages(sort: $sort, page: $page, filter: $filter) {\n      packages {\n        id\n        date\n        token\n        point\n        amount\n        status\n        createdAt\n        updatedAt\n        deletedAt\n        productName\n        enrollVisibility\n      }\n      total\n    }\n  }\n": types.PackagesDocument,
     "\n  query CheckAddressWaitStatus($data: IDInput!) {\n    checkAddressWaitStatus(data: $data) {\n      status\n    }\n  }\n": types.CheckAddressWaitStatusDocument,
+    "\n  query OrderAvailablePoint {\n    orderAvailablePoint\n  }\n": types.OrderAvailablePointDocument,
     "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        totalBalance\n      }\n    }\n  }\n": types.CreateOrderDocument,
     "\n  mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {\n    createSignUpOrder(data: $data) {\n      id\n      waitAddressId\n      waitAddress {\n        id\n        address\n        totalBalance\n      }\n    }\n  }\n": types.CreateSignUpOrderDocument,
     "\n  mutation CompleteOrder($data: CompleteOrderInput!) {\n    completeOrder(data: $data) {\n      status\n    }\n  }\n": types.CompleteOrderDocument,
@@ -335,6 +336,10 @@ export function gql(source: "\n  query Packages($sort: String, $page: String, $f
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query CheckAddressWaitStatus($data: IDInput!) {\n    checkAddressWaitStatus(data: $data) {\n      status\n    }\n  }\n"): (typeof documents)["\n  query CheckAddressWaitStatus($data: IDInput!) {\n    checkAddressWaitStatus(data: $data) {\n      status\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query OrderAvailablePoint {\n    orderAvailablePoint\n  }\n"): (typeof documents)["\n  query OrderAvailablePoint {\n    orderAvailablePoint\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
