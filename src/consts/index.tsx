@@ -119,17 +119,17 @@ export const PAYMENT_METHOD = {
     token: null,
   },
   USDC: {
-    label: 'Ethereum',
+    label: 'ethereum',
     balance: 10 ** 6,
     token: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606e48',
   },
   USDT: {
-    label: 'Ethereum',
+    label: 'ethereum',
     balance: 10 ** 6,
     token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
   },
   ETH: {
-    label: 'Ethereum',
+    label: 'ethereum',
     balance: 10 ** 18,
     token: null,
   },
