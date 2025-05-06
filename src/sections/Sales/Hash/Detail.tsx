@@ -117,7 +117,7 @@ export default function Detail({
             setBalance(data?.createSignUpOrder.waitAddress?.totalBalance);
             setAddress(data?.createSignUpOrder.waitAddress?.address ?? '');
             setQrCode(
-              `${PAYMENT_METHOD[paymentType].label}:${data?.createSignUpOrder.waitAddress?.address}?value=${data?.createSignUpOrder.waitAddress?.totalBalance}${PAYMENT_METHOD[paymentType].token && `&token=${PAYMENT_METHOD[paymentType].token}`}`
+              `${PAYMENT_METHOD[paymentType].label}:${data?.createSignUpOrder.waitAddress?.address}`
             );
           } else {
             const { data } = await createOrder({ variables: { data: { packageId, paymentType } } });
@@ -127,7 +127,7 @@ export default function Detail({
             setBalance(data?.createOrder.waitAddress?.totalBalance);
             setAddress(data?.createOrder.waitAddress?.address ?? '');
             setQrCode(
-              `${PAYMENT_METHOD[paymentType].label}:${data?.createOrder.waitAddress?.address}?value=${data?.createOrder.waitAddress?.totalBalance}${PAYMENT_METHOD[paymentType].token && `&token=${PAYMENT_METHOD[paymentType].token}`}`
+              `${PAYMENT_METHOD[paymentType].label}:${data?.createOrder.waitAddress?.address}`
             );
           }
         }
