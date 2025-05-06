@@ -123,16 +123,16 @@ export default function SaleListView() {
         sx={{
           mb: { xs: 1, md: 2 },
         }}
-        action={
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Iconify icon="mingcute:add-line" />}
-            onClick={open.onTrue}
-          >
-            Add Hash
-          </Button>
-        }
+        // action={
+        //   <Button
+        //     variant="contained"
+        //     color="primary"
+        //     startIcon={<Iconify icon="mingcute:add-line" />}
+        //     onClick={open.onTrue}
+        //   >
+        //     Add Hash
+        //   </Button>
+        // }
       />
 
       <Card
