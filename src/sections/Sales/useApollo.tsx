@@ -12,6 +12,7 @@ import {
   FETCH_SALES_QUERY,
   CREATE_SIGNUP_ORDER,
   FETCH_PACKAGES_QUERY,
+  ORDER_AVAILABLE_POINT,
   FETCH_SALES_STATS_QUERY,
   CHECK_ADDRESS_WAIT_STATUS,
 } from './query';
@@ -79,6 +80,12 @@ export function useCheckAddressWaitStatus() {
     useLazyQuery(CHECK_ADDRESS_WAIT_STATUS);
 
   return { loading, status: data?.checkAddressWaitStatus.status, error, checkAddressWaitStatus };
+}
+
+export function useOrderAvailablePoint() {
+  const { loading, data, error } = useQuery(ORDER_AVAILABLE_POINT);
+
+  return { loading, available: data?.orderAvailablePoint ?? 0, error };
 }
 
 export function useCreateOrder() {
