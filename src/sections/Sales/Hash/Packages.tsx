@@ -17,7 +17,7 @@ export default function Packages({ available, setPackageId }: Props) {
     () => {
       fetchPackages({
         variables: {
-          filter: { status: true, enrollVisibility: true, point: { lte: available } },
+          filter: { status: true, orderVisibility: true, point: { lte: available } },
           sort: '-amount',
         },
       });
