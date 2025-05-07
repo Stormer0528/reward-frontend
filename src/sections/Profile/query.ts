@@ -270,8 +270,10 @@ export const FETCH_MEMBER_HISTORY = gql(/* GraphQL */ `
     memberOverview(data: $data) {
       point
       joinDate
+      isTexitRanger
       totalTXCShared
       currentHashPower
+      orderedAvailablePoint
       cashCommissionPotential
     }
   }

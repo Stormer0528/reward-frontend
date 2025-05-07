@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { useMutation, useLazyQuery } from '@apollo/client';
+import { useMutation, useLazyQuery, useQuery as useGraphQuery } from '@apollo/client';
 
 import {
   DISABLE_2FA,
@@ -12,6 +12,7 @@ import {
   EMAIL_VERIFY_CODE,
   FETCH_MEMBERS_QUERY,
   FETCH_PAYOUTS_QUERY,
+  FETCH_MEMBER_HISTORY,
   UPDATE_SETTING_MEMBER,
   MEMBER_EXCHANGE_LOGIN,
   UPDATE_MEMBER_PASSWORD,
@@ -91,6 +92,14 @@ export function useFetchMembersStats() {
   const [fetchMemberStats, { data }] = useLazyQuery(FETCH_MEMBER_STATS_QUERY);
 
   return { data, fetchMemberStats };
+}
+
+export function useFetchMemberOvewview(id: string) {
+  const { loading, data, error } = useGraphQuery(FETCH_MEMBER_HISTORY, {
+    variables: { data: { id } },
+  });
+
+  return { loading, overview: data?.memberOverview, error };
 }
 
 export function useUpdateMember() {
