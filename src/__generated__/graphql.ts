@@ -1009,6 +1009,7 @@ export type MemberOverview = {
   currentHashPower: Scalars['Float']['output'];
   isTexitRanger: Scalars['Boolean']['output'];
   joinDate: Scalars['DateTimeISO']['output'];
+  orderedAvailablePoint: Scalars['Int']['output'];
   point: Scalars['Float']['output'];
   totalTXCShared: Scalars['BigInt']['output'];
 };

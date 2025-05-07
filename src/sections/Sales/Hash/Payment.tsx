@@ -28,14 +28,14 @@ const payments: PAYMENT_METHOD_TYPE[] = [
   // },
   {
     value: PaymentType.Usdc,
-    label: 'USDC',
+    label: 'USDC on Ethereum',
     icon: `${CONFIG.site.basePath}/assets/USDC.png`,
     backgroundColor: '#ffffff',
     disable: false,
   },
   {
     value: PaymentType.Usdt,
-    label: 'USDT',
+    label: 'USDT on Ethereum',
     icon: `${CONFIG.site.basePath}/assets/USDT.png`,
     backgroundColor: '#ffffff',
     disable: false,
