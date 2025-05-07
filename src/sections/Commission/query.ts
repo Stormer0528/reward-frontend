@@ -22,6 +22,7 @@ export const FETCH_COMMISSION_QUERY = gql(/* GraphQL */ `
         fullName
         memberId
         createdAt
+        proofNote
         shortNote
         commission
         weekStartDate

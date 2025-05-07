@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 
 import { formatID } from 'src/utils/helper';
 
-import { ConfirmationStatus, type WeeklyCommission } from 'src/__generated__/graphql';
+import { ConfirmationStatus, type BasicWeeklyCommission } from 'src/__generated__/graphql';
 
 import { Label } from 'src/components/Label';
 
@@ -15,7 +15,7 @@ import { Label } from 'src/components/Label';
 dayjs.extend(utcPlugin);
 
 type Props = {
-  row: WeeklyCommission;
+  row: BasicWeeklyCommission;
 };
 
 export default function CommissionTableRow({ row }: Props) {
@@ -32,6 +32,7 @@ export default function CommissionTableRow({ row }: Props) {
     pkgL,
     pkgR,
     status,
+    proofNote,
     commission,
     weekStartDate,
   } = row;
@@ -69,6 +70,9 @@ export default function CommissionTableRow({ row }: Props) {
         >
           {status}
         </Label>
+      </TableCell>
+      <TableCell align="left" sx={{ whiteSpace: 'nowrap' }}>
+        {proofNote}
       </TableCell>
     </TableRow>
   );
