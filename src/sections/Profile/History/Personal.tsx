@@ -17,6 +17,7 @@ import { formatDate } from 'src/utils/format-time';
 import { Iconify } from 'src/components/Iconify';
 
 import Setting from './Setting';
+import { useFetchMemberOvewview } from '../useApollo';
 
 interface Props {
   me: Member;
@@ -25,6 +26,8 @@ interface Props {
 export default function Personal({ me }: Props) {
   const open = useBoolean();
   const [children, setChildren] = useState<any>();
+
+  const { overview } = useFetchMemberOvewview(me.id);
 
   useEffect(() => {
     setChildren(
@@ -195,6 +198,17 @@ export default function Personal({ me }: Props) {
               </Stack>
               <Stack width={1}>
                 <Typography variant="body2">{me?.commissionDefault}</Typography>
+              </Stack>
+            </Stack>
+
+            <Stack direction="row" spacing={2} sx={{ pb: 1 }}>
+              <Stack width={0.5}>
+                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                  Purchase Limit:
+                </Typography>
+              </Stack>
+              <Stack width={1}>
+                <Typography variant="body2">{overview?.orderedAvailablePoint}</Typography>
               </Stack>
             </Stack>
 
