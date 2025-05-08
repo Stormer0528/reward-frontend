@@ -2151,6 +2151,7 @@ export type Query = {
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
   admins: AdminsResponse;
+  autoCampaignById: AutoCampaign;
   autoCampaigns: AutoCampaignResponse;
   averageMemberReward: Array<AverageMinerRewardStatsResponse>;
   blocks: BlocksResponse;
@@ -2263,6 +2264,11 @@ export type QueryAdminsArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryAutoCampaignByIdArgs = {
+  data: IdInput;
 };
 
 
