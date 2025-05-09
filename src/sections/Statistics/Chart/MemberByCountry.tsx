@@ -52,11 +52,6 @@ export default function MemberByCountry() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(
-    'country => ',
-    members.map((item) => item?.country ?? '')
-  );
-
   return (
     <Card>
       <CardHeader title="Miners by Country" />
