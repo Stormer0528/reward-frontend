@@ -5,24 +5,25 @@ import { Handle, Position, type NodeProps } from '@xyflow/react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import { useRouter } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 import { customizeFullName } from 'src/utils/helper';
 
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import NodeContext from './nodeContext';
 
 export function StandardNode({
   data: { id, placementPosition, username, fullName, commission, createdAt },
 }: NodeProps & { data: PlacementMember }) {
-  const router = useRouter();
+  const popover = usePopover();
 
-  const { visibleMap, expandTree, collapseTree } = useContext(NodeContext);
+  const { visibleMap, expandTree, collapseTree, expandAll, collapseAll } = useContext(NodeContext);
 
   return (
     <>
@@ -39,6 +40,14 @@ export function StandardNode({
           flexDirection: 'column',
         }}
       >
+        <IconButton
+          color={popover.open ? 'inherit' : 'default'}
+          onClick={popover.onOpen}
+          sx={{ position: 'absolute', top: 8, right: 8 }}
+        >
+          <Iconify icon="eva:more-horizontal-fill" />
+        </IconButton>
+
         <Typography
           variant="subtitle2"
           noWrap
@@ -47,7 +56,6 @@ export function StandardNode({
             cursor: 'pointer',
             '&:hover': { color: (theme) => theme.vars.palette.Alert.errorIconColor },
           }}
-          onClick={router.refresh}
         >
           {customizeFullName(fullName)}
         </Typography>
@@ -107,6 +115,32 @@ export function StandardNode({
           </Stack>
         </Stack>
       </Card>
+
+      <CustomPopover
+        open={popover.open}
+        anchorEl={popover.anchorEl}
+        onClose={popover.onClose}
+        slotProps={{ arrow: { placement: 'left-center' } }}
+      >
+        <MenuItem
+          onClick={() => {
+            if (expandAll) expandAll(id);
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="fluent:arrow-expand-all-16-filled" />
+          Expand All
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            if (collapseAll) collapseAll(id);
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="fluent:arrow-collapse-all-16-filled" />
+          Collapse All
+        </MenuItem>
+      </CustomPopover>
     </>
   );
 }
