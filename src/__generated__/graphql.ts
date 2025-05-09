@@ -2003,6 +2003,7 @@ export type PaymentMethodResponse = {
 };
 
 export enum PaymentType {
+  Pyusd = 'PYUSD',
   Txc = 'TXC',
   Usdc = 'USDC',
   Usdt = 'USDT'
