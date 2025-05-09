@@ -75,6 +75,15 @@ function buildPlacementTree(members: any[], me: Member) {
   return { result, memberMap };
 }
 
+function getSubtree(node: any) {
+  const res: any[] = [];
+  node.children?.forEach((child: any) => {
+    const subtree = getSubtree(child);
+    res.push(...subtree);
+  });
+  return [...res, node];
+}
+
 function buildTree(root: PlacementTreeNode, vMap: Record<string, number> | null = null) {
   const resultNodes: Node[] = [];
   const depthHeights: number[] = [];
@@ -265,16 +274,58 @@ function PlacementListView() {
     [members, visibleMap, exSetVisibleMap]
   );
 
+  const { fitView } = useReactFlow();
+
+  const expandAll = useCallback(
+    async (id: string) => {
+      const { memberMap } = buildPlacementTree(members, user!);
+      const subtreeMembers = getSubtree(memberMap[id]);
+      const newVisibleMap = { ...visibleMap };
+      subtreeMembers.forEach((mb) => {
+        newVisibleMap[mb.id] = mb.children.length ? 2 : 3;
+      });
+      exSetVisibleMap(newVisibleMap);
+      setTimeout(() => {
+        fitView({
+          ...fitViewOptions,
+          nodes: subtreeMembers.map(({ id: rootID }: { id: string }) => ({ id: rootID })),
+        });
+      });
+    },
+    [user, members, visibleMap, exSetVisibleMap, fitView]
+  );
+
+  const collapseAll = useCallback(
+    async (id: string) => {
+      const { memberMap } = buildPlacementTree(members, user!);
+      const subtreeMembers = getSubtree(memberMap[id]);
+      const newVisibleMap = { ...visibleMap };
+      subtreeMembers.forEach((mb) => {
+        delete newVisibleMap[mb.id];
+      });
+      newVisibleMap[id] = memberMap[id].children.length ? 1 : 3;
+
+      exSetVisibleMap(newVisibleMap);
+      setTimeout(() => {
+        fitView({
+          ...fitViewOptions,
+          nodes: [{ id }],
+        });
+      });
+    },
+    [user, members, visibleMap, exSetVisibleMap, fitView]
+  );
+
   const contextValue = useMemo(
     () => ({
       visibleMap,
       expandTree,
       collapseTree,
+      expandAll,
+      collapseAll,
     }),
-    [visibleMap, expandTree, collapseTree]
+    [visibleMap, expandTree, collapseTree, expandAll, collapseAll]
   );
-
-  const { fitView } = useReactFlow();
 
   const resetVisibleMap = useCallback(() => {
     const newVisibleMap = getResetVisibleMap(members, user!);
