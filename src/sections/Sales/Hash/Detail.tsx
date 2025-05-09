@@ -116,9 +116,7 @@ export default function Detail({
             setWalletId(data?.createSignUpOrder.waitAddressId ?? '');
             setBalance(data?.createSignUpOrder.waitAddress?.totalBalance);
             setAddress(data?.createSignUpOrder.waitAddress?.address ?? '');
-            setQrCode(
-              `${PAYMENT_METHOD[paymentType].label}:${data?.createSignUpOrder.waitAddress?.address}`
-            );
+            setQrCode(`${data?.createSignUpOrder.waitAddress?.address}`);
           } else {
             const { data } = await createOrder({ variables: { data: { packageId, paymentType } } });
 
@@ -126,9 +124,7 @@ export default function Detail({
             setWalletId(data?.createOrder.waitAddressId ?? '');
             setBalance(data?.createOrder.waitAddress?.totalBalance);
             setAddress(data?.createOrder.waitAddress?.address ?? '');
-            setQrCode(
-              `${PAYMENT_METHOD[paymentType].label}:${data?.createOrder.waitAddress?.address}`
-            );
+            setQrCode(`${data?.createOrder.waitAddress?.address}`);
           }
         }
       } catch (error) {
