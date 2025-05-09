@@ -40,6 +40,13 @@ const payments: PAYMENT_METHOD_TYPE[] = [
     backgroundColor: '#ffffff',
     disable: false,
   },
+  {
+    value: PaymentType.Pyusd,
+    label: 'PYUSD (ETH)',
+    icon: `${CONFIG.site.basePath}/assets/PYUSD.png`,
+    backgroundColor: '#ffffff',
+    disable: false,
+  },
 ];
 
 interface Props {

@@ -133,6 +133,11 @@ export const PAYMENT_METHOD = {
     balance: 10 ** 18,
     token: null,
   },
+  PYUSD: {
+    label: 'ethereum',
+    balance: 10 ** 6,
+    token: null,
+  },
 };
 
 export const HELP_MINETXC = 'https://help.minetxc.com/';
