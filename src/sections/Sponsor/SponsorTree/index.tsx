@@ -22,7 +22,7 @@ import {
 
 import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/loading-screen';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import { CustomPopover, type UsePopoverReturn } from 'src/components/custom-popover';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -41,6 +41,10 @@ const edgeTypes = {
   customEdge: CustomEdge,
 };
 
+interface Props {
+  popover: UsePopoverReturn;
+}
+
 function buildSponsorTree(members: any[], me: any) {
   const memberMap: Record<string, any> = {};
   let result: any = {};
@@ -54,8 +58,8 @@ function buildSponsorTree(members: any[], me: any) {
   });
 
   members.forEach((member) => {
-    if (member?.sponsor?.id && memberMap[member?.sponsor?.id] && member.id !== me.id) {
-      memberMap[member?.sponsor?.id!].children.push(memberMap[member.id]);
+    if (member?.sponsorId && memberMap[member?.sponsorId] && member.id !== me.id) {
+      memberMap[member?.sponsorId!].children.push(memberMap[member.id]);
     }
   });
 
@@ -193,9 +197,7 @@ function getNewVisibleMap(
   return newVisibleMap;
 }
 
-function PlacementListView() {
-  const popover = usePopover();
-
+function PlacementListView({ popover }: Props) {
   const { user: me } = useAuthContext();
   const { fetchMembers, members, loading, called } = useFetchPlacementMembers();
 
@@ -225,10 +227,10 @@ function PlacementListView() {
   const edges: Edge[] = useMemo(
     () =>
       members
-        .filter((member) => member?.sponsor?.id)
+        .filter((member) => member?.sponsorId)
         .map((member) => ({
-          id: `${member?.sponsor?.id}:${member?.id}`,
-          source: member?.sponsor?.id ?? '',
+          id: `${member?.sponsorId}:${member?.id}`,
+          source: member?.sponsorId ?? '',
           target: member?.id ?? '',
           type: 'customEdge',
         })),
@@ -240,15 +242,15 @@ function PlacementListView() {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
       members
-        .filter((mb) => mb?.sponsor?.id === id)
+        .filter((mb) => mb?.sponsorId === id)
         .forEach((mb) => {
           if (!newVisibleMap[mb?.id ?? '']) {
             newVisibleMap[mb?.id ?? ''] =
-              members.findIndex((mber) => mber?.sponsor?.id === mb?.id) === -1 ? 3 : 1;
+              members.findIndex((mber) => mber?.sponsorId === mb?.id) === -1 ? 3 : 1;
           }
         });
 
-      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsor?.id === id) === -1 ? 3 : 2;
+      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 2;
 
       exSetVisibleMap(newVisibleMap);
     },
@@ -259,7 +261,7 @@ function PlacementListView() {
     async (id: string) => {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
-      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsor?.id === id) === -1 ? 3 : 1;
+      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 1;
 
       exSetVisibleMap(newVisibleMap);
     },
@@ -314,7 +316,7 @@ function PlacementListView() {
 
   const reset = useCallback(async () => {
     const { data } = await fetchMembers();
-    const newVisibleMap = getResetVisibleMap(data?.members.members, me);
+    const newVisibleMap = getResetVisibleMap(data?.sponsorMembers, me);
 
     exSetVisibleMap(newVisibleMap);
 
@@ -330,7 +332,7 @@ function PlacementListView() {
     const { data } = await fetchMembers();
     const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
     const newVisibleMap = storageVisibleMap
-      ? getNewVisibleMap(data?.members.members, me, JSON.parse(storageVisibleMap))
+      ? getNewVisibleMap(data?.sponsorMembers, me, JSON.parse(storageVisibleMap))
       : {};
     exSetVisibleMap(newVisibleMap);
 
@@ -391,10 +393,10 @@ function PlacementListView() {
   );
 }
 
-export default function PlacementListViewWithReactFlowProvider() {
+export default function PlacementListViewWithReactFlowProvider({ popover }: Props) {
   return (
     <ReactFlowProvider>
-      <PlacementListView />
+      <PlacementListView popover={popover} />
     </ReactFlowProvider>
   );
 }

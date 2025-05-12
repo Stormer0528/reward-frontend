@@ -205,18 +205,13 @@ export const FETCH_MEMBERS_QUERY = gql(/* GraphQL */ `
 `);
 
 export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
-  query FetchPlacementMembers($page: String, $filter: JSONObject, $sort: String) {
-    members(page: $page, filter: $filter, sort: $sort) {
-      members {
-        id
-        username
-        fullName
-        sponsor {
-          id
-        }
-        createdAt
-      }
-      total
+  query FetchPlacementMembers {
+    sponsorMembers {
+      id
+      username
+      fullName
+      sponsorId
+      createdAt
     }
   }
 `);
