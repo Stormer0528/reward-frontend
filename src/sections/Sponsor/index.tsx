@@ -51,7 +51,7 @@ export default function SponsorView() {
 
       {tabs.value === 'list' && <SponsorList />}
 
-      {tabs.value === 'tree' && <SponsorTree />}
+      {tabs.value === 'tree' && <SponsorTree popover={popover} />}
     </DashboardContent>
   );
 }
