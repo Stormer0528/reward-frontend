@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
+import { useQuery } from 'src/routes/hooks';
 
 import { useTabs } from 'src/hooks/use-tabs';
 
@@ -17,14 +18,23 @@ import SponsorList from './SponsorList';
 import SponsorTree from './SponsorTree';
 
 const TABS = [
-  { value: 'list', label: 'List', icon: <Iconify icon="oui:list" width={24} /> },
+  { value: 'approved', label: 'Approved', icon: <Iconify icon="duo-icons:approved" width={24} /> },
+  { value: 'pending', label: 'Pending', icon: <Iconify icon="mdi:account-pending" width={24} /> },
   { value: 'tree', label: 'Tree', icon: <Iconify icon="bi:diagram-3" width={24} /> },
 ];
 
 export default function SponsorView() {
   const popover = usePopover();
 
-  const tabs = useTabs('list');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, { setQueryParams: setQuery }] = useQuery();
+
+  const tabs = useTabs('approved');
+
+  const handleTabChange = (event: React.SyntheticEvent<Element, Event>, newValue: string) => {
+    tabs.onChange(event, newValue);
+    setQuery({});
+  };
 
   return (
     <DashboardContent>
@@ -43,13 +53,15 @@ export default function SponsorView() {
         }
       />
 
-      <Tabs value={tabs.value} onChange={tabs.onChange} sx={{ mb: 1 }}>
+      <Tabs value={tabs.value} onChange={handleTabChange} sx={{ mb: 1 }}>
         {TABS.map((tab) => (
           <Tab key={tab.value} label={tab.label} icon={tab.icon} value={tab.value} />
         ))}
       </Tabs>
 
-      {tabs.value === 'list' && <SponsorList />}
+      {tabs.value === 'approved' && <SponsorList filter={{ allowState: 'APPROVED' }} />}
+
+      {tabs.value === 'pending' && <SponsorList filter={{ allowState: 'PENDING' }} />}
 
       {tabs.value === 'tree' && <SponsorTree popover={popover} />}
     </DashboardContent>
