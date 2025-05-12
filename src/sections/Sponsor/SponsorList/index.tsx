@@ -17,11 +17,18 @@ import { useFetchSponsors } from 'src/sections/TeamCommission/useApollo';
 
 import type { Introducer } from './type';
 
-export default function SPonsorListView() {
+interface Props {
+  filter: any;
+}
+
+export default function SPonsorListView({ filter: customFilter }: Props) {
   const { loading, introducers, rowCount, fetchSponsors } = useFetchSponsors();
   const [{ page = '1,50', sort = 'createdAt', filter }] = useQueryString();
 
-  const graphQueryFilter = useMemo(() => parseFilterModel({}, filter), [filter]);
+  const graphQueryFilter = useMemo(
+    () => parseFilterModel({ ...customFilter }, filter),
+    [filter, customFilter]
+  );
 
   useEffect(() => {
     fetchSponsors({ variables: { filter: graphQueryFilter, page, sort } });
@@ -67,7 +74,6 @@ export default function SPonsorListView() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
       },
       {
         field: 'createdAt',
@@ -103,7 +109,6 @@ export default function SPonsorListView() {
         rowData={introducers}
         columnDefs={colDefs}
         totalRowCount={rowCount}
-        rowHeight={50}
       />
     </Card>
   );
