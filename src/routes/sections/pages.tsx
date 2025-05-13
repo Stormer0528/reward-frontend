@@ -5,12 +5,14 @@ import Container from '@mui/material/Container';
 
 import { MainLayout } from 'src/layouts/main';
 import { NavBasic } from 'src/layouts/main/navItem/nav-basic';
+import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 
 import { LoadingScreen } from 'src/components/loading-screen';
 
 import { paths } from '../paths';
 
 // ----------------------------------------------------------------------
+const OrderPage = lazy(() => import('src/pages/Order'));
 const ContactPage = lazy(() => import('src/pages/Contact'));
 const StatisticsPage = lazy(() => import('src/pages/Statistics'));
 const ActionPage = lazy(() => import('src/pages/Commission/Action'));
@@ -65,6 +67,14 @@ export const statisticsRoutes: RouteObject[] = [
       <Suspense>
         <ActionPage />
       </Suspense>
+    ),
+  },
+  {
+    path: `${paths.pages.order.root}/:id`,
+    element: (
+      <AuthCenteredLayout>
+        <OrderPage />
+      </AuthCenteredLayout>
     ),
   },
 ];
