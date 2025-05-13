@@ -16,6 +16,7 @@ const ROOTS = {
   STATISTICS: '/statistics',
   RAPIDREWARDS: '/rapid-rewards',
   CONTACT: '/contact',
+  ORDER: '/order',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -74,6 +75,9 @@ export const paths = {
 
     // STATISTICS
     statistics: { root: ROOTS.STATISTICS },
+
+    // ORDER
+    order: { root: ROOTS.ORDER, detail: (id: string) => `${ROOTS.ORDER}/${id}` },
   },
 
   // DASHBOARD
