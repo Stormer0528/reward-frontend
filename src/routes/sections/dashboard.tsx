@@ -63,6 +63,10 @@ const NotificationListPage = lazy(() => import('src/pages/Notification/List'));
 const CalculatorPage = lazy(() => import('src/pages/Calculator'));
 // ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
+const InvoiceListPage = lazy(() => import('src/pages/Invoice/List'));
+// ----------------------------------------------------------------------
+
 export const dashboardRoutes = [
   {
     path: '',
@@ -125,6 +129,10 @@ export const dashboardRoutes = [
           </AuthGuard>
         ),
         children: [{ index: true, element: <NotificationListPage /> }],
+      },
+      {
+        path: 'invoices',
+        element: <InvoiceListPage />,
       },
       { path: 'team', element: <TeamCommissionListPage /> },
       { path: 'mail', element: <MailPage /> },
