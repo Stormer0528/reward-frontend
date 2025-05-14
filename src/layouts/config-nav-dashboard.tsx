@@ -62,6 +62,7 @@ export const navData = [
       { title: 'Sponsor', path: paths.dashboard.sponsor.root, icon: ICONS.sponsor },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
       { title: 'Commission', path: paths.dashboard.commission.root, icon: ICONS.commission },
+      { title: 'Invoice', path: paths.dashboard.invoice.root, icon: ICONS.invoice },
       { title: 'Resource', path: paths.dashboard.resource.root, icon: ICONS.folder },
       { title: 'Reward', path: paths.dashboard.reward.root, icon: ICONS.reward },
       { title: 'Calculator', path: paths.dashboard.calculator.root, icon: ICONS.calculator },
