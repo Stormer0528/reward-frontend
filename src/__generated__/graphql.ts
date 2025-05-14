@@ -64,6 +64,7 @@ export type Admin = {
   id: Scalars['ID']['output'];
   role?: Maybe<Role>;
   roleId: Scalars['ID']['output'];
+  status: AdminStatus;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   username: Scalars['String']['output'];
 };
@@ -92,6 +93,11 @@ export type AdminNotesResponse = {
   adminNotes?: Maybe<Array<AdminNotes>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
+
+export enum AdminStatus {
+  Disabled = 'DISABLED',
+  Enabled = 'ENABLED'
+}
 
 export type AdminsResponse = {
   __typename?: 'AdminsResponse';
@@ -154,6 +160,7 @@ export type BasicListMember = {
 export type BasicMember = {
   __typename?: 'BasicMember';
   ID?: Maybe<Scalars['Int']['output']>;
+  adminUsername?: Maybe<Scalars['String']['output']>;
   allowState: MemberState;
   assetId?: Maybe<Scalars['String']['output']>;
   city?: Maybe<Scalars['String']['output']>;
@@ -422,6 +429,7 @@ export type CreateAdminInput = {
   fullName: Scalars['String']['input'];
   password: Scalars['String']['input'];
   roleId?: InputMaybe<Scalars['String']['input']>;
+  status: AdminStatus;
   username: Scalars['String']['input'];
 };
 
@@ -561,7 +569,6 @@ export type CreatePackageInput = {
 };
 
 export type CreatePaymentMethodInput = {
-  defaultLink?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   visible?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -877,7 +884,7 @@ export type IndividualMember = {
 
 export type Introducer = {
   __typename?: 'Introducer';
-  ID: Scalars['Int']['output'];
+  ID?: Maybe<Scalars['Int']['output']>;
   createdAt: Scalars['DateTimeISO']['output'];
   email: Scalars['String']['output'];
   fullName: Scalars['String']['output'];
@@ -902,6 +909,7 @@ export type Invoice = {
   dueDate: Scalars['Date']['output'];
   frontActions?: Maybe<Array<FrontAction>>;
   id: Scalars['Int']['output'];
+  invoiceFile?: Maybe<PFile>;
   name: Scalars['String']['output'];
   proof?: Maybe<Proof>;
   status: InvoiceStatusEnum;
@@ -984,6 +992,7 @@ export type Member = {
   emailVerified: Scalars['Boolean']['output'];
   frontActions?: Maybe<Array<FrontAction>>;
   fullName: Scalars['String']['output'];
+  gotAdmin?: Maybe<Array<Admin>>;
   groupSetting?: Maybe<BasicGroupSetting>;
   id: Scalars['ID']['output'];
   introduceMembers?: Maybe<Array<Member>>;
@@ -1177,6 +1186,7 @@ export type MinerCountStatsResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  adminGotIt: SuccessResponse;
   adminLogin: LoginResponse;
   adminResetPasswordByToken: SuccessResponse;
   adminResetPasswordRequest: SuccessResponse;
@@ -1303,6 +1313,11 @@ export type Mutation = {
   verify2FAAndEnable: AccessTokenResponse;
   verify2FAToken: LoginResponse;
   verifyMemberEmail: SuccessResponse;
+};
+
+
+export type MutationAdminGotItArgs = {
+  data: IdInput;
 };
 
 
@@ -3094,6 +3109,7 @@ export type UpdateAdminInput = {
   fullName?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   roleId?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<AdminStatus>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -3222,7 +3238,6 @@ export type UpdatePackageInput = {
 };
 
 export type UpdatePaymentMethodInput = {
-  defaultLink?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   visible?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4057,7 +4072,7 @@ export type IntroducersQueryVariables = Exact<{
 }>;
 
 
-export type IntroducersQuery = { __typename?: 'Query', introducers: { __typename?: 'IntroducersResponse', total?: number | null, introducers?: Array<{ __typename?: 'Introducer', id: string, ID: number, email: string, point: number, mobile: string, username: string, fullName: string, createdAt: any }> | null } };
+export type IntroducersQuery = { __typename?: 'Query', introducers: { __typename?: 'IntroducersResponse', total?: number | null, introducers?: Array<{ __typename?: 'Introducer', id: string, ID?: number | null, email: string, point: number, mobile: string, username: string, fullName: string, createdAt: any }> | null } };
 
 export type SponsorsQueryVariables = Exact<{
   sort?: InputMaybe<Scalars['String']['input']>;
@@ -4066,7 +4081,7 @@ export type SponsorsQueryVariables = Exact<{
 }>;
 
 
-export type SponsorsQuery = { __typename?: 'Query', introducers: { __typename?: 'IntroducersResponse', total?: number | null, introducers?: Array<{ __typename?: 'Introducer', id: string, ID: number, point: number, username: string, fullName: string, createdAt: any }> | null } };
+export type SponsorsQuery = { __typename?: 'Query', introducers: { __typename?: 'IntroducersResponse', total?: number | null, introducers?: Array<{ __typename?: 'Introducer', id: string, ID?: number | null, point: number, username: string, fullName: string, createdAt: any }> | null } };
 
 export type BlocksdataQueryVariables = Exact<{
   data: PeriodStatsArgs;
