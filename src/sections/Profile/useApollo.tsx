@@ -10,7 +10,6 @@ import {
   VERIFY_2FA_TOKEN,
   VERIFY_2FA_ENABLE,
   EMAIL_VERIFY_CODE,
-  FETCH_MEMBERS_QUERY,
   FETCH_PAYOUTS_QUERY,
   FETCH_MEMBER_HISTORY,
   UPDATE_SETTING_MEMBER,
@@ -25,30 +24,6 @@ export function useFetchMe() {
   const [fetchMe, { loading, data, called }] = useLazyQuery(FETCH_ME_QUERY);
 
   return { loading, me: data?.memberMe, called, fetchMe };
-}
-
-export function useFetchMembers() {
-  const [fetchMembers, { loading, data, called }] = useLazyQuery(FETCH_MEMBERS_QUERY);
-
-  const rowCountRef = useRef(data?.members.total ?? 0);
-
-  const rowCount = useMemo(() => {
-    const newTotal = data?.members.total ?? undefined;
-
-    if (newTotal !== undefined) {
-      rowCountRef.current = newTotal;
-    }
-
-    return rowCountRef.current;
-  }, [data]);
-
-  return {
-    called,
-    loading,
-    rowCount,
-    members: data?.members.members ?? [],
-    fetchMembers,
-  };
 }
 
 export function useFetchPlacementOMembers() {
