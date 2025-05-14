@@ -20,6 +20,11 @@ import SponsorTree from './SponsorTree';
 const TABS = [
   { value: 'approved', label: 'Approved', icon: <Iconify icon="duo-icons:approved" width={24} /> },
   { value: 'pending', label: 'Pending', icon: <Iconify icon="mdi:account-pending" width={24} /> },
+  {
+    value: 'graveyard',
+    label: 'Graveyard',
+    icon: <Iconify icon="mdi:graveyard" width={24} />,
+  },
   { value: 'tree', label: 'Tree', icon: <Iconify icon="bi:diagram-3" width={24} /> },
 ];
 
@@ -62,6 +67,8 @@ export default function SponsorView() {
       {tabs.value === 'approved' && <SponsorList filter={{ allowState: 'APPROVED' }} />}
 
       {tabs.value === 'pending' && <SponsorList filter={{ allowState: 'PENDING' }} />}
+
+      {tabs.value === 'graveyard' && <SponsorList filter={{ allowState: 'GRAVEYARD' }} />}
 
       {tabs.value === 'tree' && <SponsorTree popover={popover} />}
     </DashboardContent>
