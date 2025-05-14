@@ -10,7 +10,7 @@ export type NodeProps = OrgChartBaseNode &
 
 export type Introducer = {
   __typename?: 'Introducer';
-  ID: number;
+  ID?: number | null;
   id: string;
   point: number;
   fullName: string;
