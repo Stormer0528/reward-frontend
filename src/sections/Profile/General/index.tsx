@@ -4,7 +4,7 @@ import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -37,18 +37,13 @@ import OtherWallets from './otherWallets';
 import PasswordModal from './PasswordModal';
 import { Schema, type SchemaType } from './schema';
 import { getWallets, hasDuplicates } from './helper';
-import { useFetchMe, useDisable2FA, useFetchMembers, useUpdateMember } from '../useApollo';
+import { useFetchMe, useDisable2FA, useUpdateMember } from '../useApollo';
 
 // ----------------------------------------------------------------------
 
 type Props = {
   me: Member;
 };
-
-interface Edit {
-  id: string;
-  username: string;
-}
 
 export default function MemberGeneral({ me }: Props) {
   const open = useBoolean();
@@ -64,10 +59,7 @@ export default function MemberGeneral({ me }: Props) {
   const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
   const [firstName, setFirstName] = useState<string>(me.fullName.split(' ')[0]);
 
-  const { loading: memberLoading, members, fetchMembers } = useFetchMembers();
-
   const [email, setEmail] = useState<string>();
-  const [member, setMember] = useState<Edit>();
 
   const { fetchMe } = useFetchMe();
   const { loading, updateMember } = useUpdateMember();
@@ -123,7 +115,7 @@ export default function MemberGeneral({ me }: Props) {
               mobile: newMember.mobile,
               primaryAddress: newMember.primaryAddress,
               secondaryAddress: newMember.secondaryAddress,
-              sponsorId: member?.id,
+              sponsorId: me.sponsor?.id,
               assetId: newMember.assetId,
               city: newMember.city,
               state: newMember.state,
@@ -182,21 +174,6 @@ export default function MemberGeneral({ me }: Props) {
     }
   }, []);
 
-  const handleSearchChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const { data } = await fetchMembers({
-        variables: { filter: { [event.target.name]: event.target.value } },
-      });
-
-      if (data?.members?.members?.length) {
-        if (data?.members?.members[0]?.id !== me.id)
-          toast.warning(`This ${event.target.name} is already exist`);
-      }
-    } catch (err) {
-      console.log('err => ', err);
-    }
-  };
-
   const handleDisable = async () => {
     try {
       const { data } = await disable2FA();
@@ -210,16 +187,6 @@ export default function MemberGeneral({ me }: Props) {
       toast.error(error.message);
     }
   };
-
-  useEffect(() => {
-    fetchMembers({
-      variables: {
-        page: '1,5',
-        filter: { OR: [{ username: { contains: member?.username ?? '', mode: 'insensitive' } }] },
-      },
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [member]);
 
   return (
     <>
@@ -273,35 +240,11 @@ export default function MemberGeneral({ me }: Props) {
                   defaultValue={me.email}
                   value={email}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    handleSearchChange(event);
-
                     setEmail(event.target.value);
                   }}
                 />
                 <Field.Phone name="mobile" label="Mobile" />
-                <Autocomplete
-                  disabled
-                  fullWidth
-                  options={members}
-                  loading={memberLoading}
-                  loadingText={<LoadingButton loading={memberLoading} />}
-                  getOptionLabel={(option) => option!.username}
-                  value={member ?? me!.sponsor}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Sponsor Name" margin="none" />
-                  )}
-                  renderOption={(props, option) => (
-                    <li {...props} key={option!.username}>
-                      {option!.username}
-                    </li>
-                  )}
-                  onInputChange={(_, username: string) => {
-                    setMember({ id: me?.sponsorId ?? '', username });
-                  }}
-                  onChange={(_, value) => {
-                    setMember({ id: value?.id ?? '', username: value?.username ?? '' });
-                  }}
-                />
+                <TextField value={me!.sponsor?.username} disabled />
                 <Field.Text name="primaryAddress" label="Address" />
                 <Field.Text name="secondaryAddress" label="Address Line 2" />
                 <Autocomplete
