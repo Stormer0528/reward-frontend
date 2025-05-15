@@ -19,6 +19,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       fullName
       sponsorId
       allowState
+      ethAssetId
       teamReport
       OTPEnabled
       teamStrategy

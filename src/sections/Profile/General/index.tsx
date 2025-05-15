@@ -117,6 +117,7 @@ export default function MemberGeneral({ me }: Props) {
               secondaryAddress: newMember.secondaryAddress,
               sponsorId: me.sponsor?.id,
               assetId: newMember.assetId,
+              ethAssetId: newMember.ethAssetId,
               city: newMember.city,
               state: newMember.state,
               country,
@@ -267,7 +268,8 @@ export default function MemberGeneral({ me }: Props) {
                 <Field.Text name="state" label="State" />
                 <Field.Text name="city" label="City" />
                 <Field.Text name="zipCode" label="ZIP Code" />
-                <Field.Text name="assetId" label="Asset ID" disabled />
+                <Field.Text name="assetId" label="TXC Coin ID" disabled />
+                <Field.Text name="ethAssetId" label="ETH Coin ID" disabled />
                 <Field.Select name="preferredContact" label="Preferred Contact">
                   {CONTACT.map((option) => (
                     <MenuItem key={option.label} value={option.value}>
