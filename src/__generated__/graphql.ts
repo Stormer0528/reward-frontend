@@ -519,6 +519,7 @@ export type CreateMemberInput = {
   commissionDefault?: InputMaybe<CommissionDefaultEnum>;
   country?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
+  ethAssetId?: InputMaybe<Scalars['String']['input']>;
   fullName: Scalars['String']['input'];
   isTexitRanger?: InputMaybe<Scalars['Boolean']['input']>;
   mobile: Scalars['String']['input'];
@@ -991,6 +992,7 @@ export type Member = {
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
   email: Scalars['String']['output'];
   emailVerified: Scalars['Boolean']['output'];
+  ethAssetId?: Maybe<Scalars['String']['output']>;
   frontActions?: Maybe<Array<FrontAction>>;
   fullName: Scalars['String']['output'];
   gotAdmin?: Maybe<Admin>;
@@ -3184,6 +3186,7 @@ export type UpdateMemberInput = {
   commissionDefault?: InputMaybe<CommissionDefaultEnum>;
   country?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
+  ethAssetId?: InputMaybe<Scalars['String']['input']>;
   fullName?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   isTexitRanger?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3434,7 +3437,6 @@ export type WeeklyCommissionNoteInput = {
 };
 
 export type WeeklyCommissionUpdateInput = {
-  autoCreate?: InputMaybe<Scalars['Boolean']['input']>;
   fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
