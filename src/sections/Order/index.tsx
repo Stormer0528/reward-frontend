@@ -8,11 +8,12 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import { useParams, useRouter } from 'src/routes/hooks';
+import { useParams } from 'src/routes/hooks';
 
 import { OrderStatus, type Order as OrderType } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
+import { LoadingScreen } from 'src/components/loading-screen';
 
 import Detail from './Detail';
 import Payment from './Payment';
@@ -25,7 +26,6 @@ export default function Order() {
   const theme = useTheme();
 
   const { id } = useParams();
-  const router = useRouter();
 
   const [step, setStep] = useState<number>(0);
   const [status, setStatus] = useState<OrderStatus>(OrderStatus.New);
@@ -33,7 +33,7 @@ export default function Order() {
   const [payment, setPayment] = useState<PAYMENT_TYPE>();
 
   const { cancelOrder } = useCancelOrder();
-  const { order, fetchOrderById } = useFetchOrderById();
+  const { loading, order, fetchOrderById } = useFetchOrderById();
   const { loading: setLoading, setOrderPayment } = useSetOrderPayment();
 
   const handleSetPayment = async () => {
@@ -61,7 +61,8 @@ export default function Order() {
       const { data } = await cancelOrder({ variables: { data: { id: id! } } });
 
       if (data) {
-        router.back();
+        setStep(2);
+        setStatus(OrderStatus.Canceled);
       }
     } catch (error) {
       toast.error(error.message);
@@ -91,6 +92,10 @@ export default function Order() {
       }
     }
   }, [order]);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <>
@@ -136,11 +141,7 @@ export default function Order() {
       {step === 2 && <PaymentStatus status={status} />}
 
       <Stack direction="row" mt={4} justifyContent="flex-end" spacing={2}>
-        {step === 2 ? (
-          <Button variant="contained" color="primary" onClick={() => router.back()}>
-            OK
-          </Button>
-        ) : (
+        {step !== 2 && (
           <Button variant="outlined" onClick={handleCancel}>
             Cancel
           </Button>
