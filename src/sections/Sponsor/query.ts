@@ -1,13 +1,9 @@
-// import { gql } from 'src/__generated__/gql';
+import { gql } from 'src/__generated__/gql';
 
-// export const FETCH_SPONSOR_QUERY = gql(/* GraphQL */ `
-//   query SponsorMembers {
-//     sponsorMembers {
-//       id
-//       username
-//       fullName
-//       sponsorId
-//       createdAt
-//     }
-//   }
-// `);
+export const CREATE_ADD_MEMBER_ORDER = gql(/* GraphQL */ `
+  mutation CreateAddMemberOrder($data: CreateAddMemberOrderInput!) {
+    createAddMemberOrder(data: $data) {
+      id
+    }
+  }
+`);
