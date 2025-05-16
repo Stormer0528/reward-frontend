@@ -358,7 +358,7 @@ export default function Personal({ me }: Props) {
           {/* Address info */}
 
           <Typography variant="body1" fontWeight="bold" mt={2}>
-            Wallet Address
+            Wallet
           </Typography>
 
           {addresses.length
