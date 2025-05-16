@@ -22,6 +22,16 @@ export const CHECK_ORDER_STATUS = gql(/* GraphQL */ `
   }
 `);
 
+export const FETCH_MY_ADDRESS = gql(/* GraphQL */ `
+  query MyAddresses {
+    myAddresses {
+      chain
+      address
+      balance
+    }
+  }
+`);
+
 export const CREATE_ORDER = gql(/* GraphQL */ `
   mutation CreateOrder($data: CreateOrderInput!) {
     createOrder(data: $data) {
