@@ -36,6 +36,7 @@ import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
+import { useCreateSignUpOrder } from '../Order/useApollo';
 import { useSignUp, useSendEmailVerificationLink } from './useApollo';
 
 // ----------------------------------------------------------------------
@@ -54,7 +55,6 @@ export function SignUpView() {
 
   const router = useRouter();
 
-  const open = useBoolean();
   const password = useBoolean();
   const calculator = useBoolean();
 
@@ -85,6 +85,7 @@ export function SignUpView() {
 
   const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
+  const { createSignUpOrder } = useCreateSignUpOrder();
   const { user, signOut } = useAuthContext();
   const { packages, fetchPackages } = useFetchPackages();
   const { sendVerificationLink } = useSendEmailVerificationLink();
@@ -111,7 +112,7 @@ export function SignUpView() {
               country,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId,
-              packageId: packageId!,
+              packageId,
             },
           },
         });
@@ -119,10 +120,19 @@ export function SignUpView() {
         if (data) {
           await sendVerificationLink({ variables: { data: { email: rest.email } } });
 
+          const searchParams = new URLSearchParams({ email: rest.email }).toString();
+
           if (rest.paymentMethod === 'Crypto') {
-            open.onTrue();
+            const { data: order } = await createSignUpOrder({
+              variables: { data: { memberId: data.signUpMember.id, packageId } },
+            });
+
+            if (order) {
+              window.open(`${paths.pages.order.detail(order.createSignUpOrder.id)}`);
+
+              router.push(`${paths.auth.verifyResult}?${searchParams}`);
+            }
           } else {
-            const searchParams = new URLSearchParams({ email: rest.email }).toString();
             router.push(`${paths.auth.verifyResult}?${searchParams}`);
           }
         }
