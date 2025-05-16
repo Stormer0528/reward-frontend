@@ -1,12 +1,14 @@
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
 import { useQuery } from 'src/routes/hooks';
 
 import { useTabs } from 'src/hooks/use-tabs';
+import { useBoolean } from 'src/hooks/useBoolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
@@ -14,12 +16,14 @@ import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import { usePopover } from 'src/components/custom-popover';
 
+import AddMiner from './Create';
 import SponsorList from './SponsorList';
 import SponsorTree from './SponsorTree';
 
 const TABS = [
   { value: 'approved', label: 'Approved', icon: <Iconify icon="duo-icons:approved" width={24} /> },
   { value: 'pending', label: 'Pending', icon: <Iconify icon="mdi:account-pending" width={24} /> },
+  { value: 'added', label: 'Added', icon: <Iconify icon="heroicons:user-plus-solid" width={24} /> },
   {
     value: 'graveyard',
     label: 'Graveyard',
@@ -29,6 +33,7 @@ const TABS = [
 ];
 
 export default function SponsorView() {
+  const add = useBoolean();
   const popover = usePopover();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,6 +42,7 @@ export default function SponsorView() {
   const tabs = useTabs('approved');
 
   const handleTabChange = (event: React.SyntheticEvent<Element, Event>, newValue: string) => {
+    add.onFalse();
     tabs.onChange(event, newValue);
     setQuery({});
   };
@@ -51,9 +57,23 @@ export default function SponsorView() {
         }}
         action={
           <Stack direction="row" columnGap={1}>
-            <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-              <Iconify icon="eva:more-horizontal-fill" />
-            </IconButton>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Iconify icon="fa6-solid:plus" />}
+              onClick={() => {
+                add.onTrue();
+                tabs.onChange(null as any, '');
+              }}
+            >
+              Add Miner
+            </Button>
+
+            {tabs.value === 'tree' && (
+              <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
+                <Iconify icon="eva:more-horizontal-fill" />
+              </IconButton>
+            )}
           </Stack>
         }
       />
@@ -64,13 +84,21 @@ export default function SponsorView() {
         ))}
       </Tabs>
 
-      {tabs.value === 'approved' && <SponsorList filter={{ allowState: 'APPROVED' }} />}
+      {add.value ? (
+        <AddMiner add={add} tabs={tabs} />
+      ) : (
+        <>
+          {tabs.value === 'approved' && <SponsorList filter={{ allowState: 'APPROVED' }} />}
 
-      {tabs.value === 'pending' && <SponsorList filter={{ allowState: 'PENDING' }} />}
+          {tabs.value === 'pending' && <SponsorList filter={{ allowState: 'PENDING' }} />}
 
-      {tabs.value === 'graveyard' && <SponsorList filter={{ allowState: 'GRAVEYARD' }} />}
+          {tabs.value === 'added' && <SponsorList filter={{ allowState: 'ADDED' }} />}
 
-      {tabs.value === 'tree' && <SponsorTree popover={popover} />}
+          {tabs.value === 'graveyard' && <SponsorList filter={{ allowState: 'GRAVEYARD' }} />}
+
+          {tabs.value === 'tree' && <SponsorTree popover={popover} />}
+        </>
+      )}
     </DashboardContent>
   );
 }
