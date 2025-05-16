@@ -146,3 +146,11 @@ export const truncateMiddle = (text: string, maxLength: number): string => {
   const half = Math.floor((maxLength - 3) / 2);
   return `${text.slice(0, half)}...${text.slice(-half)}`;
 };
+
+export const makeDecimal = (value: number, length: number): string => {
+  if (Number.isInteger(value)) {
+    return `${value}.${'0'.repeat(length)}`;
+  }
+
+  return value.toString();
+};

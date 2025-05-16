@@ -140,5 +140,16 @@ export const PAYMENT_METHOD = {
   },
 };
 
+export const CHAIN_UNIT = {
+  TXC: 9,
+  BNB: 18,
+  ETH: 18,
+  USDC: 6,
+  USDT: 6,
+  PYUSD: 6,
+  BASE: 10,
+  POLYGON: 9,
+};
+
 export const HELP_MINETXC = 'https://help.minetxc.com/';
 export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';
