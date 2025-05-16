@@ -13,7 +13,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 
 import { toast } from 'src/components/SnackBar';
 
@@ -27,8 +26,6 @@ interface Props {
 }
 
 export default function Packages({ open, available }: Props) {
-  const router = useRouter();
-
   const [packageId, setPackageId] = useState<string>();
 
   const { loading, createOrder } = useCreateOrder();
@@ -40,7 +37,8 @@ export default function Packages({ open, available }: Props) {
         const { data } = await createOrder({ variables: { data: { packageId } } });
 
         if (data) {
-          router.push(paths.pages.order.detail(data.createOrder.id));
+          open.onFalse();
+          window.open(paths.pages.order.detail(data.createOrder.id), '_blank');
         }
       } else {
         toast.error('You must select a package');
