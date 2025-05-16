@@ -32,7 +32,6 @@ import { Form, Field } from 'src/components/Form';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-import Hash from '../Sales/Hash';
 import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
 import { useFetchPackages } from '../Sales/useApollo';
@@ -42,7 +41,6 @@ import { useSignUp, useSendEmailVerificationLink } from './useApollo';
 // ----------------------------------------------------------------------
 
 export function SignUpView() {
-  const [email, setEmail] = useState<string>();
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [packageId, setPackageId] = useState<string>();
@@ -117,8 +115,6 @@ export function SignUpView() {
             },
           },
         });
-
-        setEmail(rest.email);
 
         if (data) {
           await sendVerificationLink({ variables: { data: { email: rest.email } } });
@@ -391,8 +387,6 @@ export function SignUpView() {
       </Form>
 
       <Calculator open={calculator} />
-
-      <Hash open={open} email={email} selectedPackageId={packageId} />
     </Container>
   );
 }

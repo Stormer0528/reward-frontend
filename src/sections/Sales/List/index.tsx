@@ -22,7 +22,7 @@ import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { useFetchSales, useOrderAvailablePoint } from 'src/sections/Sales/useApollo';
 
-import Hash from '../Hash';
+import Packages from './Packages';
 
 export default function SaleListView() {
   const open = useBoolean();
@@ -153,7 +153,7 @@ export default function SaleListView() {
         />
       </Card>
 
-      <Hash open={open} available={available} />
+      <Packages open={open} available={available} />
     </DashboardContent>
   );
 }
