@@ -1,8 +1,22 @@
 import { gql } from 'src/__generated__/gql';
 
-export const CHECK_ADDRESS_WAIT_STATUS = gql(/* GraphQL */ `
-  query CheckAddressWaitStatus($data: IDInput!) {
-    checkAddressWaitStatus(data: $data) {
+export const FETCH_ORDER_BY_ID = gql(/* GraphQL */ `
+  query OrderById($data: IDInput!) {
+    orderById(data: $data) {
+      id
+      status
+      expiredAt
+      paymentToken
+      paymentChain
+      paymentAddress
+      requiredBalance
+    }
+  }
+`);
+
+export const CHECK_ORDER_STATUS = gql(/* GraphQL */ `
+  query CheckOrder($data: IDInput!) {
+    orderById(data: $data) {
       status
     }
   }
@@ -12,12 +26,6 @@ export const CREATE_ORDER = gql(/* GraphQL */ `
   mutation CreateOrder($data: CreateOrderInput!) {
     createOrder(data: $data) {
       id
-      waitAddressId
-      waitAddress {
-        id
-        address
-        totalBalance
-      }
     }
   }
 `);
@@ -26,29 +34,23 @@ export const CREATE_SIGNUP_ORDER = gql(/* GraphQL */ `
   mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {
     createSignUpOrder(data: $data) {
       id
-      waitAddressId
-      waitAddress {
-        id
-        address
-        totalBalance
-      }
-    }
-  }
-`);
-
-export const COMPLETE_ORDER = gql(/* GraphQL */ `
-  mutation CompleteOrder($data: CompleteOrderInput!) {
-    completeOrder(data: $data) {
-      status
     }
   }
 `);
 
 export const CANCEL_ORDER = gql(/* GraphQL */ `
-  mutation CancelOrder($data: IDNInput!) {
+  mutation CancelOrder($data: IDInput!) {
     cancelOrder(data: $data) {
-      result
       message
+      result
+    }
+  }
+`);
+
+export const SET_ORDER_PAYMENT = gql(/* GraphQL */ `
+  mutation SetOrderPayment($data: OrderPaymentSetInput!) {
+    setOrderPayment(data: $data) {
+      id
     }
   }
 `);

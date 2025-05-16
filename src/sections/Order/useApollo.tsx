@@ -3,16 +3,22 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 import {
   CANCEL_ORDER,
   CREATE_ORDER,
-  COMPLETE_ORDER,
+  SET_ORDER_PAYMENT,
+  FETCH_ORDER_BY_ID,
+  CHECK_ORDER_STATUS,
   CREATE_SIGNUP_ORDER,
-  CHECK_ADDRESS_WAIT_STATUS,
 } from './query';
 
-export function useCheckAddressWaitStatus() {
-  const [checkAddressWaitStatus, { loading, data, error }] =
-    useLazyQuery(CHECK_ADDRESS_WAIT_STATUS);
+export function useFetchOrderById() {
+  const [fetchOrderById, { loading, data, error }] = useLazyQuery(FETCH_ORDER_BY_ID);
 
-  return { loading, status: data?.checkAddressWaitStatus.status, error, checkAddressWaitStatus };
+  return { loading, order: data?.orderById, error, fetchOrderById };
+}
+
+export function useCheckOrder() {
+  const [checkOrder, { loading, data, error }] = useLazyQuery(CHECK_ORDER_STATUS);
+
+  return { loading, order: data?.orderById, error, checkOrder };
 }
 
 export function useCreateOrder() {
@@ -27,14 +33,14 @@ export function useCreateSignUpOrder() {
   return { loading, data, error, createSignUpOrder };
 }
 
-export function useCompleteOrder() {
-  const [completeOrder, { loading, data, error }] = useMutation(COMPLETE_ORDER);
-
-  return { loading, data, error, completeOrder };
-}
-
 export function useCancelOrder() {
   const [cancelOrder, { loading, data, error }] = useMutation(CANCEL_ORDER);
 
   return { loading, data, error, cancelOrder };
+}
+
+export function useSetOrderPayment() {
+  const [setOrderPayment, { loading, data, error }] = useMutation(SET_ORDER_PAYMENT);
+
+  return { loading, data, error, setOrderPayment };
 }
