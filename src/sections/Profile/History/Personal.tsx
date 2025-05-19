@@ -12,7 +12,8 @@ import Typography from '@mui/material/Typography';
 import { useBoolean } from 'src/hooks/useBoolean';
 
 import { formatDate } from 'src/utils/format-time';
-import { formatID, makeDecimal } from 'src/utils/helper';
+import { fCurrency } from 'src/utils/formatNumber';
+import { formatID, makeDecimal, truncateMiddle } from 'src/utils/helper';
 
 import { CHAIN_UNIT } from 'src/consts';
 
@@ -28,11 +29,25 @@ interface Props {
 }
 
 export default function Personal({ me }: Props) {
+  const copy = useBoolean();
   const open = useBoolean();
   const [children, setChildren] = useState<any>();
 
   const { overview } = useFetchMemberOvewview(me.id);
   const { addresses, fetchMyAddress } = useFetchMyAddress();
+
+  const handleCopy = async (addressValue: string) => {
+    try {
+      await navigator.clipboard.writeText(addressValue);
+      copy.onTrue();
+
+      setTimeout(() => {
+        copy.onFalse();
+      }, 3000);
+    } catch (err) {
+      console.error('Failed to copy test: ', err);
+    }
+  };
 
   useEffect(() => {
     setChildren(
@@ -370,7 +385,14 @@ export default function Personal({ me }: Props) {
                         Address:
                       </Typography>
                     </Stack>
-                    <Stack width={1}>{item?.address}</Stack>
+                    <Stack width={1} direction="row" spacing={1} alignItems="center">
+                      <Typography variant="body2">{truncateMiddle(item.address, 30)}</Typography>
+                      <Iconify
+                        sx={{ cursor: 'pointer' }}
+                        icon={copy.value ? 'system-uicons:check' : 'stash:copy-light'}
+                        onClick={() => handleCopy(item.address)}
+                      />
+                    </Stack>
                   </Stack>
 
                   <Stack direction="row" spacing={2} pb={1}>
@@ -379,7 +401,9 @@ export default function Personal({ me }: Props) {
                         Chain:
                       </Typography>
                     </Stack>
-                    <Stack width={1}>{item?.chain}</Stack>
+                    <Stack width={1}>
+                      <Typography variant="body2">{item?.chain}</Typography>
+                    </Stack>
                   </Stack>
 
                   <Stack direction="row" spacing={2} pb={1}>
@@ -389,12 +413,16 @@ export default function Personal({ me }: Props) {
                       </Typography>
                     </Stack>
                     <Stack width={1}>
-                      {item?.balance
-                        ? makeDecimal(
-                            item.balance / 10 ** CHAIN_UNIT[item?.chain!],
-                            CHAIN_UNIT[item?.chain!]
-                          )
-                        : 0}
+                      <Typography variant="body2">
+                        {fCurrency(
+                          item?.balance
+                            ? makeDecimal(
+                                item.balance / 10 ** CHAIN_UNIT[item?.chain!],
+                                CHAIN_UNIT[item?.chain!]
+                              )
+                            : 0
+                        )}
+                      </Typography>
                     </Stack>
                   </Stack>
                 </>
