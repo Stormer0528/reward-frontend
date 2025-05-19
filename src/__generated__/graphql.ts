@@ -201,6 +201,32 @@ export type BasicMemberResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type BasicOrder = {
+  __typename?: 'BasicOrder';
+  ID: Scalars['Int']['output'];
+  completedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  createdAt: Scalars['DateTimeISO']['output'];
+  expiredAt: Scalars['DateTimeISO']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  memberId: Scalars['String']['output'];
+  paidAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  paidBalance: Scalars['BigInt']['output'];
+  paymentAddress?: Maybe<Scalars['String']['output']>;
+  paymentChain?: Maybe<PaymentChain>;
+  paymentToken?: Maybe<PaymentToken>;
+  requestType: OrderRequestType;
+  requiredBalance?: Maybe<Scalars['BigInt']['output']>;
+  status: OrderStatus;
+  usdBalance: Scalars['Float']['output'];
+};
+
+export type BasicOrderResponse = {
+  __typename?: 'BasicOrderResponse';
+  orders?: Maybe<Array<BasicOrder>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
 export type BasicSale = {
   __typename?: 'BasicSale';
   ID: Scalars['Int']['output'];
@@ -1130,6 +1156,7 @@ export type MemberOverview = {
 };
 
 export enum MemberState {
+  Added = 'ADDED',
   Approved = 'APPROVED',
   Blocked = 'BLOCKED',
   Graveyard = 'GRAVEYARD',
@@ -2034,11 +2061,11 @@ export type OrderPaymentSetInput = {
   paymentToken: PaymentToken;
 };
 
-export type OrderResponse = {
-  __typename?: 'OrderResponse';
-  orders?: Maybe<Array<Order>>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
+export enum OrderRequestType {
+  AddHash = 'ADD_HASH',
+  AddMember = 'ADD_MEMBER',
+  Signup = 'SIGNUP'
+}
 
 export enum OrderStatus {
   Canceled = 'CANCELED',
@@ -2259,7 +2286,7 @@ export enum ProofType {
 export type Query = {
   __typename?: 'Query';
   addressByAddress: Address;
-  addressByMemberId: Address;
+  addressByMemberId: Array<Address>;
   addresses: AddressResponse;
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
@@ -2317,7 +2344,7 @@ export type Query = {
   onepointAwayMembers: ReportMemberResponse;
   orderAvailablePoint: Scalars['Int']['output'];
   orderById: Order;
-  orders: OrderResponse;
+  orders: BasicOrderResponse;
   packages: PackageResponse;
   paymentMethods: PaymentMethodResponse;
   payouts: PayoutResponse;
