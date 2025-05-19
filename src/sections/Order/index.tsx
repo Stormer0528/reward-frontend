@@ -84,6 +84,7 @@ export default function Order() {
 
       if (order.status === OrderStatus.Paid) {
         setStep(2);
+        setStatus(OrderStatus.Paid);
       }
 
       if (order?.status === OrderStatus.Expired) {
