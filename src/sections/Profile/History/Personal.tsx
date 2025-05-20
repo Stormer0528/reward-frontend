@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import { useBoolean } from 'src/hooks/useBoolean';
 
 import { formatDate } from 'src/utils/format-time';
-import { fCurrency } from 'src/utils/formatNumber';
 import { formatID, makeDecimal, truncateMiddle } from 'src/utils/helper';
 
 import { CHAIN_UNIT } from 'src/consts';
@@ -346,7 +345,7 @@ export default function Personal({ me }: Props) {
           <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
           {/* Setting info */}
-          <Typography variant="body1" fontWeight="bold" mt={2}>
+          <Typography variant="body1" fontWeight="bold" my={2}>
             Setting
           </Typography>
 
@@ -372,7 +371,7 @@ export default function Personal({ me }: Props) {
 
           {/* Address info */}
 
-          <Typography variant="body1" fontWeight="bold" mt={2}>
+          <Typography variant="body1" fontWeight="bold" my={2}>
             Wallet
           </Typography>
 
@@ -406,25 +405,25 @@ export default function Personal({ me }: Props) {
                     </Stack>
                   </Stack>
 
-                  <Stack direction="row" spacing={2} pb={1}>
-                    <Stack width={0.5}>
-                      <Typography variant="body2" fontWeight="bold">
-                        Balance:
-                      </Typography>
-                    </Stack>
-                    <Stack width={1}>
-                      <Typography variant="body2">
-                        {fCurrency(
-                          item?.balance
+                  {item?.balances?.map((balance) => (
+                    <Stack direction="row" spacing={2} pb={1}>
+                      <Stack width={0.5}>
+                        <Typography variant="body2" fontWeight="bold">
+                          Balance:
+                        </Typography>
+                      </Stack>
+                      <Stack width={1}>
+                        <Typography variant="body2">
+                          {balance?.balance
                             ? makeDecimal(
-                                item.balance / 10 ** CHAIN_UNIT[item?.chain!],
-                                CHAIN_UNIT[item?.chain!]
+                                balance.balance / 10 ** CHAIN_UNIT[balance?.chain!],
+                                CHAIN_UNIT[balance?.chain!]
                               )
-                            : 0
-                        )}
-                      </Typography>
+                            : 0}
+                        </Typography>
+                      </Stack>
                     </Stack>
-                  </Stack>
+                  ))}
                 </>
               ))
             : 'You have not address yet'}

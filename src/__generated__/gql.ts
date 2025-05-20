@@ -37,7 +37,7 @@ const documents = {
     "\n  subscription NewNotification {\n    newNotification {\n      id\n      level\n      message\n      createdAt\n      updatedAt\n    }\n  }\n": types.NewNotificationDocument,
     "\n  query OrderById($data: IDInput!) {\n    orderById(data: $data) {\n      id\n      status\n      expiredAt\n      paymentToken\n      paymentChain\n      paymentAddress\n      requiredBalance\n    }\n  }\n": types.OrderByIdDocument,
     "\n  query CheckOrder($data: IDInput!) {\n    orderById(data: $data) {\n      status\n    }\n  }\n": types.CheckOrderDocument,
-    "\n  query MyAddresses {\n    myAddresses {\n      chain\n      address\n      balance\n    }\n  }\n": types.MyAddressesDocument,
+    "\n  query MyAddresses {\n    myAddresses {\n      chain\n      address\n      balances {\n        chain\n        token\n        balance\n      }\n    }\n  }\n": types.MyAddressesDocument,
     "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateOrderDocument,
     "\n  mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {\n    createSignUpOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateSignUpOrderDocument,
     "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      message\n      result\n    }\n  }\n": types.CancelOrderDocument,
@@ -219,7 +219,7 @@ export function gql(source: "\n  query CheckOrder($data: IDInput!) {\n    orderB
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query MyAddresses {\n    myAddresses {\n      chain\n      address\n      balance\n    }\n  }\n"): (typeof documents)["\n  query MyAddresses {\n    myAddresses {\n      chain\n      address\n      balance\n    }\n  }\n"];
+export function gql(source: "\n  query MyAddresses {\n    myAddresses {\n      chain\n      address\n      balances {\n        chain\n        token\n        balance\n      }\n    }\n  }\n"): (typeof documents)["\n  query MyAddresses {\n    myAddresses {\n      chain\n      address\n      balances {\n        chain\n        token\n        balance\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

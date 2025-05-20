@@ -27,7 +27,11 @@ export const FETCH_MY_ADDRESS = gql(/* GraphQL */ `
     myAddresses {
       chain
       address
-      balance
+      balances {
+        chain
+        token
+        balance
+      }
     }
   }
 `);
