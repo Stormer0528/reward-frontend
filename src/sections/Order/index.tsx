@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -94,7 +95,7 @@ export default function Order() {
     }
   }, [order]);
 
-  if (loading) {
+  if (loading || setLoading) {
     return <LoadingScreen />;
   }
 
@@ -115,9 +116,13 @@ export default function Order() {
               borderRadius={0.5}
               p={1}
             >
-              <Typography>
-                {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
-              </Typography>
+              {loading || setLoading ? (
+                <Skeleton />
+              ) : (
+                <Typography>
+                  {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
+                </Typography>
+              )}
             </Box>
           </Stack>
         )}
