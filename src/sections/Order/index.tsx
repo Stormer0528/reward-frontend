@@ -89,8 +89,13 @@ export default function Order() {
       }
 
       if (order?.status === OrderStatus.Expired) {
-        setStep((prev) => prev + 1);
+        setStep(2);
         setStatus(OrderStatus.Expired);
+      }
+
+      if (order?.status === OrderStatus.Canceled) {
+        setStep(2);
+        setStatus(OrderStatus.Canceled);
       }
     }
   }, [order]);
