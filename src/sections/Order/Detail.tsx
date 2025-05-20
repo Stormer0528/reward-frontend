@@ -98,7 +98,7 @@ export default function Detail({
   return (
     <Box>
       <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', mb: 2 }}>
-        <QRCode value="0x8a239732871adc8829ea2f47e94087c5fbad47b6" size={256} level="H" />
+        <QRCode value={current?.paymentAddress ?? ''} size={256} level="H" />
         <Box
           sx={{
             position: 'absolute',
