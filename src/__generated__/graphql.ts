@@ -2052,7 +2052,7 @@ export type Order = {
   status: OrderStatus;
   transactions?: Maybe<Array<Transaction>>;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  usdBalance: Scalars['Int']['output'];
+  usdBalance: Scalars['Float']['output'];
 };
 
 export type OrderPaymentSetInput = {
