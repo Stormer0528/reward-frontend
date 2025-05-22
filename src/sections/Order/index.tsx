@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import { useParams } from 'src/routes/hooks';
+import { useParams, useRouter } from 'src/routes/hooks';
 
 import { OrderStatus, type Order as OrderType } from 'src/__generated__/graphql';
 
@@ -25,6 +25,7 @@ import type { PAYMENT_TYPE } from './type';
 
 export default function Order() {
   const theme = useTheme();
+  const router = useRouter();
 
   const { id } = useParams();
 
@@ -68,6 +69,10 @@ export default function Order() {
     } catch (error) {
       toast.error(error.message);
     }
+  };
+
+  const handleClose = async () => {
+    router.back();
   };
 
   useEffect(() => {
@@ -152,6 +157,12 @@ export default function Order() {
       {step === 2 && <PaymentStatus status={status} />}
 
       <Stack direction="row" mt={4} justifyContent="flex-end" spacing={2}>
+        {step === 2 && (
+          <Button variant="contained" onClick={handleClose} color="primary">
+            Close
+          </Button>
+        )}
+
         {step !== 2 && (
           <Button variant="outlined" onClick={handleCancel}>
             Cancel
