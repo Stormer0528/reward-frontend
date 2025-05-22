@@ -417,7 +417,6 @@ export type CollectAddressResponse = {
 
 export enum CommissionDefaultEnum {
   Hash = 'HASH',
-  Manual = 'MANUAL',
   Txc = 'TXC',
   Usdc = 'USDC'
 }
