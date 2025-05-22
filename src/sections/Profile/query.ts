@@ -26,6 +26,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       syncWithSendy
       emailVerified
       isTexitRanger
+      peerAcceptable
       primaryAddress
       secondaryAddress
       totalIntroducers
@@ -67,6 +68,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         emailVerified
         syncWithSendy
         isTexitRanger
+        peerAcceptable
         primaryAddress
         secondaryAddress
         totalIntroducers
@@ -96,6 +98,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         isTexitRanger
         emailVerified
         syncWithSendy
+        peerAcceptable
         primaryAddress
         secondaryAddress
         totalIntroducers
@@ -123,6 +126,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
         emailVerified
         syncWithSendy
         isTexitRanger
+        peerAcceptable
         primaryAddress
         secondaryAddress
         preferredContact
