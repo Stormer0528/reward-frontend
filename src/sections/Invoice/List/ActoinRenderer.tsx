@@ -8,8 +8,6 @@ import IconButton from '@mui/material/IconButton';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
-import { InvoiceStatusEnum } from 'src/__generated__/graphql';
-
 import { Iconify } from 'src/components/Iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
@@ -19,15 +17,6 @@ import type { Invoice } from './type';
 
 export const ActionRender = memo(
   ({ data }: CustomCellRendererProps<Invoice>) => {
-    const defaultValue = {
-      id: 0,
-      name: '',
-      dueDate: new Date(),
-      description: '',
-      amountInCents: 0,
-      status: InvoiceStatusEnum.Pending,
-    };
-
     const open = useBoolean();
     const popover = usePopover();
 
@@ -55,7 +44,7 @@ export const ActionRender = memo(
           </MenuList>
         </CustomPopover>
 
-        <Detail open={open} row={data ?? defaultValue} />
+        <Detail open={open} row={data as Invoice} />
       </>
     );
   },
