@@ -600,6 +600,7 @@ export type CreateMemberInput = {
   isTexitRanger?: InputMaybe<Scalars['Boolean']['input']>;
   mobile: Scalars['String']['input'];
   peerAcceptable: Scalars['Boolean']['input'];
+  peerETHAddress?: InputMaybe<Scalars['String']['input']>;
   placementParentId?: InputMaybe<Scalars['ID']['input']>;
   placementPosition?: InputMaybe<PlacementPosition>;
   preferredContact?: InputMaybe<Scalars['String']['input']>;
@@ -1080,6 +1081,7 @@ export type Member = {
   memberWallets?: Maybe<Array<MemberWallet>>;
   mobile: Scalars['String']['output'];
   peerAcceptable: Scalars['Boolean']['output'];
+  peerETHAddress?: Maybe<Scalars['String']['output']>;
   placementChildren?: Maybe<Array<Member>>;
   placementParent?: Maybe<Member>;
   placementParentId?: Maybe<Scalars['ID']['output']>;
@@ -1310,7 +1312,6 @@ export type Mutation = {
   emailVerify: EmailVerifyResult;
   emailVerifyCode: AccessTokenResponse;
   forceMemberLogout: SuccessResponse;
-  generateAddress: SuccessResponse;
   generateWDMSVegasReport: SuccessResponse;
   generateWeekP2PInvoice: SuccessResponse;
   generateWeeklyReport: SuccessResponse;
@@ -1594,11 +1595,6 @@ export type MutationEmailVerifyCodeArgs = {
 
 
 export type MutationForceMemberLogoutArgs = {
-  data: IdInput;
-};
-
-
-export type MutationGenerateAddressArgs = {
   data: IdInput;
 };
 
@@ -2291,7 +2287,6 @@ export enum ProofType {
 export type Query = {
   __typename?: 'Query';
   addressByAddress: Address;
-  addressByMemberId: Array<Address>;
   addresses: AddressResponse;
   adminMe: Admin;
   adminNotes: AdminNotesResponse;
@@ -2344,7 +2339,6 @@ export type Query = {
   memberlists: MemberListResponse;
   members: BasicMemberResponse;
   membersByCountry: Array<MembersByCountryItem>;
-  myAddresses: Array<Address>;
   newMemberCounts: Array<MinerCountStatsResponse>;
   notifications: NotificationResponse;
   onepointAwayMembers: ReportMemberResponse;
@@ -2392,11 +2386,6 @@ export type Query = {
 
 export type QueryAddressByAddressArgs = {
   data: AddressInput;
-};
-
-
-export type QueryAddressByMemberIdArgs = {
-  data: IdInput;
 };
 
 
@@ -3327,6 +3316,7 @@ export type UpdateMemberInput = {
   isTexitRanger?: InputMaybe<Scalars['Boolean']['input']>;
   mobile?: InputMaybe<Scalars['String']['input']>;
   peerAcceptable?: InputMaybe<Scalars['Boolean']['input']>;
+  peerETHAddress?: InputMaybe<Scalars['String']['input']>;
   placementParentId?: InputMaybe<Scalars['ID']['input']>;
   placementPosition?: InputMaybe<PlacementPosition>;
   placementRequested?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3739,11 +3729,6 @@ export type CheckOrderQueryVariables = Exact<{
 
 
 export type CheckOrderQuery = { __typename?: 'Query', orderById: { __typename?: 'Order', status: OrderStatus } };
-
-export type MyAddressesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MyAddressesQuery = { __typename?: 'Query', myAddresses: Array<{ __typename?: 'Address', chain: PaymentChain, address: string, balances?: Array<{ __typename?: 'Balance', chain: PaymentChain, token: PaymentToken, balance: any }> | null }> };
 
 export type CreateOrderMutationVariables = Exact<{
   data: CreateOrderInput;
@@ -4253,7 +4238,6 @@ export const SetReadAllNotificationsDocument = {"kind":"Document","definitions":
 export const NewNotificationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"NewNotification"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"newNotification"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<NewNotificationSubscription, NewNotificationSubscriptionVariables>;
 export const OrderByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"OrderById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"orderById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"expiredAt"}},{"kind":"Field","name":{"kind":"Name","value":"paymentToken"}},{"kind":"Field","name":{"kind":"Name","value":"paymentChain"}},{"kind":"Field","name":{"kind":"Name","value":"paymentAddress"}},{"kind":"Field","name":{"kind":"Name","value":"requiredBalance"}}]}}]}}]} as unknown as DocumentNode<OrderByIdQuery, OrderByIdQueryVariables>;
 export const CheckOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CheckOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"orderById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<CheckOrderQuery, CheckOrderQueryVariables>;
-export const MyAddressesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MyAddresses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"myAddresses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chain"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"balances"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chain"}},{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}}]}}]}}]} as unknown as DocumentNode<MyAddressesQuery, MyAddressesQueryVariables>;
 export const CreateOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateOrderMutation, CreateOrderMutationVariables>;
 export const CreateSignUpOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateSignUpOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateSignUpOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createSignUpOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateSignUpOrderMutation, CreateSignUpOrderMutationVariables>;
 export const CancelOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CancelOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cancelOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}},{"kind":"Field","name":{"kind":"Name","value":"result"}}]}}]}}]} as unknown as DocumentNode<CancelOrderMutation, CancelOrderMutationVariables>;

@@ -27,6 +27,7 @@ export const FETCH_ME_QUERY = gql(/* GraphQL */ `
       emailVerified
       isTexitRanger
       peerAcceptable
+      peerETHAddress
       primaryAddress
       secondaryAddress
       totalIntroducers

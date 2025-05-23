@@ -3,7 +3,6 @@ import { useMutation, useLazyQuery } from '@apollo/client';
 import {
   CANCEL_ORDER,
   CREATE_ORDER,
-  FETCH_MY_ADDRESS,
   SET_ORDER_PAYMENT,
   FETCH_ORDER_BY_ID,
   CHECK_ORDER_STATUS,
@@ -20,12 +19,6 @@ export function useCheckOrder() {
   const [checkOrder, { loading, data, error }] = useLazyQuery(CHECK_ORDER_STATUS);
 
   return { loading, order: data?.orderById, error, checkOrder };
-}
-
-export function useFetchMyAddress() {
-  const [fetchMyAddress, { loading, data, error }] = useLazyQuery(FETCH_MY_ADDRESS);
-
-  return { loading, addresses: data?.myAddresses ?? [], error, fetchMyAddress };
 }
 
 export function useCreateOrder() {
