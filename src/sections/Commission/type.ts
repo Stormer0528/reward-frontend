@@ -25,5 +25,5 @@ export type WeeklyCommission = {
   deletedAt?: any | null;
   shortNote?: string | null;
   status: ConfirmationStatus;
-  commissionDefault: CommissionDefaultEnum;
+  paymentMethod: CommissionDefaultEnum;
 };
