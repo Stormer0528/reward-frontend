@@ -23,30 +23,39 @@ export default function SearchMiner({
   label = 'Miner',
 }: Props) {
   const [username, setUsername] = useState<string>();
+  const [debouncedUsername, setDebouncedUsername] = useState<string>();
 
   const { loading, members, fetchMemberSearch } = useFetchMemberSearch();
 
   useEffect(() => {
-    fetchMemberSearch({
-      variables: {
-        filter: {
-          ...filter,
-          status: true,
-          OR: [
-            { username: { contains: username ?? '', mode: 'insensitive' } },
-            { fullName: { contains: username ?? '', mode: 'insensitive' } },
-          ],
+    if (debouncedUsername !== undefined) {
+      fetchMemberSearch({
+        variables: {
+          filter: {
+            ...filter,
+            status: true,
+            OR: [
+              { username: { contains: debouncedUsername ?? '', mode: 'insensitive' } },
+              { fullName: { contains: debouncedUsername ?? '', mode: 'insensitive' } },
+            ],
+          },
         },
-        page: '1,10',
-      },
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username]);
+      });
+    }
+  }, [debouncedUsername, fetchMemberSearch, filter]);
 
   useEffect(() => {
     if (setMemberId) {
       setMemberId(members.find((member) => member.username === username?.split(' (')[0])?.id);
     }
+
+    const handler = setTimeout(() => {
+      setDebouncedUsername(username);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
