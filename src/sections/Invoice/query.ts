@@ -5,6 +5,7 @@ export const FETCH_INVOICES_QUERY = gql(/* GraphQL */ `
     invoices(sort: $sort, page: $page, filter: $filter) {
       invoices {
         id
+        ID
         name
         status
         dueDate
@@ -25,9 +26,10 @@ export const FETCH_INVOICES_QUERY = gql(/* GraphQL */ `
 `);
 
 export const FETCH_INVOICE_BY_ID = gql(/* GraphQL */ `
-  query InvoiceById($data: IDNInput!) {
+  query InvoiceById($data: IDInput!) {
     invoiceById(data: $data) {
       id
+      ID
       name
       status
       dueDate

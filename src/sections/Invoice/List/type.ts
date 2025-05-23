@@ -2,7 +2,8 @@ import type { PFile, InvoiceStatusEnum } from 'src/__generated__/graphql';
 
 export type Invoice = {
   __typename?: 'Invoice';
-  id: number;
+  id: string;
+  ID: number;
   name: string;
   dueDate: any;
   description: string;
