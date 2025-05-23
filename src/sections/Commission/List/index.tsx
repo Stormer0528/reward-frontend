@@ -33,15 +33,16 @@ import type { ICommissionPrismaFilter, ICommissionTableFilters } from './types';
 
 const TABLE_HEAD = [
   { id: 'ID', label: 'ID', width: 120, sortable: true },
-  { id: 'weekStartDate', label: 'Week', width: 150, sortable: true },
-  { id: 'begLR', label: 'BegLR', sortable: false },
-  { id: 'newLR', label: 'NewLR', sortable: false },
-  { id: 'maxLR', label: 'MaxLR', sortable: false },
-  { id: 'pkgLR', label: 'Package', sortable: true },
-  { id: 'endLR', label: 'EndLR', sortable: true },
+  { id: 'weekStartDate', label: 'Week', sortable: true },
+  { id: 'begLR', label: 'BegLR', width: 100, sortable: false },
+  { id: 'newLR', label: 'NewLR', width: 100, sortable: false },
+  { id: 'maxLR', label: 'MaxLR', width: 100, sortable: false },
+  { id: 'pkgLR', label: 'Package', width: 100, sortable: true },
+  { id: 'endLR', label: 'EndLR', width: 100, sortable: true },
   { id: 'commission', label: 'Commissions', width: 200, sortable: true },
-  { id: 'status', label: 'Status', width: 100, sortable: true },
-  { id: 'proofNote', label: 'Note', width: 100, sortable: true },
+  { id: 'paymentMethod', label: 'Method', width: 100, sortable: true },
+  { id: 'status', label: 'Status', width: 120, sortable: true },
+  { id: 'proofNote', label: 'Note', width: 300, sortable: true },
 ];
 
 const defaultFilter: ICommissionTableFilters = {
@@ -114,7 +115,15 @@ export default function Commission({ me }: Props) {
                 headLabel={TABLE_HEAD}
                 rowCount={loading ? 0 : weeklyCommissions!.length}
                 onSort={(id) => {
-                  if (id !== 'action') {
+                  if (
+                    id !== 'action' &&
+                    id !== 'begLR' &&
+                    id !== 'newLR' &&
+                    id !== 'maxLR' &&
+                    id !== 'pkgLR' &&
+                    id !== 'endLR' &&
+                    id !== 'proofNote'
+                  ) {
                     const isAsc = sort && sort[id] === 'asc';
                     const newSort = { [id]: isAsc ? 'desc' : ('asc' as SortOrder) };
                     setQuery({ ...query, sort: newSort });

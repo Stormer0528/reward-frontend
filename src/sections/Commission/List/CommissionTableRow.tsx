@@ -5,7 +5,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import ListItemText from '@mui/material/ListItemText';
 
-import { formatID } from 'src/utils/helper';
+import { formatID, truncateMiddle } from 'src/utils/helper';
 
 import { ConfirmationStatus, type BasicWeeklyCommission } from 'src/__generated__/graphql';
 
@@ -34,6 +34,7 @@ export default function CommissionTableRow({ row }: Props) {
     status,
     proofNote,
     commission,
+    paymentMethod,
     weekStartDate,
   } = row;
 
@@ -57,6 +58,7 @@ export default function CommissionTableRow({ row }: Props) {
       <TableCell align="left">{`L${pkgL}, R${pkgR}`}</TableCell>
       <TableCell align="left">{`L${endL}, R${endR}`}</TableCell>
       <TableCell align="left">{commission ?? 0}</TableCell>
+      <TableCell align="left">{paymentMethod}</TableCell>
       <TableCell align="left">
         <Label
           variant="soft"
@@ -72,7 +74,7 @@ export default function CommissionTableRow({ row }: Props) {
         </Label>
       </TableCell>
       <TableCell align="left" sx={{ whiteSpace: 'nowrap' }}>
-        {proofNote}
+        {truncateMiddle(proofNote ?? '', 30, false)}
       </TableCell>
     </TableRow>
   );
