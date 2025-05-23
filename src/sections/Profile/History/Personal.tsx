@@ -12,13 +12,9 @@ import Typography from '@mui/material/Typography';
 import { useBoolean } from 'src/hooks/useBoolean';
 
 import { formatDate } from 'src/utils/format-time';
-import { formatID, makeDecimal, truncateMiddle } from 'src/utils/helper';
-
-import { CHAIN_UNIT } from 'src/consts';
+import { formatID, truncateMiddle } from 'src/utils/helper';
 
 import { Iconify } from 'src/components/Iconify';
-
-import { useFetchMyAddress } from 'src/sections/Order/useApollo';
 
 import Setting from './Setting';
 import { useFetchMemberOvewview } from '../useApollo';
@@ -33,7 +29,6 @@ export default function Personal({ me }: Props) {
   const [children, setChildren] = useState<any>();
 
   const { overview } = useFetchMemberOvewview(me.id);
-  const { addresses, fetchMyAddress } = useFetchMyAddress();
 
   const handleCopy = async (addressValue: string) => {
     try {
@@ -55,9 +50,7 @@ export default function Personal({ me }: Props) {
         {}
       )
     );
-
-    fetchMyAddress();
-  }, [me, fetchMyAddress]);
+  }, [me]);
 
   return (
     <>
@@ -244,6 +237,27 @@ export default function Personal({ me }: Props) {
               </Stack>
             </Stack>
 
+            <Stack direction="row" spacing={2} pb={1}>
+              <Stack width={0.5}>
+                <Typography variant="body2" fontWeight="bold">
+                  Peer Address:
+                </Typography>
+              </Stack>
+
+              {me?.peerETHAddress && (
+                <Stack width={1} direction="row" spacing={1} alignItems="center">
+                  <Typography variant="body2">
+                    {truncateMiddle(me?.peerETHAddress ?? '', 30)}
+                  </Typography>
+                  <Iconify
+                    sx={{ cursor: 'pointer' }}
+                    icon={copy.value ? 'system-uicons:check' : 'stash:copy-light'}
+                    onClick={() => handleCopy(me?.peerETHAddress ?? '')}
+                  />
+                </Stack>
+              )}
+            </Stack>
+
             <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
             {/* Group info */}
@@ -366,67 +380,6 @@ export default function Personal({ me }: Props) {
               />
             </Stack>
           </Stack>
-
-          <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
-
-          {/* Address info */}
-
-          <Typography variant="body1" fontWeight="bold" my={2}>
-            Wallet
-          </Typography>
-
-          {addresses.length
-            ? addresses?.map((item) => (
-                <>
-                  <Stack direction="row" spacing={2} pb={1}>
-                    <Stack width={0.5}>
-                      <Typography variant="body2" fontWeight="bold">
-                        Address:
-                      </Typography>
-                    </Stack>
-                    <Stack width={1} direction="row" spacing={1} alignItems="center">
-                      <Typography variant="body2">{truncateMiddle(item.address, 30)}</Typography>
-                      <Iconify
-                        sx={{ cursor: 'pointer' }}
-                        icon={copy.value ? 'system-uicons:check' : 'stash:copy-light'}
-                        onClick={() => handleCopy(item.address)}
-                      />
-                    </Stack>
-                  </Stack>
-
-                  <Stack direction="row" spacing={2} pb={1}>
-                    <Stack width={0.5}>
-                      <Typography variant="body2" fontWeight="bold">
-                        Chain:
-                      </Typography>
-                    </Stack>
-                    <Stack width={1}>
-                      <Typography variant="body2">{item?.chain}</Typography>
-                    </Stack>
-                  </Stack>
-
-                  {item?.balances?.map((balance) => (
-                    <Stack direction="row" spacing={2} pb={1}>
-                      <Stack width={0.5}>
-                        <Typography variant="body2" fontWeight="bold">
-                          Balance:
-                        </Typography>
-                      </Stack>
-                      <Stack width={1}>
-                        <Typography variant="body2">
-                          {balance?.balance
-                            ? makeDecimal(
-                                balance.balance / 10 ** CHAIN_UNIT[balance?.chain!],
-                                CHAIN_UNIT[balance?.chain!]
-                              )
-                            : 0}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  ))}
-                </>
-              ))
-            : 'You have not address yet'}
         </Card>
       </Grid>
 
