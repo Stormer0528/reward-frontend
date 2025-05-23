@@ -27,10 +27,10 @@ export function SignOutButton({ onClose, ...other }: Props) {
 
   const handleLogout = useCallback(async () => {
     try {
-      await memberLogout();
       signOut();
       onClose?.();
       router.refresh();
+      await memberLogout();
     } catch (error) {
       console.error(error);
     }
