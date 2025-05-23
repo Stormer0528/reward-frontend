@@ -48,7 +48,7 @@ export const FETCH_TEAM_COMMISSION_QUERY = gql(/* GraphQL */ `
         shortNote
         commission
         weekStartDate
-        commissionDefault
+        paymentMethod
       }
       total
     }
