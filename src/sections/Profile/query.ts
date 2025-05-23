@@ -197,6 +197,19 @@ export const FETCH_MEMBER_STATS_QUERY = gql(/* GraphQL */ `
   }
 `);
 
+export const FETCH_MEMBER_SEARCH_QUERY = gql(/* GraphQL */ `
+  query SearchMembers($sort: String, $page: String, $filter: JSONObject) {
+    searchMembers(sort: $sort, page: $page, filter: $filter) {
+      members {
+        id
+        email
+        username
+        fullName
+      }
+    }
+  }
+`);
+
 export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
   query FetchPlacementMembers {
     sponsorMembers {

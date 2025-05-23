@@ -16,6 +16,7 @@ import {
   MEMBER_EXCHANGE_LOGIN,
   UPDATE_MEMBER_PASSWORD,
   FETCH_MEMBER_STATS_QUERY,
+  FETCH_MEMBER_SEARCH_QUERY,
   FETCH_PLACEMENT_MEMBERS_QUERY,
   FETCH_PLACEMENT_MEMBERS_O_QUERY,
 } from './query';
@@ -24,6 +25,12 @@ export function useFetchMe() {
   const [fetchMe, { loading, data, called }] = useLazyQuery(FETCH_ME_QUERY);
 
   return { loading, me: data?.memberMe, called, fetchMe };
+}
+
+export function useFetchMemberSearch() {
+  const [fetchMemberSearch, { loading, data, error }] = useLazyQuery(FETCH_MEMBER_SEARCH_QUERY);
+
+  return { loading, members: data?.searchMembers.members ?? [], error, fetchMemberSearch };
 }
 
 export function useFetchPlacementOMembers() {
