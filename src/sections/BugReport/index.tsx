@@ -16,7 +16,7 @@ import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
 import { ScrollBar } from 'src/components/ScrollBar';
 
-import { useCreateBugReport } from './useAollo';
+import { useCreateBugReport } from './useApollo';
 import { FileRecentItem } from './FileRecentItem';
 import { Schema, type SchemaType } from './schema';
 import { FileManagerNewFolderDialog } from './Upload';
