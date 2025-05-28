@@ -131,7 +131,7 @@ export default function PasswordModal({ open }: Props) {
                 });
 
                 if (data) {
-                  localStorage.setItem(CONFIG.storageTokenKey, data.memberLogin.accessToken);
+                  localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, data.memberLogin.accessToken);
                   setStep(step + 1);
                   await generate2FA();
                 }
@@ -164,7 +164,7 @@ export default function PasswordModal({ open }: Props) {
 
                   if (data) {
                     localStorage.setItem(
-                      CONFIG.storageTokenKey,
+                      CONFIG.STORAGE_TOKEN_KEY,
                       data.verify2FAAndEnable.accessToken
                     );
 

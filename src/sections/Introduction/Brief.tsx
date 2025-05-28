@@ -41,7 +41,7 @@ export default function Brief() {
           </JoinButton>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }} display="flex" justifyContent="flex-end">
-          <Image src={`${CONFIG.site.basePath}/assets/images/texitcoin-key.png`} />
+          <Image src={`${CONFIG.ASSET_DIR}/assets/images/texitcoin-key.png`} />
         </Grid>
       </Content>
     </Container>

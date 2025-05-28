@@ -42,7 +42,7 @@ export function FileManagerNewFolderDialog({
       setFiles([...files, ...acceptedFiles]);
       setLoading(true);
 
-      const token = localStorage.getItem(CONFIG.storageTokenKey);
+      const token = localStorage.getItem(CONFIG.STORAGE_TOKEN_KEY);
 
       const formData = new FormData();
 
@@ -52,7 +52,7 @@ export function FileManagerNewFolderDialog({
       try {
         if (id) {
           const { data } = await axios.post(
-            `${CONFIG.SITE_URL}/api/upload/email/${id}/attachments`,
+            `${CONFIG.SERVER_HOST}/api/upload/email/${id}/attachments`,
             formData,
             {
               headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },

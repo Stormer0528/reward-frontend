@@ -4,12 +4,12 @@ import { SignInView } from 'src/sections/SignIn';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `${CONFIG.site.name} / Sign in` };
+const metadata = { title: `${CONFIG.APP_NAME} - Sign in` };
 
 export default function Page() {
   return (
     <>
-      <title> {metadata.title}</title>
+      <title>{metadata.title}</title>
 
       <SignInView />
     </>

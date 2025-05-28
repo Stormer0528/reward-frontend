@@ -96,7 +96,7 @@ export default function Detail() {
 
   return (
     <>
-      <title>{`${CONFIG.site.name} / resources`}</title>
+      <title>{`${CONFIG.APP_NAME} - resources`}</title>
 
       {loading ? renderLoading : renderContent}
     </>

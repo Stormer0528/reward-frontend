@@ -65,7 +65,7 @@ export function FileRecentItem({ file, onDelete, sx, ...other }: Props) {
   const handleExport = async (fileData: any) => {
     setLoading(true);
 
-    const token = localStorage.getItem(CONFIG.storageTokenKey);
+    const token = localStorage.getItem(CONFIG.STORAGE_TOKEN_KEY);
 
     const { data } = await axios.get(`${fileData.url}`, {
       headers: {

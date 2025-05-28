@@ -47,7 +47,7 @@ export function InboxList({
       <EmptyContent
         title={`Nothing in ${selectedLabelId}`}
         description="This folder is empty"
-        imgUrl={`${CONFIG.site.basePath}/assets/icons/empty/ic-folder-empty.svg`}
+        imgUrl={`${CONFIG.ASSET_DIR}/assets/icons/empty/ic-folder-empty.svg`}
       />
     </Stack>
   );

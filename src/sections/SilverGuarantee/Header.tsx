@@ -15,7 +15,7 @@ interface BackgroundProps {
 export default function Header() {
   return (
     <Background
-      path={`${CONFIG.site.basePath}/assets/images/hero_021.png`}
+      path={`${CONFIG.ASSET_DIR}/assets/images/hero_021.png`}
       sx={{ minHeight: { lg: '616px', md: '490px', xs: '273px' } }}
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -36,7 +36,7 @@ export default function Header() {
             </Grid>
             <Grid size={{ lg: 3 }} offset={{ lg: 1 }}>
               <Image
-                src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                 sx={{ width: { lg: '320px', md: '243px', xs: '130px' } }}
               />
             </Grid>
@@ -50,7 +50,7 @@ export default function Header() {
           </Grid>
         </Container>
         <Image
-          src={`${CONFIG.site.basePath}/assets/images/gorilla_041.png`}
+          src={`${CONFIG.ASSET_DIR}/assets/images/gorilla_041.png`}
           sx={{ height: { lg: '616px', md: '492px', xs: '273px' } }}
         />
       </Stack>

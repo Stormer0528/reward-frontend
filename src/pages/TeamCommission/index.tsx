@@ -25,7 +25,7 @@ export default function Page() {
 
   return (
     <>
-      <title>{`${CONFIG.site.name} / Team`}</title>
+      <title>{`${CONFIG.APP_NAME} - Team`}</title>
 
       <TeamCommission me={user} />
     </>

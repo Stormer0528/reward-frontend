@@ -19,7 +19,7 @@ export default function WhatsIn() {
             <ContentCard>
               <ImageContent>
                 <Avatar>
-                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/what-icon1.png`} />
+                  <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/what-icon1.png`} />
                 </Avatar>
               </ImageContent>
               <Title>UNLIMITED TXC</Title>
@@ -33,7 +33,7 @@ export default function WhatsIn() {
             <ContentCard>
               <ImageContent>
                 <Avatar>
-                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/what-icon2.png`} />
+                  <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/what-icon2.png`} />
                 </Avatar>
               </ImageContent>
               <Title>ONE, TWO, FREE!</Title>
@@ -48,7 +48,7 @@ export default function WhatsIn() {
             <ContentCard>
               <ImageContent>
                 <Avatar>
-                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/what-icon3.png`} />
+                  <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/what-icon3.png`} />
                 </Avatar>
               </ImageContent>
               <Title>LIMITLESS BINARY</Title>

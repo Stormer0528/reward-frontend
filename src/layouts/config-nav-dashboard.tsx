@@ -7,7 +7,7 @@ import { SvgColor } from 'src/components/SvgColor';
 // ----------------------------------------------------------------------
 
 const icon = (name: string) => (
-  <SvgColor src={`${CONFIG.site.basePath}/assets/icons/navbar/${name}.svg`} />
+  <SvgColor src={`${CONFIG.ASSET_DIR}/assets/icons/navbar/${name}.svg`} />
 );
 
 const ICONS = {

@@ -19,7 +19,7 @@ export default function Steps() {
             <ContentCard>
               <ImageContent>
                 <Avatar>
-                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/step-icon1.png`} />
+                  <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/step-icon1.png`} />
                 </Avatar>
               </ImageContent>
               <Title>Join Right Now</Title>
@@ -33,7 +33,7 @@ export default function Steps() {
             <ContentCard>
               <ImageContent>
                 <Avatar>
-                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/step-icon2.png`} />
+                  <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/step-icon2.png`} />
                 </Avatar>
               </ImageContent>
               <Title>Begin Earning Immediately</Title>
@@ -47,7 +47,7 @@ export default function Steps() {
             <ContentCard>
               <ImageContent>
                 <Avatar>
-                  <IconImg src={`${CONFIG.site.basePath}/assets/intro/step-icon3.png`} />
+                  <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/step-icon3.png`} />
                 </Avatar>
               </ImageContent>
               <Title>Spread the Word</Title>

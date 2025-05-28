@@ -79,7 +79,7 @@ export function SignInView() {
       } else if (response.data?.memberLogin.status === 'success') {
         signIn(token);
       } else {
-        localStorage.setItem(CONFIG.storageTokenKey, token);
+        localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, token);
         open.onTrue();
       }
     } catch (error) {

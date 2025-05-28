@@ -18,7 +18,7 @@ export default function Deal() {
               <Grid container>
                 <Grid size={{ md: 3 }}>
                   <Image
-                    src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                    src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                     width={120}
                     height={120}
                     display={{ xs: 'none', md: 'inline-flex' }}
@@ -39,7 +39,7 @@ export default function Deal() {
               <Grid container>
                 <Grid size={{ md: 3 }}>
                   <Image
-                    src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                    src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                     width={120}
                     height={120}
                     display={{ xs: 'none', md: 'inline-flex' }}
@@ -60,7 +60,7 @@ export default function Deal() {
               <Grid container>
                 <Grid size={{ md: 3 }}>
                   <Image
-                    src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                    src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                     width={120}
                     height={120}
                     display={{ xs: 'none', md: 'inline-flex' }}
@@ -81,7 +81,7 @@ export default function Deal() {
               <Grid container>
                 <Grid size={{ md: 3 }}>
                   <Image
-                    src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                    src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                     width={120}
                     height={120}
                     display={{ xs: 'none', md: 'inline-flex' }}
@@ -101,7 +101,7 @@ export default function Deal() {
               <Grid container>
                 <Grid size={{ md: 3 }}>
                   <Image
-                    src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                    src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                     width={120}
                     height={120}
                     display={{ xs: 'none', md: 'inline-flex' }}
@@ -123,7 +123,7 @@ export default function Deal() {
               <Grid container>
                 <Grid size={{ md: 3 }}>
                   <Image
-                    src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
+                    src={`${CONFIG.ASSET_DIR}/assets/images/coin_gray.png`}
                     width={120}
                     height={120}
                     display={{ xs: 'none', md: 'inline-flex' }}

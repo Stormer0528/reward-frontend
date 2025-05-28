@@ -59,7 +59,7 @@ export default function VerificationCode({ setSuccess }: Props) {
         setCode(code);
         setSuccess(true);
 
-        localStorage.setItem(CONFIG.storageTokenKey, data?.emailVerifyCode.accessToken);
+        localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, data?.emailVerifyCode.accessToken);
       } else {
         toast.error('Failed to verify code');
       }

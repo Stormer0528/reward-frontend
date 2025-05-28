@@ -25,7 +25,7 @@ export default function Page() {
 
   return (
     <>
-      <title>{`${CONFIG.site.name} / Commission`}</title>
+      <title>{`${CONFIG.APP_NAME} - Commission`}</title>
 
       <CommissionList me={user} />
     </>

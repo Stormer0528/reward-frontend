@@ -14,7 +14,7 @@ export default function Chris() {
       <Grid container>
         <Grid size={{ md: 6 }}>
           <Image
-            src={`${CONFIG.site.basePath}/assets/images/chris.jpg`}
+            src={`${CONFIG.ASSET_DIR}/assets/images/chris.jpg`}
             sx={{ width: { lg: 458, md: 400 } }}
           />
         </Grid>

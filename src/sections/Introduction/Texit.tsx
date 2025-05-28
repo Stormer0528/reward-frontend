@@ -41,7 +41,7 @@ export default function Texit() {
           <Grid size={{ xs: 12, md: 6 }} container>
             <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
-                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon1.png`} />
+                <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/texit-icon1.png`} />
                 <Title>254 Block Reward</Title>
                 <Typography>
                   An inflation-crushing block is mined every 3 minutes with coins to compensate
@@ -51,7 +51,7 @@ export default function Texit() {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
-                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon2.png`} />
+                <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/texit-icon2.png`} />
                 <Title>O.OO pre-mine</Title>
                 <Typography>
                   No pre-mined coins means everyone starts on a level playing field. Mining is
@@ -61,7 +61,7 @@ export default function Texit() {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
-                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon3.png`} />
+                <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/texit-icon3.png`} />
                 <Title>3-Minute Spacing</Title>
                 <Typography>
                   Lightning fast transactions are processed every 3 minutes. Enhancements are easy
@@ -71,7 +71,7 @@ export default function Texit() {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
-                <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon4.png`} />
+                <IconImg src={`${CONFIG.ASSET_DIR}/assets/intro/texit-icon4.png`} />
                 <Title>695,662 Halving</Title>
                 <Typography>
                   TXC is a blockchain designed to function for a century of growth. Future

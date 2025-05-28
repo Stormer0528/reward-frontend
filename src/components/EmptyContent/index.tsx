@@ -37,7 +37,7 @@ export function EmptyContent({
       <Box
         component="img"
         alt="empty content"
-        src={imgUrl ?? `${CONFIG.site.basePath}/assets/icons/empty/ic-content.svg`}
+        src={imgUrl ?? `${CONFIG.ASSET_DIR}/assets/icons/empty/ic-content.svg`}
         sx={{ width: 1, maxWidth: 160, ...slotProps?.img }}
       />
 

@@ -38,7 +38,7 @@ export default function Opportunity() {
         </Grid>
         <Grid size={{ md: 4 }}>
           <Image
-            src={`${CONFIG.site.basePath}/assets/images/opportunity.png`}
+            src={`${CONFIG.ASSET_DIR}/assets/images/opportunity.png`}
             sx={{ width: { lg: 400, md: 300 } }}
           />
         </Grid>

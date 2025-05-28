@@ -24,7 +24,7 @@ export default function ActionView() {
   useEffect(() => {
     const handleGetApi = async () => {
       try {
-        const { data } = await axios.post(`${CONFIG.SITE_URL}/api/commission/action`, {
+        const { data } = await axios.post(`${CONFIG.SERVER_HOST}/api/commission/action`, {
           token,
           action,
         });

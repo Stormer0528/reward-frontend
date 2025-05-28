@@ -70,7 +70,7 @@ export function UpdatePasswordView() {
 
   const onSubmit = handleSubmit(async ({ oldPassword, newPassword }) => {
     try {
-      localStorage.setItem(CONFIG.storageTokenKey, location.state.token);
+      localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, location.state.token);
 
       const { data } = await updatePassword({
         variables: { data: { oldPassword, newPassword } },
@@ -79,7 +79,7 @@ export function UpdatePasswordView() {
       if (data?.updatePasswordMember.result === 'success') {
         toast.success('Successfully changed!');
 
-        localStorage.removeItem(CONFIG.storageTokenKey);
+        localStorage.removeItem(CONFIG.STORAGE_TOKEN_KEY);
 
         setTimeout(() => {
           window.location.href = paths.auth.signIn;

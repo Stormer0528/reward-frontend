@@ -15,7 +15,7 @@ export default function Problem() {
       <Paper sx={{ padding: { lg: '0 120px' } }}>
         <Item container alignItems="center">
           <Grid size={{ md: 2 }}>
-            <ImageWrapper src={`${CONFIG.site.basePath}/assets/images/problem_1.png`} />
+            <ImageWrapper src={`${CONFIG.ASSET_DIR}/assets/images/problem_1.png`} />
           </Grid>
           <Grid size={{ md: 10 }}>
             <SubTitle>{`"If you don't hold it, you don't own it…"`}</SubTitle>
@@ -26,7 +26,7 @@ export default function Problem() {
         </Item>
         <Item container alignItems="center">
           <Grid size={{ md: 2 }}>
-            <ImageWrapper src={`${CONFIG.site.basePath}/assets/images/problem_2.png`} />
+            <ImageWrapper src={`${CONFIG.ASSET_DIR}/assets/images/problem_2.png`} />
           </Grid>
           <Grid size={{ md: 10 }}>
             <SubTitle>Stackers got some bad information in 2012.</SubTitle>
@@ -37,7 +37,7 @@ export default function Problem() {
         </Item>
         <Item container alignItems="center">
           <Grid size={{ md: 2 }}>
-            <ImageWrapper src={`${CONFIG.site.basePath}/assets/images/problem_3.png`} />
+            <ImageWrapper src={`${CONFIG.ASSET_DIR}/assets/images/problem_3.png`} />
           </Grid>
           <Grid size={{ md: 10 }}>
             <SubTitle>{`Stackers think it's too late.`}</SubTitle>

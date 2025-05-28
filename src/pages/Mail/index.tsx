@@ -25,7 +25,7 @@ export default function Page() {
 
   return (
     <>
-      <title>{`${CONFIG.site.name} / Mail`}</title>
+      <title>{`${CONFIG.APP_NAME} - Mail`}</title>
 
       <Mail />
     </>

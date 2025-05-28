@@ -19,7 +19,7 @@ export default function News() {
           {/* TODO: NEED THIS KIND OF GRID SIZE? */}
           <Grid size={{ md: 4, lg: 4 }}>
             <Item>
-              <Image src={`${CONFIG.site.basePath}/assets/images/news-1.png`} />
+              <Image src={`${CONFIG.ASSET_DIR}/assets/images/news-1.png`} />
               <Description>
                 <Typography>June 29th, 2024</Typography>
                 <Title>Our first kilo of silver arrives!</Title>
@@ -32,7 +32,7 @@ export default function News() {
           </Grid>
           <Grid size={{ md: 4, lg: 4 }}>
             <Item>
-              <Image src={`${CONFIG.site.basePath}/assets/images/news-2.png`} />
+              <Image src={`${CONFIG.ASSET_DIR}/assets/images/news-2.png`} />
               <Description>
                 <Typography>June 29th, 2024</Typography>
                 <Title>Our first kilo of silver arrives!</Title>
@@ -45,7 +45,7 @@ export default function News() {
           </Grid>
           <Grid size={{ md: 4, lg: 4 }}>
             <Item>
-              <Image src={`${CONFIG.site.basePath}/assets/images/news-3.png`} />
+              <Image src={`${CONFIG.ASSET_DIR}/assets/images/news-3.png`} />
               <Description>
                 <Typography>June 29th, 2024</Typography>
                 <Title>Our first kilo of silver arrives!</Title>

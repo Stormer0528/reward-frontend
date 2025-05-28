@@ -7,7 +7,7 @@ import ActionView from 'src/sections/Commission/Action';
 export default function Page() {
   return (
     <>
-      <title>{`${CONFIG.site.name} / Commission`}</title>
+      <title>{`${CONFIG.APP_NAME} - Commission`}</title>
 
       <ActionView />
     </>

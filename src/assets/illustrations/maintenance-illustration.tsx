@@ -217,7 +217,7 @@ function MaintenanceIllustration({ hideBackground, sx, ...other }: Props) {
       </defs>
 
       <image
-        href={`${CONFIG.site.basePath}/assets/illustrations/characters/character-5.webp`}
+        href={`${CONFIG.ASSET_DIR}/assets/illustrations/characters/character-5.webp`}
         height="300"
         x="245"
         y="30"

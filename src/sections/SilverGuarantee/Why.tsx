@@ -28,7 +28,7 @@ export default function Why() {
           </Text>
         </Grid>
         <Grid size={{ md: 4 }} display="flex" justifyContent="flex-end">
-          <Photo src={`${CONFIG.site.basePath}/assets/images/bobby.png`} width={280} />
+          <Photo src={`${CONFIG.ASSET_DIR}/assets/images/bobby.png`} width={280} />
         </Grid>
       </Grid>
       <Paper sx={{ pb: 4 }}>

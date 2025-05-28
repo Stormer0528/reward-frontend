@@ -22,7 +22,7 @@ const DarkLogo = forwardRef<HTMLDivElement, DarkLogoProps>(
     const logo = (
       <Box
         component="img"
-        src={`${CONFIG.site.basePath}/assets/images/dark-logo.png`}
+        src={`${CONFIG.ASSET_DIR}/assets/images/dark-logo.png`}
         sx={{
           width: 70,
           height: 70,

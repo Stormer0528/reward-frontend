@@ -13,7 +13,7 @@ export default function Journey() {
       <Grid container alignItems="center">
         <Grid size={{ md: 6 }} sx={{ py: 2 }}>
           <Image
-            src={`${CONFIG.site.basePath}/assets/images/journey.png`}
+            src={`${CONFIG.ASSET_DIR}/assets/images/journey.png`}
             sx={{ width: { lg: 458, md: 400 } }}
           />
         </Grid>

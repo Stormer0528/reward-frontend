@@ -15,7 +15,7 @@ interface BackgroundProps {
 
 export default function Tale() {
   return (
-    <Background path={`${CONFIG.site.basePath}/assets/images/mapa_031.png`}>
+    <Background path={`${CONFIG.ASSET_DIR}/assets/images/mapa_031.png`}>
       <Wrapper>
         <Header fontSize={{ md: '3.75rem', xs: '2rem' }}>A Tale of Two Cities</Header>
         <Grid container spacing={4} justifyContent="center">

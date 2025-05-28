@@ -66,7 +66,7 @@ export function PostItemHorizontal({ post, urlFor }: Props) {
           src={
             mainImage
               ? urlFor(mainImage).url()
-              : `${CONFIG.site.basePath}/assets/images/default-meeting.png`
+              : `${CONFIG.ASSET_DIR}/assets/images/default-meeting.png`
           }
           sx={{ height: 1, borderRadius: 1.5 }}
         />

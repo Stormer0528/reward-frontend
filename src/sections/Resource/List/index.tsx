@@ -42,7 +42,7 @@ export default function Resource() {
 
   return (
     <>
-      <title>{`${CONFIG.site.name} / resources`}</title>
+      <title>{`${CONFIG.APP_NAME} - resources`}</title>
 
       <DashboardContent>
         <Breadcrumbs

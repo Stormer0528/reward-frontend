@@ -14,7 +14,7 @@ export default function Tommy() {
       <Grid container>
         <Grid size={{ md: 6 }}>
           <Image
-            src={`${CONFIG.site.basePath}/assets/images/tommy.jpg`}
+            src={`${CONFIG.ASSET_DIR}/assets/images/tommy.jpg`}
             sx={{ width: { lg: 458, md: 400 } }}
           />
         </Grid>

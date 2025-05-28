@@ -5,7 +5,7 @@ import { useBoolean } from 'minimal-shared/hooks';
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 import { Main } from './main';
 import { HeaderBase } from '../core/header-base';
@@ -73,7 +73,7 @@ export function AuthCenteredLayout({ sx, children }: AuthCenteredLayoutProps) {
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
-          backgroundImage: `url(${CONFIG.site.basePath}/assets/background/background-3-blur.webp)`,
+          backgroundImage: `url(${CONFIG.ASSET_DIR}/assets/background/background-3-blur.webp)`,
           ...theme.applyStyles('dark', {
             opacity: 0.08,
           }),

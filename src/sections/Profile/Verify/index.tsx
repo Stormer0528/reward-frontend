@@ -61,13 +61,13 @@ export default function VerifyModal({ tabs, open, event }: Props) {
       if (data?.memberExchangeLogin.passwordExpired) {
         toast.warning('Your Password Token has expired. Please reset your password');
 
-        localStorage.removeItem(CONFIG.storageTokenKey);
+        localStorage.removeItem(CONFIG.STORAGE_TOKEN_KEY);
 
         navigate(paths.auth.updatePassword, {
           state: { token: data.memberExchangeLogin.accessToken },
         });
       } else if (data) {
-        localStorage.setItem(CONFIG.storageTokenKey, data.memberExchangeLogin.accessToken);
+        localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, data.memberExchangeLogin.accessToken);
 
         setStep((prev) => prev + 1);
 

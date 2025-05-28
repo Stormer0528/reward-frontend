@@ -6,7 +6,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
@@ -41,7 +41,7 @@ export function MailNav({
     <Stack sx={{ flex: '1 1 auto', px: { xs: 2.5, md: 1.5 } }}>
       <EmptyContent
         title="No labels"
-        imgUrl={`${CONFIG.site.basePath}/assets/icons/empty/ic-folder-empty.svg`}
+        imgUrl={`${CONFIG.ASSET_DIR}/assets/icons/empty/ic-folder-empty.svg`}
       />
     </Stack>
   );

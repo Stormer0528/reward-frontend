@@ -7,7 +7,7 @@ import Communication from 'src/sections/Communication';
 export default function Page() {
   return (
     <>
-      <title>{`${CONFIG.site.name} / Communication`}</title>
+      <title>{`${CONFIG.APP_NAME} - Communication`}</title>
 
       <Communication />
     </>

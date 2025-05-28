@@ -12,7 +12,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 
 import { RouterLink } from 'src/routes/components';
 
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 import { Iconify } from 'src/components/Iconify';
 import { useNavItem } from 'src/components/nav-section/hooks';
@@ -132,7 +132,7 @@ export function NavItemDashboard({ path, sx, ...other }: NavItemDashboardProps) 
           <Box
             component="img"
             alt="illustration-dashboard"
-            src={`${CONFIG.site.basePath}/assets/illustrations/illustration-dashboard.webp`}
+            src={`${CONFIG.ASSET_DIR}/assets/illustrations/illustration-dashboard.webp`}
             sx={{
               width: 640,
               objectFit: 'cover',

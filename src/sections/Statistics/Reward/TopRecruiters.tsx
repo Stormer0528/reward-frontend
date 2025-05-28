@@ -70,12 +70,12 @@ export default function Latest() {
                         alignItems: 'center',
                         color: 'primary.main',
                         justifyContent: 'center',
-                        background: `url(${CONFIG.SITE_PATH}/assets/medals/${index + 1}.png)`,
+                        background: `url(${CONFIG.ASSET_DIR}/assets/medals/${index + 1}.png)`,
                         backgroundSize: 'cover',
                       }}
                     >
                       <Image
-                        src={item.avatar ?? `${CONFIG.SITE_PATH}/assets/avatar.jpg`}
+                        src={item.avatar ?? `${CONFIG.ASSET_DIR}/assets/avatar.jpg`}
                         sx={{ width: 28, height: 28, borderRadius: 50, mt: 0.4 }}
                       />
                     </Box>

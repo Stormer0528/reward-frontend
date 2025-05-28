@@ -1,6 +1,8 @@
 // ----------------------------------------------------------------------
 
 const ROOTS = {
+  INDEX: '/',
+
   // Auth
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
@@ -38,6 +40,7 @@ const ROOTS = {
 // ----------------------------------------------------------------------
 
 export const paths = {
+  root: ROOTS.INDEX,
   // AUTH
   auth: {
     signIn: ROOTS.SIGN_IN,

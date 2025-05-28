@@ -39,7 +39,7 @@ function PageNotFoundIllustration({ hideBackground, sx, ...other }: Props) {
       {!hideBackground && <BackgroundShape />}
 
       <image
-        href={`${CONFIG.site.basePath}/assets/illustrations/characters/character-6.webp`}
+        href={`${CONFIG.ASSET_DIR}/assets/illustrations/characters/character-6.webp`}
         height="300"
         x="205"
         y="30"

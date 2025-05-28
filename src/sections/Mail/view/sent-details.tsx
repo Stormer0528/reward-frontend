@@ -16,7 +16,7 @@ import { darken, lighten, useTheme, alpha as hexAlpha } from '@mui/material/styl
 import { fDateTime } from 'src/utils/format-time';
 import { customizeFullName } from 'src/utils/helper';
 
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 import { Label } from 'src/components/Label';
 // import { Editor } from 'src/components/editor';
@@ -51,7 +51,7 @@ export function SentDetails({ mail, renderLabel, handleMoveTrash, empty, loading
       <EmptyContent
         title="No conversation selected"
         description="Select a conversation to read"
-        imgUrl={`${CONFIG.site.basePath}/assets/icons/empty/ic-email-selected.svg`}
+        imgUrl={`${CONFIG.ASSET_DIR}/assets/icons/empty/ic-email-selected.svg`}
       />
     );
   }

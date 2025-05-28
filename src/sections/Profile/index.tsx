@@ -60,7 +60,7 @@ export default function Profile() {
 
   return (
     <>
-      <title>{`${CONFIG.site.name}: ${user?.username}`}</title>
+      <title>{`${CONFIG.APP_NAME}: ${user?.username}`}</title>
 
       <DashboardContent>
         <Breadcrumbs

@@ -111,7 +111,7 @@ export default function Detail({
           }}
         >
           <Avatar
-            src={`${CONFIG.site.basePath}/assets/${paymentType.paymentToken}.png`}
+            src={`${CONFIG.ASSET_DIR}/assets/${paymentType.paymentToken}.png`}
             sx={{ width: 50, height: 50 }}
           />
         </Box>

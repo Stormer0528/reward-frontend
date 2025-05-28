@@ -40,7 +40,7 @@ export function FileManagerNewFolderDialog({
       setFiles([...files, ...acceptedFiles]);
       setLoading(true);
 
-      const token = localStorage.getItem(CONFIG.storageTokenKey);
+      const token = localStorage.getItem(CONFIG.STORAGE_TOKEN_KEY);
 
       const formData = new FormData();
 
@@ -48,7 +48,7 @@ export function FileManagerNewFolderDialog({
       acceptedFiles.forEach((file) => formData.append('bug-report', file));
 
       try {
-        const { data } = await axios.post(`${CONFIG.SITE_URL}/api/upload`, formData, {
+        const { data } = await axios.post(`${CONFIG.SERVER_HOST}/api/upload`, formData, {
           headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
         });
 

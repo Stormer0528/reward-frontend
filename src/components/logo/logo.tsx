@@ -20,7 +20,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
     const logo = (
       <Box
         component="img"
-        src={`${CONFIG.site.basePath}/assets/images/logo.png`}
+        src={`${CONFIG.ASSET_DIR}/assets/images/logo.png`}
         sx={{ width: 60, height: 60, cursor: 'pointer', ...sx }}
       />
     );

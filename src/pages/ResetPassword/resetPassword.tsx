@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { paths } from 'src/routes/paths';
 
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 import { toast } from 'src/components/SnackBar';
 
@@ -17,7 +17,7 @@ import { RESET_TOKEN_VERIFY } from './query';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Reset password | Layout split - ${CONFIG.site.name}` };
+const metadata = { title: `${CONFIG.APP_NAME} - Reset password` };
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -50,7 +50,7 @@ export default function Page() {
 
   return (
     <>
-      <title> {metadata.title}</title>
+      <title>{metadata.title}</title>
 
       {isOpen ? (
         <SplitUpdatePasswordView token={data?.resetTokenVerify.token!} />

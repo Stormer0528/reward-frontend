@@ -25,7 +25,7 @@ export const StyledArrow = styled('span', {
   const backgroundStyles = (color: 'cyan' | 'red') => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: `${size * 3}px ${size * 3}px`,
-    backgroundImage: `url(${CONFIG.site.basePath}/assets/${color}-blur.png)`,
+    backgroundImage: `url(${CONFIG.ASSET_DIR}/assets/${color}-blur.png)`,
     ...(color === 'cyan' && {
       backgroundPosition: 'top right',
     }),

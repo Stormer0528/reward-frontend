@@ -53,15 +53,15 @@ export function getTimeToLive(accessToken: string | null | undefined) {
 
 export async function setSession(accessToken: string | null) {
   if (accessToken) {
-    localStorage.setItem(CONFIG.storageTokenKey, accessToken);
+    localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, accessToken);
   } else {
-    localStorage.removeItem(CONFIG.storageTokenKey);
+    localStorage.removeItem(CONFIG.STORAGE_TOKEN_KEY);
   }
 }
 
 // ----------------------------------------------------------------------
 
 export function getSession() {
-  const accessToken = localStorage.getItem(CONFIG.storageTokenKey);
+  const accessToken = localStorage.getItem(CONFIG.STORAGE_TOKEN_KEY);
   return accessToken;
 }

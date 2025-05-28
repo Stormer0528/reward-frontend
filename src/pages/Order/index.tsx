@@ -7,7 +7,7 @@ import Order from 'src/sections/Order';
 export default function Page() {
   return (
     <>
-      <title>{`${CONFIG.site.name} / Order`}</title>
+      <title>{`${CONFIG.APP_NAME} - Order`}</title>
 
       <Order />
     </>

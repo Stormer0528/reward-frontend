@@ -15,14 +15,14 @@ import {
 import { CONFIG } from 'src/config';
 
 const httpLink = createHttpLink({
-  uri: CONFIG.SERVER_URL,
+  uri: `${CONFIG.SERVER_HOST}/graphql`,
 });
 
 const wsLink = new GraphQLWsLink(
   createClient({
     url: CONFIG.WS_PATH,
     connectionParams: () => {
-      const token = localStorage.getItem(CONFIG.storageTokenKey);
+      const token = localStorage.getItem(CONFIG.STORAGE_TOKEN_KEY);
       return {
         authorization: token ? `Bearer ${token}` : '',
       };
@@ -41,7 +41,7 @@ const splitLink = split(
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem(CONFIG.storageTokenKey);
+  const token = localStorage.getItem(CONFIG.STORAGE_TOKEN_KEY);
   // return the headers to the context so httpLink can read them
   return {
     headers: {

@@ -80,7 +80,7 @@ export default function Latest() {
                   <Stack width={0.5} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
                     <Tooltip title="TXC Shared" arrow placement="top">
                       <Avatar
-                        src={`${CONFIG.SITE_PATH}/assets/icons/brands/txc.png`}
+                        src={`${CONFIG.ASSET_DIR}/assets/icons/brands/txc.png`}
                         sx={{ width: 15, height: 15 }}
                       />
                     </Tooltip>

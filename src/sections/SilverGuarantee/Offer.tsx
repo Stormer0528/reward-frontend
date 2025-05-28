@@ -12,7 +12,7 @@ interface BackgroundProps {
 
 export default function Offer() {
   return (
-    <Background path={`${CONFIG.site.basePath}/assets/images/texit-background.png`}>
+    <Background path={`${CONFIG.ASSET_DIR}/assets/images/texit-background.png`}>
       <Container sx={{ p: 10 }}>
         <Box sx={{ px: { md: 12, xs: 2 } }}>
           <Wrapper>

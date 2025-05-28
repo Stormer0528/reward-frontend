@@ -7,7 +7,7 @@ import SponsorList from 'src/sections/Sponsor';
 export default function Page() {
   return (
     <>
-      <title>{`${CONFIG.site.name} / Sponsor`}</title>
+      <title>{`${CONFIG.APP_NAME} - Sponsor`}</title>
 
       <SponsorList />
     </>

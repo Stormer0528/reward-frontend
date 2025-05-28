@@ -163,7 +163,7 @@ export default function MemberGeneral({ me }: Props) {
     acceptedFiles.forEach((file) => formData.append('avatar', file));
 
     try {
-      const { data } = await axios.post(`${CONFIG.SITE_URL}/api/upload`, formData, {
+      const { data } = await axios.post(`${CONFIG.SERVER_HOST}/api/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -180,7 +180,7 @@ export default function MemberGeneral({ me }: Props) {
       const { data } = await disable2FA();
 
       if (data) {
-        localStorage.setItem(CONFIG.storageTokenKey, data.disable2FA.accessToken);
+        localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, data.disable2FA.accessToken);
 
         await fetchMe();
       }
