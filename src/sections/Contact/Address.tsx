@@ -108,7 +108,7 @@ const ContactAvatar = styled(Iconify)`
   padding: 15px;
 `;
 
-const Map = styled.iframe`
+const Map = styled('iframe')`
   width: 100%;
   height: 100%;
   border: none;

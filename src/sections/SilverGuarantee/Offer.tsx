@@ -71,6 +71,6 @@ const Text = styled(Typography)`
   color: #262262;
 `;
 
-const Texitcoin = styled.strong`
+const Texitcoin = styled('strong')`
   color: #00492c;
 `;

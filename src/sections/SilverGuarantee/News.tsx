@@ -81,7 +81,7 @@ const Title = styled(Typography)`
   margin: 20px 0;
 `;
 
-const Link = styled.a`
+const Link = styled('a')`
   color: #262262;
   font-size: 1rem;
   font-weight: 700;
