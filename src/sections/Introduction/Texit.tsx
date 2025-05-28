@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -16,7 +16,7 @@ export default function Texit() {
     <CustomPaper>
       <Container>
         <Description container spacing={2.5} alignItems="center">
-          <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Container>
               <TexitTitle>For Texas by Texans,</TexitTitle>
               <TexitTitle>
@@ -39,8 +39,8 @@ export default function Texit() {
               </Text>
             </Container>
           </Grid>
-          <Grid xs={12} md={6} container>
-            <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }} container>
+            <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon1.png`} />
                 <Title>254 Block Reward</Title>
@@ -50,7 +50,7 @@ export default function Texit() {
                 </Typography>
               </ContentCard>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon2.png`} />
                 <Title>O.OO pre-mine</Title>
@@ -60,7 +60,7 @@ export default function Texit() {
                 </Typography>
               </ContentCard>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon3.png`} />
                 <Title>3-Minute Spacing</Title>
@@ -70,7 +70,7 @@ export default function Texit() {
                 </Typography>
               </ContentCard>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <ContentCard sx={{ height: { xs: '280px', md: '370px', lg: '290px' } }}>
                 <IconImg src={`${CONFIG.site.basePath}/assets/intro/texit-icon4.png`} />
                 <Title>695,662 Halving</Title>

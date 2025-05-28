@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -17,7 +17,8 @@ export default function News() {
           News & Updates
         </Typography>
         <Grid container spacing={3}>
-          <Grid lg={4} md={4}>
+          {/* TODO: NEED THIS KIND OF GRID SIZE? */}
+          <Grid size={{ md: 4, lg: 4 }}>
             <Item>
               <Image src={`${CONFIG.site.basePath}/assets/images/news-1.png`} />
               <Description>
@@ -30,7 +31,7 @@ export default function News() {
               </Description>
             </Item>
           </Grid>
-          <Grid lg={4} md={4}>
+          <Grid size={{ md: 4, lg: 4 }}>
             <Item>
               <Image src={`${CONFIG.site.basePath}/assets/images/news-2.png`} />
               <Description>
@@ -43,7 +44,7 @@ export default function News() {
               </Description>
             </Item>
           </Grid>
-          <Grid lg={4} md={4}>
+          <Grid size={{ md: 4, lg: 4 }}>
             <Item>
               <Image src={`${CONFIG.site.basePath}/assets/images/news-3.png`} />
               <Description>

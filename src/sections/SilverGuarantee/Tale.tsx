@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import MediaPlayer from 'react-player';
 
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -19,7 +19,7 @@ export default function Tale() {
       <Wrapper>
         <Header fontSize={{ md: '3.75rem', xs: '2rem' }}>A Tale of Two Cities</Header>
         <Grid container spacing={4} justifyContent="center">
-          <Grid md={6} sx={{ margin: { md: '100px 0', xs: '10px 0' } }}>
+          <Grid size={{ md: 6 }} sx={{ margin: { md: '100px 0', xs: '10px 0' } }}>
             <Box>
               <Title fontSize={{ md: '3rem', xs: '1.5rem' }}>Nashville Bitcoin 2024</Title>
             </Box>
@@ -30,7 +30,7 @@ export default function Tale() {
               controls
             />
           </Grid>
-          <Grid md={6} sx={{ margin: { md: '100px 0', xs: '10px 0' } }}>
+          <Grid size={{ md: 6 }} sx={{ margin: { md: '100px 0', xs: '10px 0' } }}>
             <Box>
               <Title fontSize={{ md: '3rem', xs: '1.5rem' }}>Chicago ANA 2024</Title>
             </Box>
@@ -47,7 +47,7 @@ export default function Tale() {
   );
 }
 
-const Background = styled(Paper)<BackgroundProps>`
+const Background = styled(Paper)`
   background: #262262;
   background-image: url(${(props) => encodeURI(props.path)});
   background-position: 50% 50%;

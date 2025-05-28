@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -14,10 +14,10 @@ export default function Deal() {
     <CustomPaper>
       <Container>
         <Grid container spacing={3}>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Grid container>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <Image
                     src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                     width={120}
@@ -25,7 +25,7 @@ export default function Deal() {
                     display={{ xs: 'none', md: 'inline-flex' }}
                   />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Typography>
                     {`Join the mineTXC mining pool by completing the form on the bottom of
                     mineTXC.com. You'll send us your ugliest, dirtiest kilo of silver, or purchase
@@ -35,10 +35,10 @@ export default function Deal() {
               </Grid>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Grid container>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <Image
                     src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                     width={120}
@@ -46,7 +46,7 @@ export default function Deal() {
                     display={{ xs: 'none', md: 'inline-flex' }}
                   />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Typography>
                     If, during the term of your warranty period, you refer (3) new miners to our
                     program, we will return your kilo bar at our expense and the warranty is voided.
@@ -56,10 +56,10 @@ export default function Deal() {
               </Grid>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Grid container>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <Image
                     src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                     width={120}
@@ -67,7 +67,7 @@ export default function Deal() {
                     display={{ xs: 'none', md: 'inline-flex' }}
                   />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Typography>
                     We will mail you your welcome kit, including your new TXC Cold Storage Coin.
                     Your TXC is sent each & every day to this coin. You agree to keep it safe,
@@ -77,10 +77,10 @@ export default function Deal() {
               </Grid>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Grid container>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <Image
                     src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                     width={120}
@@ -88,7 +88,7 @@ export default function Deal() {
                     display={{ xs: 'none', md: 'inline-flex' }}
                   />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Typography>
                     After 2 months, if you do not exercise your option to return, your kilo of
                     silver becomes our property.
@@ -97,10 +97,10 @@ export default function Deal() {
               </Grid>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Grid container>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <Image
                     src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                     width={120}
@@ -108,7 +108,7 @@ export default function Deal() {
                     display={{ xs: 'none', md: 'inline-flex' }}
                   />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Typography>
                     We agree to keep your kilo of silver safe, secure & insured. You have 2 months
                     from the date of your first TXC transfer to return the unaltered, unmodified
@@ -119,10 +119,10 @@ export default function Deal() {
               </Grid>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Grid container>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <Image
                     src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                     width={120}
@@ -130,7 +130,7 @@ export default function Deal() {
                     display={{ xs: 'none', md: 'inline-flex' }}
                   />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Typography>
                     You are welcome to participate in our Rapid Rewards program, however, your
                     warranty is voided upon your first cash reward.

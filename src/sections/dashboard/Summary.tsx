@@ -2,7 +2,7 @@ import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import { alpha, useTheme } from '@mui/material/styles';
 
 import { useTabs } from 'src/hooks/use-tabs';
@@ -58,7 +58,7 @@ export default function Summary() {
 
   return (
     <Grid container spacing={3}>
-      <Grid xs={12} md={6}>
+      <Grid size={{ xs: 12, md: 6 }}>
         <Card>
           {renderTabs}
           <ChartWidget
@@ -94,7 +94,7 @@ export default function Summary() {
           />
         </Card>
       </Grid>
-      <Grid xs={12} md={6}>
+      <Grid size={{ xs: 12, md: 6 }}>
         <ChartWidget
           loading={loading}
           title="TXC Shared"

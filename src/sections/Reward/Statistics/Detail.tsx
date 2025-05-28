@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 
 import { paths } from 'src/routes/paths';
 
@@ -38,10 +38,11 @@ export default function DetailView() {
       />
 
       <Grid container rowGap={2}>
-        <Grid xl={12}>
+        {/* TODO: NEED GRID LIKE THIS? */}
+        <Grid size={{ xl: 12 }}>
           <OverView data={current!} />
         </Grid>
-        <Grid xl={12}>
+        <Grid size={{ xl: 12 }}>
           <Table id={id!} />
         </Grid>
       </Grid>

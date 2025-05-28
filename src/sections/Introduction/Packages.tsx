@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -28,7 +28,7 @@ export default function Packages() {
         <Header>3 Packages to Choose From...</Header>
         <Container sx={{ position: 'relative' }}>
           <Grid container spacing={5} sx={{ py: 3 }}>
-            <Grid xl={4} md={6} xs={12}>
+            <Grid size={{ xs: 12, md: 6, xl: 4 }}>
               <ContentCard>
                 <Typography variant="h4">Single</Typography>
                 <Typography variant="h2" sx={{ py: 1 }}>
@@ -73,7 +73,7 @@ export default function Packages() {
                 </CustomButton>
               </ContentCard>
             </Grid>
-            <Grid xl={4} md={6} xs={12}>
+            <Grid size={{ xs: 12, md: 6, xl: 4 }}>
               <SecondCard>
                 <CardHeader>
                   <Typography variant="h4">TRIPLE Play</Typography>
@@ -122,7 +122,7 @@ export default function Packages() {
                 </CardBody>
               </SecondCard>
             </Grid>
-            <Grid xl={4} md={6} xs={12}>
+            <Grid size={{ xs: 12, md: 6, xl: 4 }}>
               <ContentCard>
                 <Typography variant="h4">BUILDER Plan</Typography>
                 <Typography variant="h2" sx={{ py: 1 }}>

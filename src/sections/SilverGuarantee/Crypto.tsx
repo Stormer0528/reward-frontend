@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
@@ -12,7 +12,7 @@ export default function Crypto() {
   return (
     <Wrapper>
       <Grid container spacing={4}>
-        <Grid md={6}>
+        <Grid size={{ md: 6 }}>
           <Title fontSize={{ md: '3.75rem', xs: '2rem' }}>Crypto is exciting...</Title>
           <Text>
             {`The community is growing - it's where the action is! Blockchain technology has been
@@ -27,7 +27,7 @@ export default function Crypto() {
             both industries.`}
           </Text>
         </Grid>
-        <Grid md={6} sx={{ py: 2 }}>
+        <Grid size={{ md: 6 }} sx={{ py: 2 }}>
           <Image
             src={`${CONFIG.site.basePath}/assets/images/crypto.png`}
             sx={{ width: { lg: 458, md: 400 } }}

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
@@ -22,7 +22,7 @@ export default function Header() {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Container>
           <Grid container alignItems="center">
-            <Grid lg={4} lgOffset={3}>
+            <Grid size={{ lg: 4 }} offset={{ lg: 3 }}>
               <Paper sx={{ background: 'transparent' }}>
                 <Title fontWeight={400} fontSize={{ lg: '6rem', md: '4.5rem', xs: '1.625rem' }}>
                   The
@@ -35,13 +35,13 @@ export default function Header() {
                 </Title>
               </Paper>
             </Grid>
-            <Grid lg={3} lgOffset={1}>
+            <Grid size={{ lg: 3 }} offset={{ lg: 1 }}>
               <Image
                 src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
                 sx={{ width: { lg: '320px', md: '243px', xs: '130px' } }}
               />
             </Grid>
-            <Grid lg={5} lgOffset={3}>
+            <Grid size={{ lg: 5 }} offset={{ lg: 3 }}>
               <TextPaper>
                 <Text
                   fontSize={{ lg: '1.25rem', md: '1.125rem', xs: '0.625rem' }}
@@ -59,7 +59,7 @@ export default function Header() {
   );
 }
 
-const Background = styled(Paper)<BackgroundProps>`
+const Background = styled(Paper)`
   background-image: url(${(props) => encodeURI(props.path)});
   background-position: 50% 50%;
   object-fit: cover;

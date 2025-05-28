@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
@@ -13,13 +13,13 @@ export default function Tommy() {
   return (
     <Wrapper>
       <Grid container>
-        <Grid md={6}>
+        <Grid size={{ md: 6 }}>
           <Image
             src={`${CONFIG.site.basePath}/assets/images/tommy.jpg`}
             sx={{ width: { lg: 458, md: 400 } }}
           />
         </Grid>
-        <Grid md={6}>
+        <Grid size={{ md: 6 }}>
           <Title fontSize={{ md: '3.75rem', xs: '2rem' }}>Meet Tommy...</Title>
           <Text>
             Tom Haines, the founder of Stacking.NYC, has been passionate about precious metals since

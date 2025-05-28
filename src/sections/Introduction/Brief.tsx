@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -19,7 +19,7 @@ export default function Brief() {
   return (
     <Container>
       <Content container sx={{ mt: '50px' }} alignItems="center">
-        <Grid xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TexitTitle>TEXITcoin is your</TexitTitle>
           <TexitTitle>
             <strong>second chance</strong> at
@@ -41,7 +41,7 @@ export default function Brief() {
             Join Now
           </JoinButton>
         </Grid>
-        <Grid xs={12} md={6} display="flex" justifyContent="flex-end">
+        <Grid size={{ xs: 12, md: 6 }} display="flex" justifyContent="flex-end">
           <Image src={`${CONFIG.site.basePath}/assets/images/texitcoin-key.png`} />
         </Grid>
       </Content>

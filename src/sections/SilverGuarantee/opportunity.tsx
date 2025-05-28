@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
@@ -12,7 +12,7 @@ export default function Opportunity() {
   return (
     <Wrapper>
       <Grid container spacing={4}>
-        <Grid md={8} sx={{ pr: { md: 9 } }}>
+        <Grid size={{ md: 8 }} sx={{ pr: { md: 9 } }}>
           <Title fontSize={{ md: '3rem', xs: '1.6rem' }}>THE OPPORTUNITY</Title>
           <Text>
             The cryptokids got greedy; their carelessness handed over control of the bitcoin network
@@ -37,7 +37,7 @@ export default function Opportunity() {
             people.
           </Text>
         </Grid>
-        <Grid md={4}>
+        <Grid size={{ md: 4 }}>
           <Image
             src={`${CONFIG.site.basePath}/assets/images/opportunity.png`}
             sx={{ width: { lg: 400, md: 300 } }}

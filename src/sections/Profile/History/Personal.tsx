@@ -3,9 +3,9 @@ import type { Member, Setting as SettingType } from 'src/__generated__/graphql';
 import { useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 

@@ -8,9 +8,9 @@ import { useLazyQuery } from '@apollo/client';
 import { useMemo, useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Grid from '@mui/material/Unstable_Grid2';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';

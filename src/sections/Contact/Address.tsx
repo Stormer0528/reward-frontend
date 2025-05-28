@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -14,7 +14,7 @@ export default function Address() {
     <CustomPaper>
       <Container>
         <ContactContent container>
-          <ContactItem xs={12} md={6} lg={4}>
+          <ContactItem size={{ xs: 12, md: 6, lg: 4 }}>
             <ContactAvatar icon="lineicons:telegram" />
             <Title>TELEGRAM</Title>
             <Text>
@@ -24,13 +24,13 @@ export default function Address() {
               @<a href="https://t.me/texitcoin_txc">TEXITcoin_TXC</a> (announcements)
             </Text>
           </ContactItem>
-          <ContactItem xs={12} md={6} lg={4}>
+          <ContactItem size={{ xs: 12, md: 6, lg: 4 }}>
             <ContactAvatar icon="solar:phone-bold" />
             <Title>PHONE (or TEXT)</Title>
             <Text>+1 484 MINE TXC</Text>
             <Text>+1 484 646 3892</Text>
           </ContactItem>
-          <ContactItem xs={12} md={6} lg={4}>
+          <ContactItem size={{ xs: 12, md: 6, lg: 4 }}>
             <ContactAvatar icon="icomoon-free:location" />
             <Title>OUR OFFICE LOCATION</Title>
             <Text>424 Rose Garden Drive</Text>
@@ -38,7 +38,7 @@ export default function Address() {
           </ContactItem>
         </ContactContent>
         <LocationContent container>
-          <Grid xs={12} md={6} sx={{ p: 4 }}>
+          <Grid size={{ xs: 12, md: 6 }} sx={{ p: 4 }}>
             <Header>Get in Touch</Header>
             <Typography>
               Have an inquiry or some feedbak for us? Fill out the form below to contact our team.
@@ -46,7 +46,7 @@ export default function Address() {
 
             <ContactForm />
           </Grid>
-          <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Map
               title="McKinney"
               src="https://maps.google.com/maps?output=embed&amp;q=McKinney%2C%20Texas&amp;z=10&amp;t=m"

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
+import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
-import Grid from '@mui/material/Unstable_Grid2';
 
 import WidgetSummary from 'src/components/WidgetSummary';
 
@@ -23,7 +23,7 @@ export default function Summary() {
 
   return (
     <Grid container spacing={3} sx={{ mb: 1 }}>
-      <Grid xs={12} md={4}>
+      <Grid size={{ xs: 12, md: 4 }}>
         <WidgetSummary
           loading={loading}
           title="Total blocks"
@@ -37,7 +37,7 @@ export default function Summary() {
           }}
         />
       </Grid>
-      <Grid xs={12} md={4}>
+      <Grid size={{ xs: 12, md: 4 }}>
         <WidgetSummary
           loading={loading}
           title="New blocks since last reward"
@@ -56,7 +56,7 @@ export default function Summary() {
           }}
         />
       </Grid>
-      <Grid xs={12} md={4}>
+      <Grid size={{ xs: 12, md: 4 }}>
         <WidgetSummary
           loading={loading}
           title="Members"

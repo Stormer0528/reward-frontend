@@ -10,7 +10,6 @@ import { useMemo, useState, useCallback } from 'react';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Unstable_Grid2';
 import ListItemText from '@mui/material/ListItemText';
 import { DataGrid, gridClasses } from '@mui/x-data-grid';
 
@@ -181,53 +180,51 @@ export default function StatisticsTable({ status = false }: Props) {
   const paginationModel = useMemo(() => ({ page: page.page - 1, pageSize: page.pageSize }), [page]);
 
   return (
-    <Grid container spacing={1}>
-      <Card
-        sx={{
-          width: '100%',
-          m: 0.5,
-          mt: 3,
-          borderRadius: 1.5,
+    <Card
+      sx={{
+        width: '100%',
+        m: 0.5,
+        mt: 3,
+        borderRadius: 1.5,
+      }}
+    >
+      <DataGrid
+        loading={loading}
+        rows={statistics}
+        columns={columns}
+        density="compact"
+        filterMode="server"
+        onFilterModelChange={onFilterChange}
+        initialState={{ filter: { filterModel: filter } }}
+        sortModel={sort.map((item) => ({ ...item, sort: item.sort === 'asc' ? 'desc' : 'asc' }))}
+        onSortModelChange={onSortChange}
+        rowCount={data?.statistics.total!}
+        paginationMode="server"
+        pageSizeOptions={[10, 25, 50, 100]}
+        paginationModel={paginationModel}
+        onRowClick={(params) => window.open(paths.dashboard.reward.detail(params.row.id))}
+        onPaginationModelChange={({ page: newPage, pageSize }) => {
+          if (newPage + 1 !== page.page) {
+            setPage(newPage + 1);
+          }
+          if (pageSize !== page.pageSize) {
+            setPageSize(pageSize);
+          }
         }}
-      >
-        <DataGrid
-          loading={loading}
-          rows={statistics}
-          columns={columns}
-          density="compact"
-          filterMode="server"
-          onFilterModelChange={onFilterChange}
-          initialState={{ filter: { filterModel: filter } }}
-          sortModel={sort.map((item) => ({ ...item, sort: item.sort === 'asc' ? 'desc' : 'asc' }))}
-          onSortModelChange={onSortChange}
-          rowCount={data?.statistics.total!}
-          paginationMode="server"
-          pageSizeOptions={[10, 25, 50, 100]}
-          paginationModel={paginationModel}
-          onRowClick={(params) => window.open(paths.dashboard.reward.detail(params.row.id))}
-          onPaginationModelChange={({ page: newPage, pageSize }) => {
-            if (newPage + 1 !== page.page) {
-              setPage(newPage + 1);
-            }
-            if (pageSize !== page.pageSize) {
-              setPageSize(pageSize);
-            }
-          }}
-          columnVisibilityModel={columnVisibilityModel}
-          onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
-          slots={{
-            toolbar: TableToolBar as GridSlots['toolbar'],
-            noRowsOverlay: () => <EmptyContent />,
-            noResultsOverlay: () => <EmptyContent title="No statistics found" />,
-            loadingOverlay: DataGridSkeleton,
-            pagination: DataGridPagination,
-          }}
-          sx={{
-            [`& .${gridClasses.cell}`]: { alignItems: 'center', display: 'inline-flex' },
-            cursor: 'pointer',
-          }}
-        />
-      </Card>
-    </Grid>
+        columnVisibilityModel={columnVisibilityModel}
+        onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
+        slots={{
+          toolbar: TableToolBar as GridSlots['toolbar'],
+          noRowsOverlay: () => <EmptyContent />,
+          noResultsOverlay: () => <EmptyContent title="No statistics found" />,
+          loadingOverlay: DataGridSkeleton,
+          pagination: DataGridPagination,
+        }}
+        sx={{
+          [`& .${gridClasses.cell}`]: { alignItems: 'center', display: 'inline-flex' },
+          cursor: 'pointer',
+        }}
+      />
+    </Card>
   );
 }

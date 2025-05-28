@@ -1,5 +1,4 @@
 // eslint-disable jsx-a11y/media-has-caption
-// @ts-nocheck
 
 import MediaPlayer from 'react-player';
 import { useParams } from 'react-router';
@@ -7,9 +6,9 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import BlockContent from '@sanity/block-content-to-react';
 
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { client } from 'src/utils/sanity/client';
@@ -67,10 +66,10 @@ export default function Detail() {
         </Typography>
 
         <Grid container sx={{ mb: 2 }}>
-          <Grid xl={6}>
+          <Grid size={{ xl: 6 }}>
             <MediaPlayer url={current.videoUrl} controls />
           </Grid>
-          <Grid xl={6}>
+          <Grid size={{ xl: 6 }}>
             <Typography sx={{ ...maxLine({ line: 10 }), mb: 3 }}>{current.quickSummary}</Typography>
           </Grid>
         </Grid>

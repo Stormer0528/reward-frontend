@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -16,7 +16,7 @@ export default function WhatsIn() {
       <Container>
         <Header>{`What's In It for You?`}</Header>
         <Description container spacing={2.5}>
-          <Grid xs={12} md={6} lg={4}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <ContentCard>
               <ImageContent>
                 <Avatar>
@@ -30,7 +30,7 @@ export default function WhatsIn() {
               </Typography>
             </ContentCard>
           </Grid>
-          <Grid xs={12} md={6} lg={4}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <ContentCard>
               <ImageContent>
                 <Avatar>
@@ -45,7 +45,7 @@ export default function WhatsIn() {
               </Typography>
             </ContentCard>
           </Grid>
-          <Grid xs={12} md={6} lg={4}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <ContentCard>
               <ImageContent>
                 <Avatar>

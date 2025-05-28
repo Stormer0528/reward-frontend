@@ -3,11 +3,11 @@ import type { IStatisticsFilters } from 'src/types/statistics';
 import { useState, useEffect } from 'react';
 import { useLazyQuery, useQuery as useGraphQuery } from '@apollo/client';
 
+import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import Paper from '@mui/material/Paper';
 import TableRow from '@mui/material/TableRow';
 import Collapse from '@mui/material/Collapse';
-import Grid from '@mui/material/Unstable_Grid2';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
@@ -31,8 +31,6 @@ import {
 } from 'src/sections/Statistics/query';
 
 import { TablePaginationCustom } from '../Table';
-
-import type createData from './utils';
 
 // ----------------------------------------------------------------------
 
@@ -98,7 +96,7 @@ export default function CollapsibleTable() {
 // ----------------------------------------------------------------------
 
 type CollapsibleTableRowProps = {
-  row: ReturnType<typeof createData>;
+  row: ReturnType;
 };
 
 function CollapsibleTableRow({ row }: CollapsibleTableRowProps) {

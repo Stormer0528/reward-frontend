@@ -3,7 +3,7 @@ import type { Member } from 'src/__generated__/graphql';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import CardHeader from '@mui/material/CardHeader';
 
 import { useQuery } from 'src/routes/hooks';

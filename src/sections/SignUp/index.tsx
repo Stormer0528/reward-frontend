@@ -8,9 +8,9 @@ import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -242,8 +242,9 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Grid xs={12} container alignItems="center">
-          <Grid md={11.4} xs={12}>
+        <Grid size={{ xs: 12 }} container alignItems="center">
+          {/* TODO: GRID SIZE */}
+          <Grid size={{ xs: 12, md: 11.4 }}>
             <Field.Select
               name="packageId"
               label="Package"
@@ -261,7 +262,7 @@ export function SignUpView() {
             </Field.Select>
           </Grid>
 
-          <Grid md={0.6} xs={12} textAlign="center">
+          <Grid size={{ xs: 12, md: 0.6 }} textAlign="center">
             <IconButton onClick={calculator.onTrue}>
               <Iconify icon="system-uicons:calculator" width={30} />
             </IconButton>

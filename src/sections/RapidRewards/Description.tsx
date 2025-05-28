@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -12,7 +12,7 @@ export default function Description() {
     <CustomPaper>
       <Container>
         <Grid container spacing={3}>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -38,7 +38,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -64,7 +64,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -90,7 +90,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -116,7 +116,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -142,7 +142,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -166,7 +166,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -192,7 +192,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -218,7 +218,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box
@@ -244,7 +244,7 @@ export default function Description() {
               </Stack>
             </ContentCard>
           </Grid>
-          <Grid lg={6} md={12}>
+          <Grid size={{ md: 12, lg: 6 }}>
             <ContentCard>
               <Stack direction="row" columnGap={2}>
                 <Box

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
@@ -12,13 +12,13 @@ export default function Journey() {
   return (
     <Wrapper>
       <Grid container alignItems="center">
-        <Grid md={6} sx={{ py: 2 }}>
+        <Grid size={{ md: 6 }} sx={{ py: 2 }}>
           <Image
             src={`${CONFIG.site.basePath}/assets/images/coin_gray.png`}
             sx={{ width: { lg: 400, md: 320 } }}
           />
         </Grid>
-        <Grid md={6}>
+        <Grid size={{ md: 6 }}>
           <Title fontSize={{ md: '3rem', xs: '1.8rem' }}>
             But what does this have to do with Silverbugs?
           </Title>

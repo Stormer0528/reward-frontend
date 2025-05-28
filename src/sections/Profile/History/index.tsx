@@ -14,11 +14,11 @@ interface Props {
 export default function HistoryView({ me }: Props) {
   return (
     <Grid container>
-      <Grid md={12} xl={8}>
+      <Grid size={{ md: 12, xl: 8 }}>
         <Reward me={me} />
         <Table />
       </Grid>
-      <Grid md={12} xl={4}>
+      <Grid size={{ md: 12, xl: 4 }}>
         <OverView me={me} />
         <Personal me={me} />
       </Grid>

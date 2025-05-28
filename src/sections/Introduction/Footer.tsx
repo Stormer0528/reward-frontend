@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -14,17 +14,15 @@ export default function Footer() {
     <Content>
       <Container>
         <Grid container alignItems="center" spacing={2}>
-          <Grid xs={12} md={6} lg={4}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }}>
             <DarkLogo sx={{ background: '#ffffff', borderRadius: 50 }} />
           </Grid>
-          <Grid xs={12} md={6} lg={4} sx={{ textAlign: { xs: 'left', lg: 'center' } }}>
+          <Grid size={{ xs: 12, md: 6, lg: 4 }} sx={{ textAlign: { xs: 'left', lg: 'center' } }}>
             <Text>© Copyright 2025 TEXITcoin.</Text>
             <Text>All Rights Reserved.</Text>
           </Grid>
           <Grid
-            xs={12}
-            md={6}
-            lg={4}
+            size={{ xs: 12, md: 6, lg: 4 }}
             display="flex"
             justifyContent={{ xs: 'flex-start', lg: 'flex-end' }}
           >

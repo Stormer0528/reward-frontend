@@ -1,9 +1,11 @@
+import type { IMemberStatisticsTableFilters } from './types';
+
 import { useMemo } from 'react';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
-import Grid from '@mui/material/Unstable_Grid2';
 import TableBody from '@mui/material/TableBody';
 import CardHeader from '@mui/material/CardHeader';
 import TableContainer from '@mui/material/TableContainer';
@@ -16,8 +18,6 @@ import { useTable, TableHeadCustom, TablePaginationCustom } from 'src/components
 
 import TableRow from './TableRow';
 import { FETCH_MEMBERSTATISTICS_QUERY } from '../query';
-
-import type { IMemberStatisticsTableFilters } from './types';
 
 const TABLE_HEAD = [
   { id: 'issuedAt', label: 'Date', width: 200, sortable: true },
@@ -58,6 +58,7 @@ export default function BlocksTable({ id }: Props) {
   const memberStatistics = memberStatisticsData?.memberStatistics.memberStatistics ?? [];
 
   return (
+    // TODO: Remove Grid
     <Grid container spacing={1}>
       <Card
         sx={{

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
@@ -13,13 +13,13 @@ export default function Chris() {
   return (
     <Wrapper>
       <Grid container>
-        <Grid md={6}>
+        <Grid size={{ md: 6 }}>
           <Image
             src={`${CONFIG.site.basePath}/assets/images/chris.jpg`}
             sx={{ width: { lg: 458, md: 400 } }}
           />
         </Grid>
-        <Grid md={6}>
+        <Grid size={{ md: 6 }}>
           <Title fontSize={{ md: '3.75rem', xs: '2rem' }}>Meet Chris...</Title>
           <Text>
             Chris is the President of BEX Engraving & Mint in Fullerton, California. Chris and his

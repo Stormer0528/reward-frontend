@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -13,7 +13,7 @@ export default function Why() {
   return (
     <Container>
       <Grid container alignItems="center">
-        <Grid md={8}>
+        <Grid size={{ md: 8 }}>
           <Title fontSize={{ md: '2.25rem', xs: '1.5rem' }}>Why are we doing this?</Title>
           <SubTitle>A personal note from Bobby Gray, founder of TEXITcoin...</SubTitle>
 
@@ -28,7 +28,7 @@ export default function Why() {
             stack. Or, maybe you just got some bad information about digital currencies long ago.
           </Text>
         </Grid>
-        <Grid md={4} display="flex" justifyContent="flex-end">
+        <Grid size={{ md: 4 }} display="flex" justifyContent="flex-end">
           <Photo src={`${CONFIG.site.basePath}/assets/images/bobby.png`} width={280} />
         </Grid>
       </Grid>
