@@ -184,7 +184,9 @@ export default function MemberGeneral({ me }: Props) {
         await fetchMe();
       }
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -239,7 +241,7 @@ export default function MemberGeneral({ me }: Props) {
                   label="Email"
                   defaultValue={me.email}
                   value={email}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange={(event: React.ChangeEvent) => {
                     setEmail(event.target.value);
                   }}
                 />

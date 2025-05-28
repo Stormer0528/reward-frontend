@@ -54,7 +54,9 @@ export default function Order() {
         setStep((prev) => prev + 1);
       }
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -67,7 +69,9 @@ export default function Order() {
         setStatus(OrderStatus.Canceled);
       }
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 

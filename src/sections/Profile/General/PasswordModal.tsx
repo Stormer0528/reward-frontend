@@ -173,7 +173,9 @@ export default function PasswordModal({ open }: Props) {
                     setStep(step + 1);
                   }
                 } catch (error) {
-                  toast.error(error.message);
+                  if (error instanceof Error) {
+                    toast.error(error.message);
+                  }
                 }
               }}
             >

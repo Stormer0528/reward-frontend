@@ -1,4 +1,4 @@
-import type { UseTabsReturn , UseBooleanReturn } from 'minimal-shared/hooks';
+import type { UseTabsReturn, UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
@@ -74,7 +74,9 @@ export default function VerifyModal({ tabs, open, event }: Props) {
         await sendVerificationCode();
       }
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 

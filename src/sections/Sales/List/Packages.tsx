@@ -47,7 +47,9 @@ export default function Packages({ open, available }: Props) {
         toast.error('You must select a package');
       }
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 

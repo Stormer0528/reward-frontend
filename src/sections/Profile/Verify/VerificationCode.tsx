@@ -21,7 +21,7 @@ import { useEmailVerifyCode } from '../useApollo';
 
 // ----------------------------------------------------------------------
 
-export type VerifySchemaType = zod.infer<typeof VerifySchema>;
+export type VerifySchemaType = zod.infer;
 
 export const VerifySchema = zod.object({
   code: zod
@@ -72,7 +72,9 @@ export default function VerificationCode({ setSuccess }: Props) {
     try {
       await sendVerificationCode();
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 

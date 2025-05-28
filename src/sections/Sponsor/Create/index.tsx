@@ -1,4 +1,4 @@
-import type { UseTabsReturn , UseBooleanReturn } from 'minimal-shared/hooks';
+import type { UseTabsReturn, UseBooleanReturn } from 'minimal-shared/hooks';
 
 import states from 'states-us';
 import countries from 'country-list';
@@ -108,8 +108,6 @@ export default function AddMiner({ add, tabs }: Props) {
         }
 
         toast.error(error.message);
-      } else {
-        toast.error(err);
       }
     }
   });

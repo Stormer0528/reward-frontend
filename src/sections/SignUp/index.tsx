@@ -144,8 +144,6 @@ export function SignUpView() {
           }
 
           toast.error(error.message);
-        } else {
-          toast.error(err);
         }
       }
     }

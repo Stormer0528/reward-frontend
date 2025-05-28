@@ -67,7 +67,9 @@ export default function ReportModal({ open }: Props) {
         open.onFalse();
       }
     } catch (error) {
-      toast.error(error.message);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   });
 
