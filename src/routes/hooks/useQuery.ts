@@ -1,76 +1,86 @@
+import type { FilterModel, SortModelItem } from '@ag-grid-community/core';
+
 import { parse, stringify } from 'qs';
 import { useMemo, useCallback } from 'react';
-import { useSearchParams as _useSearchParams } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 // ----------------------------------------------------------------------
-
-export type SortOrder = 'asc' | 'desc';
-
-interface OrderBy {
-  [key: string]: SortOrder;
+interface QueryParams<FilterType> {
+  readonly sort?: string; // This can be used for graphql params
+  readonly page?: string; // This can be used for graphql params
+  sortModel?: SortModelItem[]; // This is used for Ag-Grid
+  pageModel?: { page: number; pageSize: number };
+  filter?: FilterType; // This is used for Ag-Grid
+  // [key: string]: any;
 }
-
-interface QueryParams<FilterType = any> {
-  sort?: OrderBy; // define the type for sort
-  page?: { page: number; pageSize: number };
-  filter?: FilterType; // TODO: This will be used for prisma filter
-  [key: string]: any;
-}
-
-export function useQuery<FilterType>(): [
+// ----------------------------------------------------------------------
+export function useQuery<FilterType = FilterModel>(): [
   QueryParams<FilterType>,
   {
     setQueryParams: (params: QueryParams<FilterType>) => void;
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
+    setSort: (sort: SortModelItem[]) => void;
+    setFilter: (filter: FilterType) => void;
   },
 ] {
-  const [searchParams, setSearchParams] = _useSearchParams();
+  const { search } = useLocation();
+  const navigate = useNavigate();
 
-  const queryParams: QueryParams = useMemo<QueryParams>(() => {
-    const { sort: rawSort, page: rawPage, filter, ...rest } = parse(searchParams.toString());
-    const result: QueryParams = { ...rest, filter };
+  const queryParams = useMemo<QueryParams<FilterType>>(() => {
+    const { filter, sort, page, ...rest } = parse(search.substring(1), {
+      allowEmptyArrays: true,
+      strictNullHandling: true,
+    });
+    const result: QueryParams<FilterType> = {
+      ...rest,
+      filter: filter as FilterType,
+      sort: sort as string,
+      page: page as string,
+    };
 
-    if (rawSort) {
-      result.sort = (rawSort as string).split(',').reduce((prev, field) => {
-        const order: SortOrder = field.startsWith('-') ? 'desc' : 'asc';
-        prev[field.replace('-', '')] = order;
-        return prev;
-      }, {} as OrderBy);
+    if (sort) {
+      result.sortModel = (sort as string).split(',').map((sortStr) => ({
+        colId: sortStr.replace('-', ''),
+        sort: sortStr.startsWith('-') ? 'desc' : 'asc',
+      }));
     }
 
-    if (rawPage) {
-      const [page, pageSize] = (rawPage as string).split(',').map((value) => parseInt(value, 10));
-      result.page = { page, pageSize };
+    if (page) {
+      const [curPage, pageSize] = (page as string).split(',').map((value) => parseInt(value, 10));
+      result.pageModel = { page: curPage, pageSize };
     }
 
     return result;
-  }, [searchParams]);
+  }, [search]);
 
   const setQueryParams = useCallback(
-    ({ page, sort, ...rest }: QueryParams) => {
-      const queryObject = { ...rest };
+    ({ pageModel, sortModel, ...rest }: Omit<QueryParams<FilterType>, 'sort' | 'page'>) => {
+      const queryObject: any = { ...rest };
 
-      if (sort) {
-        queryObject.sort = Object.entries(sort)
-          .map(([key, value]) => `${value === 'asc' ? '' : '-'}${key}`)
-          .join(',');
+      if (sortModel) {
+        queryObject.sort =
+          sortModel
+            .map(({ colId, sort: order }) => `${order === 'asc' ? '' : '-'}${colId}`)
+            .join(',') || undefined;
       }
 
-      if (page) {
-        queryObject.page = `${page.page},${page.pageSize}`;
+      if (pageModel) {
+        queryObject.page = `${pageModel.page},${pageModel.pageSize}`;
       }
 
-      setSearchParams(stringify(queryObject));
+      navigate({
+        search: stringify(queryObject, { allowEmptyArrays: true, strictNullHandling: true }),
+      });
     },
-    [setSearchParams]
+    [navigate]
   );
 
   const setPage = useCallback(
     (page: number) => {
       setQueryParams({
         ...queryParams,
-        page: { page, pageSize: queryParams.page?.pageSize ?? 10 },
+        pageModel: { page, pageSize: queryParams.pageModel?.pageSize ?? 50 },
       });
     },
     [queryParams, setQueryParams]
@@ -80,14 +90,32 @@ export function useQuery<FilterType>(): [
     (pageSize: number) => {
       setQueryParams({
         ...queryParams,
-        page: { page: 1, pageSize },
+        pageModel: { page: 1, pageSize },
+      });
+    },
+    [queryParams, setQueryParams]
+  );
+
+  const setSort = useCallback(
+    (sortModel: SortModelItem[]) => {
+      setQueryParams({ ...queryParams, sortModel });
+    },
+    [queryParams, setQueryParams]
+  );
+
+  const setFilter = useCallback(
+    (filter: FilterType) => {
+      setQueryParams({
+        ...queryParams,
+        filter,
+        pageModel: { page: 1, pageSize: queryParams.pageModel?.pageSize ?? 50 },
       });
     },
     [queryParams, setQueryParams]
   );
 
   return useMemo(
-    () => [queryParams, { setQueryParams, setPage, setPageSize }],
-    [queryParams, setQueryParams, setPage, setPageSize]
+    () => [queryParams, { setQueryParams, setPage, setPageSize, setSort, setFilter }],
+    [queryParams, setQueryParams, setPage, setPageSize, setSort, setFilter]
   );
 }
