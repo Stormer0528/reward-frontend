@@ -1,15 +1,15 @@
+import type { Direction } from '@mui/material/styles';
+
 import { useEffect } from 'react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 
-import type { ThemeDirection } from '../types';
-
 // ----------------------------------------------------------------------
 
-type RTLProps = {
+type RtlProps = {
+  direction: Direction;
   children: React.ReactNode;
-  direction: ThemeDirection;
 };
 
 const cacheRtl = createCache({
@@ -18,7 +18,7 @@ const cacheRtl = createCache({
   stylisPlugins: [rtlPlugin],
 });
 
-export function RTL({ children, direction }: RTLProps) {
+export function Rtl({ children, direction }: RtlProps) {
   useEffect(() => {
     document.dir = direction;
   }, [direction]);

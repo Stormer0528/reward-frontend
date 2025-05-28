@@ -1,19 +1,52 @@
-import type { Theme as BaseTheme } from '@mui/material/styles/createTheme';
-import type { CssVarsTheme, CssVarsThemeOptions } from '@mui/material/styles';
-import type { TypographyOptions } from '@mui/material/styles/createTypography';
+import type {
+  Theme,
+  Shadows,
+  Components,
+  ColorSystemOptions,
+  CssVarsThemeOptions,
+  SupportedColorScheme,
+  ThemeOptions as MuiThemeOptions,
+} from '@mui/material/styles';
+import type { CustomShadows } from './core/custom-shadows';
 
 // ----------------------------------------------------------------------
 
-export type Theme = Omit<BaseTheme, 'palette' | 'applyStyles'> & CssVarsTheme;
+/**
+ * Theme options
+ * Extended type that includes additional properties for color schemes and CSS variables.
+ *
+ * @see https://github.com/mui/material-ui/blob/master/packages/mui-material/src/styles/createTheme.ts
+ */
 
-export type ThemeUpdateOptions = Omit<CssVarsThemeOptions, 'typography'> & {
-  typography?: TypographyOptions;
+export type ThemeColorScheme = SupportedColorScheme;
+export type ThemeCssVariables = Pick<
+  CssVarsThemeOptions,
+  | 'cssVarPrefix'
+  | 'rootSelector'
+  | 'colorSchemeSelector'
+  | 'disableCssColorScheme'
+  | 'shouldSkipGeneratingVar'
+>;
+
+type ColorSchemeOptionsExtended = ColorSystemOptions & {
+  shadows?: Partial<Shadows>;
+  customShadows?: Partial<CustomShadows>;
 };
 
-export type ThemeComponents = CssVarsThemeOptions['components'];
+export type SchemesRecord<T> = Partial<Record<ThemeColorScheme, T>>;
 
-export type ThemeColorScheme = 'light' | 'dark';
+export type ThemeOptions = Omit<MuiThemeOptions, 'components'> &
+  Pick<CssVarsThemeOptions, 'defaultColorScheme'> & {
+    colorSchemes?: SchemesRecord<ColorSchemeOptionsExtended>;
+    cssVariables?: ThemeCssVariables;
+    components?: Components<Theme>;
+  };
 
-export type ThemeDirection = 'ltr' | 'rtl';
+// ----------------------------------------------------------------------
 
-export type ThemeLocaleComponents = { components: ThemeComponents };
+/**
+ * DeepPartial utility type that recursively makes all properties of T optional.
+ * This is useful for partial configurations and merging deeply nested objects.
+ * Supports objects, arrays, and primitive types.
+ */
+export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;

@@ -1,101 +1,147 @@
-import type { Theme, Components } from '@mui/material/styles';
+import type { Theme, Components, ComponentsVariants } from '@mui/material/styles';
+
+import { varAlpha } from 'minimal-shared/utils';
 
 import { sliderClasses } from '@mui/material/Slider';
 
-import { varAlpha, stylesMode } from '../../styles';
-
 // ----------------------------------------------------------------------
 
-declare module '@mui/material/Slider' {
-  interface SliderPropsColorOverrides {
-    inherit: true;
-  }
-}
+/**
+ * TypeScript extension for MUI theme augmentation.
+ * @to {@link file://./../../extend-theme-types.d.ts}
+ */
 
-// ----------------------------------------------------------------------
-
-const SIZE = {
-  rail: { small: 6, medium: 10 },
-  thumb: { small: 16, medium: 20 },
-  mark: { small: 4, medium: 6 },
+export type SliderExtendColor = {
+  inherit: true;
 };
 
-const MuiSlider: Components<Theme>['MuiSlider'] = {
-  /** **************************************
-   * DEFAULT PROPS
-   *************************************** */
-  defaultProps: { size: 'small' },
+const SIZES = ['small', 'medium'] as const;
+const ORIENTATIONS = ['horizontal', 'vertical'] as const;
+const DIMENSIONS = {
+  small: { rail: 6, thumb: 16, mark: 4 },
+  medium: { rail: 10, thumb: 20, mark: 6 },
+} as const;
 
-  /** **************************************
-   * VARIANTS
-   *************************************** */
-  variants: [
-    /**
-     * @color inherit
-     */
-    {
-      props: ({ ownerState }) => ownerState.color === 'inherit',
-      style: ({ theme }) => ({
-        [`& .${sliderClasses.markActive}`]: {
-          [stylesMode.dark]: {
-            backgroundColor: varAlpha(theme.vars.palette.grey['800Channel'], 0.48),
-          },
-        },
-      }),
-    },
-    /**
-     * @state disabled
-     */
-    {
-      props: ({ ownerState }) => !!ownerState.disabled,
-      style: ({ theme }) => ({
-        [`&.${sliderClasses.disabled}`]: {
-          color: varAlpha(
-            theme.vars.palette.grey['500Channel'],
-            theme.vars.palette.action.disabledOpacity
-          ),
-        },
-      }),
-    },
-  ],
+/* **********************************************************************
+ * 🗳️ Variants
+ * **********************************************************************/
 
-  /** **************************************
-   * STYLE
-   *************************************** */
-  styleOverrides: {
-    root: ({ theme }) => ({
-      [`& .${sliderClasses.thumb}`]: {
-        borderWidth: 1,
-        borderStyle: 'solid',
-        width: SIZE.thumb.medium,
-        height: SIZE.thumb.medium,
-        boxShadow: theme.customShadows.z1,
-        color: theme.vars.palette.common.white,
-        borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-        '&::before': {
-          opacity: 0.4,
-          boxShadow: 'none',
-          width: 'calc(100% - 4px)',
-          height: 'calc(100% - 4px)',
-          backgroundImage: `linear-gradient(180deg, ${theme.vars.palette.grey[500]} 0%, ${varAlpha(theme.vars.palette.grey['500Channel'], 0)} 100%)`,
-          [stylesMode.dark]: { opacity: 0.8 },
-        },
+const thumbVariants = [
+  ...(SIZES.map((size) => ({
+    props: (props) => props.size === size,
+    style: {
+      width: DIMENSIONS[size].thumb,
+      height: DIMENSIONS[size].thumb,
+    },
+  })) satisfies ComponentsVariants<Theme>['MuiSlider']),
+] satisfies ComponentsVariants<Theme>['MuiSlider'];
+
+const railVariants = [
+  ...(ORIENTATIONS.flatMap((orientation) =>
+    SIZES.map((size) => ({
+      props: (props) => props.orientation === orientation && props.size === size,
+      style:
+        orientation === 'horizontal'
+          ? { height: DIMENSIONS[size].rail }
+          : { width: DIMENSIONS[size].rail },
+    }))
+  ) satisfies ComponentsVariants<Theme>['MuiSlider']),
+] satisfies ComponentsVariants<Theme>['MuiSlider'];
+
+const trackVariants = [
+  ...(ORIENTATIONS.flatMap((orientation) =>
+    SIZES.map((size) => ({
+      props: (props) => props.orientation === orientation && props.size === size,
+      style:
+        orientation === 'horizontal'
+          ? { height: DIMENSIONS[size].rail }
+          : { width: DIMENSIONS[size].rail },
+    }))
+  ) satisfies ComponentsVariants<Theme>['MuiSlider']),
+] satisfies ComponentsVariants<Theme>['MuiSlider'];
+
+const markVariants = [
+  ...(ORIENTATIONS.flatMap((orientation) =>
+    SIZES.map((size) => ({
+      props: (props) => props.orientation === orientation && props.size === size,
+      style:
+        orientation === 'horizontal'
+          ? { width: 1, height: DIMENSIONS[size].mark }
+          : { height: 1, width: DIMENSIONS[size].mark },
+    }))
+  ) satisfies ComponentsVariants<Theme>['MuiSlider']),
+] satisfies ComponentsVariants<Theme>['MuiSlider'];
+
+const markActiveVariants = [
+  {
+    props: (props) => props.color === 'inherit',
+    style: ({ theme }) => ({
+      ...theme.applyStyles('dark', {
+        backgroundColor: varAlpha(theme.vars.palette.grey['800Channel'], 0.48),
+      }),
+    }),
+  },
+] satisfies ComponentsVariants<Theme>['MuiSlider'];
+
+const disabledVariants = [
+  {
+    props: (props) => !!props.disabled,
+    style: ({ theme }) => ({
+      [`&.${sliderClasses.disabled}`]: {
+        color: theme.vars.palette.action.disabled,
       },
+    }),
+  },
+] satisfies ComponentsVariants<Theme>['MuiSlider'];
+
+/* **********************************************************************
+ * 🧩 Components
+ * **********************************************************************/
+const MuiSlider: Components<Theme>['MuiSlider'] = {
+  // ▼▼▼▼▼▼▼▼ ⚙️ PROPS ▼▼▼▼▼▼▼▼
+  defaultProps: {
+    size: 'small',
+  },
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
+  styleOverrides: {
+    root: {
+      variants: [...disabledVariants],
+    },
+    thumb: ({ theme }) => ({
+      boxShadow: theme.vars.customShadows.z1,
+      color: theme.vars.palette.common.white,
+      border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
+      '&::before': {
+        opacity: 0.4,
+        boxShadow: 'none',
+        width: 'calc(100% - 4px)',
+        height: 'calc(100% - 4px)',
+        backgroundImage: `linear-gradient(180deg, ${theme.vars.palette.grey[500]}, transparent)`,
+        ...theme.applyStyles('dark', {
+          opacity: 0.8,
+        }),
+      },
+      variants: [...thumbVariants],
     }),
     rail: ({ theme }) => ({
       opacity: 0.12,
-      height: SIZE.rail.medium,
       backgroundColor: theme.vars.palette.grey[500],
+      variants: [...railVariants],
     }),
-    track: { height: SIZE.rail.medium },
-    mark: ({ theme }) => ({
-      width: 1,
-      height: SIZE.mark.medium,
+    track: {
+      variants: [...trackVariants],
+    },
+    mark: ({ style, theme }) => ({
       backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.48),
+      // start mark
       '&[data-index="0"]': { display: 'none' },
+      // end mark
+      ...((style?.left || style?.bottom) === '100%' && { display: 'none' }),
+      variants: [...markVariants],
     }),
     markActive: ({ theme }) => ({
       backgroundColor: varAlpha(theme.vars.palette.common.whiteChannel, 0.64),
+      variants: [...markActiveVariants],
     }),
     markLabel: ({ theme }) => ({
       fontSize: theme.typography.pxToRem(13),
@@ -104,19 +150,16 @@ const MuiSlider: Components<Theme>['MuiSlider'] = {
     valueLabel: ({ theme }) => ({
       borderRadius: 8,
       backgroundColor: theme.vars.palette.grey[800],
-      [stylesMode.dark]: { backgroundColor: theme.vars.palette.grey[700] },
+      ...theme.applyStyles('dark', {
+        backgroundColor: theme.vars.palette.grey[700],
+      }),
     }),
-    sizeSmall: {
-      [`& .${sliderClasses.thumb}`]: { width: SIZE.thumb.small, height: SIZE.thumb.small },
-      [`& .${sliderClasses.rail}`]: { height: SIZE.rail.small },
-      [`& .${sliderClasses.track}`]: { height: SIZE.rail.small },
-      [`& .${sliderClasses.mark}`]: { height: SIZE.mark.small },
-    },
   },
 };
 
-// ----------------------------------------------------------------------
-
-export const slider = {
+/* **********************************************************************
+ * 🚀 Export
+ * **********************************************************************/
+export const slider: Components<Theme> = {
   MuiSlider,
 };

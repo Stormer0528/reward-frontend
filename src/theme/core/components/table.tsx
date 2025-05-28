@@ -1,16 +1,14 @@
 import type { Theme, Components } from '@mui/material/styles';
 
+import { varAlpha, parseCssVar } from 'minimal-shared/utils';
+
 import { tableRowClasses } from '@mui/material/TableRow';
 import { tableCellClasses } from '@mui/material/TableCell';
-
-import { varAlpha } from '../../styles';
 
 // ----------------------------------------------------------------------
 
 const MuiTableContainer: Components<Theme>['MuiTableContainer'] = {
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
     root: ({ theme }) => ({
       position: 'relative',
@@ -20,79 +18,72 @@ const MuiTableContainer: Components<Theme>['MuiTableContainer'] = {
   },
 };
 
-// ----------------------------------------------------------------------
-
 const MuiTable: Components<Theme>['MuiTable'] = {
-  /** **************************************
-   * STYLE
-   *************************************** */
-  styleOverrides: {
-    root: ({ theme }) => ({ '--palette-TableCell-border': theme.vars.palette.divider }),
-  },
-};
-
-// ----------------------------------------------------------------------
-
-const MuiTableRow: Components<Theme>['MuiTableRow'] = {
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
     root: ({ theme }) => ({
-      [`&.${tableRowClasses.selected}`]: {
-        backgroundColor: varAlpha(theme.vars.palette.primary.darkChannel, 0.04),
-        '&:hover': { backgroundColor: varAlpha(theme.vars.palette.primary.darkChannel, 0.08) },
-      },
-      '&:last-of-type': { [`& .${tableCellClasses.root}`]: { borderColor: 'transparent' } },
+      [parseCssVar(theme.vars.palette.TableCell.border)]: theme.vars.palette.divider,
     }),
   },
 };
 
-// ----------------------------------------------------------------------
+const MuiTableRow: Components<Theme>['MuiTableRow'] = {
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
+  styleOverrides: {
+    root: ({ theme }) => ({
+      [`&.${tableRowClasses.selected}`]: {
+        backgroundColor: varAlpha(theme.vars.palette.primary.darkChannel, 0.04),
+        '&:hover': {
+          backgroundColor: varAlpha(theme.vars.palette.primary.darkChannel, 0.08),
+        },
+      },
+      '&:last-of-type': {
+        [`& .${tableCellClasses.root}`]: {
+          border: 0,
+        },
+      },
+    }),
+  },
+};
 
 const MuiTableCell: Components<Theme>['MuiTableCell'] = {
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
-    root: { borderBottomStyle: 'dashed' },
+    root: {
+      borderBottomStyle: 'dashed',
+    },
     head: ({ theme }) => ({
-      fontSize: 14,
+      fontSize: theme.typography.pxToRem(14),
       color: theme.vars.palette.text.secondary,
       fontWeight: theme.typography.fontWeightSemiBold,
       backgroundColor: theme.vars.palette.background.neutral,
     }),
     stickyHeader: ({ theme }) => ({
       backgroundColor: theme.vars.palette.background.paper,
-      backgroundImage: `linear-gradient(to bottom, ${theme.vars.palette.background.neutral} 0%, ${theme.vars.palette.background.neutral} 100%)`,
+      backgroundImage: `linear-gradient(to bottom, ${theme.vars.palette.background.neutral}, ${theme.vars.palette.background.neutral})`,
     }),
-    paddingCheckbox: ({ theme }) => ({ paddingLeft: theme.spacing(1) }),
+    paddingCheckbox: ({ theme }) => ({
+      paddingLeft: theme.spacing(1),
+    }),
   },
 };
 
-// ----------------------------------------------------------------------
-
 const MuiTablePagination: Components<Theme>['MuiTablePagination'] = {
-  /** **************************************
-   * DEFAULT PROPS
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ ⚙️ PROPS ▼▼▼▼▼▼▼▼
   defaultProps: {
     backIconButtonProps: { size: 'small' },
     nextIconButtonProps: { size: 'small' },
     slotProps: { select: { name: 'table-pagination-select' } },
   },
-
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
     root: { width: '100%' },
     toolbar: { height: 64 },
     actions: { marginRight: 8 },
-    select: ({ theme }) => ({
-      paddingLeft: 8,
-      '&:focus': { borderRadius: theme.shape.borderRadius },
-    }),
+    select: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     selectIcon: {
       right: 4,
       width: 16,
@@ -102,9 +93,10 @@ const MuiTablePagination: Components<Theme>['MuiTablePagination'] = {
   },
 };
 
-// ----------------------------------------------------------------------
-
-export const table = {
+/* **********************************************************************
+ * 🚀 Export
+ * **********************************************************************/
+export const table: Components<Theme> = {
   MuiTable,
   MuiTableRow,
   MuiTableCell,

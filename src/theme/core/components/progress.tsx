@@ -1,53 +1,51 @@
-import type { LinearProgressProps } from '@mui/material/LinearProgress';
-import type { Theme, CSSObject, Components } from '@mui/material/styles';
+import type { Theme, Components, ComponentsVariants } from '@mui/material/styles';
 
-import { varAlpha } from '../../styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 
 const COLORS = ['primary', 'secondary', 'info', 'success', 'warning', 'error'] as const;
 
-type ColorType = (typeof COLORS)[number];
+/* **********************************************************************
+ * 🗳️ Variants
+ * **********************************************************************/
+const colorVariants = [
+  {
+    props: (props) => props.color === 'inherit' && props.variant !== 'buffer',
+    style: ({ theme }) => ({
+      '&::before': {
+        display: 'none',
+      },
+      backgroundColor: varAlpha(theme.vars.palette.text.primaryChannel, 0.24),
+    }),
+  },
+  ...(COLORS.map((colorKey) => ({
+    props: (props) => props.color === colorKey,
+    style: ({ theme }) => ({
+      backgroundColor: varAlpha(theme.vars.palette[colorKey].mainChannel, 0.24),
+    }),
+  })) satisfies ComponentsVariants<Theme>['MuiLinearProgress']),
+] satisfies ComponentsVariants<Theme>['MuiLinearProgress'];
 
-// ----------------------------------------------------------------------
-
-function styleColors(ownerState: LinearProgressProps, styles: (val: ColorType) => CSSObject) {
-  const outputStyle = COLORS.reduce((acc, color) => {
-    if (ownerState.color === color) {
-      acc = styles(color);
-    }
-    return acc;
-  }, {});
-
-  return outputStyle;
-}
-
+/* **********************************************************************
+ * 🧩 Components
+ * **********************************************************************/
 const MuiLinearProgress: Components<Theme>['MuiLinearProgress'] = {
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
-    root: ({ theme, ownerState }) => {
-      const styled = {
-        colors: styleColors(ownerState, (color) => ({
-          backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.24),
-        })),
-        inheritColor: {
-          ...(ownerState.color === 'inherit' && {
-            '&::before': { display: 'none' },
-            backgroundColor: varAlpha(theme.vars.palette.text.primaryChannel, 0.24),
-          }),
-        },
-      };
-      return {
-        borderRadius: 4,
-        ...(ownerState.variant !== 'buffer' && { ...styled.inheritColor, ...styled.colors }),
-      };
+    root: {
+      borderRadius: 4,
+      variants: [...colorVariants],
     },
-    bar: { borderRadius: 'inherit' },
+    bar: {
+      borderRadius: 'inherit',
+    },
   },
 };
 
-// ----------------------------------------------------------------------
-
-export const progress = { MuiLinearProgress };
+/* **********************************************************************
+ * 🚀 Export
+ * **********************************************************************/
+export const progress: Components<Theme> = {
+  MuiLinearProgress,
+};

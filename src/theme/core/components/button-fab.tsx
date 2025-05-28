@@ -1,204 +1,208 @@
-import type { Theme, Components, ComponentsVariants } from '@mui/material/styles';
+import type { Theme, CSSObject, Components, ComponentsVariants } from '@mui/material/styles';
+
+import { varAlpha } from 'minimal-shared/utils';
 
 import { fabClasses } from '@mui/material/Fab';
 
-import { varAlpha, stylesMode } from '../../styles';
-
 // ----------------------------------------------------------------------
 
-// NEW VARIANT
-declare module '@mui/material/Fab' {
-  interface FabPropsVariantOverrides {
-    outlined: true;
-    outlinedExtended: true;
-    soft: true;
-    softExtended: true;
-  }
-}
+/**
+ * TypeScript extension for MUI theme augmentation.
+ * @to {@link file://./../../extend-theme-types.d.ts}
+ */
+
+export type FabExtendVariant = {
+  outlined: true;
+  outlinedExtended: true;
+  soft: true;
+  softExtended: true;
+};
 
 const COLORS = ['primary', 'secondary', 'info', 'success', 'warning', 'error'] as const;
 
-const DEFAULT_COLORS = ['default', 'inherit'];
-const EXTENDED_VARIANT = ['extended', 'outlinedExtended', 'softExtended'];
-const FILLED_VARIANT = ['circular', 'extended'];
-const OUTLINED_VARIANT = ['outlined', 'outlinedExtended'];
-const SOFT_VARIANT = ['soft', 'softExtended'];
+const FILLED_VARIANTS = ['circular', 'extended'] as const;
+const OUTLINED_VARIANTS = ['outlined', 'outlinedExtended'] as const;
+const SOFT_VARIANTS = ['soft', 'softExtended'] as const;
+const EXTENDED_VARIANTS = ['extended', 'outlinedExtended', 'softExtended'] as const;
 
-// ----------------------------------------------------------------------
-
-const filledVariant: Record<string, ComponentsVariants<Theme>['MuiFab']> = {
-  colors: COLORS.map((color) => ({
-    props: ({ ownerState }) =>
-      !ownerState.disabled &&
-      FILLED_VARIANT.includes(ownerState.variant!) &&
-      ownerState.color === color,
-    style: ({ theme }) => ({
-      boxShadow: theme.customShadows[color],
-      '&:hover': { boxShadow: 'none' },
-    }),
-  })),
-  base: [
-    {
-      props: ({ ownerState }) =>
-        FILLED_VARIANT.includes(ownerState.variant!) && DEFAULT_COLORS.includes(ownerState.color!),
-      style: ({ theme }) => ({
-        boxShadow: theme.customShadows.z8,
-        /**
-         * @color default
-         */
-        color: theme.vars.palette.grey[800],
-        backgroundColor: theme.vars.palette.grey[300],
-        '&:hover': { boxShadow: 'none', backgroundColor: theme.vars.palette.grey[400] },
-        /**
-         * @color inherit
-         */
-        [`&.${fabClasses.colorInherit}`]: {
-          color: theme.vars.palette.common.white,
-          backgroundColor: theme.vars.palette.text.primary,
-          '&:hover': { backgroundColor: theme.vars.palette.grey[700] },
-          [stylesMode.dark]: {
-            color: theme.vars.palette.grey[800],
-            '&:hover': { backgroundColor: theme.vars.palette.grey[400] },
-          },
-        },
-      }),
-    },
-  ],
+const DIMENSIONS: Record<string, CSSObject> = {
+  small: { height: 34, minHeight: 34, borderRadius: 34 / 2 },
+  medium: { height: 40, minHeight: 40, borderRadius: 40 / 2 },
+  large: { height: 48, minHeight: 48, borderRadius: 48 / 2 },
 };
 
-const outlinedVariant: Record<string, ComponentsVariants<Theme>['MuiFab']> = {
-  colors: COLORS.map((color) => ({
-    props: ({ ownerState }) =>
-      !ownerState.disabled &&
-      OUTLINED_VARIANT.includes(ownerState.variant!) &&
-      ownerState.color === color,
-    style: ({ theme }) => ({
-      color: theme.vars.palette[color].main,
-      border: `solid 1px ${varAlpha(theme.vars.palette[color].mainChannel, 0.48)}`,
-      '&:hover': { backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.08) },
-    }),
-  })),
-  base: [
-    {
-      props: ({ ownerState }) => OUTLINED_VARIANT.includes(ownerState.variant!),
-      style: ({ theme }) => ({
-        boxShadow: 'none',
-        backgroundColor: 'transparent',
-        color: theme.vars.palette.text.secondary,
-        border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.32)}`,
-        '&:hover': {
-          borderColor: 'currentColor',
-          boxShadow: '0 0 0 0.75px currentColor',
-          backgroundColor: theme.vars.palette.action.hover,
-        },
-        [`&.${fabClasses.colorInherit}`]: { color: theme.vars.palette.text.primary },
-        [`&.${fabClasses.disabled}`]: {
-          backgroundColor: 'transparent',
-          border: `1px solid ${theme.vars.palette.action.disabledBackground}`,
-        },
-      }),
-    },
-  ],
-};
+function isVariantAllowed<T extends string>(allowed: readonly T[], variant?: string): variant is T {
+  return !!variant && allowed.includes(variant as T);
+}
 
-const softVariant: Record<string, ComponentsVariants<Theme>['MuiFab']> = {
-  colors: COLORS.map((color) => ({
-    props: ({ ownerState }) =>
-      !ownerState.disabled &&
-      SOFT_VARIANT.includes(ownerState.variant!) &&
-      ownerState.color === color,
-    style: ({ theme }) => ({
-      boxShadow: 'none',
-      color: theme.vars.palette[color].dark,
-      backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.16),
-      '&:hover': {
-        boxShadow: 'none',
-        backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.32),
-      },
-      [stylesMode.dark]: { color: theme.vars.palette[color].light },
-    }),
-  })),
-  base: [
-    {
-      props: ({ ownerState }) =>
-        SOFT_VARIANT.includes(ownerState.variant!) && DEFAULT_COLORS.includes(ownerState.color!),
-      style: ({ theme }) => ({
-        /**
-         * @color default
-         */
-        boxShadow: 'none',
-        color: theme.vars.palette.grey[800],
-        backgroundColor: theme.vars.palette.grey[300],
-        '&:hover': { boxShadow: 'none', backgroundColor: theme.vars.palette.grey[400] },
-        /**
-         * @color inherit
-         */
-        [`&.${fabClasses.colorInherit}`]: {
-          color: theme.vars.palette.text.primary,
-          backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-          '&:hover': { backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.24) },
-        },
-      }),
-    },
-  ],
-};
-
-const sizes: ComponentsVariants<Theme>['MuiFab'] = [
+/* **********************************************************************
+ * 🗳️ Variants
+ * **********************************************************************/
+const filledVariants = [
   {
-    props: ({ ownerState }) => EXTENDED_VARIANT.includes(ownerState.variant!),
+    props: (props) => isVariantAllowed(FILLED_VARIANTS, props.variant) && props.color === 'default',
     style: ({ theme }) => ({
-      height: 48,
-      width: 'auto',
-      minHeight: 48,
-      borderRadius: 48 / 2,
-      gap: theme.spacing(1),
-      padding: theme.spacing(0, 2),
-      [`&.${fabClasses.sizeSmall}`]: {
-        height: 34,
-        minHeight: 34,
-        borderRadius: 34 / 2,
-        gap: theme.spacing(0.5),
-        padding: theme.spacing(0, 1),
-      },
-      [`&.${fabClasses.sizeMedium}`]: { height: 40, minHeight: 40, borderRadius: 40 / 2 },
+      ...theme.mixins.filledStyles(theme, 'default', { hover: true }),
+      boxShadow: theme.vars.customShadows.z8,
     }),
   },
-];
+  {
+    props: (props) => isVariantAllowed(FILLED_VARIANTS, props.variant) && props.color === 'inherit',
+    style: ({ theme }) => ({
+      ...theme.mixins.filledStyles(theme, 'inherit', { hover: true }),
+      boxShadow: theme.vars.customShadows.z8,
+    }),
+  },
+  ...(COLORS.map((colorKey) => ({
+    props: (props) => isVariantAllowed(FILLED_VARIANTS, props.variant) && props.color === colorKey,
+    style: ({ theme }) => ({
+      boxShadow: theme.vars.customShadows[colorKey],
+    }),
+  })) satisfies ComponentsVariants<Theme>['MuiFab']),
+] satisfies ComponentsVariants<Theme>['MuiFab'];
 
+const outlinedVariants = [
+  {
+    props: (props) => isVariantAllowed(OUTLINED_VARIANTS, props.variant),
+    style: ({ theme }) => ({
+      borderWidth: 1,
+      boxShadow: 'none',
+      borderStyle: 'solid',
+      backgroundColor: 'transparent',
+      '&:hover': {
+        borderColor: 'currentColor',
+        boxShadow: '0 0 0 0.75px currentColor',
+        backgroundColor: theme.vars.palette.action.hover,
+      },
+    }),
+  },
+  {
+    props: (props) =>
+      isVariantAllowed(OUTLINED_VARIANTS, props.variant) && props.color === 'default',
+    style: ({ theme }) => ({
+      color: theme.vars.palette.text.secondary,
+      borderColor: theme.vars.palette.shared.buttonOutlined,
+    }),
+  },
+  {
+    props: (props) =>
+      isVariantAllowed(OUTLINED_VARIANTS, props.variant) && props.color === 'inherit',
+    style: {
+      borderColor: 'currentColor',
+    },
+  },
+  ...(COLORS.map((colorKey) => ({
+    props: (props) =>
+      isVariantAllowed(OUTLINED_VARIANTS, props.variant) && props.color === colorKey,
+    style: ({ theme }) => ({
+      color: theme.vars.palette[colorKey].main,
+      borderColor: varAlpha(theme.vars.palette[colorKey].mainChannel, 0.48),
+      '&:hover': {
+        backgroundColor: varAlpha(theme.vars.palette[colorKey].mainChannel, 0.08),
+      },
+    }),
+  })) satisfies ComponentsVariants<Theme>['MuiFab']),
+] satisfies ComponentsVariants<Theme>['MuiFab'];
+
+const softVariants = [
+  {
+    props: (props) => isVariantAllowed(SOFT_VARIANTS, props.variant),
+    style: {
+      boxShadow: 'none',
+    },
+  },
+  {
+    props: (props) => isVariantAllowed(SOFT_VARIANTS, props.variant) && props.color === 'default',
+    style: ({ theme }) => ({
+      ...theme.mixins.softStyles(theme, 'default', { hover: true }),
+    }),
+  },
+  {
+    props: (props) => isVariantAllowed(SOFT_VARIANTS, props.variant) && props.color === 'inherit',
+    style: ({ theme }) => ({
+      ...theme.mixins.softStyles(theme, 'inherit', { hover: true }),
+    }),
+  },
+  ...(COLORS.map((colorKey) => ({
+    props: (props) => isVariantAllowed(SOFT_VARIANTS, props.variant) && props.color === colorKey,
+    style: ({ theme }) => ({
+      color: theme.vars.palette[colorKey].dark,
+      backgroundColor: varAlpha(theme.vars.palette[colorKey].mainChannel, 0.16),
+      ...theme.applyStyles('dark', {
+        color: theme.vars.palette[colorKey].light,
+      }),
+      '&:hover': {
+        backgroundColor: varAlpha(theme.vars.palette[colorKey].mainChannel, 0.32),
+      },
+    }),
+  })) satisfies ComponentsVariants<Theme>['MuiFab']),
+] satisfies ComponentsVariants<Theme>['MuiFab'];
+
+const sizeVariants = [
+  {
+    props: (props) => isVariantAllowed(EXTENDED_VARIANTS, props.variant),
+    style: ({ theme }) => ({
+      width: 'auto',
+      gap: theme.spacing(1),
+      padding: theme.spacing(0, 2),
+    }),
+  },
+  {
+    props: (props) => isVariantAllowed(EXTENDED_VARIANTS, props.variant) && props.size === 'small',
+    style: ({ theme }) => ({
+      ...DIMENSIONS.small,
+      gap: theme.spacing(0.5),
+      padding: theme.spacing(0, 1),
+    }),
+  },
+  {
+    props: (props) => isVariantAllowed(EXTENDED_VARIANTS, props.variant) && props.size === 'medium',
+    style: { ...DIMENSIONS.medium },
+  },
+  {
+    props: (props) => isVariantAllowed(EXTENDED_VARIANTS, props.variant) && props.size === 'large',
+    style: { ...DIMENSIONS.large },
+  },
+] satisfies ComponentsVariants<Theme>['MuiFab'];
+
+const disabledVariants = [
+  {
+    props: (props) => !!props.disabled && isVariantAllowed(OUTLINED_VARIANTS, props.variant),
+    style: ({ theme }) => ({
+      [`&.${fabClasses.disabled}`]: {
+        backgroundColor: 'transparent',
+        borderColor: theme.vars.palette.action.disabledBackground,
+      },
+    }),
+  },
+] satisfies ComponentsVariants<Theme>['MuiFab'];
+
+/* **********************************************************************
+ * 🧩 Components
+ * **********************************************************************/
 const MuiFab: Components<Theme>['MuiFab'] = {
-  /** **************************************
-   * DEFAULT PROPS
-   *************************************** */
-  defaultProps: { color: 'primary' },
-
-  /** **************************************
-   * VARIANTS
-   *************************************** */
-  variants: [
-    /**
-     * @variant filled
-     */
-    ...[...filledVariant.base!, ...filledVariant.colors!],
-    /**
-     * @variant outlined
-     */
-    ...[...outlinedVariant.base!, ...outlinedVariant.colors!],
-    /**
-     * @variant soft
-     */
-    ...[...softVariant.base!, ...softVariant.colors!],
-    /**
-     * @sizes
-     */
-    ...sizes,
-  ],
-
-  /** **************************************
-   * STYLE
-   *************************************** */
-  styleOverrides: {},
+  // ▼▼▼▼▼▼▼▼ ⚙️ PROPS ▼▼▼▼▼▼▼▼
+  defaultProps: {
+    color: 'primary',
+  },
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
+  styleOverrides: {
+    root: {
+      '&:hover': { boxShadow: 'none' },
+      variants: [
+        ...filledVariants,
+        ...outlinedVariants,
+        ...softVariants,
+        ...sizeVariants,
+        ...disabledVariants,
+      ],
+    },
+  },
 };
 
-// ----------------------------------------------------------------------
-
-export const fab = { MuiFab };
+/* **********************************************************************
+ * 🚀 Export
+ * **********************************************************************/
+export const fab: Components<Theme> = {
+  MuiFab,
+};

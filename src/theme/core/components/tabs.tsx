@@ -5,42 +5,54 @@ import { tabClasses } from '@mui/material/Tab';
 // ----------------------------------------------------------------------
 
 const MuiTabs: Components<Theme>['MuiTabs'] = {
-  /** **************************************
-   * DEFAULT PROPS
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ ⚙️ PROPS ▼▼▼▼▼▼▼▼
   defaultProps: {
     textColor: 'inherit',
     variant: 'scrollable',
     allowScrollButtonsMobile: true,
   },
-
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
     flexContainer: ({ ownerState, theme }) => ({
       ...(ownerState.variant !== 'fullWidth' && {
         gap: '24px',
         [theme.breakpoints.up('sm')]: {
-          gap: '40px',
+          gap: ownerState.orientation === 'vertical' ? '16px' : '40px',
+        },
+      }),
+
+      ...(ownerState.orientation === 'vertical' && {
+        [`>.${tabClasses.root}`]: {
+          padding: theme.spacing(0, 1),
+          justifyContent: 'right',
+          minHeight: 32,
         },
       }),
     }),
+    list: {
+      variants: [
+        {
+          props: (props) => props.variant !== 'fullWidth',
+          style: ({ theme }) => ({
+            gap: theme.spacing(3),
+            [theme.breakpoints.up('sm')]: {
+              gap: theme.spacing(5),
+            },
+          }),
+        },
+      ],
+    },
     indicator: { backgroundColor: 'currentColor' },
   },
 };
 
-// ----------------------------------------------------------------------
-
 const MuiTab: Components<Theme>['MuiTab'] = {
-  /** **************************************
-   * DEFAULT PROPS
-   *************************************** */
-  defaultProps: { disableRipple: true, iconPosition: 'start' },
-
-  /** **************************************
-   * STYLE
-   *************************************** */
+  // ▼▼▼▼▼▼▼▼ ⚙️ PROPS ▼▼▼▼▼▼▼▼
+  defaultProps: {
+    disableRipple: true,
+    iconPosition: 'start',
+  },
+  // ▼▼▼▼▼▼▼▼ 🎨 STYLE ▼▼▼▼▼▼▼▼
   styleOverrides: {
     root: ({ theme }) => ({
       opacity: 1,
@@ -58,6 +70,10 @@ const MuiTab: Components<Theme>['MuiTab'] = {
   },
 };
 
-// ----------------------------------------------------------------------
-
-export const tabs = { MuiTabs, MuiTab };
+/* **********************************************************************
+ * 🚀 Export
+ * **********************************************************************/
+export const tabs: Components<Theme> = {
+  MuiTab,
+  MuiTabs,
+};

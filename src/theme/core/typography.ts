@@ -1,88 +1,122 @@
-import type { TypographyOptions } from '@mui/material/styles/createTypography';
+import type { Breakpoint, TypographyVariantsOptions } from '@mui/material/styles';
 
-import { setFont, pxToRem, responsiveFontSizes } from '../styles/utils';
+import { pxToRem, setFont } from 'minimal-shared/utils';
+
+import { createTheme } from '@mui/material/styles';
+
+import { themeConfig } from '../theme-config';
 
 // ----------------------------------------------------------------------
 
-declare module '@mui/material/styles' {
-  interface TypographyVariants {
-    fontSecondaryFamily: React.CSSProperties['fontFamily'];
-    fontWeightSemiBold: React.CSSProperties['fontWeight'];
-  }
-  interface TypographyVariantsOptions {
-    fontSecondaryFamily?: React.CSSProperties['fontFamily'];
-    fontWeightSemiBold?: React.CSSProperties['fontWeight'];
-  }
-  interface ThemeVars {
-    typography: Theme['typography'];
-  }
+/**
+ * TypeScript extension for MUI theme augmentation.
+ * @to {@link file://./../extend-theme-types.d.ts}
+ */
+
+export type TypographyVariantsExtend = {
+  fontWeightSemiBold: React.CSSProperties['fontWeight'];
+  fontWeightExtraBold: React.CSSProperties['fontWeight'];
+  fontSecondaryFamily: React.CSSProperties['fontFamily'];
+};
+
+/**
+ * Generates responsive font styles for given breakpoints
+ * @param sizes - Object mapping breakpoints to font sizes in pixels
+ * @returns CSS media query styles for responsive font sizes
+ */
+type FontSizesInput = Partial<Record<Breakpoint, number>>;
+type FontSizesResult = Record<string, { fontSize: React.CSSProperties['fontSize'] }>;
+
+function responsiveFontSizes(sizes: FontSizesInput): FontSizesResult {
+  const {
+    breakpoints: { keys, up },
+  } = createTheme();
+
+  return keys.reduce((styles, breakpoint) => {
+    const size = sizes[breakpoint];
+
+    if (size !== undefined && size >= 0) {
+      styles[up(breakpoint)] = {
+        fontSize: pxToRem(size),
+      };
+    }
+
+    return styles;
+  }, {} as FontSizesResult);
+}
+
+function roundToDecimals(value: number): number {
+  return Number(value.toFixed(2));
 }
 
 // ----------------------------------------------------------------------
 
-export const defaultFont = 'Public Sans';
+const primaryFont = setFont(themeConfig.fontFamily.primary);
+const secondaryFont = setFont(themeConfig.fontFamily.secondary);
 
-export const primaryFont = setFont(defaultFont);
-
-export const secondaryFont = setFont('Barlow');
-
-// ----------------------------------------------------------------------
-
-export const typography: TypographyOptions = {
+const baseTypography: TypographyVariantsOptions = {
   fontFamily: primaryFont,
   fontSecondaryFamily: secondaryFont,
-  fontWeightLight: '300',
-  fontWeightRegular: '400',
-  fontWeightMedium: '500',
-  fontWeightSemiBold: '600',
-  fontWeightBold: '700',
+  fontWeightLight: 300,
+  fontWeightRegular: 400,
+  fontWeightMedium: 500,
+  fontWeightSemiBold: 600,
+  fontWeightBold: 700,
+  fontWeightExtraBold: 800,
+};
+
+/* **********************************************************************
+ * 📦 Final
+ * **********************************************************************/
+export const typography: TypographyVariantsOptions = {
+  ...baseTypography,
   h1: {
-    fontWeight: 800,
-    lineHeight: 80 / 64,
-    fontSize: pxToRem(40),
     fontFamily: secondaryFont,
+    fontWeight: baseTypography.fontWeightExtraBold,
+    lineHeight: roundToDecimals(80 / 64),
+    fontSize: pxToRem(40),
     ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
   },
   h2: {
-    fontWeight: 800,
-    lineHeight: 64 / 48,
-    fontSize: pxToRem(32),
     fontFamily: secondaryFont,
+    fontWeight: baseTypography.fontWeightExtraBold,
+    lineHeight: roundToDecimals(64 / 48),
+    fontSize: pxToRem(32),
     ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
   },
   h3: {
-    fontWeight: 700,
+    fontFamily: secondaryFont,
+    fontWeight: baseTypography.fontWeightBold,
     lineHeight: 1.5,
     fontSize: pxToRem(24),
-    fontFamily: secondaryFont,
     ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
   },
   h4: {
-    fontWeight: 700,
+    fontWeight: baseTypography.fontWeightBold,
     lineHeight: 1.5,
     fontSize: pxToRem(20),
-    ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
+    ...responsiveFontSizes({ md: 24 }),
   },
   h5: {
-    fontWeight: 700,
+    fontWeight: baseTypography.fontWeightBold,
     lineHeight: 1.5,
     fontSize: pxToRem(18),
-    ...responsiveFontSizes({ sm: 19, md: 20, lg: 20 }),
+    ...responsiveFontSizes({ sm: 19 }),
   },
   h6: {
-    fontWeight: 600,
-    lineHeight: 28 / 18,
+    fontWeight: baseTypography.fontWeightSemiBold,
+    lineHeight: roundToDecimals(28 / 18),
     fontSize: pxToRem(17),
-    ...responsiveFontSizes({ sm: 18, md: 18, lg: 18 }),
+    ...responsiveFontSizes({ sm: 18 }),
   },
   subtitle1: {
-    fontWeight: 600,
+    fontWeight: baseTypography.fontWeightSemiBold,
     lineHeight: 1.5,
     fontSize: pxToRem(16),
   },
   subtitle2: {
-    fontWeight: 600,
-    lineHeight: 22 / 14,
+    fontWeight: baseTypography.fontWeightSemiBold,
+    lineHeight: roundToDecimals(22 / 14),
     fontSize: pxToRem(14),
   },
   body1: {
@@ -90,7 +124,7 @@ export const typography: TypographyOptions = {
     fontSize: pxToRem(16),
   },
   body2: {
-    lineHeight: 22 / 14,
+    lineHeight: roundToDecimals(22 / 14),
     fontSize: pxToRem(14),
   },
   caption: {
@@ -98,14 +132,14 @@ export const typography: TypographyOptions = {
     fontSize: pxToRem(12),
   },
   overline: {
-    fontWeight: 700,
+    fontWeight: baseTypography.fontWeightBold,
     lineHeight: 1.5,
     fontSize: pxToRem(12),
     textTransform: 'uppercase',
   },
   button: {
-    fontWeight: 700,
-    lineHeight: 24 / 14,
+    fontWeight: baseTypography.fontWeightBold,
+    lineHeight: roundToDecimals(24 / 14),
     fontSize: pxToRem(14),
     textTransform: 'unset',
   },
