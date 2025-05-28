@@ -33,6 +33,5 @@ build
 .vercel
 .netlify
 .vscode
-.eslintcache
-.unimportedrc.json
 tsconfig.tsbuildinfo
+.ncurc.js

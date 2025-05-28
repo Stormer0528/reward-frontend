@@ -1,22 +1,21 @@
 import path from 'path';
 import checker from 'vite-plugin-checker';
-import { loadEnv, defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 
 // ----------------------------------------------------------------------
 
 const PORT = 8080;
 
-const env = loadEnv('all', process.cwd());
-
 export default defineConfig({
-  // base: env.VITE_BASE_PATH,
   plugins: [
     react(),
     checker({
       typescript: true,
       eslint: {
+        useFlatConfig: true,
         lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+        dev: { logLevel: ['error'] },
       },
       overlay: {
         position: 'tl',
@@ -27,12 +26,8 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: /^~(.+)/,
-        replacement: path.join(process.cwd(), 'node_modules/$1'),
-      },
-      {
         find: /^src(.+)/,
-        replacement: path.join(process.cwd(), 'src/$1'),
+        replacement: path.resolve(process.cwd(), 'src/$1'),
       },
     ],
   },
