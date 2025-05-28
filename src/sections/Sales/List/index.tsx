@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 import { paths } from 'src/routes/paths';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { formatID } from 'src/utils/helper';
 import { formatDate } from 'src/utils/format-time';

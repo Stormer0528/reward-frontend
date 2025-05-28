@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import ListItemText from '@mui/material/ListItemText';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { fData } from 'src/utils/formatNumber';
 import { fDateTime } from 'src/utils/format-time';

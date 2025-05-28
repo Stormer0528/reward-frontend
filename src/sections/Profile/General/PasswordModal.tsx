@@ -14,7 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { useBoolean, type UseBooleanReturn } from 'src/hooks/useBoolean';
+import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config';
 

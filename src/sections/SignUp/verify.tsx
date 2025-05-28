@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import { useSearchParams } from 'src/routes/hooks';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from 'src/components/Iconify';
 import { LoadingScreen } from 'src/components/loading-screen';

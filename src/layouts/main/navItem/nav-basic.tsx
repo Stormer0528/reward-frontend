@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { HELP_MINETXC } from 'src/consts';
 

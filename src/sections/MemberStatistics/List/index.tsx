@@ -1,8 +1,8 @@
 import type { SortOrder } from 'src/routes/hooks/useQuery';
 import type { IMemberStatisticsPrismaFilter, IMemberStatisticsTableFilters } from './types';
 
+import { useParams } from 'react-router';
 import { useMemo, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Card from '@mui/material/Card';

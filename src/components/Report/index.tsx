@@ -2,7 +2,7 @@ import type { FabProps } from '@mui/material/Fab';
 
 import Fab from '@mui/material/Fab';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from 'src/components/Iconify';
 

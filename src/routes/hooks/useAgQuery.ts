@@ -2,7 +2,7 @@ import type { FilterModel, SortModelItem } from '@ag-grid-community/core';
 
 import { parse, stringify } from 'qs';
 import { useMemo, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 
 // ----------------------------------------------------------------------
 interface QueryParams<FilterType> {

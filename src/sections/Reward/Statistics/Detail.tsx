@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Grid from '@mui/material/Grid';

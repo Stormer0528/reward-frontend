@@ -2,7 +2,7 @@ import type { GridSortModel } from '@mui/x-data-grid';
 
 import { parse, stringify } from 'qs';
 import { useMemo, useCallback } from 'react';
-import { useSearchParams as _useSearchParams } from 'react-router-dom';
+import { useSearchParams as _useSearchParams } from 'react-router';
 
 // ----------------------------------------------------------------------
 

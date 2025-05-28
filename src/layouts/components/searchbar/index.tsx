@@ -16,7 +16,7 @@ import Dialog, { dialogClasses } from '@mui/material/Dialog';
 import { useRouter } from 'src/routes/hooks';
 import { isExternalLink } from 'src/routes/utils';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 import { useEventListener } from 'src/hooks/use-event-listener';
 
 import { varAlpha } from 'src/theme/styles';

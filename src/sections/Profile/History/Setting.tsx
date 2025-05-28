@@ -1,4 +1,4 @@
-import type { UseBooleanReturn } from 'src/hooks/useBoolean';
+import type { UseBooleanReturn } from 'minimal-shared/hooks';
 import type { Setting as SettingType } from 'src/__generated__/graphql';
 
 import { useMemo } from 'react';

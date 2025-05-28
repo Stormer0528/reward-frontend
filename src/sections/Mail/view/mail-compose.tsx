@@ -10,7 +10,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { uuidv4 } from 'src/utils/uuidv4';

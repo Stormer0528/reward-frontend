@@ -1,5 +1,5 @@
+import { Outlet } from 'react-router';
 import { lazy, Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
 
 import { SplashScreen } from 'src/components/loading-screen';
 

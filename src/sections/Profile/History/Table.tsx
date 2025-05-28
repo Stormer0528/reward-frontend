@@ -1,6 +1,6 @@
 import type { IMemberStatisticsTableFilters } from '../types';
 
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Card from '@mui/material/Card';

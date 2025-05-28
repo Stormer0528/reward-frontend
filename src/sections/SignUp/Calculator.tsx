@@ -1,4 +1,4 @@
-import type { UseBooleanReturn } from 'src/hooks/useBoolean';
+import type { UseBooleanReturn } from 'minimal-shared/hooks';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';

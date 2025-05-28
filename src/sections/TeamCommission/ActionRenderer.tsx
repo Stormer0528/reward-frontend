@@ -3,7 +3,7 @@ import type { Introducer } from 'src/__generated__/graphql';
 
 import { memo, useEffect } from 'react';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config';
 

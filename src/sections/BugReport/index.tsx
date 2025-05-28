@@ -1,4 +1,4 @@
-import type { UseBooleanReturn } from 'src/hooks/useBoolean';
+import type { UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';

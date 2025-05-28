@@ -17,7 +17,7 @@ import TableContainer from '@mui/material/TableContainer';
 
 import { useQuery } from 'src/routes/hooks';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { fDateTime } from 'src/utils/format-time';
 

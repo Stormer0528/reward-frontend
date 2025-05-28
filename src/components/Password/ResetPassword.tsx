@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { useBoolean, type UseBooleanReturn } from 'src/hooks/useBoolean';
+import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';

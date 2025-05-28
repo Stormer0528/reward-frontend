@@ -8,7 +8,7 @@ import { paths } from 'src/routes/paths';
 import { useQuery } from 'src/routes/hooks';
 
 import { useTabs } from 'src/hooks/use-tabs';
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 

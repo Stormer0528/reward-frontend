@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
