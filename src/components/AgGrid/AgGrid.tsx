@@ -17,13 +17,13 @@ import { themeQuartz, iconSetQuartzLight, colorSchemeDarkBlue } from '@ag-grid-c
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
+import { useColorScheme } from '@mui/material/styles';
 
 import { useAgQuery } from 'src/routes/hooks';
 
 import { debounce } from 'src/utils/lodash';
 
 import { Pagination } from './Pagination';
-import { useSettingsContext } from '../settings';
 import { SkeletonLoader } from './SkeletonLoader';
 import { ClientSideRowModelModule } from './ClientSideRowModel';
 
@@ -38,7 +38,7 @@ interface Props<TData = any> extends AgGridReactProps<TData> {
 export const AgGrid = <TData,>(props: Props<TData>) => {
   const { gridKey, totalRowCount, pagination = true, modules, ...restProps } = props;
 
-  const { colorScheme } = useSettingsContext();
+  const { colorScheme } = useColorScheme();
 
   const gridRef = useRef<AgGridReact<TData>>(null);
   const gridWrapperRef = useRef<HTMLDivElement>(null);

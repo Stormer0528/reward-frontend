@@ -4,14 +4,14 @@ import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
+import { useColorScheme } from '@mui/material/styles';
 
 import { Chart, useChart } from 'src/components/chart';
-import { useSettingsContext } from 'src/components/settings';
 
 import { useFetchMemberByCountry } from '../useApollo';
 
 export default function MemberByCountry() {
-  const { colorScheme } = useSettingsContext();
+  const { colorScheme } = useColorScheme();
 
   const { loading, members, fetchMembersByCountry } = useFetchMemberByCountry();
 

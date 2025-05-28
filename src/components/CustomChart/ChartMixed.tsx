@@ -1,11 +1,9 @@
 import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
-import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
+import { useTheme, useColorScheme, alpha as hexAlpha } from '@mui/material/styles';
 
 import { Chart, useChart } from 'src/components/chart';
-
-import { useSettingsContext } from '../settings';
 
 // ----------------------------------------------------------------------
 
@@ -25,7 +23,7 @@ type Props = {
 
 export function ChartMixed({ loading, chart }: Props) {
   const theme = useTheme();
-  const { colorScheme } = useSettingsContext();
+  const { colorScheme } = useColorScheme();
 
   const chartColors = chart.colors ?? [
     hexAlpha(theme.palette.primary.dark, 0.8),

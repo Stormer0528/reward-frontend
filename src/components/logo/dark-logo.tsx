@@ -1,13 +1,12 @@
 import { forwardRef } from 'react';
 
 import Link from '@mui/material/Link';
+import { useColorScheme } from '@mui/material/styles';
 import Box, { type BoxProps } from '@mui/material/Box';
 
 import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config';
-
-import { useSettingsContext } from '../settings';
 
 // ----------------------------------------------------------------------
 
@@ -17,7 +16,7 @@ export interface DarkLogoProps extends BoxProps {
 
 const DarkLogo = forwardRef<HTMLDivElement, DarkLogoProps>(
   ({ disabledLink = false, sx, ...other }, ref) => {
-    const { colorScheme } = useSettingsContext();
+    const { colorScheme } = useColorScheme();
     // OR using local (public folder)
     // -------------------------------------------------------
     const logo = (

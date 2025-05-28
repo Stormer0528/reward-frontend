@@ -4,12 +4,11 @@ import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
-import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
+import { useTheme, useColorScheme, alpha as hexAlpha } from '@mui/material/styles';
 
 import { formatCurrency } from 'src/utils/formatCurrency';
 
 import { Chart, useChart } from 'src/components/chart';
-import { useSettingsContext } from 'src/components/settings';
 
 import { useFetchRevenue } from '../useApollo';
 
@@ -17,7 +16,7 @@ import { useFetchRevenue } from '../useApollo';
 
 export default function RevenueOverview() {
   const theme = useTheme();
-  const { colorScheme } = useSettingsContext();
+  const { colorScheme } = useColorScheme();
 
   const chartColors = [
     hexAlpha(theme.palette.primary.dark, 0.8),

@@ -4,12 +4,10 @@ import type { ChartOptions } from 'src/components/chart';
 import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, useColorScheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 
 import { Chart, useChart } from 'src/components/chart';
-
-import { useSettingsContext } from '../settings';
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +60,7 @@ export function ChartWidget({
   ...other
 }: Props) {
   const theme = useTheme();
-  const { colorScheme } = useSettingsContext();
+  const { colorScheme } = useColorScheme();
 
   const chartColors = chart.colors ?? [theme.palette.primary.main, theme.palette.warning.main];
 

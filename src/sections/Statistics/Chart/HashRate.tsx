@@ -8,11 +8,11 @@ import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
+import { useColorScheme } from '@mui/material/styles';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
 import { ChartSelect } from 'src/components/chart';
-import { useSettingsContext } from 'src/components/settings';
 
 import { useFetchBlocks } from '../useApollo';
 
@@ -27,7 +27,7 @@ const series = [
 
 export default function HashRate() {
   const [selectedSeries, setSelectedSeries] = useState('Block');
-  const { colorScheme } = useSettingsContext();
+  const { colorScheme } = useColorScheme();
 
   const handleChangeSeries = useCallback((newValue: string) => {
     setSelectedSeries(newValue);
