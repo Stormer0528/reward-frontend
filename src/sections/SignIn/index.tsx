@@ -83,8 +83,9 @@ export function SignInView() {
         open.onTrue();
       }
     } catch (error) {
-      console.error(error);
-      setErrorMsg(error instanceof Error ? error.message : error);
+      if (error instanceof Error) {
+        setErrorMsg(error.message);
+      }
     }
   });
 

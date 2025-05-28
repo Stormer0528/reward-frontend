@@ -21,7 +21,7 @@ import { useEmailVerifyCode } from '../useApollo';
 
 // ----------------------------------------------------------------------
 
-export type VerifySchemaType = zod.infer;
+export type VerifySchemaType = zod.infer<typeof VerifySchema>;
 
 export const VerifySchema = zod.object({
   code: zod
