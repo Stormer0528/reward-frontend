@@ -7,8 +7,8 @@ import Container from '@mui/material/Container';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { BackToTop } from 'src/components/animate/back-to-top';
-import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll-progress';
+import { BackToTopButton } from 'src/components/animate/BackToTopButton';
+import { ScrollProgress, useScrollProgress } from 'src/components/animate/ScrollProgress';
 
 import Brief from './Brief';
 import Quick from './Quick';
@@ -46,7 +46,7 @@ export default function Introduction() {
         sx={{ position: 'fixed' }}
       />
 
-      <BackToTop />
+      <BackToTopButton />
 
       <Stack sx={{ position: 'relative' }}>
         <Brief />
