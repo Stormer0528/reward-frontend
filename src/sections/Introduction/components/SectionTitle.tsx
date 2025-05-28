@@ -55,7 +55,7 @@ export function SectionTitle({
       <Typography
         component={m.h2}
         variant="h2"
-        variants={slotProps?.title?.variants ?? varFade({ distance: 24 }).inUp}
+        variants={slotProps?.title?.variants ?? varFade('inUp',{ distance: 24 })}
         sx={slotProps?.title?.sx}
       >
         {`${title} `}
@@ -76,7 +76,7 @@ export function SectionTitle({
       {description && (
         <Typography
           component={m.p}
-          variants={slotProps?.description?.variants ?? varFade({ distance: 24 }).inUp}
+          variants={slotProps?.description?.variants ?? varFade('inUp',{ distance: 24 })}
           sx={{ color: 'text.secondary', ...slotProps?.description?.sx }}
         >
           {description}
@@ -92,7 +92,7 @@ export function SectionCaption({ title, variants, sx }: TextProps) {
   return (
     <Stack
       component={m.span}
-      variants={variants ?? varFade({ distance: 24 }).inUp}
+      variants={variants ?? varFade('inUp',{ distance: 24 })}
       sx={{ typography: 'overline', color: 'text.disabled', ...sx }}
     >
       {title}

@@ -210,7 +210,7 @@ export function Texts({ sx, ...other }: StackProps) {
   return (
     <Stack
       component={m.div}
-      variants={varFade().in}
+      variants={varFade('in')}
       sx={{
         left: 0,
         width: 1,

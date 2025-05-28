@@ -47,7 +47,7 @@ export function SectionContent({
       <Typography
         component={m.h2}
         variant="h2"
-        variants={slotProps?.title?.variants ?? varFade({ distance: 24 }).inUp}
+        variants={slotProps?.title?.variants ?? varFade('inUp',{ distance: 24 })}
         sx={slotProps?.title?.sx}
         textAlign="center"
       >

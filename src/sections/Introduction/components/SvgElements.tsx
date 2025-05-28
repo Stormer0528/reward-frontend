@@ -211,7 +211,7 @@ export function CircleSvg({ sx, variants }: Props) {
       viewBox="0 0 560 560"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      variants={variants ?? varFade().in}
+      variants={variants ?? varFade('in')}
       sx={{
         top: 0,
         left: 0,
