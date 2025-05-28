@@ -1,20 +1,31 @@
 import '@xyflow/react/dist/style.css';
 
-import { Suspense } from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router';
 
 import App from './app';
-import { CONFIG } from './config';
+import { routesSection } from './routes/sections';
+import { ErrorBoundary } from './routes/components';
 
 // ----------------------------------------------------------------------
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const router = createBrowserRouter([
+  {
+    Component: () => (
+      <App>
+        <Outlet />
+      </App>
+    ),
+    errorElement: <ErrorBoundary />,
+    children: routesSection,
+  },
+]);
+
+const root = createRoot(document.getElementById('root')!);
 
 root.render(
-  <BrowserRouter basename={CONFIG.site.basePath}>
-    <Suspense>
-      <App />
-    </Suspense>
-  </BrowserRouter>
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 );

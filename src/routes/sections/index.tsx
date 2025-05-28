@@ -1,4 +1,6 @@
-import { Navigate, useRoutes } from 'react-router-dom';
+import type { RouteObject } from 'react-router';
+
+import { Navigate } from 'react-router';
 
 import { CONFIG } from 'src/config';
 
@@ -9,26 +11,24 @@ import { dashboardRoutes } from './dashboard';
 
 // ----------------------------------------------------------------------
 
-export function Router() {
-  return useRoutes([
-    {
-      path: '/',
-      element: <Navigate to={CONFIG.redirectPath} replace />,
-    },
+export const routesSection: RouteObject[] = [
+  {
+    path: '/',
+    element: <Navigate to={CONFIG.redirectPath} replace />,
+  },
 
-    // First Page
-    ...statisticsRoutes,
+  // First Page
+  ...statisticsRoutes,
 
-    // Auth
-    ...authRoutes,
+  // Auth
+  ...authRoutes,
 
-    // Dashboard
-    ...dashboardRoutes,
+  // Dashboard
+  ...dashboardRoutes,
 
-    // Main
-    ...mainRoutes,
+  // Main
+  ...mainRoutes,
 
-    // No match
-    { path: '*', element: <Navigate to="/404" replace /> },
-  ]);
-}
+  // No match
+  { path: '*', element: <Navigate to="/404" replace /> },
+];
