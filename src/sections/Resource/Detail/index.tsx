@@ -16,7 +16,7 @@ import { client } from 'src/utils/sanity/client';
 import { CONFIG } from 'src/config';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { BackToTop } from 'src/components/animate';
+import { BackToTopButton } from 'src/components/animate';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import { LoadingScreen } from 'src/components/loading-screen';
 
@@ -58,7 +58,7 @@ export default function Detail() {
         }}
       />
 
-      <BackToTop />
+      <BackToTopButton />
 
       <Stack>
         <Typography variant="h4">{current.title}</Typography>
