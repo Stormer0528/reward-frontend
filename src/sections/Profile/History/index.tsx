@@ -1,6 +1,6 @@
 import type { Member } from 'src/__generated__/graphql';
 
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 
 import Table from './Table';
 import Reward from './Reward';
