@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { useState, useEffect } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
 import { useBoolean } from 'minimal-shared/hooks';
@@ -11,10 +12,7 @@ import Backdrop from '@mui/material/Backdrop';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import { useResponsive } from 'src/hooks/use-responsive';
-
-import { uuidv4 } from 'src/utils/uuidv4';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Editor } from 'src/components/editor';
 import { toast } from 'src/components/SnackBar';
@@ -33,7 +31,7 @@ type Props = {
 };
 
 export function MailCompose({ onCloseCompose }: Props) {
-  const smUp = useResponsive('up', 'sm');
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
   const fullScreen = useBoolean();
 
@@ -54,15 +52,11 @@ export function MailCompose({ onCloseCompose }: Props) {
     setMessage(value);
   };
 
-  const handleChangeTo = async (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChangeTo = async (event: React.ChangeEvent) => {
     setTo(event.target.value);
   };
 
-  const handleChangeSubject = async (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChangeSubject = async (event: React.ChangeEvent) => {
     setSubject(event.target.value);
   };
 
@@ -108,7 +102,7 @@ export function MailCompose({ onCloseCompose }: Props) {
     };
 
     if (!id && (to || subject || message)) {
-      setId(uuidv4());
+      setId(uuid());
     }
 
     if (id) {

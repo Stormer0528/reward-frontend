@@ -2,8 +2,7 @@ import type { StackProps } from '@mui/material/Stack';
 
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
-
-import { useResponsive } from 'src/hooks/use-responsive';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +17,7 @@ export function PostItemSkeleton({
   variant = 'vertical',
   ...other
 }: PostItemSkeletonProps) {
-  const smUp = useResponsive('up', 'sm');
+  const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
   if (variant === 'horizontal') {
     return [...Array(amount)].map((_, index) => (

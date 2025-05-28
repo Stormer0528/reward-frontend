@@ -4,11 +4,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 
-// import TextField from '@mui/material/TextField';
-// import Typography from '@mui/material/Typography';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import { useResponsive } from 'src/hooks/use-responsive';
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 // import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
@@ -40,8 +36,6 @@ export function InboxList({
   selectedMailId,
   selectedLabelId,
 }: Props) {
-  // const mdUp = useResponsive('up', 'md');
-
   const renderLoading = (
     <Stack sx={{ px: 2, flex: '1 1 auto' }}>
       <MailItemSkeleton />

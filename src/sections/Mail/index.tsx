@@ -4,11 +4,10 @@ import { useBoolean } from 'minimal-shared/hooks';
 import { useState, useEffect, useCallback } from 'react';
 
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
-
-import { useResponsive } from 'src/hooks/use-responsive';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
@@ -43,7 +42,7 @@ export default function MailView() {
   const selectedMailId = searchParams.get('id') ?? '';
   const selectedLabelId = searchParams.get('label') ?? LABEL_INDEX;
 
-  const mdUp = useResponsive('up', 'md');
+  const mdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   const [inbox, setInbox] = useState<Recipient[]>([]);
   const [sent, setSent] = useState<Email[]>([]);
