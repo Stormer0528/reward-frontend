@@ -18,8 +18,7 @@ import Dialog, { dialogClasses } from '@mui/material/Dialog';
 import { useRouter } from 'src/routes/hooks';
 import { isExternalLink } from 'src/routes/utils';
 
-import { useEventListener } from 'src/hooks/use-event-listener';
-
+// import { useEventListener } from 'src/hooks/use-event-listener';
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
@@ -55,7 +54,8 @@ export function Searchbar({ data: navItems = [], sx, ...other }: SearchbarProps)
     }
   };
 
-  useEventListener('keydown', handleKeyDown);
+  // TODO: Why this is used???
+  // useEventListener('keydown', handleKeyDown);
 
   const handleClick = useCallback(
     (path: string) => {
