@@ -1,4 +1,4 @@
-import type { ConfirmationStatus, CommissionDefaultEnum } from 'src/__generated__/graphql';
+import type { Invoice, ConfirmationStatus } from 'src/__generated__/graphql';
 
 export type WeeklyCommission = {
   __typename?: 'BasicWeeklyCommission';
@@ -14,16 +14,18 @@ export type WeeklyCommission = {
   newR: number;
   pkgL: number;
   pkgR: number;
-  memberId: string;
   username: string;
   fullName: string;
+  memberId: string;
   commission: number;
   weekStartDate: any;
   note?: string | null;
   createdAt?: any | null;
   updatedAt?: any | null;
   deletedAt?: any | null;
+  invoice?: Invoice | null;
+  proofNote?: string | null;
   shortNote?: string | null;
   status: ConfirmationStatus;
-  paymentMethod: CommissionDefaultEnum;
+  // commissionDefault: CommissionDefaultEnum;
 };
