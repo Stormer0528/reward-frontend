@@ -27,7 +27,7 @@ export default function Difficulty() {
         series: [
           {
             name: 'Pos Difficulty',
-            data: blocks!.map((item) => Math.floor(item?.difficulty!)).reverse(),
+            data: blocks!.map((item) => Math.floor(item?.difficulty)).reverse(),
           },
         ],
         options: {

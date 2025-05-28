@@ -14,7 +14,7 @@ export const ActionRender = memo(
     const copy = useBoolean();
 
     const handleCopy = async () => {
-      await navigator.clipboard.writeText(`${CONFIG.SITE_PATH}/sign-up?sponsor=${data?.username!}`);
+      await navigator.clipboard.writeText(`${CONFIG.SITE_PATH}/sign-up?sponsor=${data?.username}`);
       copy.onTrue();
     };
 

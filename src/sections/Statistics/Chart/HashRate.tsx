@@ -45,7 +45,7 @@ export default function HashRate() {
   const chartSeries = [
     {
       name: 'Hashrate',
-      data: blocks!.map((item) => Number(((item?.hashRate! || 1) / 10 ** 9).toFixed(2))).reverse(),
+      data: blocks!.map((item) => Number(((item?.hashRate ?? 0) / 10 ** 9).toFixed(2))).reverse(),
       type: 'area',
     },
     {

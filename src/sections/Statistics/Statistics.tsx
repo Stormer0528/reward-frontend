@@ -198,7 +198,7 @@ export default function StatisticsTable({ status = false }: Props) {
         initialState={{ filter: { filterModel: filter } }}
         sortModel={sort.map((item) => ({ ...item, sort: item.sort === 'asc' ? 'desc' : 'asc' }))}
         onSortModelChange={onSortChange}
-        rowCount={data?.statistics.total!}
+        rowCount={data?.statistics.total ?? 0}
         paginationMode="server"
         pageSizeOptions={[10, 25, 50, 100]}
         paginationModel={paginationModel}

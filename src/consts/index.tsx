@@ -3,12 +3,12 @@ export * from './resource';
 // AUTH TOKEN KEY
 export const STORAGE_TOKEN_KEY = 'token';
 
-export const PLACEMENTTREE_NODE_WIDTH = 200;
-export const PLACEMENTTREE_NODE_HEIGHT = 135;
-export const PLACEMENTTREE_NODE_X_SPACE = 15;
-export const PLACEMENTTREE_NODE_Y_SPACE = 60;
+export const PLACEMENT_TREE_NODE_WIDTH = 200;
+export const PLACEMENT_TREE_NODE_HEIGHT = 135;
+export const PLACEMENT_TREE_NODE_X_SPACE = 15;
+export const PLACEMENT_TREE_NODE_Y_SPACE = 60;
 
-export const SPONSORTREE_NODE_HEIGHT = 100;
+export const SPONSOR_TREE_NODE_HEIGHT = 100;
 
 export const PASSWORD_REGEXP =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.>])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.>]{8,}$/;

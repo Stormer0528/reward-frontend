@@ -69,7 +69,7 @@ export default function Summary() {
                 {
                   name: 'New Blocks',
                   data: chartData!
-                    .map((item) => Number(((item?.hashRate! || 1) / 10 ** 9).toFixed(2)))
+                    .map((item) => Number(((item?.hashRate ?? 1) / 10 ** 9).toFixed(2)))
                     .reverse(),
                 },
               ],
