@@ -194,7 +194,7 @@ export default function MemberGeneral({ me }: Props) {
     <>
       <Form methods={methods} onSubmit={onSubmit}>
         <Grid container spacing={3}>
-          <Grid md={12} xl={6}>
+          <Grid size={{ md: 12, xl: 6 }}>
             <Card sx={{ p: 3 }}>
               <Box
                 rowGap={3}
@@ -300,7 +300,7 @@ export default function MemberGeneral({ me }: Props) {
               </Box>
             </Card>
           </Grid>
-          <Grid md={12} xl={6}>
+          <Grid size={{ md: 12, xl: 6 }}>
             <TXCWallets wallets={txcWallets} />
             <OtherWallets wallets={otherWallets} />
           </Grid>

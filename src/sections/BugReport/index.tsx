@@ -102,10 +102,10 @@ export default function ReportModal({ open }: Props) {
               <Field.Text name="description" label="Description" multiline rows={5} />
 
               <Grid container spacing={2}>
-                <Grid md={3}>
+                <Grid size={{ md: 3 }}>
                   <FileManagerNewFolderDialog handleUpdate={handleUpdate} />
                 </Grid>
-                <Grid md={9}>
+                <Grid size={{ md: 9 }}>
                   <Box sx={{ gap: 1, display: 'flex', flexDirection: 'column' }}>
                     {files?.map((file: any) => (
                       <FileRecentItem key={file.id} file={file} onDelete={onDelete} />
