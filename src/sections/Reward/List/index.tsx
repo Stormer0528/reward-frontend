@@ -1,7 +1,7 @@
+import { useTabs } from 'minimal-shared/hooks';
+
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-
-import { useTabs } from 'src/hooks/use-tabs';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 

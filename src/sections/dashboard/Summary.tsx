@@ -1,11 +1,10 @@
+import { useTabs } from 'minimal-shared/hooks';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import { alpha, useTheme } from '@mui/material/styles';
-
-import { useTabs } from 'src/hooks/use-tabs';
 
 import { formatDate } from 'src/utils/format-time';
 

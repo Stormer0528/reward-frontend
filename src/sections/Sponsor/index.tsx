@@ -1,4 +1,4 @@
-import { useBoolean } from 'minimal-shared/hooks';
+import { useTabs , useBoolean } from 'minimal-shared/hooks';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -8,8 +8,6 @@ import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
 import { useQuery } from 'src/routes/hooks';
-
-import { useTabs } from 'src/hooks/use-tabs';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 

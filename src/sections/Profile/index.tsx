@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router';
-import { useBoolean } from 'minimal-shared/hooks';
+import { useTabs , useBoolean } from 'minimal-shared/hooks';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
 import { paths } from 'src/routes/paths';
-
-import { useTabs } from 'src/hooks/use-tabs';
 
 import { CONFIG } from 'src/config';
 import { DashboardContent } from 'src/layouts/dashboard';

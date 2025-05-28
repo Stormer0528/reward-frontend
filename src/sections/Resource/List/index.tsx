@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useTabs } from 'minimal-shared/hooks';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-
-import { useTabs } from 'src/hooks/use-tabs';
 
 import { client } from 'src/utils/sanity/client';
 
