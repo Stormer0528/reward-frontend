@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
 import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 

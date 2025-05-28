@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
 import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 

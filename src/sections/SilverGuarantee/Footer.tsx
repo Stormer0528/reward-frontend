@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
 import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 export default function Footer() {

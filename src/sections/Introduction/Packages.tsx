@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 
 import Card from '@mui/material/Card';
@@ -6,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
