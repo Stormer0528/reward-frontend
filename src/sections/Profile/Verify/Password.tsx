@@ -1,8 +1,8 @@
+import { useBoolean } from 'minimal-shared/hooks';
+
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from 'src/components/Iconify';
 

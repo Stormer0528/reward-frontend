@@ -1,11 +1,11 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
+import { useBoolean } from 'minimal-shared/hooks';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from 'src/components/Iconify';
 

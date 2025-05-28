@@ -1,5 +1,5 @@
-import type { UseTabsReturn } from 'src/hooks/use-tabs';
 import type { UseBooleanReturn } from 'minimal-shared/hooks';
+import type { UseTabsReturn } from 'src/hooks/use-tabs';
 
 import states from 'states-us';
 import countries from 'country-list';

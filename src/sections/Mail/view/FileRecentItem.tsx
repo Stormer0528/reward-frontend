@@ -3,13 +3,12 @@ import type { IFileManager } from 'src/types/file';
 
 import axios from 'axios';
 import { useState } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { fData } from 'src/utils/formatNumber';
 import { fDateTime } from 'src/utils/format-time';

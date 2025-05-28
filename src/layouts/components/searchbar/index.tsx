@@ -4,6 +4,8 @@ import type { NavSectionProps } from 'src/components/nav-section';
 import { useState, useCallback } from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
+import { varAlpha } from 'minimal-shared/utils';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -16,10 +18,7 @@ import Dialog, { dialogClasses } from '@mui/material/Dialog';
 import { useRouter } from 'src/routes/hooks';
 import { isExternalLink } from 'src/routes/utils';
 
-import { useBoolean } from 'minimal-shared/hooks';
 import { useEventListener } from 'src/hooks/use-event-listener';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';

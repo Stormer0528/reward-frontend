@@ -1,6 +1,7 @@
 import type { IStatisticsFilters } from 'src/types/statistics';
 
 import { useState, useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 import { useLazyQuery, useQuery as useGraphQuery } from '@apollo/client';
 
 import Grid from '@mui/material/Grid';
@@ -16,8 +17,6 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 
 import { useQuery } from 'src/routes/hooks';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { fDateTime } from 'src/utils/format-time';
 

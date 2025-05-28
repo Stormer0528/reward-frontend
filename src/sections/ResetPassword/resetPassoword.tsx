@@ -1,6 +1,7 @@
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
+import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
@@ -12,8 +13,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { SentIcon } from 'src/assets/icons';
 

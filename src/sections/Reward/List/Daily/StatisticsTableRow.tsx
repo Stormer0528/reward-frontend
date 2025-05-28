@@ -1,4 +1,5 @@
 import { useLazyQuery } from '@apollo/client';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -13,8 +14,6 @@ import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 

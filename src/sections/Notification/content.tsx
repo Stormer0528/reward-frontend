@@ -1,5 +1,5 @@
-import type { NotificationClient } from './type';
 import type { UseBooleanReturn } from 'minimal-shared/hooks';
+import type { NotificationClient } from './type';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';

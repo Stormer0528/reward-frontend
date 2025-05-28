@@ -1,13 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-
-import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';

@@ -3,13 +3,11 @@ import type { SettingsState } from 'src/components/Settings';
 import type { NavSectionProps } from 'src/components/nav-section';
 
 import { useMemo } from 'react';
+import { varAlpha } from 'minimal-shared/utils';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
-
-import { useBoolean } from 'minimal-shared/hooks';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { bulletColor } from 'src/components/nav-section';
 import { useSettingsContext } from 'src/components/Settings';

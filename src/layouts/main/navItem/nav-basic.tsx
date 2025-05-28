@@ -1,11 +1,11 @@
+import { useBoolean } from 'minimal-shared/hooks';
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { HELP_MINETXC } from 'src/consts';
 

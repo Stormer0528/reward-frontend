@@ -3,13 +3,12 @@ import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-comm
 import type { BasicSale } from 'src/sections/Sales/List/type';
 
 import { useMemo } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 
 import { paths } from 'src/routes/paths';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { formatID } from 'src/utils/helper';
 import { formatDate } from 'src/utils/format-time';

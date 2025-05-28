@@ -1,10 +1,10 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 import type { SingleFilePreviewProps } from '../types';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from 'src/components/Iconify';
 

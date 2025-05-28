@@ -1,10 +1,10 @@
 import type { Theme } from '@mui/material/styles';
 import type { LabelColor, LabelVariant } from './types';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 

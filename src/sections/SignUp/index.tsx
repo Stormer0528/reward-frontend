@@ -3,6 +3,7 @@ import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { ApolloError } from '@apollo/client';
+import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -21,8 +22,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { removeSpecialCharacters } from 'src/utils/helper';
 

@@ -1,8 +1,8 @@
 import type { FabProps } from '@mui/material/Fab';
 
-import Fab from '@mui/material/Fab';
-
 import { useBoolean } from 'minimal-shared/hooks';
+
+import Fab from '@mui/material/Fab';
 
 import { Iconify } from 'src/components/Iconify';
 

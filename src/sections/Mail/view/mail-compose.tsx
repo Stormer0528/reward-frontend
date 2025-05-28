@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { varAlpha } from 'minimal-shared/utils';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -10,12 +12,9 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import { useBoolean } from 'minimal-shared/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { uuidv4 } from 'src/utils/uuidv4';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Editor } from 'src/components/editor';
 import { toast } from 'src/components/SnackBar';

@@ -1,10 +1,10 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import ButtonBase from '@mui/material/ButtonBase';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from 'src/components/Iconify';
 

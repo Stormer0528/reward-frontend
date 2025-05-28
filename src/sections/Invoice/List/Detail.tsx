@@ -1,5 +1,5 @@
-import type { Invoice } from './type';
 import type { UseBooleanReturn } from 'minimal-shared/hooks';
+import type { Invoice } from './type';
 
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';

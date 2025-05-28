@@ -1,12 +1,11 @@
 import type { NavItemProps, NavItemStateProps } from '../types';
 
 import { forwardRef } from 'react';
+import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from 'src/components/Iconify';
 import { useNavItem } from 'src/components/nav-section/hooks';

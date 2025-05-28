@@ -1,5 +1,6 @@
 import QRCode from 'react-qr-code';
 import { useState, useEffect } from 'react';
+import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import Alert from '@mui/material/Alert';
 import Paper from '@mui/material/Paper';
@@ -13,8 +14,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import InputAdornment from '@mui/material/InputAdornment';
-
-import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config';
 

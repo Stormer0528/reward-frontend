@@ -1,5 +1,6 @@
 import type { Email, Recipient } from 'src/__generated__/graphql';
 
+import { useBoolean } from 'minimal-shared/hooks';
 import { useState, useEffect, useCallback } from 'react';
 
 import Typography from '@mui/material/Typography';
@@ -7,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 
-import { useBoolean } from 'minimal-shared/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { DashboardContent } from 'src/layouts/dashboard';

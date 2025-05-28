@@ -3,13 +3,12 @@ import type { StackProps } from '@mui/material/Stack';
 import type { Theme, SxProps } from '@mui/material/styles';
 
 import { m } from 'framer-motion';
+import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { varFade } from 'src/components/animate';
 

@@ -2,6 +2,7 @@ import { z as zod } from 'zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
@@ -14,8 +15,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config';
 

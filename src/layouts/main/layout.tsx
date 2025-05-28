@@ -1,11 +1,11 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 import type { NavMainProps } from './nav/types';
 
+import { useBoolean } from 'minimal-shared/hooks';
+
 import Alert from '@mui/material/Alert';
 // import { usePathname } from 'src/routes/hooks';
 import { useTheme } from '@mui/material/styles';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { Main } from './main';
 import { NavMobile } from './nav/mobile';

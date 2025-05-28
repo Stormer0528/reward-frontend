@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { ApolloError } from '@apollo/client';
+import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo, useState, useCallback } from 'react';
 
@@ -18,8 +19,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { fData } from 'src/utils/formatNumber';
 

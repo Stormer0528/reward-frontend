@@ -1,9 +1,9 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
+import { useBoolean } from 'minimal-shared/hooks';
+
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config-global';
 

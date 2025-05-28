@@ -1,9 +1,9 @@
+import { useBoolean } from 'minimal-shared/hooks';
+
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from '../Iconify';
 import ResetPassword from './ResetPassword';

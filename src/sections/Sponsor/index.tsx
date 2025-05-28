@@ -1,3 +1,5 @@
+import { useBoolean } from 'minimal-shared/hooks';
+
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Stack from '@mui/material/Stack';
@@ -8,7 +10,6 @@ import { paths } from 'src/routes/paths';
 import { useQuery } from 'src/routes/hooks';
 
 import { useTabs } from 'src/hooks/use-tabs';
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 

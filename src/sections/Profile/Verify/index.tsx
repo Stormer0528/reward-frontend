@@ -1,8 +1,8 @@
-import type { UseTabsReturn } from 'src/hooks/use-tabs';
 import type { UseBooleanReturn } from 'minimal-shared/hooks';
+import type { UseTabsReturn } from 'src/hooks/use-tabs';
 
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useState, useEffect } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';

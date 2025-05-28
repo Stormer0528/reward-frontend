@@ -1,13 +1,13 @@
 import type { NavListProps } from '../types';
 
 import { useState, useCallback } from 'react';
+import { varAlpha } from 'minimal-shared/utils';
 
 import Collapse from '@mui/material/Collapse';
 
 import { isExternalLink } from 'src/routes/utils';
 
 import { CONFIG } from 'src/config-global';
-import { varAlpha } from 'minimal-shared/utils';
 
 import { NavLi, navSectionClasses, NavSectionVertical } from 'src/components/nav-section';
 

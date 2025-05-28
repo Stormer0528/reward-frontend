@@ -1,9 +1,10 @@
 import type { PopoverArrow } from './types';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import { styled } from '@mui/material/styles';
 
 import { CONFIG } from 'src/config';
-import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 

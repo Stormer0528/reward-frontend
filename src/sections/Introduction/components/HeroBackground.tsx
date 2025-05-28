@@ -1,6 +1,7 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
 import { m } from 'framer-motion';
+import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -9,7 +10,6 @@ import { useTheme } from '@mui/material/styles';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { CONFIG } from 'src/config-global';
-import { varAlpha } from 'minimal-shared/utils';
 
 import { MotionContainer } from 'src/components/animate';
 

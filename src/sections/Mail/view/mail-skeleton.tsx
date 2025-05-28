@@ -1,9 +1,9 @@
 import type { StackProps } from '@mui/material/Stack';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 

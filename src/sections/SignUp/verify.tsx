@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -6,8 +7,6 @@ import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 import { useSearchParams } from 'src/routes/hooks';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from 'src/components/Iconify';
 import { LoadingScreen } from 'src/components/loading-screen';

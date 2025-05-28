@@ -1,13 +1,12 @@
 import type { UploadProps } from './types';
 
 import { useDropzone } from 'react-dropzone';
+import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from 'src/components/Iconify';
 

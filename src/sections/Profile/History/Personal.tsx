@@ -1,6 +1,7 @@
 import type { Member, Setting as SettingType } from 'src/__generated__/graphql';
 
 import { useState, useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -8,8 +9,6 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 import { formatID, truncateMiddle } from 'src/utils/helper';

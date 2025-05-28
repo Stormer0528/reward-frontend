@@ -2,10 +2,9 @@ import type { UploadProps } from './types';
 
 import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Image } from 'src/components/Image';
 import { Iconify } from 'src/components/Iconify';

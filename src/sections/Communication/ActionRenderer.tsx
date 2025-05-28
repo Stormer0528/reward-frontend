@@ -2,11 +2,10 @@ import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { CampaignMember } from './type';
 
 import { memo } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { Iconify } from 'src/components/Iconify';
 

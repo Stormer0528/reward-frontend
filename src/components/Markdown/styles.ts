@@ -1,8 +1,7 @@
 import ReactMarkdown from 'react-markdown';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { styled } from '@mui/material/styles';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { markdownClasses } from './classes';
 

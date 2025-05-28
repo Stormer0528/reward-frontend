@@ -1,12 +1,12 @@
 import type { MultiFilePreviewProps } from '../types';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import { fData } from 'src/utils/formatNumber';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from 'src/components/Iconify';
 

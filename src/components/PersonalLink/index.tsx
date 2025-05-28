@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
 import { TextField, IconButton, InputAdornment } from '@mui/material';
-
-import { useBoolean } from 'minimal-shared/hooks';
 
 import { gql } from 'src/__generated__/gql';
 

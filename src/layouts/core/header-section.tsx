@@ -3,6 +3,8 @@ import type { AppBarProps } from '@mui/material/AppBar';
 import type { ToolbarProps } from '@mui/material/Toolbar';
 import type { ContainerProps } from '@mui/material/Container';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,8 +12,6 @@ import Container from '@mui/material/Container';
 import { styled, useTheme } from '@mui/material/styles';
 
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { layoutClasses } from '../classes';
 

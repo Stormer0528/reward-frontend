@@ -1,10 +1,10 @@
 import type { Breakpoint } from '@mui/material/styles';
 import type { NavSectionProps } from 'src/components/nav-section';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-
-import { varAlpha } from 'minimal-shared/utils';
 
 import { ScrollBar } from 'src/components/ScrollBar';
 import DarkLogo from 'src/components/logo/dark-logo';

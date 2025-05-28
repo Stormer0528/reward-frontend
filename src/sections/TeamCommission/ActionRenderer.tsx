@@ -2,7 +2,6 @@ import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { Introducer } from 'src/__generated__/graphql';
 
 import { memo, useEffect } from 'react';
-
 import { useBoolean } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config';
