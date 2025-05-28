@@ -11,14 +11,14 @@ import { CASH_POTENTIAL_URL } from 'src/consts';
 
 import { Iconify } from 'src/components/Iconify';
 
-import { useFetchMemberOvewview } from '../useApollo';
+import { useFetchMemberOverview } from '../useApollo';
 
 interface Props {
   me: Member;
 }
 
 export default function OverView({ me }: Props) {
-  const { overview } = useFetchMemberOvewview(me.id);
+  const { overview } = useFetchMemberOverview(me.id);
 
   return (
     <Card sx={{ mt: 2, py: 3, textAlign: 'center', typography: 'h4' }}>
@@ -39,7 +39,7 @@ export default function OverView({ me }: Props) {
             <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
               Cash Potential
             </Box>
-            {overview?.isTexitRanger && (
+            {me?.isTexitRanger && (
               <Iconify
                 icon="emojione:star"
                 cursor="pointer"

@@ -17,7 +17,7 @@ import { formatID, truncateMiddle } from 'src/utils/helper';
 import { Iconify } from 'src/components/Iconify';
 
 import Setting from './Setting';
-import { useFetchMemberOvewview } from '../useApollo';
+import { useFetchMemberOverview } from '../useApollo';
 
 interface Props {
   me: Member;
@@ -28,7 +28,7 @@ export default function Personal({ me }: Props) {
   const open = useBoolean();
   const [children, setChildren] = useState<any>();
 
-  const { overview } = useFetchMemberOvewview(me.id);
+  const { overview } = useFetchMemberOverview(me.id);
 
   const handleCopy = async (addressValue: string) => {
     try {
