@@ -63,7 +63,7 @@ export function useFetchMembersStats() {
   return { data, fetchMemberStats };
 }
 
-export function useFetchMemberOvewview(id: string) {
+export function useFetchMemberOverview(id: string) {
   const { loading, data, error } = useGraphQuery(FETCH_MEMBER_HISTORY, {
     variables: { data: { id } },
   });
