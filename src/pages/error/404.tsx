@@ -1,6 +1,6 @@
 import { CONFIG } from 'src/config';
 
-import { NotFoundView } from 'src/sections/error';
+import { NotFoundView } from 'src/sections/Error';
 
 // ----------------------------------------------------------------------
 
