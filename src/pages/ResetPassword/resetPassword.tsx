@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useMutation } from '@apollo/client';
 
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -51,9 +50,7 @@ export default function Page() {
 
   return (
     <>
-      <Helmet>
-        <title> {metadata.title}</title>
-      </Helmet>
+      <title> {metadata.title}</title>
 
       {isOpen ? (
         <SplitUpdatePasswordView token={data?.resetTokenVerify.token!} />

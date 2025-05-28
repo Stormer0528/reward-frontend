@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
 
 import Tab from '@mui/material/Tab';
@@ -63,9 +62,7 @@ export default function Profile() {
 
   return (
     <>
-      <Helmet>
-        <title>{`${CONFIG.site.name}: ${user?.username}`}</title>
-      </Helmet>
+      <title>{`${CONFIG.site.name}: ${user?.username}`}</title>
 
       <DashboardContent>
         <Breadcrumbs

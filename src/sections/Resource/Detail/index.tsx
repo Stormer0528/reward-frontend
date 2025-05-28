@@ -3,7 +3,6 @@
 import MediaPlayer from 'react-player';
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import BlockContent from '@sanity/block-content-to-react';
 
 import Grid from '@mui/material/Grid';
@@ -93,9 +92,7 @@ export default function Detail() {
 
   return (
     <>
-      <Helmet>
-        <title>{`${CONFIG.site.name} / resources`}</title>
-      </Helmet>
+      <title>{`${CONFIG.site.name} / resources`}</title>
 
       {loading ? renderLoading : renderContent}
     </>

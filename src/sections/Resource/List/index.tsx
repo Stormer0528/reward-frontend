@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -44,9 +43,7 @@ export default function Resource() {
 
   return (
     <>
-      <Helmet>
-        <title>{`${CONFIG.site.name} / resources`}</title>
-      </Helmet>
+      <title>{`${CONFIG.site.name} / resources`}</title>
 
       <DashboardContent>
         <Breadcrumbs

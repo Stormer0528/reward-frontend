@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
 
 import { paths } from 'src/routes/paths';
@@ -26,9 +25,7 @@ export default function Page() {
 
   return (
     <>
-      <Helmet>
-        <title>{`${CONFIG.site.name} / Mail`}</title>
-      </Helmet>
+      <title>{`${CONFIG.site.name} / Mail`}</title>
 
       <Mail />
     </>
