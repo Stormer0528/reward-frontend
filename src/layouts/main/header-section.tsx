@@ -4,14 +4,13 @@ import type { ToolbarProps } from '@mui/material/Toolbar';
 import type { ContainerProps } from '@mui/material/Container';
 
 import { varAlpha } from 'minimal-shared/utils';
+import { useScrollOffsetTop } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { styled, useTheme } from '@mui/material/styles';
-
-import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { layoutClasses } from '../classes';
 
@@ -65,7 +64,7 @@ export function HeaderSection({
 }: HeaderSectionProps) {
   const theme = useTheme();
 
-  const { offsetTop } = useScrollOffSetTop();
+  const { offsetTop } = useScrollOffsetTop();
 
   const toolbarStyles = {
     default: {
