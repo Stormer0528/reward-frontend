@@ -7,31 +7,35 @@ import Typography from '@mui/material/Typography';
 import { RouterLink } from 'src/routes/components';
 
 import { SimpleLayout } from 'src/layouts/simple';
-import { ForbiddenIllustration } from 'src/assets/illustrations';
+import { PageNotFoundIllustration } from 'src/assets/illustrations';
 
 import { varBounce, MotionContainer } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
-export function View403() {
+export function NotFoundView() {
   return (
-    <SimpleLayout content={{ compact: true }}>
+    <SimpleLayout
+      slotProps={{
+        content: { compact: true },
+      }}
+    >
       <Container component={MotionContainer}>
-        <m.div variants={varBounce().in}>
+        <m.div variants={varBounce('in')}>
           <Typography variant="h3" sx={{ mb: 2 }}>
-            No permission
+            Sorry, page not found!
           </Typography>
         </m.div>
 
-        <m.div variants={varBounce().in}>
+        <m.div variants={varBounce('in')}>
           <Typography sx={{ color: 'text.secondary' }}>
-            The page you’re trying to access has restricted access. Please refer to your system
-            administrator.
+            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be
+            sure to check your spelling.
           </Typography>
         </m.div>
 
-        <m.div variants={varBounce().in}>
-          <ForbiddenIllustration sx={{ my: { xs: 5, sm: 10 } }} />
+        <m.div variants={varBounce('in')}>
+          <PageNotFoundIllustration sx={{ my: { xs: 5, sm: 10 } }} />
         </m.div>
 
         <Button component={RouterLink} href="/" size="large" variant="contained">

@@ -7,30 +7,35 @@ import Typography from '@mui/material/Typography';
 import { RouterLink } from 'src/routes/components';
 
 import { SimpleLayout } from 'src/layouts/simple';
-import { ServerErrorIllustration } from 'src/assets/illustrations';
+import { ForbiddenIllustration } from 'src/assets/illustrations';
 
 import { varBounce, MotionContainer } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
-export function View500() {
+export function ForbiddenView() {
   return (
-    <SimpleLayout content={{ compact: true }}>
+    <SimpleLayout
+      slotProps={{
+        content: { compact: true },
+      }}
+    >
       <Container component={MotionContainer}>
-        <m.div variants={varBounce().in}>
+        <m.div variants={varBounce('in')}>
           <Typography variant="h3" sx={{ mb: 2 }}>
-            500 Internal server error
+            No permission
           </Typography>
         </m.div>
 
-        <m.div variants={varBounce().in}>
+        <m.div variants={varBounce('in')}>
           <Typography sx={{ color: 'text.secondary' }}>
-            There was an error, please try again later.
+            The page you’re trying to access has restricted access. Please refer to your system
+            administrator.
           </Typography>
         </m.div>
 
-        <m.div variants={varBounce().in}>
-          <ServerErrorIllustration sx={{ my: { xs: 5, sm: 10 } }} />
+        <m.div variants={varBounce('in')}>
+          <ForbiddenIllustration sx={{ my: { xs: 5, sm: 10 } }} />
         </m.div>
 
         <Button component={RouterLink} href="/" size="large" variant="contained">
