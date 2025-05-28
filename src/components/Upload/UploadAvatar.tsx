@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 
 import Box from '@mui/material/Box';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { Image } from 'src/components/Image';
 import { Iconify } from 'src/components/Iconify';

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 import { fData } from 'src/utils/formatNumber';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { fileData } from '../../FileThumbnail';
 

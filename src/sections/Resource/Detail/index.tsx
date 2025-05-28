@@ -8,12 +8,12 @@ import BlockContent from '@sanity/block-content-to-react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { client } from 'src/utils/sanity/client';
 
 import { CONFIG } from 'src/config';
-import { maxLine } from 'src/theme/styles';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { BackToTop } from 'src/components/animate';
@@ -22,6 +22,8 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 export default function Detail() {
   const { slug } = useParams();
+
+  const theme = useTheme();
 
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any[]>([]);
@@ -69,7 +71,9 @@ export default function Detail() {
             <MediaPlayer url={current.videoUrl} controls />
           </Grid>
           <Grid size={{ xl: 6 }}>
-            <Typography sx={{ ...maxLine({ line: 10 }), mb: 3 }}>{current.quickSummary}</Typography>
+            <Typography sx={{ ...theme.mixins.maxLine({ line: 10 }), mb: 3 }}>
+              {current.quickSummary}
+            </Typography>
           </Grid>
         </Grid>
 

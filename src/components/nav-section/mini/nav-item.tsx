@@ -7,8 +7,6 @@ import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
-import { stylesMode } from 'src/theme/styles';
-
 import { useNavItem } from '../hooks';
 import { Iconify } from '../../Iconify';
 import { navSectionClasses } from '../classes';
@@ -176,9 +174,9 @@ const StyledNavItem = styled(ButtonBase, {
         '&:hover': {
           backgroundColor: 'var(--nav-item-root-active-hover-bg)',
         },
-        [stylesMode.dark]: {
+        ...theme.applyStyles('dark', {
           color: 'var(--nav-item-root-active-color-on-dark)',
-        },
+        }),
       }),
       ...(open && {
         color: 'var(--nav-item-root-open-color)',

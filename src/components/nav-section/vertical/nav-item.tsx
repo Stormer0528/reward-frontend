@@ -7,8 +7,6 @@ import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
-import { stylesMode } from 'src/theme/styles';
-
 import { useNavItem } from '../hooks';
 import { Iconify } from '../../Iconify';
 import { navSectionClasses } from '../classes';
@@ -173,9 +171,9 @@ const StyledNavItem = styled(ButtonBase, {
         '&:hover': {
           backgroundColor: 'var(--nav-item-root-active-hover-bg)',
         },
-        [stylesMode.dark]: {
+        ...theme.applyStyles('dark', {
           color: 'var(--nav-item-root-active-color-on-dark)',
-        },
+        }),
       }),
       ...(open && {
         color: 'var(--nav-item-root-open-color)',
@@ -206,9 +204,9 @@ const StyledNavItem = styled(ButtonBase, {
         backgroundColor: 'var(--nav-bullet-light-color)',
         mask: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' viewBox='0 0 14 14'%3E%3Cpath d='M1 1v4a8 8 0 0 0 8 8h4' stroke='%23efefef' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 50% 50%/100% auto`,
         WebkitMask: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' viewBox='0 0 14 14'%3E%3Cpath d='M1 1v4a8 8 0 0 0 8 8h4' stroke='%23efefef' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 50% 50%/100% auto`,
-        [stylesMode.dark]: {
+        ...theme.applyStyles('dark', {
           backgroundColor: 'var(--nav-bullet-dark-color)',
-        },
+        }),
       },
       // State
       ...(active && {

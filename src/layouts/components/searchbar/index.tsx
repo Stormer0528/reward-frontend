@@ -19,7 +19,7 @@ import { isExternalLink } from 'src/routes/utils';
 import { useBoolean } from 'minimal-shared/hooks';
 import { useEventListener } from 'src/hooks/use-event-listener';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';

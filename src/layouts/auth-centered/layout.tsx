@@ -1,11 +1,11 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import Alert from '@mui/material/Alert';
+import { useTheme } from '@mui/material/styles';
 
 import { useBoolean } from 'minimal-shared/hooks';
 
 import { CONFIG } from 'src/config-global';
-import { stylesMode } from 'src/theme/styles';
 
 import { Main } from './main';
 import { HeaderBase } from '../core/header-base';
@@ -19,6 +19,8 @@ export type AuthCenteredLayoutProps = {
 };
 
 export function AuthCenteredLayout({ sx, children }: AuthCenteredLayoutProps) {
+  const theme = useTheme();
+
   const mobileNavOpen = useBoolean();
 
   const layoutQuery: Breakpoint = 'md';
@@ -72,7 +74,9 @@ export function AuthCenteredLayout({ sx, children }: AuthCenteredLayoutProps) {
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
           backgroundImage: `url(${CONFIG.site.basePath}/assets/background/background-3-blur.webp)`,
-          [stylesMode.dark]: { opacity: 0.08 },
+          ...theme.applyStyles('dark', {
+            opacity: 0.08,
+          }),
         },
         ...sx,
       }}

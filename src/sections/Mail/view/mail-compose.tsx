@@ -15,7 +15,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import { uuidv4 } from 'src/utils/uuidv4';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { Editor } from 'src/components/editor';
 import { toast } from 'src/components/SnackBar';

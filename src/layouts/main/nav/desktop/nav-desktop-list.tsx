@@ -12,8 +12,6 @@ import ListSubheader from '@mui/material/ListSubheader';
 import { usePathname } from 'src/routes/hooks';
 import { isExternalLink, removeLastSlash } from 'src/routes/utils';
 
-import { paper } from 'src/theme/styles';
-
 import { NavLi, NavUl } from 'src/components/nav-section';
 
 import { NavItem, NavItemDashboard } from './nav-desktop-item';
@@ -108,7 +106,7 @@ export function NavList({ data }: NavListProps) {
                 <Box
                   component="nav"
                   sx={{
-                    ...paper({ theme, dropdown: true }),
+                    ...theme.mixins.paperStyles(theme, { dropdown: true }),
                     borderRadius: 2,
                     p: theme.spacing(5, 1, 1, 4),
                   }}

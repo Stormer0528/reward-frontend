@@ -18,7 +18,6 @@ import { fDateTime } from 'src/utils/format-time';
 import { customizeFullName } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config-global';
-import { maxLine, stylesMode } from 'src/theme/styles';
 
 import { Label } from 'src/components/Label';
 // import { Editor } from 'src/components/editor';
@@ -104,7 +103,7 @@ export function InboxDetails({ mail, renderLabel, empty, loading }: Props) {
               sx={{
                 color: darken(label.color, 0.24),
                 bgcolor: hexAlpha(label.color, 0.16),
-                [stylesMode.dark]: { color: lighten(label.color, 0.24) },
+                ...theme.applyStyles('dark', { color: lighten(label.color, 0.24) }),
               }}
             >
               {label.name}
@@ -140,7 +139,10 @@ export function InboxDetails({ mail, renderLabel, empty, loading }: Props) {
 
   const renderSubject = (
     <>
-      <Typography variant="subtitle2" sx={{ ...maxLine({ line: 2 }), flex: '1 1 auto' }}>
+      <Typography
+        variant="subtitle2"
+        sx={{ ...theme.mixins.maxLine({ line: 2 }), flex: '1 1 auto' }}
+      >
         Re: {mail.email?.subject}
       </Typography>
 

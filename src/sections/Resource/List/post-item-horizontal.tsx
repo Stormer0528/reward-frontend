@@ -9,7 +9,6 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config';
-import { maxLine } from 'src/theme/styles';
 
 import { Image } from 'src/components/Image';
 
@@ -29,13 +28,16 @@ export function PostItemHorizontal({ post, urlFor }: Props) {
     <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <Stack spacing={1} sx={{ p: theme.spacing(3, 3, 2, 3) }}>
         <Stack spacing={1} flexGrow={1}>
-          <Typography color="inherit" variant="h5" sx={{ ...maxLine({ line: 2 }) }}>
+          <Typography color="inherit" variant="h5" sx={{ ...theme.mixins.maxLine({ line: 2 }) }}>
             {title}
           </Typography>
 
           <Typography variant="subtitle2">{date}</Typography>
 
-          <Typography variant="body1" sx={{ ...maxLine({ line: 3 }), color: 'text.secondary' }}>
+          <Typography
+            variant="body1"
+            sx={{ ...theme.mixins.maxLine({ line: 3 }), color: 'text.secondary' }}
+          >
             {quickSummary}
           </Typography>
 

@@ -4,9 +4,8 @@ import type { ListSubheaderProps } from '@mui/material/ListSubheader';
 
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
+import { useTheme } from '@mui/material/styles';
 import ListSubheader from '@mui/material/ListSubheader';
-
-import { stylesMode } from 'src/theme/styles';
 
 import { navSectionClasses } from './classes';
 import { svgColorClasses } from '../SvgColor';
@@ -141,6 +140,8 @@ export function NavCollapse({
 }: CollapseProps & {
   depth: number;
 }) {
+  const theme = useTheme();
+
   return (
     <Collapse
       sx={{
@@ -157,9 +158,9 @@ export function NavCollapse({
               position: 'absolute',
               bottom: 'calc(var(--nav-item-sub-height) - 2px - var(--nav-bullet-size) / 2)',
               bgcolor: 'var(--nav-bullet-light-color)',
-              [stylesMode.dark]: {
+              ...theme.applyStyles('dark', {
                 bgcolor: 'var(--nav-bullet-dark-color)',
-              },
+              }),
             },
           },
         }),

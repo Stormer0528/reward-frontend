@@ -11,7 +11,7 @@ import { styled, useTheme } from '@mui/material/styles';
 
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
-import { bgBlur, varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { layoutClasses } from '../classes';
 
@@ -83,7 +83,9 @@ export function HeaderSection({
       },
     },
     offset: {
-      ...bgBlur({ color: varAlpha(theme.vars.palette.background.defaultChannel, 0.8) }),
+      ...theme.mixins.bgBlur({
+        color: varAlpha(theme.vars.palette.background.defaultChannel, 0.8),
+      }),
     },
   };
 

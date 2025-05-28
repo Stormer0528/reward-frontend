@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { CONFIG } from 'src/config-global';
-import { varAlpha, stylesMode } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { MotionContainer } from 'src/components/animate';
 
@@ -118,9 +118,9 @@ export function HeroBackground({ sx }: Props) {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundImage: `linear-gradient(180deg, ${theme.vars.palette.background.default} 12%, ${varAlpha(theme.vars.palette.background.defaultChannel, 0.92)} 50%, ${theme.vars.palette.background.default} 88%), url('${CONFIG.site.basePath}/assets/background/background-3.webp')`,
-          [stylesMode.dark]: {
+          ...theme.applyStyles('dark', {
             backgroundImage: `url('${CONFIG.site.basePath}/assets/images/home/hero-blur.webp'), linear-gradient(180deg, ${theme.vars.palette.background.default} 12%, ${varAlpha(theme.vars.palette.background.defaultChannel, 0.96)} 50%, ${theme.vars.palette.background.default} 88%), url('${CONFIG.site.basePath}/assets/background/background-3.webp')`,
-          },
+          }),
         }}
       />
     </Stack>

@@ -9,8 +9,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
-import { stylesMode } from 'src/theme/styles';
-
 import { varFade } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
@@ -301,9 +299,9 @@ function Dot({ color = 'primary', animate, transition, sx, ...other }: DotProps)
           borderRadius: '50%',
           boxShadow: `0px -2px 4px 0px ${theme.vars.palette[color].main} inset`,
           background: `linear-gradient(135deg, ${theme.vars.palette[color].lighter}, ${theme.vars.palette[color].light})`,
-          [stylesMode.dark]: {
+          ...theme.applyStyles('dark', {
             boxShadow: `0px -2px 4px 0px ${theme.vars.palette[color].dark} inset`,
-          },
+          }),
           ...sx,
         }}
       />

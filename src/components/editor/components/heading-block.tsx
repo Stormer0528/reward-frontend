@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import { listClasses } from '@mui/material/List';
 import ButtonBase, { buttonBaseClasses } from '@mui/material/ButtonBase';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from '../../Iconify';
 import { ToolbarItem } from './toolbar-item';

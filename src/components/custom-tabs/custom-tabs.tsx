@@ -6,8 +6,6 @@ import { tabClasses } from '@mui/material/Tab';
 import { useTheme } from '@mui/material/styles';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 
-import { stylesMode } from 'src/theme/styles';
-
 // ----------------------------------------------------------------------
 
 export type CustomTabsProps = TabsProps & {
@@ -56,7 +54,7 @@ export function CustomTabs({ children, slotProps, sx, ...other }: CustomTabsProp
             display: 'block',
             bgcolor: 'common.white',
             boxShadow: theme.customShadows.z1,
-            [stylesMode.dark]: { bgcolor: 'grey.900' },
+            ...theme.applyStyles('dark', { bgcolor: 'grey.900' }),
             ...slotProps?.indicator,
           },
         },

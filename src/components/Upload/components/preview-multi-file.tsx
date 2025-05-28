@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 
 import { fData } from 'src/utils/formatNumber';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from 'src/components/Iconify';
 

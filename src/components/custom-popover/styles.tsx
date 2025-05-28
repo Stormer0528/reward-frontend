@@ -3,7 +3,7 @@ import type { PopoverArrow } from './types';
 import { styled } from '@mui/material/styles';
 
 import { CONFIG } from 'src/config';
-import { varAlpha, stylesMode } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 
@@ -42,9 +42,9 @@ export const StyledArrow = styled('span', {
     clipPath: 'polygon(0% 0%, 100% 100%, 0% 100%)',
     backgroundColor: theme.vars.palette.background.paper,
     border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
-    [stylesMode.dark]: {
+    ...theme.applyStyles('dark', {
       border: `solid 1px ${varAlpha(theme.vars.palette.common.blackChannel, 0.12)}`,
-    },
+    }),
     /**
      * Top
      */

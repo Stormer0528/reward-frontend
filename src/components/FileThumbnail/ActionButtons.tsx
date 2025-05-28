@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import IconButton from '@mui/material/IconButton';
 
-import { bgBlur, varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { Iconify } from '../Iconify';
 
@@ -29,7 +29,7 @@ export function DownloadButton({ sx, ...other }: ButtonBaseProps) {
         borderRadius: 'inherit',
         transition: theme.transitions.create(['opacity']),
         '&:hover': {
-          ...bgBlur({ color: varAlpha(theme.vars.palette.grey['900Channel'], 0.64) }),
+          ...theme.mixins.bgBlur({ color: varAlpha(theme.vars.palette.grey['900Channel'], 0.64) }),
           opacity: 1,
         },
         ...sx,

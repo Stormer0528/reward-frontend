@@ -2,7 +2,7 @@ import ReactMarkdown from 'react-markdown';
 
 import { styled } from '@mui/material/styles';
 
-import { varAlpha, stylesMode } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { markdownClasses } from './classes';
 
@@ -142,7 +142,9 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
         borderRadius: 3,
         position: 'absolute',
         backgroundColor: theme.vars.palette.grey[300],
-        [stylesMode.dark]: { backgroundColor: theme.vars.palette.grey[700] },
+        ...theme.applyStyles('dark', {
+          backgroundColor: theme.vars.palette.grey[700],
+        }),
       },
       '&:checked': {
         '&:before': { backgroundColor: theme.vars.palette.primary.main },

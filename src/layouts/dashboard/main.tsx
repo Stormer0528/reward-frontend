@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 
 import { layoutClasses } from 'src/layouts/classes';
 
-import { useSettingsContext } from 'src/components/settings';
+import { useSettingsContext } from 'src/components/Settings';
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +59,7 @@ export function DashboardContent({
   return (
     <Container
       className={layoutClasses.content}
-      maxWidth={settings.compactLayout ? maxWidth : false}
+      maxWidth={settings.state.compactLayout ? maxWidth : false}
       sx={{
         display: 'flex',
         flex: '1 1 auto',

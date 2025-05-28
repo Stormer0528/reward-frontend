@@ -10,8 +10,6 @@ import { usePathname } from 'src/routes/hooks';
 import { isExternalLink } from 'src/routes/utils';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
-import { paper } from 'src/theme/styles';
-
 import { NavItem } from './nav-item';
 import { NavLi, NavUl, navSectionClasses } from '../../nav-section';
 
@@ -117,7 +115,11 @@ export function NavList({
         >
           <Paper
             className={navSectionClasses.paper}
-            sx={{ minWidth: 180, ...paper({ theme, dropdown: true }), ...slotProps?.paper }}
+            sx={{
+              minWidth: 180,
+              ...theme.mixins.paperStyles(theme, { dropdown: true }),
+              ...slotProps?.paper,
+            }}
           >
             <NavSubList
               data={data.children}

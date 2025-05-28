@@ -3,7 +3,7 @@ import type { EditorToolbarProps } from './types';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
-import { varAlpha } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { editorClasses } from './classes';
 import { LinkBlock } from './components/link-block';

@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { varAlpha, textGradient } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { varFade } from 'src/components/animate';
 
@@ -65,7 +65,7 @@ export function SectionTitle({
           sx={{
             opacity: 0.4,
             display: 'inline-block',
-            ...textGradient(
+            ...theme.mixins.textGradient(
               `to right, ${theme.vars.palette.text.primary}, ${varAlpha(theme.vars.palette.text.primaryChannel, 0.5)}`
             ),
           }}

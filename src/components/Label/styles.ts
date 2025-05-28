@@ -4,7 +4,7 @@ import type { LabelColor, LabelVariant } from './types';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
-import { varAlpha, stylesMode } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +26,9 @@ export const StyledLabel = styled(Box)(({
       ...(variant === 'filled' && {
         color: theme.vars.palette.common.white,
         backgroundColor: theme.vars.palette.text.primary,
-        [stylesMode.dark]: { color: theme.vars.palette.grey[800] },
+        ...theme.applyStyles('dark', {
+          color: theme.vars.palette.grey[800],
+        }),
       }),
       /**
        * @variant outlined
@@ -76,7 +78,9 @@ export const StyledLabel = styled(Box)(({
       ...(variant === 'soft' && {
         color: theme.vars.palette[color].dark,
         backgroundColor: varAlpha(theme.vars.palette[color].mainChannel, 0.16),
-        [stylesMode.dark]: { color: theme.vars.palette[color].light },
+        ...theme.applyStyles('dark', {
+          color: theme.vars.palette[color].light,
+        }),
       }),
       /**
        * @variant inverted

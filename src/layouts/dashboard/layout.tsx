@@ -1,5 +1,5 @@
 import type { Theme, SxProps, CSSObject, Breakpoint } from '@mui/material/styles';
-import type { SettingsState } from 'src/components/settings';
+import type { SettingsState } from 'src/components/Settings';
 import type { NavSectionProps } from 'src/components/nav-section';
 
 import { useMemo } from 'react';
@@ -9,10 +9,10 @@ import { iconButtonClasses } from '@mui/material/IconButton';
 
 import { useBoolean } from 'minimal-shared/hooks';
 
-import { varAlpha, stylesMode } from 'src/theme/styles';
+import { varAlpha } from 'minimal-shared/utils';
 
 import { bulletColor } from 'src/components/nav-section';
-import { useSettingsContext } from 'src/components/settings';
+import { useSettingsContext } from 'src/components/Settings';
 
 import { Main } from './main';
 import { NavMobile } from './nav-mobile';
@@ -42,17 +42,17 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
 
   const settings = useSettingsContext();
 
-  const navColorVars = useNavColorVars(theme, settings);
+  const navColorVars = useNavColorVars(theme, settings.state);
 
   const layoutQuery: Breakpoint = 'lg';
 
   const navData = data?.nav ?? dashboardNavData;
 
-  const isNavMini = settings.navLayout === 'mini';
+  const isNavMini = settings.state.navLayout === 'mini';
 
-  const isNavHorizontal = settings.navLayout === 'horizontal';
+  const isNavHorizontal = settings.state.navLayout === 'horizontal';
 
-  const isNavVertical = isNavMini || settings.navLayout === 'vertical';
+  const isNavVertical = isNavMini || settings.state.navLayout === 'vertical';
 
   return (
     <>
@@ -138,9 +138,9 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
               layoutQuery={layoutQuery}
               cssVars={navColorVars.section}
               onToggleNav={() =>
-                settings.onUpdateField(
+                settings.setField(
                   'navLayout',
-                  settings.navLayout === 'vertical' ? 'mini' : 'vertical'
+                  settings.state.navLayout === 'vertical' ? 'mini' : 'vertical'
                 )
               }
             />
@@ -204,10 +204,10 @@ function useNavColorVars(
             '--layout-nav-text-primary-color': palette.text.primary,
             '--layout-nav-text-secondary-color': palette.text.secondary,
             '--layout-nav-text-disabled-color': palette.text.disabled,
-            [stylesMode.dark]: {
+            ...theme.applyStyles('dark', {
               '--layout-nav-border-color': varAlpha(palette.grey['500Channel'], 0.08),
               '--layout-nav-horizontal-bg': varAlpha(palette.background.defaultChannel, 0.96),
-            },
+            }),
           },
           section: {},
         };
@@ -220,10 +220,10 @@ function useNavColorVars(
             '--layout-nav-text-primary-color': palette.common.white,
             '--layout-nav-text-secondary-color': palette.grey[500],
             '--layout-nav-text-disabled-color': palette.grey[600],
-            [stylesMode.dark]: {
+            ...theme.applyStyles('dark', {
               '--layout-nav-bg': palette.grey[800],
               '--layout-nav-horizontal-bg': varAlpha(palette.grey['800Channel'], 0.8),
-            },
+            }),
           },
           section: {
             // caption
