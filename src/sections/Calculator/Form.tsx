@@ -50,7 +50,9 @@ export default function EditForm() {
         variables: { data: { init, target: +target, joinDate: customizeDate(joinDate) } },
       });
     } catch (err) {
-      toast.error(err.message);
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
     }
   });
 

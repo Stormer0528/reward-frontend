@@ -148,8 +148,9 @@ export default function MemberGeneral({ me }: Props) {
         if (error.path?.includes('email')) {
           setError('email', { type: 'manual', message: error?.message || '' });
         }
+      } else if (err instanceof Error) {
+        toast.error(err.message);
       }
-      toast.error(err.message);
     }
   });
 
