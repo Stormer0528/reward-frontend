@@ -1,9 +1,9 @@
+import type { PopoverArrow } from './types';
+
 import { styled } from '@mui/material/styles';
 
 import { CONFIG } from 'src/config';
 import { varAlpha, stylesMode } from 'src/theme/styles';
-
-import type { PopoverArrow } from './types';
 
 // ----------------------------------------------------------------------
 

@@ -1,5 +1,6 @@
 import type { ColDef, ISetFilterParams } from '@ag-grid-community/core';
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
+import type { NotificationClient } from './type';
 
 import { useMemo, useEffect } from 'react';
 
@@ -20,8 +21,6 @@ import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import { BooleanFormatter } from 'src/components/AgGrid/Renderers/BooleanFormatter';
 
 import { useFetchNotifications, useReadAllNotifications } from './useApollo';
-
-import type { NotificationClient } from './type';
 
 export default function NotificationTable() {
   const [{ page = '1,25', sort = '-read,createdAt', filter }] = useQueryString();

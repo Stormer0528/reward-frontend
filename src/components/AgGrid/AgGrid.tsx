@@ -11,11 +11,9 @@ import type {
 
 import isEqual from 'lodash/isEqual';
 import { useRef, useMemo, useCallback } from 'react';
-
 import { AgGridReact } from '@ag-grid-community/react';
-import { themeQuartz, iconSetQuartzLight, colorSchemeDarkBlue } from '@ag-grid-community/theming';
-
 import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
+import { themeQuartz, iconSetQuartzLight, colorSchemeDarkBlue } from '@ag-grid-community/theming';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';

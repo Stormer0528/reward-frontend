@@ -1,5 +1,5 @@
-import type { Recipient } from 'src/__generated__/graphql';
 import type { ListItemButtonProps } from '@mui/material/ListItemButton';
+import type { Recipient } from 'src/__generated__/graphql';
 
 import { m } from 'framer-motion';
 

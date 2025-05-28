@@ -1,5 +1,6 @@
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-community/core';
+import type { Introducer } from './type';
 
 import { useMemo, useEffect } from 'react';
 
@@ -14,8 +15,6 @@ import { formatID, customizeFullName } from 'src/utils/helper';
 import { AgGrid } from 'src/components/AgGrid';
 
 import { useFetchSponsors } from 'src/sections/TeamCommission/useApollo';
-
-import type { Introducer } from './type';
 
 interface Props {
   filter: any;
@@ -91,7 +90,7 @@ export default function SPonsorListView({ filter: customFilter }: Props) {
           formatDate(data?.createdAt),
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 

@@ -1,6 +1,5 @@
-import type { NotificationLevel } from 'src/__generated__/graphql';
-
 import type { Member } from '../Profile/type';
+import type { NotificationLevel } from 'src/__generated__/graphql';
 
 export type NotificationClient = {
   __typename?: 'NotificationClient';

@@ -1,4 +1,5 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
+import type { SingleFilePreviewProps } from '../types';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -6,8 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/Iconify';
-
-import type { SingleFilePreviewProps } from '../types';
 
 // ----------------------------------------------------------------------
 

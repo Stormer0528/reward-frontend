@@ -1,3 +1,5 @@
+import type { UploadProps } from './types';
+
 import { useDropzone } from 'react-dropzone';
 
 import Box from '@mui/material/Box';
@@ -13,8 +15,6 @@ import { RejectionFiles } from './components/rejection-files';
 import { MultiFilePreview } from './components/preview-multi-file';
 import { CustomUploadPlaceholder } from './components/customPlaceholder';
 import { DeleteButton, SingleFilePreview } from './components/preview-single-file';
-
-import type { UploadProps } from './types';
 
 // ----------------------------------------------------------------------
 

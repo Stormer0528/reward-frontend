@@ -1,3 +1,5 @@
+import type { EditorToolbarProps } from '../types';
+
 import { useState, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -8,8 +10,6 @@ import Typography from '@mui/material/Typography';
 
 import { editorClasses } from '../classes';
 import { ToolbarItem } from './toolbar-item';
-
-import type { EditorToolbarProps } from '../types';
 
 // ----------------------------------------------------------------------
 

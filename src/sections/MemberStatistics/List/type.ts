@@ -40,7 +40,7 @@ export type MemberStatisticsWallet = {
   memberStatisticId: string;
   memberWallet?: MemberWallet | null;
   memberWalletId: string;
-  txc: BigInt;
+  txc: bigint;
   updatedAt?: any | null;
 };
 
@@ -57,6 +57,6 @@ export type MemberStatistics = {
   percent: number;
   statistics?: Statistics | null;
   statisticsId: string;
-  txcShared: BigInt;
+  txcShared: bigint;
   updatedAt?: any | null;
 };

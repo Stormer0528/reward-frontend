@@ -1,3 +1,5 @@
+import type { ImageProps } from './types';
+
 import { forwardRef } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -7,8 +9,6 @@ import { styled } from '@mui/material/styles';
 import { CONFIG } from 'src/config';
 
 import { imageClasses } from './classes';
-
-import type { ImageProps } from './types';
 
 // ----------------------------------------------------------------------
 

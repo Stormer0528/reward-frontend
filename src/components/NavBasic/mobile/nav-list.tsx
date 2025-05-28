@@ -1,3 +1,5 @@
+import type { NavListProps, NavSubListProps } from '../types';
+
 import { useState, useEffect, useCallback } from 'react';
 
 import Collapse from '@mui/material/Collapse';
@@ -8,8 +10,6 @@ import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { NavItem } from './nav-item';
 import { NavLi, NavUl, navSectionClasses } from '../../nav-section';
-
-import type { NavListProps, NavSubListProps } from '../types';
 
 // ----------------------------------------------------------------------
 

@@ -1,3 +1,5 @@
+import type { EditorToolbarProps } from '../types';
+
 import { useState } from 'react';
 
 import Menu from '@mui/material/Menu';
@@ -8,8 +10,6 @@ import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from '../../Iconify';
 import { ToolbarItem } from './toolbar-item';
-
-import type { EditorToolbarProps } from '../types';
 
 // ----------------------------------------------------------------------
 

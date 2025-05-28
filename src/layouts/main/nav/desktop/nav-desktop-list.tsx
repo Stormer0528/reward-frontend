@@ -1,3 +1,5 @@
+import type { NavListProps, NavSubListProps } from '../types';
+
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -15,8 +17,6 @@ import { paper } from 'src/theme/styles';
 import { NavLi, NavUl } from 'src/components/nav-section';
 
 import { NavItem, NavItemDashboard } from './nav-desktop-item';
-
-import type { NavListProps, NavSubListProps } from '../types';
 
 // ----------------------------------------------------------------------
 

@@ -116,7 +116,6 @@ export const merge = (target: any, ...sources: any[]): any => {
 
   const source = sources.shift();
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const key in source) {
     if (isObject(source[key])) {
       if (!target[key]) Object.assign(target, { [key]: {} });

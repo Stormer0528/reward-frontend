@@ -1,4 +1,5 @@
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
+import type { Invoice } from './type';
 
 import { memo } from 'react';
 
@@ -12,8 +13,6 @@ import { Iconify } from 'src/components/Iconify';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import Detail from './Detail';
-
-import type { Invoice } from './type';
 
 export const ActionRender = memo(
   ({ data }: CustomCellRendererProps<Invoice>) => {

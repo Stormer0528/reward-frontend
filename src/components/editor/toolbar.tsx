@@ -1,3 +1,5 @@
+import type { EditorToolbarProps } from './types';
+
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 
@@ -8,8 +10,6 @@ import { LinkBlock } from './components/link-block';
 import { ImageBlock } from './components/image-block';
 import { ToolbarItem } from './components/toolbar-item';
 import { HeadingBlock } from './components/heading-block';
-
-import type { EditorToolbarProps } from './types';
 
 // ----------------------------------------------------------------------
 

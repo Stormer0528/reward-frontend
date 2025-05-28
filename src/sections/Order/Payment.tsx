@@ -1,3 +1,5 @@
+import type { PAYMENT_TYPE, PAYMENT_METHOD_TYPE } from './type';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -9,8 +11,6 @@ import { PaymentChain, PaymentToken } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
-
-import type { PAYMENT_TYPE, PAYMENT_METHOD_TYPE } from './type';
 
 const payments: PAYMENT_METHOD_TYPE[] = [
   // {

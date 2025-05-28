@@ -1,3 +1,5 @@
+import type { AuthContextValue } from '../types';
+
 import { useLocation } from 'react-router';
 import { useLazyQuery } from '@apollo/client';
 import { useMemo, useState, useEffect, useCallback } from 'react';
@@ -14,8 +16,6 @@ import { FETCH_ME_QUERY } from 'src/sections/Profile/query';
 import { setSession } from '../utils';
 import { AuthContext } from './AuthContext';
 import { setToken, isValidToken, setTokenTimer } from './utils';
-
-import type { AuthContextValue } from '../types';
 // ----------------------------------------------------------------------
 
 type Props = {

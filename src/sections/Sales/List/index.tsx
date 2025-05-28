@@ -1,6 +1,6 @@
-import type { BasicSale } from 'src/sections/Sales/List/type';
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-community/core';
+import type { BasicSale } from 'src/sections/Sales/List/type';
 
 import { useMemo } from 'react';
 
@@ -112,7 +112,7 @@ export default function SaleListView() {
         cellRenderer: ({ data }: CustomCellRendererProps<BasicSale>) => formatDate(data?.createdAt),
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 

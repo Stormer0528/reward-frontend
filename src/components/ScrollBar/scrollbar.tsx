@@ -1,11 +1,11 @@
+import type { ScrollBarProps } from './types';
+
 import { forwardRef } from 'react';
 import SimpleBar from 'simplebar-react';
 
 import Box from '@mui/material/Box';
 
 import { scrollbarClasses } from './classes';
-
-import type { ScrollBarProps } from './types';
 
 // ----------------------------------------------------------------------
 

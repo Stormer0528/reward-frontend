@@ -867,7 +867,6 @@ export class ClientSideRowModel extends BeanStub implements IClientSideRowModel,
     return result;
   }
 
-  // eslint-disable-next-line
   public setDatasource(datasource: any): void {
     _errorOnce('should never call setDatasource on clientSideRowController');
   }

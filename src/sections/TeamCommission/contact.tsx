@@ -84,7 +84,7 @@ export default function Contact() {
         cellRenderer: ActionRender,
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 

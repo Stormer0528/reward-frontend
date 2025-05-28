@@ -1,3 +1,5 @@
+import type { PAYMENT_TYPE } from './type';
+
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 
@@ -20,8 +22,6 @@ import Detail from './Detail';
 import Payment from './Payment';
 import PaymentStatus from './PaymentStatus';
 import { useCancelOrder, useFetchOrderById, useSetOrderPayment } from './useApollo';
-
-import type { PAYMENT_TYPE } from './type';
 
 export default function Order() {
   const theme = useTheme();

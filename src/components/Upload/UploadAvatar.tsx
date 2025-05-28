@@ -1,3 +1,5 @@
+import type { UploadProps } from './types';
+
 import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 
@@ -9,8 +11,6 @@ import { Image } from 'src/components/Image';
 import { Iconify } from 'src/components/Iconify';
 
 import { RejectionFiles } from './components/rejection-files';
-
-import type { UploadProps } from './types';
 
 // ----------------------------------------------------------------------
 

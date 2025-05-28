@@ -6,10 +6,9 @@ import type {
   SortController,
   StageExecuteParams,
 } from '@ag-grid-community/core';
+import type { SortService } from './sortService';
 
 import { _exists, BeanStub } from '@ag-grid-community/core';
-
-import type { SortService } from './sortService';
 
 export class SortStage extends BeanStub implements NamedBean, IRowNodeStage {
   beanName = 'sortStage' as const;

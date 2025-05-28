@@ -1,3 +1,5 @@
+import type { EditorProps } from './types';
+
 import { common, createLowlight } from 'lowlight';
 import LinkExtension from '@tiptap/extension-link';
 import ImageExtension from '@tiptap/extension-image';
@@ -17,8 +19,6 @@ import { Toolbar } from './toolbar';
 import { StyledRoot } from './styles';
 import { editorClasses } from './classes';
 import { CodeHighlightBlock } from './components/code-highlight-block';
-
-import type { EditorProps } from './types';
 
 // ----------------------------------------------------------------------
 

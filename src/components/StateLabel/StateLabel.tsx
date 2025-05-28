@@ -1,7 +1,6 @@
 import type { LabelColor, LabelProps } from 'src/components/Label';
 
 // import { State } from 'src/__generated__/graphql';
-
 import { State } from 'src/consts';
 
 import { Label } from 'src/components/Label';

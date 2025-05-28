@@ -1,10 +1,10 @@
+import type { NavMainProps } from '../types';
+
 import Stack from '@mui/material/Stack';
 
 import { NavUl } from 'src/components/nav-section';
 
 import { NavList } from './nav-desktop-list';
-
-import type { NavMainProps } from '../types';
 
 // ----------------------------------------------------------------------
 

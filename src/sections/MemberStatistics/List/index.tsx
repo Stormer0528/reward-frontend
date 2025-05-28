@@ -1,4 +1,5 @@
 import type { SortOrder } from 'src/routes/hooks/useQuery';
+import type { IMemberStatisticsPrismaFilter, IMemberStatisticsTableFilters } from './types';
 
 import { useMemo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
@@ -27,8 +28,6 @@ import { FETCH_MEMBERSTATISTICS_QUERY } from 'src/sections/Reward/query';
 
 import MemberStatisticsTableRow from './MemberStatisticsTableRow';
 import MemberStatisticsTableFiltersResult from './MemberStatisticsTableFiltersResult';
-
-import type { IMemberStatisticsPrismaFilter, IMemberStatisticsTableFilters } from './types';
 
 const TABLE_HEAD = [
   { id: 'issuedAt', label: 'Date', width: 250, sortable: true },

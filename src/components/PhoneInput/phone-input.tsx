@@ -1,5 +1,6 @@
 import type { TextFieldProps } from '@mui/material/TextField';
 import type { Country } from 'react-phone-number-input/input';
+import type { PhoneInputProps } from './types';
 
 import { useState, forwardRef } from 'react';
 import PhoneNumberInput from 'react-phone-number-input/input';
@@ -9,8 +10,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { getCountryCode } from './utils';
 import { CountryListPopover } from './list';
-
-import type { PhoneInputProps } from './types';
 
 // ----------------------------------------------------------------------
 

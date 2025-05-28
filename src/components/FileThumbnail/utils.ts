@@ -1,6 +1,6 @@
-import { CONFIG } from 'src/config';
-
 import type { ExtendFile } from './types';
+
+import { CONFIG } from 'src/config';
 
 // ----------------------------------------------------------------------
 

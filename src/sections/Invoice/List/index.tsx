@@ -5,6 +5,7 @@ import type {
   IDateFilterParams,
   ITextFilterParams,
 } from '@ag-grid-community/core';
+import type { Invoice } from './type';
 
 import { useMemo, useEffect } from 'react';
 
@@ -27,8 +28,6 @@ import { parseType } from '../parseType';
 import { FileRenderer } from './FileRenderer';
 import { ActionRender } from './ActoinRenderer';
 import { useFetchInvoices } from '../useApollo';
-
-import type { Invoice } from './type';
 
 export default function InvoiceListView() {
   const [{ page = '1,50', sort = 'createdAt', filter }] = useQueryString();
@@ -156,7 +155,7 @@ export default function InvoiceListView() {
         cellRenderer: ActionRender,
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 

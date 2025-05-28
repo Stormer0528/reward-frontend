@@ -1,3 +1,5 @@
+import type { NavListProps } from '../types';
+
 import { useState, useCallback } from 'react';
 
 import Collapse from '@mui/material/Collapse';
@@ -10,8 +12,6 @@ import { varAlpha } from 'src/theme/styles';
 import { NavLi, navSectionClasses, NavSectionVertical } from 'src/components/nav-section';
 
 import { NavItem } from './nav-mobile-item';
-
-import type { NavListProps } from '../types';
 
 // ----------------------------------------------------------------------
 

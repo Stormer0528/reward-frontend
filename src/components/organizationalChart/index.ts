@@ -1,3 +1,3 @@
-export type * from './types';
-
 export * from './organizational-chart';
+
+export type * from './types';

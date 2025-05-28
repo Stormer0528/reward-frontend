@@ -1,6 +1,6 @@
+import type { Theme, SxProps, CSSObject, Breakpoint } from '@mui/material/styles';
 import type { SettingsState } from 'src/components/settings';
 import type { NavSectionProps } from 'src/components/nav-section';
-import type { Theme, SxProps, CSSObject, Breakpoint } from '@mui/material/styles';
 
 import { useMemo } from 'react';
 

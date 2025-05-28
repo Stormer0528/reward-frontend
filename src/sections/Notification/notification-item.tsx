@@ -1,3 +1,5 @@
+import type { NotificationClient } from './type';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
@@ -12,8 +14,6 @@ import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
 
 import { useReadNotifications } from './useApollo';
-
-import type { NotificationClient } from './type';
 
 interface Props {
   notification: Omit<NotificationClient, 'members'>;

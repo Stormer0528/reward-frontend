@@ -1,10 +1,10 @@
+import type { ProfitabilityCalculationResponse } from './type';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
 
 import { formatDate } from 'src/utils/format-time';
-
-import type { ProfitabilityCalculationResponse } from './type';
 
 interface Props {
   loading: boolean;

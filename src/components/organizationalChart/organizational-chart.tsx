@@ -1,11 +1,11 @@
+import type { OrgChartProps, OrgChartListProps, OrgChartSubListProps } from './types';
+
 import { cloneElement } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 
 import { useTheme } from '@mui/material/styles';
 
 import { flattenArray } from 'src/utils/helper';
-
-import type { OrgChartProps, OrgChartListProps, OrgChartSubListProps } from './types';
 
 // ----------------------------------------------------------------------
 

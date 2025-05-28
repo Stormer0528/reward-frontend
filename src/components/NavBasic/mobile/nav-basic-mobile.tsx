@@ -1,3 +1,5 @@
+import type { NavBasicProps } from '../types';
+
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
@@ -5,8 +7,6 @@ import { NavList } from './nav-list';
 import { NavUl } from '../../nav-section';
 import { navBasicClasses } from '../classes';
 import { navBasicCssVars } from '../css-vars';
-
-import type { NavBasicProps } from '../types';
 
 // ----------------------------------------------------------------------
 

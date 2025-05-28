@@ -1,3 +1,5 @@
+import type { PAYMENT_TYPE } from './type';
+
 import QRCode from 'react-qr-code';
 import { useMemo, useState, useEffect } from 'react';
 
@@ -15,8 +17,6 @@ import { type Order, OrderStatus } from 'src/__generated__/graphql';
 import { Iconify } from 'src/components/Iconify';
 
 import { useCheckOrder } from './useApollo';
-
-import type { PAYMENT_TYPE } from './type';
 
 interface Props {
   order: Order;

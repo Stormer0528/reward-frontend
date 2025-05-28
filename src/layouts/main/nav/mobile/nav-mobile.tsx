@@ -1,3 +1,5 @@
+import type { NavMainProps } from '../types';
+
 import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
@@ -12,8 +14,6 @@ import { ScrollBar } from 'src/components/ScrollBar';
 import DarkLogo from 'src/components/logo/dark-logo';
 
 import { NavList } from './nav-mobile-list';
-
-import type { NavMainProps } from '../types';
 
 // ----------------------------------------------------------------------
 

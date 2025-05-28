@@ -1,4 +1,7 @@
+import type { HeaderSectionProps } from './header-section';
 import type { NavSectionProps } from 'src/components/nav-section';
+import type { AccountDrawerProps } from '../components/account-drawer';
+import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
 
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -12,10 +15,6 @@ import { HeaderSection } from './header-section';
 import { MenuButton } from '../components/menu-button';
 import { AccountDrawer } from '../components/account-drawer';
 import { SettingsButton } from '../components/settings-button';
-
-import type { HeaderSectionProps } from './header-section';
-import type { AccountDrawerProps } from '../components/account-drawer';
-import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
 
 // ----------------------------------------------------------------------
 

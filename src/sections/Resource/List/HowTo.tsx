@@ -12,6 +12,5 @@ export default function HowTo() {
       .catch((error) => console.error('Error loading HTML file:', error));
   }, []);
 
-  /* eslint-disable-next-line react/no-danger */
   return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
 }

@@ -25,7 +25,10 @@ interface Props<TData = any> extends CustomCellRendererProps<TData> {
 
 export const LinkRenderer = memo(
   <TData,>({ value, data, basePath, hrefPath, linkTextPath, href, linkText }: Props<TData>) => (
-    <Link component={RouterLink} href={`${basePath || ''}${hrefPath ? get(data, hrefPath) : href || value}`}>
+    <Link
+      component={RouterLink}
+      href={`${basePath || ''}${hrefPath ? get(data, hrefPath) : href || value}`}
+    >
       {linkTextPath ? get(data, linkTextPath) : linkText || value}
     </Link>
   ),

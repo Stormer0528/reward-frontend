@@ -27,7 +27,7 @@ export default function Setting({ open, setting }: Props) {
   const defaultValues: SchemaType = useMemo(
     () =>
       setting
-        ? Schema.safeParse({ communication: setting.communication })?.data ?? ({} as SchemaType)
+        ? (Schema.safeParse({ communication: setting.communication })?.data ?? ({} as SchemaType))
         : {
             communication: true,
           },

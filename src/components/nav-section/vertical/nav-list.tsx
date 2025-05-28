@@ -1,3 +1,5 @@
+import type { NavListProps, NavSubListProps } from '../types';
+
 import { useState, useEffect, useCallback } from 'react';
 
 import { usePathname } from 'src/routes/hooks';
@@ -7,8 +9,6 @@ import { useActiveLink } from 'src/routes/hooks/useActiveLink';
 import { NavItem } from './nav-item';
 import { navSectionClasses } from '../classes';
 import { NavUl, NavLi, NavCollapse } from '../styles';
-
-import type { NavListProps, NavSubListProps } from '../types';
 
 // ----------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
-import type { Introducer } from 'src/__generated__/graphql';
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
+import type { Introducer } from 'src/__generated__/graphql';
 
 import { memo, useEffect } from 'react';
 

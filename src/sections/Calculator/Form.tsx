@@ -30,7 +30,7 @@ export default function EditForm() {
       init: 0,
       joinDate: `${today('YYYY-MM-DD')}`,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 

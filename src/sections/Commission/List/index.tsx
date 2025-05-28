@@ -1,5 +1,6 @@
 import type { Member } from 'src/__generated__/graphql';
 import type { SortOrder } from 'src/routes/hooks/useQuery';
+import type { ICommissionPrismaFilter, ICommissionTableFilters } from './types';
 
 import { useMemo, useEffect } from 'react';
 
@@ -26,8 +27,6 @@ import {
 import { useFetchCommissions } from 'src/sections/Commission/useApollo';
 
 import ProductTableRow from './CommissionTableRow';
-
-import type { ICommissionPrismaFilter, ICommissionTableFilters } from './types';
 
 // ----------------------------------------------------------------------
 

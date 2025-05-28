@@ -1,5 +1,6 @@
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-community/core';
+import type { CampaignMember } from './type';
 
 import { useMemo } from 'react';
 
@@ -13,8 +14,6 @@ import { Iconify } from 'src/components/Iconify';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { ActionRender } from './ActionRenderer';
-
-import type { CampaignMember } from './type';
 
 export default function CommunicationTable() {
   const { loading, user } = useAuthContext();

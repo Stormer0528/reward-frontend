@@ -1,6 +1,7 @@
 import './code-highlight-block.css';
 
 import type { Options } from 'react-markdown';
+import type { MarkdownProps } from './types';
 
 import { useMemo } from 'react';
 import remarkGfm from 'remark-gfm';
@@ -16,8 +17,6 @@ import { Image } from '../Image';
 import { StyledRoot } from './styles';
 import { markdownClasses } from './classes';
 import { htmlToMarkdown, isMarkdownContent } from './html-to-markdown';
-
-import type { MarkdownProps } from './types';
 
 // ----------------------------------------------------------------------
 

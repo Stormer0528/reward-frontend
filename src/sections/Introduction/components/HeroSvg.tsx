@@ -1,7 +1,7 @@
 import type { MotionProps } from 'framer-motion';
 import type { StackProps } from '@mui/material/Stack';
-import type { ColorType } from 'src/theme/core/palette';
 import type { Theme, SxProps } from '@mui/material/styles';
+import type { ColorType } from 'src/theme/core/palette';
 
 import { m } from 'framer-motion';
 

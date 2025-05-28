@@ -1,4 +1,5 @@
 import type { Country } from 'react-phone-number-input/input';
+import type { CountryListProps } from './types';
 
 import { useState, useCallback } from 'react';
 
@@ -19,8 +20,6 @@ import { SearchNotFound } from 'src/components/search-not-found';
 
 import { usePopover } from '../custom-popover';
 import { getCountry, applyFilter } from './utils';
-
-import type { CountryListProps } from './types';
 
 // ----------------------------------------------------------------------
 

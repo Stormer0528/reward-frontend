@@ -1,5 +1,5 @@
-import type { IFileManager } from 'src/types/file';
 import type { PaperProps } from '@mui/material/Paper';
+import type { IFileManager } from 'src/types/file';
 
 import axios from 'axios';
 import { useState } from 'react';

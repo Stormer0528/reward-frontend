@@ -1,10 +1,9 @@
 import type { BoxProps } from '@mui/material/Box';
+import type { ChartProps } from './types';
 
 import ApexChart from 'react-apexcharts';
 
 import Box from '@mui/material/Box';
-
-import type { ChartProps } from './types';
 
 // ----------------------------------------------------------------------
 

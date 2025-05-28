@@ -1,3 +1,5 @@
+import type { IMemberStatisticsTableFilters } from '../types';
+
 import { useParams } from 'react-router-dom';
 import { useQuery as useGraphQuery } from '@apollo/client';
 
@@ -22,8 +24,6 @@ import {
 import { FETCH_MEMBERSTATISTICS_QUERY } from 'src/sections/Reward/query';
 
 import MemberStatisticsTableRow from './MemberStatisticsTableRow';
-
-import type { IMemberStatisticsTableFilters } from '../types';
 
 const TABLE_HEAD = [
   { id: 'issuedAt', label: 'Date', width: 200, sortable: true },

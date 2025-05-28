@@ -1,3 +1,5 @@
+import type { NavItemProps, NavItemStateProps } from '../types';
+
 import { forwardRef } from 'react';
 
 import Box from '@mui/material/Box';
@@ -11,8 +13,6 @@ import { useNavItem } from '../hooks';
 import { Iconify } from '../../Iconify';
 import { navSectionClasses } from '../classes';
 import { stateClasses, sharedStyles } from '../styles';
-
-import type { NavItemProps, NavItemStateProps } from '../types';
 
 // ----------------------------------------------------------------------
 

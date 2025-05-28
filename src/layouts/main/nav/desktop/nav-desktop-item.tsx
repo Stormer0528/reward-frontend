@@ -1,4 +1,5 @@
 import type { LinkProps } from '@mui/material/Link';
+import type { NavItemProps, NavItemStateProps } from '../types';
 
 import { m } from 'framer-motion';
 import { forwardRef } from 'react';
@@ -15,8 +16,6 @@ import { CONFIG } from 'src/config-global';
 
 import { Iconify } from 'src/components/Iconify';
 import { useNavItem } from 'src/components/nav-section/hooks';
-
-import type { NavItemProps, NavItemStateProps } from '../types';
 
 // ----------------------------------------------------------------------
 

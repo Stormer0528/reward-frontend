@@ -1,3 +1,4 @@
+import type { NotificationClient } from './type';
 import type { UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import Box from '@mui/material/Box';
@@ -14,8 +15,6 @@ import { ScrollBar } from 'src/components/ScrollBar';
 
 import { useReadAllNotifications } from './useApollo';
 import { NotificationItem } from './notification-item';
-
-import type { NotificationClient } from './type';
 
 interface Props {
   drawer: UseBooleanReturn;

@@ -30,6 +30,6 @@ export type Statistics = {
   totalHashPower: number;
   totalMembers: number;
   transactionId?: string | null;
-  txcShared: BigInt;
+  txcShared: bigint;
   updatedAt?: any | null;
 };

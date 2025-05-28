@@ -7,6 +7,7 @@ import type {
   ISelectionService,
   RowDataTransaction,
 } from '@ag-grid-community/core';
+import type { ClientSideRowModel } from './clientSideRowModel';
 
 import {
   _exists,
@@ -16,8 +17,6 @@ import {
   _getRowIdCallback,
   _isClientSideRowModel,
 } from '@ag-grid-community/core';
-
-import type { ClientSideRowModel } from './clientSideRowModel';
 
 export class ImmutableService extends BeanStub implements NamedBean, IImmutableService {
   beanName = 'immutableService' as const;

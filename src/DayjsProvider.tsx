@@ -1,5 +1,3 @@
-/* eslint-disable perfectionist/sort-imports */
-
 import 'dayjs/locale/en';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';

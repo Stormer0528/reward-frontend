@@ -13,8 +13,6 @@ interface Props {
 }
 
 export default function Detail({ open, subject, body }: Props) {
-  /* eslint-disable react/no-danger */
-
   return (
     <Drawer
       open={open.value}

@@ -1,4 +1,5 @@
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
+import type { CampaignMember } from './type';
 
 import { memo } from 'react';
 
@@ -10,8 +11,6 @@ import { useBoolean } from 'src/hooks/useBoolean';
 import { Iconify } from 'src/components/Iconify';
 
 import Detail from './Detail';
-
-import type { CampaignMember } from './type';
 
 export const ActionRender = memo(
   ({ data }: CustomCellRendererProps<CampaignMember>) => {

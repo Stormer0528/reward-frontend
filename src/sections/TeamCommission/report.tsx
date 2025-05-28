@@ -1,5 +1,6 @@
 import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { ColDef, ITextFilterParams } from '@ag-grid-community/core';
+import type { WeeklyCommission } from '../Commission/type';
 import type { WeeklyReport, TeamReportSection } from 'src/__generated__/graphql';
 
 import dayjs from 'dayjs';
@@ -13,8 +14,6 @@ import { formatWeekNumber } from 'src/utils/format-time';
 import { AgGrid } from 'src/components/AgGrid';
 
 import { useFetchTeamCommission } from './useApollo';
-
-import type { WeeklyCommission } from '../Commission/type';
 
 interface Props {
   teamReport: TeamReportSection;
@@ -131,7 +130,7 @@ export default function Report({ teamReport }: Props) {
         cellClass: 'ag-number-cell',
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     []
   );
 

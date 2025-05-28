@@ -1,3 +1,4 @@
+import type { Invoice } from './type';
 import type { UseBooleanReturn } from 'src/hooks/useBoolean';
 
 import Stack from '@mui/material/Stack';
@@ -13,8 +14,6 @@ import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
 
 import { FileRecentItem } from './FileRecentItem';
-
-import type { Invoice } from './type';
 
 interface Props {
   open: UseBooleanReturn;
