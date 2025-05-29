@@ -1,6 +1,6 @@
 import type { NodeProps } from './type';
 
-import { useContext } from 'react';
+import { use } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -14,7 +14,7 @@ import { Iconify } from 'src/components/Iconify';
 import NodeContext from './nodeContext';
 
 export function StandardNode({ id, username, fullName, createdAt }: NodeProps) {
-  const { visibleMap, expandTree, collapseTree } = useContext(NodeContext);
+  const { visibleMap, expandTree, collapseTree } = use(NodeContext);
 
   return (
     <Card

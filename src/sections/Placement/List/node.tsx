@@ -1,6 +1,6 @@
 import type { PlacementMember } from 'src/__generated__/graphql';
 
-import { useContext } from 'react';
+import { use } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 
 import Card from '@mui/material/Card';
@@ -23,7 +23,7 @@ export function StandardNode({
 }: NodeProps & { data: PlacementMember }) {
   const popover = usePopover();
 
-  const { visibleMap, expandTree, collapseTree, expandAll, collapseAll } = useContext(NodeContext);
+  const { visibleMap, expandTree, collapseTree, expandAll, collapseAll } = use(NodeContext);
 
   return (
     <>
