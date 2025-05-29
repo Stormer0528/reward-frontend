@@ -1,7 +1,6 @@
 import type { MotionProps } from 'framer-motion';
 import type { StackProps } from '@mui/material/Stack';
 import type { Theme, SxProps } from '@mui/material/styles';
-import type { ColorType } from 'src/theme/core/palette';
 
 import { m } from 'framer-motion';
 
@@ -256,7 +255,7 @@ export function Texts({ sx, ...other }: StackProps) {
 // ----------------------------------------------------------------------
 
 type DotProps = {
-  color?: ColorType;
+  color?: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
   sx?: SxProps<Theme>;
   animate: MotionProps['animate'];
   transition?: MotionProps['transition'];
