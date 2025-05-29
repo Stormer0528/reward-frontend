@@ -1,9 +1,5 @@
 export * from './classes';
 
-export * from './iconify';
+export * from './Iconify';
 
-export * from './flag-icon';
-
-export * from './social-icon';
-
-export type * from './types';
+export * from './register-icons';
