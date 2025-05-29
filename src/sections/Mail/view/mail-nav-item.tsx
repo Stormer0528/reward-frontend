@@ -1,5 +1,6 @@
 import type { ListItemButtonProps } from '@mui/material/ListItemButton';
 import type { IMailLabel } from 'src/types/mail';
+import type { IconifyName } from 'src/components/Iconify';
 
 import Box from '@mui/material/Box';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -48,7 +49,7 @@ export function MailNavItem({ selected, label, onClickNavItem, ...other }: Props
         }}
         {...other}
       >
-        <Iconify icon={labelIcon} width={22} sx={{ color: label.color }} />
+        <Iconify icon={labelIcon as IconifyName} width={22} sx={{ color: label.color }} />
 
         <Box
           component="span"

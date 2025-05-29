@@ -39,7 +39,7 @@ export default function OverView({ me }: Props) {
             <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
               Cash Potential
             </Box>
-            {overview?.isTexitRanger && (
+            {me?.isTexitRanger && (
               <Iconify
                 icon="emojione:star"
                 cursor="pointer"

@@ -24,7 +24,7 @@ export const COMMISSION_TYPE = {
 export const PAYMENT_TYPE = [
   // { label: 'CREDIT_CARD', value: 'Credit Card' },
   { label: 'ZELLE', value: 'Zelle' },
-  { label: 'CASH_APP', value: 'CsahApp' },
+  { label: 'CASH_APP', value: 'CashApp' },
   { label: 'VENMO', value: 'Venmo' },
   { label: 'PAPER_CHECK', value: 'Paper Check' },
   { label: 'CASH', value: 'Cash' },

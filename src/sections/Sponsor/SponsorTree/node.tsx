@@ -57,7 +57,7 @@ export function StandardNode({ id, username, fullName, createdAt }: NodeProps) {
           <Stack>
             {visibleMap[id] !== 3 && (
               <Iconify
-                icon={`mdi:${visibleMap[id] === 1 ? 'plus' : 'minus'}-circle-outline`}
+                icon={visibleMap[id] === 1 ? 'mdi:plus-circle-outline' : 'mdi:minus-circle-outline'}
                 sx={{ mt: 0.15, cursor: 'pointer' }}
                 onClick={() => {
                   if (visibleMap[id] === 1) expandTree(id);

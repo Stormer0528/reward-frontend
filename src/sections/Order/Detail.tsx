@@ -1,4 +1,5 @@
 import type { PAYMENT_TYPE } from './type';
+import type { IconifyName } from 'src/components/Iconify';
 
 import QRCode from 'react-qr-code';
 import { useMemo, useState, useEffect } from 'react';
@@ -138,7 +139,11 @@ export default function Detail({
               background: theme.palette.primary.main,
             }}
           >
-            <Iconify icon={item.icon} color="#ffffff" sx={{ display: 'block', margin: 'auto' }} />
+            <Iconify
+              icon={item.icon as IconifyName}
+              color="#ffffff"
+              sx={{ display: 'block', margin: 'auto' }}
+            />
           </Box>
 
           <Box sx={{ width: '100%' }}>
