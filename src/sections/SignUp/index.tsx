@@ -246,7 +246,7 @@ export function SignUpView() {
               name="packageId"
               label="Package"
               fullWidth
-              slotProps={{input:{ sx: { width: 'auto', minWidth: '100%' } }}
+              slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
               value={location.state?.packageId ?? packageId}
               onChange={(event) => handlePackageChange(event.target.value)}
               required
@@ -254,7 +254,7 @@ export function SignUpView() {
               {packages.map((option) => (
                 <MenuItem key={option?.id} value={option?.id}>
                   {`$${option?.amount} @ ${option?.productName}`}
-                </MenuItem>}
+                </MenuItem>
               ))}
             </Field.Select>
           </Grid>
@@ -273,7 +273,7 @@ export function SignUpView() {
         multiline
         rows={3}
         placeholder="Write a comment here (optional)"
-        slotProps={{inputLabel: {shrink: true}}}
+        slotProps={{ inputLabel: { shrink: true } }}
       />
 
       <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
@@ -285,7 +285,7 @@ export function SignUpView() {
             name="uname"
             label="Affiliate ID"
             placeholder="5 characters or more"
-            slotProps={{inputLabel: {shrink: true}}}
+            slotProps={{ inputLabel: { shrink: true } }}
             required
           />
         </Stack>
@@ -314,7 +314,7 @@ export function SignUpView() {
           <Field.Text
             name="sponsorUserId"
             label="Sponsor ID"
-            slotProps={{inputLabel: {shrink: true}}}
+            slotProps={{ inputLabel: { shrink: true } }}
             placeholder="name or ID of the person"
           />
         </Stack>
@@ -328,7 +328,7 @@ export function SignUpView() {
           <Field.Text
             name="assetId"
             label="Coin ID"
-            slotProps={{inputLabel: {shrink: true}}}
+            slotProps={{ inputLabel: { shrink: true } }}
             placeholder="Do you have a coin? Enter the ID here"
           />
         </Stack>
@@ -342,15 +342,17 @@ export function SignUpView() {
           placeholder="8+ characters"
           type={password.value ? 'text' : 'password'}
           required
-          slotProps={{input:{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={password.onToggle} edge="end">
-                  <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={password.onToggle} edge="end">
+                    <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
 
         <Field.Text
@@ -358,15 +360,17 @@ export function SignUpView() {
           label="Confirm New Password"
           type={password.value ? 'text' : 'password'}
           required
-          slotProps={{input:{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={password.onToggle} edge="end">
-                  <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={password.onToggle} edge="end">
+                    <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
       </Stack>
 
