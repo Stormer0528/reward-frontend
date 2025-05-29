@@ -1,8 +1,9 @@
 import type { FileThumbnailProps } from './types';
 
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import { mergeClasses } from 'minimal-shared/utils';
+
 import Tooltip from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 
 import { fileThumbnailClasses } from './classes';
 import { fileData, fileThumb, fileFormat } from './utils';
@@ -18,62 +19,30 @@ export function FileThumbnail({
   imageView,
   slotProps,
   onDownload,
+  className,
   ...other
 }: FileThumbnailProps) {
-  const previewUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
+  const { icon, removeBtn, downloadBtn, tooltip: tooltipProps } = slotProps ?? {};
 
   const { name, path } = fileData(file);
 
-  const format = fileFormat(path || previewUrl);
+  const previewUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
 
-  const renderImg = (
-    <Box
-      component="img"
-      src={previewUrl}
-      className={fileThumbnailClasses.img}
-      sx={{
-        width: 1,
-        height: 1,
-        objectFit: 'cover',
-        borderRadius: 'inherit',
-        ...slotProps?.img,
-      }}
-    />
-  );
+  const format = fileFormat(path ?? previewUrl);
 
-  const renderIcon = (
-    <Box
-      component="img"
-      src={fileThumb(format)}
-      className={fileThumbnailClasses.icon}
-      sx={{ width: 1, height: 1, ...slotProps?.icon }}
-    />
-  );
-
-  const renderContent = (
-    <Stack
-      component="span"
-      className={fileThumbnailClasses.root}
-      sx={{
-        width: 36,
-        height: 36,
-        flexShrink: 0,
-        borderRadius: 1.25,
-        alignItems: 'center',
-        position: 'relative',
-        display: 'inline-flex',
-        justifyContent: 'center',
-        ...sx,
-      }}
-      {...other}
-    >
-      {format === 'image' && imageView ? renderImg : renderIcon}
+  const renderItem = () => (
+    <ItemRoot className={mergeClasses([fileThumbnailClasses.root, className])} sx={sx} {...other}>
+      {format === 'image' && imageView ? (
+        <ItemImg src={previewUrl} className={fileThumbnailClasses.img} {...slotProps?.img} />
+      ) : (
+        <ItemIcon src={fileThumb(format)} className={fileThumbnailClasses.icon} {...icon} />
+      )}
 
       {onRemove && (
         <RemoveButton
           onClick={onRemove}
           className={fileThumbnailClasses.removeBtn}
-          sx={slotProps?.removeBtn}
+          {...removeBtn}
         />
       )}
 
@@ -81,10 +50,10 @@ export function FileThumbnail({
         <DownloadButton
           onClick={onDownload}
           className={fileThumbnailClasses.downloadBtn}
-          sx={slotProps?.downloadBtn}
+          {...downloadBtn}
         />
       )}
-    </Stack>
+    </ItemRoot>
   );
 
   if (tooltip) {
@@ -92,12 +61,49 @@ export function FileThumbnail({
       <Tooltip
         arrow
         title={name}
-        slotProps={{ popper: { modifiers: [{ name: 'offset', options: { offset: [0, -12] } }] } }}
+        {...tooltipProps}
+        slotProps={{
+          ...tooltipProps?.slotProps,
+          popper: {
+            modifiers: [
+              {
+                name: 'offset',
+                options: { offset: [0, -12] },
+              },
+            ],
+            ...tooltipProps?.slotProps?.popper,
+          },
+        }}
       >
-        {renderContent}
+        {renderItem()}
       </Tooltip>
     );
   }
 
-  return renderContent;
+  return renderItem();
 }
+
+// ----------------------------------------------------------------------
+
+const ItemRoot = styled('span')(({ theme }) => ({
+  width: 36,
+  height: 36,
+  flexShrink: 0,
+  alignItems: 'center',
+  position: 'relative',
+  display: 'inline-flex',
+  justifyContent: 'center',
+  borderRadius: theme.shape.borderRadius * 1.25,
+}));
+
+const ItemIcon = styled('img')(() => ({
+  width: '100%',
+  height: '100%',
+}));
+
+const ItemImg = styled('img')(() => ({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  borderRadius: 'inherit',
+}));

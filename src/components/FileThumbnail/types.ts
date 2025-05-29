@@ -1,5 +1,7 @@
-import type { StackProps } from '@mui/material/Stack';
+import type { TooltipProps } from '@mui/material/Tooltip';
 import type { Theme, SxProps } from '@mui/material/styles';
+import type { ButtonBaseProps } from '@mui/material/ButtonBase';
+import type { IconButtonProps } from '@mui/material/IconButton';
 
 // ----------------------------------------------------------------------
 
@@ -9,7 +11,7 @@ export interface ExtendFile extends File {
   lastModifiedDate?: Date;
 }
 
-export type FileThumbnailProps = StackProps & {
+export type FileThumbnailProps = React.ComponentProps<'div'> & {
   tooltip?: boolean;
   file: File | string;
   imageView?: boolean;
@@ -17,9 +19,10 @@ export type FileThumbnailProps = StackProps & {
   onDownload?: () => void;
   onRemove?: () => void;
   slotProps?: {
-    img?: SxProps<Theme>;
-    icon?: SxProps<Theme>;
-    removeBtn?: SxProps<Theme>;
-    downloadBtn?: SxProps<Theme>;
+    tooltip?: TooltipProps;
+    removeBtn?: IconButtonProps;
+    downloadBtn?: ButtonBaseProps;
+    img?: React.ComponentProps<'img'> & { sx?: SxProps<Theme> };
+    icon?: React.ComponentProps<'img'> & { sx?: SxProps<Theme> };
   };
 };
