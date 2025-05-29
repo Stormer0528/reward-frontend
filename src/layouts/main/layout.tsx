@@ -5,11 +5,6 @@ import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '.
 
 import { useBoolean } from 'minimal-shared/hooks';
 
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-
-import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { Logo } from 'src/components/Logo';
@@ -19,8 +14,6 @@ import { NavDesktop } from './nav/desktop';
 import { Footer, HomeFooter } from './footer';
 import { MenuButton } from '../components/menu-button';
 import { navData as mainNavData } from '../nav-config-main';
-import { SignInButton } from '../components/sign-in-button';
-import { SettingsButton } from '../components/settings-button';
 import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
@@ -56,11 +49,11 @@ export function MainLayout({
 
   const renderHeader = () => {
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
+      // topArea: (
+      //   <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+      //     This is an info Alert.
+      //   </Alert>
+      // ),
       leftArea: (
         <>
           {/** @slot Nav mobile */}
@@ -88,28 +81,7 @@ export function MainLayout({
               [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
             })}
           />
-
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
-            {/** @slot Settings button */}
-            <SettingsButton />
-
-            {/** @slot Sign in button */}
-            <SignInButton />
-
-            {/** @slot Purchase button */}
-            <Button
-              variant="contained"
-              rel="noopener noreferrer"
-              target="_blank"
-              href={paths.ScrollBarore}
-              sx={(theme) => ({
-                display: 'none',
-                [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
-              })}
-            >
-              Purchase
-            </Button>
-          </Box>
+          {slotProps?.header?.slots?.rightArea}
         </>
       ),
     };
@@ -118,7 +90,7 @@ export function MainLayout({
       <HeaderSection
         layoutQuery={layoutQuery}
         {...slotProps?.header}
-        slots={{ ...headerSlots, ...slotProps?.header?.slots }}
+        slots={headerSlots}
         slotProps={slotProps?.header?.slotProps}
         sx={slotProps?.header?.sx}
       />
