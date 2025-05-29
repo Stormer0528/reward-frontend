@@ -7,14 +7,14 @@ import Typography from '@mui/material/Typography';
 
 import { RESOURCE_CONTENT } from 'src/consts';
 
-import DarkLogo from 'src/components/Logo/dark-logo';
+import { Logo } from 'src/components/Logo';
 
 export default function Mission() {
   return (
     <Paper sx={{ background: '#f4f4f4', p: 4, borderRadius: 0 }}>
       <Container>
         <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
-          <DarkLogo />
+          <Logo />
           <Typography variant="h2">Mission Control Manual</Typography>
         </Stack>
         <Stack sx={{ mb: 4 }}>

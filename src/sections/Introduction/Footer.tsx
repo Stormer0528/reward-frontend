@@ -5,8 +5,8 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
+import { Logo } from 'src/components/Logo';
 import { Iconify } from 'src/components/Iconify';
-import DarkLogo from 'src/components/Logo/dark-logo';
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
       <Container>
         <Grid container alignItems="center" spacing={2}>
           <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-            <DarkLogo sx={{ background: '#ffffff', borderRadius: 50 }} />
+            <Logo sx={{ background: '#ffffff', borderRadius: 50 }} />
           </Grid>
           <Grid size={{ xs: 12, md: 6, lg: 4 }} sx={{ textAlign: { xs: 'left', lg: 'center' } }}>
             <Text>© Copyright 2025 TEXITcoin.</Text>

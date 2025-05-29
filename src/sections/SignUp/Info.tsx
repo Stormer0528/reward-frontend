@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 
 import { useSearchParams } from 'src/routes/hooks';
 
+import { Logo } from 'src/components/Logo';
 import { toast } from 'src/components/SnackBar';
-import DarkLogo from 'src/components/Logo/dark-logo';
 
 import { useSendEmailVerificationLink } from './useApollo';
 
@@ -45,7 +45,7 @@ export default function Info() {
   return (
     <>
       <Stack direction="row" justifyContent="center">
-        <DarkLogo />
+        <Logo />
       </Stack>
 
       <Stack spacing={1} sx={{ mt: 3, mb: 5, textAlign: 'center', whiteSpace: 'pre-line' }}>
