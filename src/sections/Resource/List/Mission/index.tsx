@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 import { RESOURCE_CONTENT } from 'src/consts';
 
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 
 export default function Mission() {
   return (

@@ -11,7 +11,7 @@ import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { NavUl } from 'src/components/NavSection';
 import { ScrollBar } from 'src/components/ScrollBar';
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 
 import { NavList } from './nav-mobile-list';
 

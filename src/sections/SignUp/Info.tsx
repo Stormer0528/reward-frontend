@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useSearchParams } from 'src/routes/hooks';
 
 import { toast } from 'src/components/SnackBar';
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 
 import { useSendEmailVerificationLink } from './useApollo';
 

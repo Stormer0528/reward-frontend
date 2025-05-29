@@ -8,7 +8,7 @@ import Drawer, { drawerClasses } from '@mui/material/Drawer';
 import { usePathname } from 'src/routes/hooks';
 
 import { ScrollBar } from 'src/components/ScrollBar';
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 import { useSettingsContext } from 'src/components/Settings';
 import { NavSectionVertical } from 'src/components/NavSection';
 

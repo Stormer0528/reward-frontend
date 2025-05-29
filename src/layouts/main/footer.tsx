@@ -15,7 +15,7 @@ import { RouterLink } from 'src/routes/components';
 import { _socials } from 'src/_mock';
 
 import { SocialIcon } from 'src/components/Iconify';
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 
 // ----------------------------------------------------------------------
 

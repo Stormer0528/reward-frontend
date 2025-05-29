@@ -10,7 +10,7 @@ import { paths } from 'src/routes/paths';
 import { HELP_MINETXC } from 'src/consts';
 
 import { Iconify } from 'src/components/Iconify';
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 import { NavBasicMobile, NavBasicDesktop } from 'src/components/NavBasic';
 
 // ----------------------------------------------------------------------

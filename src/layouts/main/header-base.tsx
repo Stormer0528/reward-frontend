@@ -12,7 +12,7 @@ import { useRouter } from 'src/routes/hooks';
 
 import { STORAGE_TOKEN_KEY } from 'src/consts';
 
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 
 import { HeaderSection } from './header-section';
 import { _account } from '../config-nav-account';

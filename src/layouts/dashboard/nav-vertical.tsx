@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { ScrollBar } from 'src/components/ScrollBar';
-import DarkLogo from 'src/components/logo/dark-logo';
+import DarkLogo from 'src/components/Logo/dark-logo';
 import { useSettingsContext } from 'src/components/Settings';
 import { NavSectionMini, NavSectionVertical } from 'src/components/NavSection';
 
