@@ -122,8 +122,7 @@ export default function WidgetSummary({
           type="bar"
           series={[{ data: chart.series }]}
           options={chartOptions}
-          width={60}
-          height={40}
+          sx={{width: 60, height: 40}}
         />
       )}
     </Card>
