@@ -42,6 +42,8 @@ const commonRules = () => ({
   '@typescript-eslint/no-empty-object-type': 0,
   '@typescript-eslint/consistent-type-imports': 1,
   '@typescript-eslint/no-unused-vars': [1, { args: 'none' }],
+  // Ignore @ts-ignore in AgGrid ClientSideRowModel
+  '@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': false }],
 });
 
 /**

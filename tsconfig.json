@@ -20,7 +20,9 @@
     /* Linting */
     "strict": true,
     "noEmit": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    /* Ignore AgGrid ClientSideRowModel type errors */
+    "strictPropertyInitialization": false
   },
   "include": ["src"],
   "exclude": ["node_modules"],
