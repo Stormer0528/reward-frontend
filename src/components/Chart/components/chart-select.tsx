@@ -8,7 +8,7 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ButtonBase from '@mui/material/ButtonBase';
 
-import { Iconify } from '../../iconify';
+import { Iconify } from '../../Iconify';
 import { CustomPopover } from '../../custom-popover';
 
 // ----------------------------------------------------------------------

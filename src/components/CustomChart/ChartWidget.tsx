@@ -107,8 +107,7 @@ export function ChartWidget({
           type={type ?? 'area'}
           series={currentSeries}
           options={chartOptions}
-          height={height ?? 320}
-          sx={{ py: 2.5, pl: 1, pr: 2.5 }}
+          sx={{ py: 2.5, pl: 1, pr: 2.5, height: height ?? 320 }}
         />
       )}
     </>

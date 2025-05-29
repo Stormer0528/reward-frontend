@@ -78,7 +78,7 @@ export function ChartMixed({ loading, chart }: Props) {
           </Paper>
         </Card>
       ) : (
-        <Chart type="line" series={chart.series} options={chartOptions} height={320} />
+        <Chart type="line" series={chart.series} options={chartOptions} sx={{ height: 320 }} />
       )}
     </>
   );
