@@ -48,7 +48,9 @@ export default function Setting({ open, setting }: Props) {
         open.onFalse();
       }
     } catch (error) {
-      toast.error(`Failed to update settings: ${error.message}`);
+      if (error instanceof Error) {
+        toast.error(`Failed to update settings: ${error.message}`);
+      }
     }
   });
 
