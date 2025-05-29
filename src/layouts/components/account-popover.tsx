@@ -18,7 +18,7 @@ import { CustomPopover } from 'src/components/custom-popover';
 
 import { useMockedUser } from 'src/auth/hooks';
 
-import { AccountButton } from './account-button';
+import { AccountButton } from './AccountButton';
 import { SignOutButton } from './sign-out-button';
 
 // ----------------------------------------------------------------------
