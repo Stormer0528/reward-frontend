@@ -12,7 +12,6 @@ import { ScrollBar } from 'src/components/ScrollBar';
 
 import { Nav, NavUl } from '../components';
 import { NavList } from './nav-mobile-list';
-import { SignInButton } from '../../../components/sign-in-button';
 
 // ----------------------------------------------------------------------
 
@@ -82,18 +81,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
         </Nav>
       </ScrollBar>
 
-      {slots?.bottomArea ?? (
-        <Box
-          sx={{
-            py: 3,
-            px: 2.5,
-            gap: 1.5,
-            display: 'flex',
-          }}
-        >
-          <SignInButton fullWidth />
-        </Box>
-      )}
+      {slots?.bottomArea}
     </Drawer>
   );
 }
