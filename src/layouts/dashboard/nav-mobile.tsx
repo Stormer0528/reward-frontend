@@ -13,7 +13,6 @@ import { ScrollBar } from 'src/components/ScrollBar';
 import { NavSectionVertical } from 'src/components/NavSection';
 
 import { layoutClasses } from '../core';
-import { NavUpgrade } from '../components/nav-upgrade';
 
 // ----------------------------------------------------------------------
 
@@ -70,13 +69,7 @@ export function NavMobile({
       )}
 
       <ScrollBar fillContent>
-        <NavSectionVertical
-          data={data}
-          checkPermissions={checkPermissions}
-          sx={{ px: 2, flex: '1 1 auto' }}
-          {...other}
-        />
-        <NavUpgrade />
+        <NavSectionVertical data={data} sx={{ px: 2, flex: '1 1 auto' }} {...other} />
       </ScrollBar>
 
       {slots?.bottomArea}
