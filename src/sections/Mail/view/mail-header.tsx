@@ -31,12 +31,14 @@ export function MailHeader({ onOpenNav, onOpenMail, sx, ...other }: Props) {
         fullWidth
         size="small"
         placeholder="Search..."
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+              </InputAdornment>
+            ),
+          },
         }}
         sx={{ ml: 2 }}
       />

@@ -77,7 +77,7 @@ export default function EditForm() {
         >
           <Field.Select
             name="init"
-            label="Pacakage"
+            label="Package"
             inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
           >
             {packages.map((option) => (

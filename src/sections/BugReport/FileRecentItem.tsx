@@ -50,14 +50,16 @@ export function FileRecentItem({ file, onDelete, sx, ...other }: Props) {
           {fDateTime(file.updatedAt)}
         </>
       }
-      primaryTypographyProps={{ noWrap: true, typography: 'subtitle2' }}
-      secondaryTypographyProps={{
-        mt: 0.5,
-        component: 'span',
-        alignItems: 'center',
-        typography: 'caption',
-        color: 'text.disabled',
-        display: 'inline-flex',
+      slotProps={{
+        primary: { noWrap: true, typography: 'subtitle2' },
+        secondary: {
+          mt: 0.5,
+          component: 'span',
+          alignItems: 'center',
+          typography: 'caption',
+          color: 'text.disabled',
+          display: 'inline-flex',
+        },
       }}
     />
   );

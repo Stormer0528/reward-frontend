@@ -96,8 +96,7 @@ export function MailNav({
       <Drawer
         open={openNav}
         onClose={onCloseNav}
-        slotProps={{ backdrop: { invisible: true } }}
-        PaperProps={{ sx: { width: 280 } }}
+        slotProps={{ backdrop: { invisible: true }, paper: { sx: { width: 280 } } }}
       >
         {renderContent}
       </Drawer>

@@ -61,27 +61,30 @@ export default function ResetPassword({ open }: Props) {
     <Paper sx={{ pb: 3, pt: 0 }}>
       <Form methods={methods} onSubmit={onSubmit}>
         <Box sx={{ py: 2 }} display="grid" rowGap={2}>
+          {/* TODO: Duplicated input 3 times */}
           <Field.Text
             name="oldPassword"
             variant="outlined"
             type={current.value ? 'text' : 'password'}
             label="Current Password"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="solar:user-rounded-bold" width={24} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={current.onToggle} edge="end">
-                    <Iconify
-                      icon={current.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                      width={24}
-                    />
-                  </IconButton>
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon="solar:user-rounded-bold" width={24} />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={current.onToggle} edge="end">
+                      <Iconify
+                        icon={current.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                        width={24}
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
             }}
           />
 
@@ -90,22 +93,24 @@ export default function ResetPassword({ open }: Props) {
             variant="outlined"
             type={password.value ? 'text' : 'password'}
             label="New Password"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="solar:user-rounded-bold" width={24} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={password.onToggle} edge="end">
-                    <Iconify
-                      icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                      width={24}
-                    />
-                  </IconButton>
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon="solar:user-rounded-bold" width={24} />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={password.onToggle} edge="end">
+                      <Iconify
+                        icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                        width={24}
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
             }}
           />
 
@@ -114,22 +119,24 @@ export default function ResetPassword({ open }: Props) {
             variant="outlined"
             type={confirm.value ? 'text' : 'password'}
             label="Confirm  Password"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="solar:user-rounded-bold" width={24} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={confirm.onToggle} edge="end">
-                    <Iconify
-                      icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                      width={24}
-                    />
-                  </IconButton>
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon="solar:user-rounded-bold" width={24} />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={confirm.onToggle} edge="end">
+                      <Iconify
+                        icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                        width={24}
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
             }}
           />
         </Box>

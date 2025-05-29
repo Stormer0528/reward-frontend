@@ -56,26 +56,28 @@ export function SearchInput({ search, placeholder, onSearchChange }: Props) {
         value={keyword}
         onChange={handleSearchChange}
         placeholder={placeholder || 'Search ...'}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-            </InputAdornment>
-          ),
-          ...(!!search && {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => {
-                    onSearchChange('');
-                  }}
-                  edge="end"
-                >
-                  <Iconify icon="ic:outline-close" />
-                </IconButton>
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
               </InputAdornment>
             ),
-          }),
+            ...(!!search && {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => {
+                      onSearchChange('');
+                    }}
+                    edge="end"
+                  >
+                    <Iconify icon="ic:outline-close" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }),
+          },
         }}
       />
     </Stack>

@@ -189,10 +189,10 @@ export default function AddMiner({ add, tabs }: Props) {
             name="packageId"
             label="Package"
             fullWidth
-            inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
             value={location.state?.packageId ?? packageId}
             onChange={(event) => handlePackageChange(event.target.value)}
             required
+            slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
           >
             {packages.map((option) => (
               <MenuItem key={option?.id} value={option?.id}>
@@ -207,7 +207,7 @@ export default function AddMiner({ add, tabs }: Props) {
             name="uname"
             label="Affiliate ID"
             placeholder="5 characters or more"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
             required
           />
 
@@ -223,7 +223,7 @@ export default function AddMiner({ add, tabs }: Props) {
         multiline
         rows={3}
         placeholder="Write a comment here (optional)"
-        InputLabelProps={{ shrink: true }}
+        slotProps={{ inputLabel: { shrink: true } }}
       />
 
       <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center">

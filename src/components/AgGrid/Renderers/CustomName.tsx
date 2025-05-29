@@ -37,10 +37,9 @@ export const CustomName = memo(({ id, username, email }: Props) => {
             {email}
           </Typography>
         }
-        primaryTypographyProps={{ typography: 'body2' }}
-        secondaryTypographyProps={{
-          component: 'span',
-          color: 'text.disabled',
+        slotProps={{
+          primary: { typography: 'body2' },
+          secondary: { component: 'span', color: 'text.disabled' },
         }}
       />
     </Stack>

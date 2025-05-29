@@ -12,7 +12,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import { fToNow } from 'src/utils/format-time';
 
-
 // ----------------------------------------------------------------------
 
 type Props = ListItemButtonProps & {
@@ -80,13 +79,15 @@ export function SentItem({ mail, selected, sx, ...other }: Props) {
 
         <ListItemText
           primary={mail.to}
-          primaryTypographyProps={{ noWrap: true, component: 'span', variant: 'subtitle2' }}
           secondary={mail.subject}
-          secondaryTypographyProps={{
-            noWrap: true,
-            component: 'span',
-            variant: 'body2',
-            color: 'text.secondary',
+          slotProps={{
+            primary: { noWrap: true, component: 'span', variant: 'subtitle2' },
+            secondary: {
+              noWrap: true,
+              component: 'span',
+              variant: 'body2',
+              color: 'text.secondary',
+            },
           }}
         />
 

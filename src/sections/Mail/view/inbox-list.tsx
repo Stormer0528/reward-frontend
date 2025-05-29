@@ -82,24 +82,8 @@ export function InboxList({
 
   const renderContent = (
     <>
-      <Stack sx={{ p: 2 }}>
-        {/* {mdUp ? (
-          <TextField
-            placeholder="Search..."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-                </InputAdornment>
-              ),
-            }}
-          />
-        ) : (
-          <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>
-            {selectedLabelId}
-          </Typography>
-        )} */}
-      </Stack>
+      {/* TODO: Remove this? */}
+      <Stack sx={{ p: 2 }} />
 
       {loading ? renderLoading : <>{empty ? renderEmpty : renderList}</>}
     </>
@@ -112,8 +96,7 @@ export function InboxList({
       <Drawer
         open={openMail}
         onClose={onCloseMail}
-        slotProps={{ backdrop: { invisible: true } }}
-        PaperProps={{ sx: { width: 320 } }}
+        slotProps={{ backdrop: { invisible: true }, paper: { sx: { width: 320 } } }}
       >
         {renderContent}
       </Drawer>

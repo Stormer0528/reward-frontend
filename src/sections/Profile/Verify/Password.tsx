@@ -22,22 +22,24 @@ export default function PasswordContent({ setPassword }: Props) {
       onChange={(e) => {
         setPassword(e.target.value);
       }}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <Iconify icon="solar:user-rounded-bold" width={24} />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton onClick={password.onToggle} edge="end">
-              <Iconify
-                icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                width={24}
-              />
-            </IconButton>
-          </InputAdornment>
-        ),
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <Iconify icon="solar:user-rounded-bold" width={24} />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={password.onToggle} edge="end">
+                <Iconify
+                  icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                  width={24}
+                />
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
       }}
     />
   );

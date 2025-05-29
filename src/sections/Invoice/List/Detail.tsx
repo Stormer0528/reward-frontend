@@ -28,8 +28,7 @@ export default function Detail({ open, row }: Props) {
       open={open.value}
       onClose={() => open.onFalse()}
       anchor="right"
-      slotProps={{ backdrop: { invisible: true } }}
-      PaperProps={{ sx: { width: 400 } }}
+      slotProps={{ backdrop: { invisible: true }, paper: { sx: { width: 400 } } }}
     >
       <ScrollBar
         sx={{

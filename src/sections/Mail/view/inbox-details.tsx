@@ -109,15 +109,6 @@ export function InboxDetails({ mail, renderLabel, empty, loading }: Props) {
       </Stack>
 
       <Stack direction="row" alignItems="center">
-        {/* <Checkbox
-          color="warning"
-          icon={<Iconify icon="eva:star-outline" />}
-          checkedIcon={<Iconify icon="eva:star-fill" />}
-          checked={isStarred}
-          inputProps={{ id: 'starred-checkbox', 'aria-label': 'Starred checkbox' }}
-          onChange={(event) => handleStarred(event.target.value)}
-        /> */}
-
         <Tooltip title="Mark Unread">
           <IconButton onClick={handleUnread}>
             <Iconify icon="fluent:mail-unread-20-filled" />
@@ -181,7 +172,7 @@ export function InboxDetails({ mail, renderLabel, empty, loading }: Props) {
 
   const renderSender = (
     <>
-    {/* TODO: Check this */}
+      {/* TODO: Check this */}
       {/* <IconButton
         component={m.button}
         whileTap="tap"

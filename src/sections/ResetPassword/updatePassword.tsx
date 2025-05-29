@@ -104,18 +104,21 @@ export function UpdatePasswordView() {
 
   const renderForm = (
     <Stack spacing={3}>
+      {/* TODO: Duplicated input */}
       <Field.Text
         name="oldPassword"
         label="Old password"
         type={confirm.value ? 'text' : 'password'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={confirm.onToggle} edge="end">
-                <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={confirm.onToggle} edge="end">
+                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 
@@ -123,14 +126,16 @@ export function UpdatePasswordView() {
         name="newPassword"
         label="New password"
         type={confirm.value ? 'text' : 'password'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={confirm.onToggle} edge="end">
-                <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={confirm.onToggle} edge="end">
+                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 
@@ -138,14 +143,16 @@ export function UpdatePasswordView() {
         name="confirmPassword"
         label="Confirm new password"
         type={confirm.value ? 'text' : 'password'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={confirm.onToggle} edge="end">
-                <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={confirm.onToggle} edge="end">
+                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 

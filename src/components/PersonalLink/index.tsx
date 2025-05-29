@@ -43,14 +43,16 @@ export function PersonalLink() {
       fullWidth
       disabled
       value={data?.generateReferenceLink.link}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton onClick={handleCopy} edge="end">
-              <Iconify icon={copy.value ? 'mingcute:check-fill' : 'bxs:copy'} width={20} />
-            </IconButton>
-          </InputAdornment>
-        ),
+      slotProps={{
+        input: {
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleCopy} edge="end">
+                <Iconify icon={copy.value ? 'mingcute:check-fill' : 'bxs:copy'} width={20} />
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
       }}
     />
   );

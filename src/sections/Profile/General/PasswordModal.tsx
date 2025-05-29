@@ -42,6 +42,7 @@ export default function PasswordModal({ open }: Props) {
   const { fetchMe } = useFetchMe();
   const { loading: verifyLoading, verify2FAAndEnable } = useVerify2FAAndEnable();
 
+  // TODO: Duplicated input
   const confirmPassword = (
     <TextField
       variant="outlined"
@@ -51,22 +52,24 @@ export default function PasswordModal({ open }: Props) {
       onChange={(e) => {
         setNewPassword(e.target.value);
       }}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <Iconify icon="solar:user-rounded-bold" width={24} />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton onClick={password.onToggle} edge="end">
-              <Iconify
-                icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
-                width={24}
-              />
-            </IconButton>
-          </InputAdornment>
-        ),
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <Iconify icon="solar:user-rounded-bold" width={24} />
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={password.onToggle} edge="end">
+                <Iconify
+                  icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                  width={24}
+                />
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
       }}
     />
   );

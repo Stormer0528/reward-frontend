@@ -94,20 +94,23 @@ export function SplitUpdatePasswordView({ token }: Props) {
 
   const renderForm = (
     <Stack spacing={3}>
+      {/* TODO: Duplicated thing */}
       <Field.Text
         name="password"
         label="Password"
         placeholder="6+ characters"
         type={confirm.value ? 'text' : 'password'}
-        InputLabelProps={{ shrink: true }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={confirm.onToggle} edge="end">
-                <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          inputLabel: { shrink: true },
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={confirm.onToggle} edge="end">
+                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 
@@ -115,15 +118,17 @@ export function SplitUpdatePasswordView({ token }: Props) {
         name="confirmPassword"
         label="Confirm new password"
         type={confirm.value ? 'text' : 'password'}
-        InputLabelProps={{ shrink: true }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={confirm.onToggle} edge="end">
-                <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
+        slotProps={{
+          inputLabel: { shrink: true },
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={confirm.onToggle} edge="end">
+                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 
