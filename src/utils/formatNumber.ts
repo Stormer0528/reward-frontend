@@ -94,7 +94,7 @@ export function fData(inputValue: InputNumberValue) {
 
   return fm;
 }
-
+// TODO: Improve this name
 export function fLimitDigits(value: number, decimals: number) {
   const factor = 10 ** decimals;
   return Math.floor(value * factor) / factor;
