@@ -20,7 +20,7 @@ export default function ExportButton({ target, token }: Props) {
   const handleExport = async () => {
     setLoading(true);
 
-    const { data } = await axios.get(`${CONFIG.SERVER_BASE}/api/export-${target}`, {
+    const { data } = await axios.get(`${CONFIG.SERVER_HOST}/api/export-${target}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
