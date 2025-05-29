@@ -8,7 +8,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 
 import { formatDate } from 'src/utils/format-time';
 
-import { CustomTabs } from 'src/components/custom-tabs';
+import { CustomTabs } from 'src/components/CustomTabs';
 import { ChartWidget } from 'src/components/CustomChart';
 
 import { FETCH_STATISTICS_QUERY, FETCH_BLOCKS_DATA_QUERY } from './query';

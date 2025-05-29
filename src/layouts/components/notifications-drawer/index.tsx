@@ -17,7 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
-import { CustomTabs } from 'src/components/custom-tabs';
+import { CustomTabs } from 'src/components/CustomTabs';
 import { varTap, varHover, transitionTap } from 'src/components/animate';
 
 import { NotificationItem } from './notification-item';
