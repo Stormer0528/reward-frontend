@@ -5,6 +5,8 @@ import Fab from '@mui/material/Fab';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
+import { themeConfig } from 'src/theme';
+
 interface Props {
   sx?: SxProps<Theme>;
 }
@@ -18,8 +20,7 @@ export const JoinNowButton = ({ sx }: Props) => (
     href={`${paths.pages.intro}#sign-up`}
     sx={{
       color: '#fff',
-      // TODO: Need to add this color to theme???
-      bgcolor: '#262262',
+      bgcolor: themeConfig.palette.common.texit,
       fontWeight: 600,
       px: 4,
       py: 2,

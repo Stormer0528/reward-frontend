@@ -13,7 +13,7 @@ export type ThemeConfig = {
   modeStorageKey: ThemeProviderProps<Theme>['modeStorageKey'];
   fontFamily: Record<'primary' | 'secondary', string>;
   palette: Record<PaletteColorKey, PaletteColorNoChannels> & {
-    common: Pick<CommonColors, 'black' | 'white'>;
+    common: Pick<CommonColors, 'black' | 'white'> & { texit: string };
     grey: {
       [K in 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 as `${K}`]: string;
     };
@@ -110,6 +110,7 @@ export const themeConfig: ThemeConfig = {
     common: {
       black: '#000000',
       white: '#FFFFFF',
+      texit: '#262262'
     },
   },
 };
