@@ -78,7 +78,7 @@ export const typography: TypographyVariantsOptions = {
     ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
   },
   h2: {
-    fontFamily: secondaryFont,
+    fontFamily: primaryFont,
     fontWeight: baseTypography.fontWeightExtraBold,
     lineHeight: roundToDecimals(64 / 48),
     fontSize: pxToRem(32),
