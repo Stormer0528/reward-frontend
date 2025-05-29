@@ -5,13 +5,11 @@ import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '.
 
 import { useBoolean } from 'minimal-shared/hooks';
 
-import { usePathname } from 'src/routes/hooks';
-
 import { Logo } from 'src/components/Logo';
 
+import { Footer } from './footer';
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
-import { Footer, HomeFooter } from './footer';
 import { MenuButton } from '../components/menu-button';
 import { navData as mainNavData } from '../nav-config-main';
 import { MainSection, LayoutSection, HeaderSection } from '../core';
@@ -39,11 +37,7 @@ export function MainLayout({
   slotProps,
   layoutQuery = 'md',
 }: MainLayoutProps) {
-  const pathname = usePathname();
-
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
-
-  const isHomePage = pathname === '/';
 
   const navData = slotProps?.nav?.data ?? mainNavData;
 
@@ -97,12 +91,7 @@ export function MainLayout({
     );
   };
 
-  const renderFooter = () =>
-    isHomePage ? (
-      <HomeFooter sx={slotProps?.footer?.sx} />
-    ) : (
-      <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />
-    );
+  const renderFooter = () => <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />;
 
   const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
 
