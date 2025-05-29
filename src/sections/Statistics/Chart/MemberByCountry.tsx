@@ -6,7 +6,7 @@ import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import { useColorScheme } from '@mui/material/styles';
 
-import { Chart, useChart } from 'src/components/chart';
+import { Chart, useChart } from 'src/components/Chart';
 
 import { useFetchMemberByCountry } from '../useApollo';
 

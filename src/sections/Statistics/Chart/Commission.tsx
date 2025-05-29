@@ -6,7 +6,7 @@ import CardHeader from '@mui/material/CardHeader';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
-import { ChartSelect } from 'src/components/chart';
+import { ChartSelect } from 'src/components/Chart';
 import { ChartMixed } from 'src/components/CustomChart';
 
 import { useFetchCommissionByPeriod } from '../useApollo';

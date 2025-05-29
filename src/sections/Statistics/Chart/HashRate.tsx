@@ -12,7 +12,7 @@ import { useColorScheme } from '@mui/material/styles';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
-import { ChartSelect } from 'src/components/chart';
+import { ChartSelect } from 'src/components/Chart';
 
 import { useFetchBlocks } from '../useApollo';
 

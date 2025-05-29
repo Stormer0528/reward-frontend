@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { Editor } from 'src/components/editor';
+import { Editor } from 'src/components/Editor';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 

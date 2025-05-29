@@ -8,7 +8,7 @@ import { useTheme, useColorScheme, alpha as hexAlpha } from '@mui/material/style
 
 import { formatCurrency } from 'src/utils/formatCurrency';
 
-import { Chart, useChart } from 'src/components/chart';
+import { Chart, useChart } from 'src/components/Chart';
 
 import { useFetchRevenue } from '../useApollo';
 
