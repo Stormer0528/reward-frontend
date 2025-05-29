@@ -7,12 +7,13 @@ import { varAlpha } from 'minimal-shared/utils';
 function desktopVars(theme: Theme) {
   const {
     shape,
-    spacing,
     vars: { palette },
   } = theme;
 
   return {
-    '--nav-item-gap': spacing(3),
+    '--nav-dropdown-width': '200px',
+    //
+    '--nav-item-gap': '24px',
     '--nav-item-radius': '0',
     '--nav-item-caption-color': palette.text.disabled,
     // root
@@ -20,7 +21,7 @@ function desktopVars(theme: Theme) {
     '--nav-item-root-active-color': palette.primary.main,
     // sub
     '--nav-item-sub-radius': `${shape.borderRadius * 0.75}px`,
-    '--nav-item-sub-padding': spacing(0.75, 1, 0.75, 1),
+    '--nav-item-sub-padding': '6px 8px 6px 8px',
     '--nav-item-sub-color': palette.text.secondary,
     '--nav-item-sub-hover-color': palette.text.primary,
     '--nav-item-sub-hover-bg': palette.action.hover,
@@ -30,7 +31,7 @@ function desktopVars(theme: Theme) {
     '--nav-item-sub-open-bg': palette.action.hover,
     // icon
     '--nav-icon-size': '22px',
-    '--nav-icon-margin': spacing(0, 1, 0, 0),
+    '--nav-icon-margin': '0 8px 0 0',
   };
 }
 
@@ -39,17 +40,16 @@ function desktopVars(theme: Theme) {
 function mobileVars(theme: Theme) {
   const {
     shape,
-    spacing,
     vars: { palette },
   } = theme;
 
   return {
-    '--nav-item-gap': spacing(0.5),
+    '--nav-item-gap': '4px',
     '--nav-item-radius': `${shape.borderRadius}px`,
-    '--nav-item-pt': spacing(0.5),
-    '--nav-item-pl': spacing(1.5),
-    '--nav-item-pr': spacing(1),
-    '--nav-item-pb': spacing(0.5),
+    '--nav-item-pt': '4px',
+    '--nav-item-pr': '8px',
+    '--nav-item-pb': '4px',
+    '--nav-item-pl': '12px',
     '--nav-item-color': palette.text.secondary,
     '--nav-item-hover-color': palette.action.hover,
     '--nav-item-caption-color': palette.text.disabled,
@@ -69,13 +69,10 @@ function mobileVars(theme: Theme) {
     '--nav-item-sub-open-bg': palette.action.hover,
     // icon
     '--nav-icon-size': '24px',
-    '--nav-icon-margin': spacing(0, 2, 0, 0),
+    '--nav-icon-margin': '0 12px 0 0',
   };
 }
 
 // ----------------------------------------------------------------------
 
-export const navBasicCssVars = {
-  desktop: desktopVars,
-  mobile: mobileVars,
-};
+export const navBasicVars = { desktop: desktopVars, mobile: mobileVars };

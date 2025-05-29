@@ -1,234 +1,237 @@
-import type { NavItemProps, NavItemStateProps } from '../types';
+import type { CSSObject } from '@mui/material/styles';
+import type { NavItemProps } from '../types';
 
-import { forwardRef } from 'react';
+import { mergeClasses } from 'minimal-shared/utils';
 
-import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { Iconify } from '../../Iconify';
-import { useNavItem, stateClasses, sharedStyles, navSectionClasses } from '../../NavSection';
+import { createNavItem } from '../utils';
+import { navItemStyles, navBasicClasses } from '../styles';
 
 // ----------------------------------------------------------------------
 
-export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
-  (
-    {
-      path,
-      icon,
-      info,
-      title,
-      caption,
-      //
-      open,
-      depth,
-      render,
-      active,
-      disabled,
-      hasChild,
-      slotProps,
-      externalLink,
-      enabledRootRedirect,
-      ...other
-    },
-    ref
-  ) => {
-    const navItem = useNavItem({
-      path,
-      icon,
-      info,
-      depth,
-      render,
-      hasChild,
-      externalLink,
-      enabledRootRedirect,
-    });
+export function NavItem({
+  path,
+  icon,
+  info,
+  title,
+  caption,
+  /********/
+  open,
+  active,
+  disabled,
+  /********/
+  depth,
+  render,
+  hasChild,
+  slotProps,
+  className,
+  externalLink,
+  enabledRootRedirect,
+  ...other
+}: NavItemProps) {
+  const navItem = createNavItem({
+    path,
+    icon,
+    info,
+    depth,
+    render,
+    hasChild,
+    externalLink,
+    enabledRootRedirect,
+  });
 
-    return (
-      <StyledNavItem
-        ref={ref}
-        aria-label={title}
-        depth={depth}
-        active={active}
-        disabled={disabled}
-        open={open && !active}
-        sx={{
-          ...slotProps?.sx,
-          [`& .${navSectionClasses.item.icon}`]: slotProps?.icon,
-          [`& .${navSectionClasses.item.texts}`]: slotProps?.texts,
-          [`& .${navSectionClasses.item.title}`]: slotProps?.title,
-          [`& .${navSectionClasses.item.caption}`]: slotProps?.caption,
-          [`& .${navSectionClasses.item.arrow}`]: slotProps?.arrow,
-        }}
-        className={stateClasses({ open: open && !active, active, disabled })}
-        {...navItem.baseProps}
-        {...other}
-      >
-        {icon && (
-          <Box component="span" className={navSectionClasses.item.icon}>
-            {navItem.renderIcon}
-          </Box>
-        )}
+  const ownerState: StyledState = {
+    open,
+    active,
+    disabled,
+    variant: navItem.rootItem ? 'rootItem' : 'subItem',
+  };
 
-        {title && (
-          <Box component="span" className={navSectionClasses.item.texts}>
-            <Box component="span" className={navSectionClasses.item.title}>
-              {title}
-            </Box>
+  return (
+    <ItemRoot
+      aria-label={title}
+      {...ownerState}
+      {...navItem.baseProps}
+      className={mergeClasses([navBasicClasses.item.root, className], {
+        [navBasicClasses.state.open]: open,
+        [navBasicClasses.state.active]: active,
+        [navBasicClasses.state.disabled]: disabled,
+      })}
+      sx={slotProps?.sx}
+      {...other}
+    >
+      {icon && (
+        <ItemIcon {...ownerState} className={navBasicClasses.item.icon} sx={slotProps?.icon}>
+          {navItem.renderIcon}
+        </ItemIcon>
+      )}
 
-            {caption && (
-              <Tooltip title={caption} placement="top-start">
-                <Box component="span" className={navSectionClasses.item.caption}>
-                  {caption}
-                </Box>
-              </Tooltip>
-            )}
-          </Box>
-        )}
+      {title && (
+        <ItemTexts {...ownerState} className={navBasicClasses.item.texts} sx={slotProps?.texts}>
+          <ItemTitle {...ownerState} className={navBasicClasses.item.title} sx={slotProps?.title}>
+            {title}
+          </ItemTitle>
 
-        {info && (
-          <Box component="span" className={navSectionClasses.item.info}>
-            {navItem.renderInfo}
-          </Box>
-        )}
+          {caption && (
+            <Tooltip title={caption} placement="top-start">
+              <ItemCaptionText
+                {...ownerState}
+                className={navBasicClasses.item.caption}
+                sx={slotProps?.caption}
+              >
+                {caption}
+              </ItemCaptionText>
+            </Tooltip>
+          )}
+        </ItemTexts>
+      )}
 
-        {hasChild && (
-          <Iconify
-            width={16}
-            icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
-            className={navSectionClasses.item.arrow}
-          />
-        )}
-      </StyledNavItem>
-    );
-  }
-);
+      {info && (
+        <ItemInfo {...ownerState} className={navBasicClasses.item.info} sx={slotProps?.info}>
+          {navItem.renderInfo}
+        </ItemInfo>
+      )}
+
+      {hasChild && (
+        <ItemArrow
+          {...ownerState}
+          icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
+          className={navBasicClasses.item.arrow}
+          sx={slotProps?.arrow}
+        />
+      )}
+    </ItemRoot>
+  );
+}
 
 // ----------------------------------------------------------------------
 
-const StyledNavItem = styled(ButtonBase, {
-  shouldForwardProp: (prop) =>
-    prop !== 'active' && prop !== 'open' && prop !== 'disabled' && prop !== 'depth',
-})<NavItemStateProps>(({ active, open, disabled, depth, theme }) => {
-  const rootItem = depth === 1;
+type StyledState = Pick<NavItemProps, 'open' | 'active' | 'disabled'> & {
+  variant: 'rootItem' | 'subItem';
+};
 
-  const subItem = !rootItem;
+const shouldForwardProp = (prop: string) =>
+  !['open', 'active', 'disabled', 'variant', 'sx'].includes(prop);
 
-  const baseStyles = {
-    item: {
-      width: '100%',
-      color: 'var(--nav-item-color)',
-      borderRadius: 'var(--nav-item-radius)',
-      paddingTop: 'var(--nav-item-pt)',
-      paddingLeft: 'var(--nav-item-pl)',
-      paddingRight: 'var(--nav-item-pr)',
-      paddingBottom: 'var(--nav-item-pb)',
-      '&:hover': {
-        backgroundColor: 'var(--nav-item-hover-color)',
-      },
-    },
-    icon: {
-      ...sharedStyles.icon,
-      width: 'var(--nav-icon-size)',
-      height: 'var(--nav-icon-size)',
-      margin: 'var(--nav-icon-margin)',
-    },
-    texts: {
-      minWidth: 0,
-      flex: '1 1 auto',
-    },
-    title: {
-      ...sharedStyles.noWrap,
-      ...theme.typography.body2,
-      fontWeight: active ? theme.typography.fontWeightSemiBold : theme.typography.fontWeightMedium,
-    },
-    caption: {
-      ...sharedStyles.noWrap,
-      ...theme.typography.caption,
-      color: 'var(--nav-item-caption-color)',
-    },
-    arrow: {
-      ...sharedStyles.arrow,
-    },
-    info: {
-      ...sharedStyles.info,
-    },
-  } as const;
+/**
+ * @slot root
+ */
+const ItemRoot = styled(ButtonBase, { shouldForwardProp })<StyledState>(({
+  open,
+  theme,
+  active,
+}) => {
+  const dotStyles: CSSObject = {
+    width: 3,
+    left: -13,
+    height: 16,
+    content: '""',
+    borderRadius: 3,
+    position: 'absolute',
+    backgroundColor: 'currentColor',
+    transform: active ? 'scale(1)' : 'scale(0)',
+    transition: theme.transitions.create(['transform'], {
+      duration: theme.transitions.duration.short,
+    }),
+  };
+
+  const rootItemStyles: CSSObject = {
+    minHeight: 'var(--nav-item-root-height)',
+    ...(open && {
+      color: 'var(--nav-item-root-open-color)',
+      backgroundColor: 'var(--nav-item-root-open-bg)',
+    }),
+    ...(active && {
+      color: 'var(--nav-item-root-active-color)',
+      backgroundColor: 'var(--nav-item-root-active-bg)',
+      '&:hover': { backgroundColor: 'var(--nav-item-root-active-hover-bg)' },
+      ...theme.applyStyles('dark', {
+        color: 'var(--nav-item-root-active-color-on-dark)',
+      }),
+    }),
+  };
+
+  const subItemStyles: CSSObject = {
+    minHeight: 'var(--nav-item-sub-height)',
+    '&::before': dotStyles,
+    ...(open && {
+      color: 'var(--nav-item-sub-open-color)',
+      backgroundColor: 'var(--nav-item-sub-open-bg)',
+    }),
+    ...(active && {
+      color: 'var(--nav-item-sub-active-color)',
+      backgroundColor: 'var(--nav-item-sub-active-bg)',
+    }),
+  };
 
   return {
-    /**
-     * Root item
-     */
-    ...(rootItem && {
-      ...baseStyles.item,
-      minHeight: 'var(--nav-item-root-height)',
-      [`& .${navSectionClasses.item.icon}`]: { ...baseStyles.icon },
-      [`& .${navSectionClasses.item.texts}`]: { ...baseStyles.texts },
-      [`& .${navSectionClasses.item.title}`]: { ...baseStyles.title },
-      [`& .${navSectionClasses.item.caption}`]: { ...baseStyles.caption },
-      [`& .${navSectionClasses.item.arrow}`]: { ...baseStyles.arrow },
-      [`& .${navSectionClasses.item.info}`]: { ...baseStyles.info },
-      // State
-      ...(active && {
-        color: 'var(--nav-item-root-active-color)',
-        backgroundColor: 'var(--nav-item-root-active-bg)',
-        '&:hover': {
-          backgroundColor: 'var(--nav-item-root-active-hover-bg)',
-        },
-        ...theme.applyStyles('dark', {
-          color: 'var(--nav-item-root-active-color-on-dark)',
-        }),
-      }),
-      ...(open && {
-        color: 'var(--nav-item-root-open-color)',
-        backgroundColor: 'var(--nav-item-root-open-bg)',
-      }),
-    }),
-
-    /**
-     * Sub item
-     */
-    ...(subItem && {
-      ...baseStyles.item,
-      minHeight: 'var(--nav-item-sub-height)',
-      [`& .${navSectionClasses.item.icon}`]: { ...baseStyles.icon },
-      [`& .${navSectionClasses.item.texts}`]: { ...baseStyles.texts },
-      [`& .${navSectionClasses.item.title}`]: { ...baseStyles.title },
-      [`& .${navSectionClasses.item.caption}`]: { ...baseStyles.caption },
-      [`& .${navSectionClasses.item.arrow}`]: { ...baseStyles.arrow },
-      [`& .${navSectionClasses.item.info}`]: { ...baseStyles.info },
-      // Shape
-      '&::before': {
-        width: 3,
-        left: -13,
-        height: 16,
-        content: '""',
-        borderRadius: 3,
-        position: 'absolute',
-        transform: 'scale(0)',
-        transition: theme.transitions.create(['transform'], {
-          duration: theme.transitions.duration.short,
-        }),
-        ...(active && {
-          transform: 'scale(1)',
-          backgroundColor: 'currentColor',
-        }),
-      },
-      // State
-      ...(active && {
-        color: 'var(--nav-item-sub-active-color)',
-        backgroundColor: 'var(--nav-item-sub-active-bg)',
-      }),
-      ...(open && {
-        color: 'var(--nav-item-sub-open-color)',
-        backgroundColor: 'var(--nav-item-sub-open-bg)',
-      }),
-    }),
-
-    /**
-     * Disabled
-     */
-    ...(disabled && sharedStyles.disabled),
+    width: '100%',
+    color: 'var(--nav-item-color)',
+    borderRadius: 'var(--nav-item-radius)',
+    paddingTop: 'var(--nav-item-pt)',
+    paddingLeft: 'var(--nav-item-pl)',
+    paddingRight: 'var(--nav-item-pr)',
+    paddingBottom: 'var(--nav-item-pb)',
+    '&:hover': { backgroundColor: 'var(--nav-item-hover-color)' },
+    variants: [
+      { props: { variant: 'rootItem' }, style: rootItemStyles },
+      { props: { variant: 'subItem' }, style: subItemStyles },
+      { props: { disabled: true }, style: navItemStyles.disabled },
+    ],
   };
 });
+
+/**
+ * @slot icon
+ */
+const ItemIcon = styled('span', { shouldForwardProp })<StyledState>(() => ({
+  ...navItemStyles.icon,
+  width: 'var(--nav-icon-size)',
+  height: 'var(--nav-icon-size)',
+  margin: 'var(--nav-icon-margin)',
+}));
+
+/**
+ * @slot texts
+ */
+const ItemTexts = styled('span', { shouldForwardProp })<StyledState>(() => ({
+  ...navItemStyles.texts,
+}));
+
+/**
+ * @slot title
+ */
+const ItemTitle = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
+  ...navItemStyles.title(theme),
+  ...theme.typography.body2,
+  fontWeight: theme.typography.fontWeightMedium,
+  variants: [
+    { props: { active: true }, style: { fontWeight: theme.typography.fontWeightSemiBold } },
+  ],
+}));
+
+/**
+ * @slot caption text
+ */
+const ItemCaptionText = styled('span', { shouldForwardProp })<StyledState>(({ theme }) => ({
+  ...navItemStyles.captionText(theme),
+  color: 'var(--nav-item-caption-color)',
+}));
+
+/**
+ * @slot info
+ */
+const ItemInfo = styled('span', { shouldForwardProp })<StyledState>(() => ({
+  ...navItemStyles.info,
+}));
+
+/**
+ * @slot arrow
+ */
+const ItemArrow = styled(Iconify, { shouldForwardProp })<StyledState>(({ theme }) => ({
+  ...navItemStyles.arrow(theme),
+}));

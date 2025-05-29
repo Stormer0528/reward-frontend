@@ -1,12 +1,10 @@
 import type { NavBasicProps } from '../types';
 
-import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
 import { NavList } from './nav-list';
-import { NavUl } from '../../NavSection';
-import { navBasicClasses } from '../classes';
-import { navBasicCssVars } from '../css-vars';
+import { Nav, NavUl } from '../components';
+import { navBasicVars, navBasicClasses } from '../styles';
 
 // ----------------------------------------------------------------------
 
@@ -21,16 +19,12 @@ export function NavBasicMobile({
 }: NavBasicProps) {
   const theme = useTheme();
 
-  const cssVars = {
-    ...navBasicCssVars.mobile(theme),
-    ...overridesVars,
-  };
+  const cssVars = { ...navBasicVars.mobile(theme), ...overridesVars };
 
   return (
-    <Stack
-      component="nav"
-      className={navBasicClasses.mobile.root}
-      sx={{ ...cssVars, ...sx }}
+    <Nav
+      className={navBasicClasses.mobile}
+      sx={[{ ...cssVars }, ...(Array.isArray(sx) ? sx : [sx])]}
       {...other}
     >
       <NavUl sx={{ flex: '1 1 auto', gap: 'var(--nav-item-gap)' }}>
@@ -45,6 +39,6 @@ export function NavBasicMobile({
           />
         ))}
       </NavUl>
-    </Stack>
+    </Nav>
   );
 }

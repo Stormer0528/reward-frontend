@@ -1,45 +1,41 @@
 import type { NavListProps, NavSubListProps } from '../types';
 
-import { useState, useEffect, useCallback } from 'react';
-
-import Collapse from '@mui/material/Collapse';
+import { useBoolean } from 'minimal-shared/hooks';
+import { useRef, useEffect, useCallback } from 'react';
+import { isActiveLink, isExternalLink } from 'minimal-shared/utils';
 
 import { usePathname } from 'src/routes/hooks';
-import { isExternalLink } from 'src/routes/utils';
-import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { NavItem } from './nav-item';
-import { NavLi, NavUl, navSectionClasses } from '../../NavSection';
+import { navBasicClasses } from '../styles';
+import { NavLi, NavUl, NavCollapse } from '../components';
 
 // ----------------------------------------------------------------------
 
-export function NavList({ data, render, depth, slotProps, enabledRootRedirect }: NavListProps) {
+export function NavList({ data, depth, render, slotProps, enabledRootRedirect }: NavListProps) {
   const pathname = usePathname();
+  const navItemRef = useRef<HTMLButtonElement>(null);
 
-  const active = useActiveLink(data.path, !!data.children);
+  const isActive = isActiveLink(pathname, data.path, data.deepMatch ?? !!data.children);
 
-  const [openMenu, setOpenMenu] = useState(active);
+  const { value: open, onFalse: onClose, onToggle } = useBoolean(isActive);
 
   useEffect(() => {
-    if (!active) {
-      handleCloseMenu();
+    if (!isActive) {
+      onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const handleToggleMenu = useCallback(() => {
     if (data.children) {
-      setOpenMenu((prev) => !prev);
+      onToggle();
     }
-  }, [data.children]);
+  }, [data.children, onToggle]);
 
-  const handleCloseMenu = useCallback(() => {
-    setOpenMenu(false);
-  }, []);
-
-  const renderNavItem = (
+  const renderNavItem = () => (
     <NavItem
-      render={render}
+      ref={navItemRef}
       // slots
       path={data.path}
       icon={data.icon}
@@ -47,11 +43,15 @@ export function NavList({ data, render, depth, slotProps, enabledRootRedirect }:
       info={data.info}
       caption={data.caption}
       // state
+      open={open}
+      active={isActive}
+      disabled={data.disabled}
+      // options
       depth={depth}
-      open={openMenu}
+      render={render}
       hasChild={!!data.children}
-      enabledRootRedirect={enabledRootRedirect}
       externalLink={isExternalLink(data.path)}
+      enabledRootRedirect={enabledRootRedirect}
       // styles
       slotProps={depth === 1 ? slotProps?.rootItem : slotProps?.subItem}
       // actions
@@ -59,66 +59,45 @@ export function NavList({ data, render, depth, slotProps, enabledRootRedirect }:
     />
   );
 
-  if (data.children) {
-    return (
-      <NavLi
-        disabled={data.disabled}
-        sx={{
-          [`& .${navSectionClasses.li}`]: {
-            '&:first-of-type': { mt: 'var(--nav-item-gap)' },
-          },
-        }}
-      >
-        {renderNavItem}
-
-        <Collapse
-          in={openMenu}
-          sx={{
-            ...(depth + 1 !== 1 && {
-              pl: 'calc(var(--nav-item-pl) - 2px + var(--nav-icon-size) / 2)',
-              [`& .${navSectionClasses.ul}`]: {
-                position: 'relative',
-                pl: '12px',
-                '&::before': {
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  width: '1px',
-                  content: '""',
-                  opacity: 0.24,
-                  bgcolor: 'grey.500',
-                  position: 'absolute',
-                },
-              },
-            }),
-          }}
-        >
-          <NavSubList
-            data={data.children}
-            render={render}
-            depth={depth}
-            slotProps={slotProps}
-            enabledRootRedirect={enabledRootRedirect}
-          />
-        </Collapse>
-      </NavLi>
+  const renderCollapse = () =>
+    !!data.children && (
+      <NavCollapse mountOnEnter unmountOnExit depth={depth} in={open} data-group={data.title}>
+        <NavSubList
+          data={data.children}
+          depth={depth}
+          render={render}
+          slotProps={slotProps}
+          enabledRootRedirect={enabledRootRedirect}
+        />
+      </NavCollapse>
     );
-  }
 
-  return <NavLi disabled={data.disabled}>{renderNavItem}</NavLi>;
+  return (
+    <NavLi
+      disabled={data.disabled}
+      sx={{
+        ...(!!data.children && {
+          [`& .${navBasicClasses.li}`]: { '&:first-of-type': { mt: 'var(--nav-item-gap)' } },
+        }),
+      }}
+    >
+      {renderNavItem()}
+      {renderCollapse()}
+    </NavLi>
+  );
 }
 
 // ----------------------------------------------------------------------
 
-function NavSubList({ data, render, depth, slotProps, enabledRootRedirect }: NavSubListProps) {
+function NavSubList({ data, render, depth = 0, slotProps, enabledRootRedirect }: NavSubListProps) {
   return (
     <NavUl sx={{ gap: 'var(--nav-item-gap)' }}>
       {data.map((list) => (
         <NavList
           key={list.title}
           data={list}
-          render={render}
           depth={depth + 1}
+          render={render}
           slotProps={slotProps}
           enabledRootRedirect={enabledRootRedirect}
         />

@@ -1,9 +1,9 @@
 export * from './mobile';
 
-export * from './classes';
+export * from './styles';
 
 export * from './desktop';
 
-export * from './css-vars';
+export * from './components';
 
 export type * from './types';

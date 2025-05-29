@@ -1,12 +1,10 @@
 import type { NavBasicProps } from '../types';
 
-import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
 import { NavList } from './nav-list';
-import { NavUl } from '../../NavSection';
-import { navBasicClasses } from '../classes';
-import { navBasicCssVars } from '../css-vars';
+import { Nav, NavUl } from '../components';
+import { navBasicVars, navBasicClasses } from '../styles';
 
 // ----------------------------------------------------------------------
 
@@ -21,18 +19,12 @@ export function NavBasicDesktop({
 }: NavBasicProps) {
   const theme = useTheme();
 
-  const cssVars = {
-    ...navBasicCssVars.desktop(theme),
-    ...overridesVars,
-  };
+  const cssVars = { ...navBasicVars.desktop(theme), ...overridesVars };
 
   return (
-    <Stack
-      component="nav"
-      spacing={5}
-      direction="row"
-      className={navBasicClasses.desktop.root}
-      sx={{ ...cssVars, ...sx }}
+    <Nav
+      className={navBasicClasses.desktop}
+      sx={[{ ...cssVars }, ...(Array.isArray(sx) ? sx : [sx])]}
       {...other}
     >
       <NavUl sx={{ flexDirection: 'row', gap: 'var(--nav-item-gap)' }}>
@@ -48,6 +40,6 @@ export function NavBasicDesktop({
           />
         ))}
       </NavUl>
-    </Stack>
+    </Nav>
   );
 }
