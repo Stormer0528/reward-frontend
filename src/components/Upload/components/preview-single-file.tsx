@@ -1,45 +1,48 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 import type { SingleFilePreviewProps } from '../types';
 
-import { varAlpha } from 'minimal-shared/utils';
+import { varAlpha, mergeClasses } from 'minimal-shared/utils';
 
-import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 
-import { Iconify } from 'src/components/Iconify';
+import { Iconify } from '../../Iconify';
+import { uploadClasses } from '../classes';
 
 // ----------------------------------------------------------------------
 
-export function SingleFilePreview({ file }: SingleFilePreviewProps) {
+export function SingleFilePreview({ file, sx, className, ...other }: SingleFilePreviewProps) {
   const fileName = typeof file === 'string' ? file : file.name;
 
   const previewUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
 
   return (
-    <Box
-      sx={{
-        p: 1,
-        top: 0,
-        left: 0,
-        width: 1,
-        height: 1,
-        position: 'absolute',
-      }}
+    <PreviewRoot
+      className={mergeClasses([uploadClasses.uploadSinglePreview, className])}
+      sx={sx}
+      {...other}
     >
-      <Box
-        component="img"
-        alt={fileName}
-        src={previewUrl}
-        sx={{
-          width: 1,
-          height: 1,
-          borderRadius: 1,
-          objectFit: 'cover',
-        }}
-      />
-    </Box>
+      <img alt={fileName} src={previewUrl} />
+    </PreviewRoot>
   );
 }
+
+// ----------------------------------------------------------------------
+
+const PreviewRoot = styled('div')(({ theme }) => ({
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  position: 'absolute',
+  padding: theme.spacing(1),
+  '& > img': {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: theme.shape.borderRadius,
+  },
+}));
 
 // ----------------------------------------------------------------------
 
@@ -47,16 +50,18 @@ export function DeleteButton({ sx, ...other }: IconButtonProps) {
   return (
     <IconButton
       size="small"
-      sx={{
-        top: 16,
-        right: 16,
-        zIndex: 9,
-        position: 'absolute',
-        color: (theme) => varAlpha(theme.vars.palette.common.whiteChannel, 0.8),
-        bgcolor: (theme) => varAlpha(theme.vars.palette.grey['900Channel'], 0.72),
-        '&:hover': { bgcolor: (theme) => varAlpha(theme.vars.palette.grey['900Channel'], 0.48) },
-        ...sx,
-      }}
+      sx={[
+        (theme) => ({
+          top: 16,
+          right: 16,
+          zIndex: 9,
+          position: 'absolute',
+          color: varAlpha(theme.vars.palette.common.whiteChannel, 0.8),
+          bgcolor: varAlpha(theme.vars.palette.grey['900Channel'], 0.72),
+          '&:hover': { bgcolor: varAlpha(theme.vars.palette.grey['900Channel'], 0.48) },
+        }),
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...other}
     >
       <Iconify icon="mingcute:close-line" width={18} />

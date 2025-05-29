@@ -8,13 +8,14 @@ export type FileUploadType = File | string | null;
 
 export type FilesUploadType = (File | string)[];
 
-export type SingleFilePreviewProps = {
+export type SingleFilePreviewProps = React.ComponentProps<'div'> & {
   file: File | string;
+  sx?: SxProps<Theme>;
 };
 
-export type MultiFilePreviewProps = {
-  files: FilesUploadType;
+export type MultiFilePreviewProps = React.ComponentProps<'ul'> & {
   sx?: SxProps<Theme>;
+  files: FilesUploadType;
   lastNode?: React.ReactNode;
   firstNode?: React.ReactNode;
   onRemove: UploadProps['onRemove'];
@@ -27,14 +28,13 @@ export type MultiFilePreviewProps = {
 export type UploadProps = DropzoneOptions & {
   error?: boolean;
   sx?: SxProps<Theme>;
+  className?: string;
   thumbnail?: boolean;
-  onDelete?: () => void;
-  onUpload?: () => void;
-  onRemoveAll?: () => void;
   helperText?: React.ReactNode;
   placeholder?: React.ReactNode;
   value?: FileUploadType | FilesUploadType;
+  onDelete?: () => void;
+  onUpload?: () => void;
+  onRemoveAll?: () => void;
   onRemove?: (file: File | string) => void;
-  preview?: boolean;
-  current?: string;
 };

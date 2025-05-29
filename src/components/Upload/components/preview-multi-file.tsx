@@ -1,15 +1,15 @@
 import type { MultiFilePreviewProps } from '../types';
 
-import { varAlpha } from 'minimal-shared/utils';
+import { varAlpha, mergeClasses } from 'minimal-shared/utils';
 
-import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import { fData } from 'src/utils/formatNumber';
 
-import { Iconify } from 'src/components/Iconify';
-
+import { Iconify } from '../../Iconify';
+import { uploadClasses } from '../classes';
 import { fileData, FileThumbnail } from '../../FileThumbnail';
 
 // ----------------------------------------------------------------------
@@ -22,106 +22,93 @@ export function MultiFilePreview({
   slotProps,
   firstNode,
   files = [],
+  className,
+  ...other
 }: MultiFilePreviewProps) {
-  const renderFirstNode = firstNode && (
-    <Box
-      component="li"
-      sx={{
-        ...(thumbnail && {
-          width: 'auto',
-          display: 'inline-flex',
-        }),
-      }}
-    >
-      {firstNode}
-    </Box>
-  );
-
-  const renderLastNode = lastNode && (
-    <Box
-      component="li"
-      sx={{
-        ...(thumbnail && { width: 'auto', display: 'inline-flex' }),
-      }}
-    >
-      {lastNode}
-    </Box>
-  );
-
   return (
-    <Box
-      component="ul"
-      sx={{
-        gap: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        ...(thumbnail && {
-          flexWrap: 'wrap',
-          flexDirection: 'row',
-        }),
-        ...sx,
-      }}
+    <ListRoot
+      thumbnail={thumbnail}
+      className={mergeClasses([uploadClasses.uploadMultiPreview, className])}
+      sx={sx}
+      {...other}
     >
-      {renderFirstNode}
+      {firstNode && <ItemNode thumbnail={thumbnail}>{firstNode}</ItemNode>}
 
       {files.map((file) => {
         const { name, size } = fileData(file);
 
         if (thumbnail) {
           return (
-            <Box component="li" key={name} sx={{ display: 'inline-flex' }}>
+            <ItemThumbnail key={name}>
               <FileThumbnail
                 tooltip
                 imageView
                 file={file}
                 onRemove={() => onRemove?.(file)}
-                sx={{
-                  width: 80,
-                  height: 80,
-                  border: (theme) =>
-                    `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
-                }}
-                slotProps={{ icon: { width: 36, height: 36 } }}
+                sx={[
+                  (theme) => ({
+                    width: 80,
+                    height: 80,
+                    border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
+                  }),
+                ]}
+                slotProps={{ icon: { sx: { width: 36, height: 36 } } }}
                 {...slotProps?.thumbnail}
               />
-            </Box>
+            </ItemThumbnail>
           );
         }
 
         return (
-          <Box
-            component="li"
-            key={name}
-            sx={{
-              py: 1,
-              pr: 1,
-              pl: 1.5,
-              gap: 1.5,
-              display: 'flex',
-              borderRadius: 1,
-              alignItems: 'center',
-              border: (theme) =>
-                `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
-            }}
-          >
+          <ItemRow key={name}>
             <FileThumbnail file={file} {...slotProps?.thumbnail} />
 
             <ListItemText
               primary={name}
               secondary={fData(size)}
-              secondaryTypographyProps={{ component: 'span', typography: 'caption' }}
+              slotProps={{
+                secondary: { sx: { typography: 'caption' } },
+              }}
             />
 
             {onRemove && (
               <IconButton size="small" onClick={() => onRemove(file)}>
-                <Iconify icon="mingcute:close-line" width={16} />
+                <Iconify width={16} icon="mingcute:close-line" />
               </IconButton>
             )}
-          </Box>
+          </ItemRow>
         );
       })}
 
-      {renderLastNode}
-    </Box>
+      {lastNode && <ItemNode thumbnail={thumbnail}>{lastNode}</ItemNode>}
+    </ListRoot>
   );
 }
+
+// ----------------------------------------------------------------------
+
+const ListRoot = styled('ul', {
+  shouldForwardProp: (prop: string) => !['thumbnail', 'sx'].includes(prop),
+})<Pick<MultiFilePreviewProps, 'thumbnail'>>(({ thumbnail, theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(1),
+  flexDirection: 'column',
+  ...(thumbnail && { flexWrap: 'wrap', flexDirection: 'row' }),
+}));
+
+const ItemThumbnail = styled('li')(() => ({ display: 'inline-flex' }));
+
+const ItemRow = styled('li')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing(1.5),
+  padding: theme.spacing(1, 1, 1, 1.5),
+  borderRadius: theme.shape.borderRadius,
+  border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
+}));
+
+const ItemNode = styled('li', {
+  shouldForwardProp: (prop: string) => !['thumbnail', 'sx'].includes(prop),
+})<Pick<MultiFilePreviewProps, 'thumbnail'>>(({ thumbnail }) => ({
+  ...(thumbnail && { width: 'auto', display: 'inline-flex' }),
+}));
