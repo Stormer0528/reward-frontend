@@ -3,6 +3,7 @@ import { RHFEditor } from './RHFEditor';
 import { RHFSwitch } from './RHFSwitch';
 import { RHFSelect } from './RHFSelect';
 import { RHFCheckbox } from './RHFCheckbox';
+import { RHFPassword } from './RHFPassword';
 import { RHFTextField } from './RHFTextField';
 import { RHFPhoneInput } from './RHFPhoneInput';
 import { RHFDatePicker } from './RHFDatePicker';
@@ -19,6 +20,7 @@ export const Field = {
   Switch: RHFSwitch,
   Text: RHFTextField,
   Phone: RHFPhoneInput,
+  Password: RHFPassword,
   Checkbox: RHFCheckbox,
   UploadBox: RHFUploadBox,
   DatePicker: RHFDatePicker,

@@ -12,6 +12,8 @@ export * from './RHFUpload';
 
 export * from './RHFCheckbox';
 
+export * from './RHFPassword';
+
 export * from './RHFTextField';
 
 export * from './FormProvider';
