@@ -1,110 +1,136 @@
-import type { ImageProps } from './types';
+import type { UseInViewOptions } from 'framer-motion';
+import type { Breakpoint } from '@mui/material/styles';
+import type { EffectsType } from './styles';
 
-import { forwardRef } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-
-import { CONFIG } from 'src/config';
+import { useInView } from 'framer-motion';
+import { mergeRefs, mergeClasses } from 'minimal-shared/utils';
+import { useRef, useState, useCallback, startTransition } from 'react';
 
 import { imageClasses } from './classes';
+import { ImageImg, ImageRoot, ImageOverlay, ImagePlaceholder } from './styles';
 
 // ----------------------------------------------------------------------
 
-const ImageWrapper = styled(Box)({
-  overflow: 'hidden',
-  position: 'relative',
-  verticalAlign: 'bottom',
-  display: 'inline-block',
-  [`& .${imageClasses.wrapper}`]: {
-    width: '100%',
-    height: '100%',
-    verticalAlign: 'bottom',
-    backgroundSize: 'cover !important',
-  },
-});
+type PredefinedAspectRatio =
+  | '2/3'
+  | '3/2'
+  | '4/3'
+  | '3/4'
+  | '6/4'
+  | '4/6'
+  | '16/9'
+  | '9/16'
+  | '21/9'
+  | '9/21'
+  | '1/1';
 
-const Overlay = styled('span')({
-  top: 0,
-  left: 0,
-  zIndex: 1,
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-});
+type AspectRatioType = PredefinedAspectRatio | `${number}/${number}`;
 
-// ----------------------------------------------------------------------
+export type ImageProps = React.ComponentProps<typeof ImageRoot> &
+  Pick<React.ComponentProps<typeof ImageImg>, 'src' | 'alt'> & {
+    delayTime?: number;
+    onLoad?: () => void;
+    effect?: EffectsType;
+    visibleByDefault?: boolean;
+    disablePlaceholder?: boolean;
+    viewportOptions?: UseInViewOptions;
+    ratio?: AspectRatioType | Partial<Record<Breakpoint, AspectRatioType>>;
+    slotProps?: {
+      img?: Omit<React.ComponentProps<typeof ImageImg>, 'src' | 'alt'>;
+      overlay?: React.ComponentProps<typeof ImageOverlay>;
+      placeholder?: React.ComponentProps<typeof ImagePlaceholder>;
+    };
+  };
 
-export const Image = forwardRef<HTMLSpanElement, ImageProps>(
-  (
-    {
-      ratio,
-      disabledEffect = false,
-      //
-      alt,
-      src,
-      delayTime,
-      threshold,
-      beforeLoad,
-      delayMethod,
-      placeholder,
-      wrapperProps,
-      scrollPosition,
-      effect = 'blur',
-      visibleByDefault,
-      wrapperClassName,
-      useIntersectionObserver,
-      //
-      slotProps,
-      sx,
-      ...other
-    },
-    ref
-  ) => {
-    const content = (
-      <Box
-        component={LazyLoadImage}
-        alt={alt}
+const DEFAULT_DELAY = 0;
+const DEFAULT_EFFECT: EffectsType = {
+  style: 'blur',
+  duration: 300,
+  disabled: false,
+};
+
+export function Image({
+  sx,
+  src,
+  ref,
+  ratio,
+  onLoad,
+  effect,
+  alt = '',
+  slotProps,
+  className,
+  viewportOptions,
+  disablePlaceholder,
+  visibleByDefault = false,
+  delayTime = DEFAULT_DELAY,
+  ...other
+}: ImageProps) {
+  const localRef = useRef<HTMLSpanElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const isInView = useInView(localRef, {
+    once: true,
+    ...viewportOptions,
+  });
+
+  const handleImageLoad = useCallback(() => {
+    const timer = setTimeout(() => {
+      startTransition(() => {
+        setIsLoaded(true);
+        onLoad?.();
+      });
+    }, delayTime);
+
+    return () => clearTimeout(timer);
+  }, [delayTime, onLoad]);
+
+  const finalEffect = {
+    ...DEFAULT_EFFECT,
+    ...effect,
+  };
+
+  const shouldRenderImage = visibleByDefault || isInView;
+  const showPlaceholder = !visibleByDefault && !isLoaded && !disablePlaceholder;
+
+  const renderComponents = {
+    overlay: () =>
+      slotProps?.overlay && (
+        <ImageOverlay className={imageClasses.overlay} {...slotProps.overlay} />
+      ),
+    placeholder: () =>
+      showPlaceholder && (
+        <ImagePlaceholder className={imageClasses.placeholder} {...slotProps?.placeholder} />
+      ),
+    image: () => (
+      <ImageImg
         src={src}
-        delayTime={delayTime}
-        threshold={threshold}
-        beforeLoad={beforeLoad}
-        delayMethod={delayMethod}
-        placeholder={placeholder}
-        wrapperProps={wrapperProps}
-        scrollPosition={scrollPosition}
-        visibleByDefault={visibleByDefault}
-        effect={visibleByDefault || disabledEffect ? undefined : effect}
-        useIntersectionObserver={useIntersectionObserver}
-        wrapperClassName={wrapperClassName || imageClasses.wrapper}
-        placeholderSrc={
-          visibleByDefault || disabledEffect
-            ? `${CONFIG.ASSET_DIR}/assets/transparent.png`
-            : `${CONFIG.ASSET_DIR}/assets/placeholder.svg`
-        }
-        sx={{
-          width: 1,
-          height: 1,
-          objectFit: 'cover',
-          verticalAlign: 'bottom',
-          aspectRatio: ratio,
-        }}
+        alt={alt}
+        onLoad={handleImageLoad}
+        className={imageClasses.img}
+        {...slotProps?.img}
       />
-    );
+    ),
+  };
 
-    return (
-      <ImageWrapper
-        ref={ref}
-        component="span"
-        className={imageClasses.root}
-        sx={{ ...(!!ratio && { width: 1 }), ...sx }}
-        {...other}
-      >
-        {slotProps?.overlay && <Overlay className={imageClasses.overlay} sx={slotProps?.overlay} />}
-
-        {content}
-      </ImageWrapper>
-    );
-  }
-);
+  return (
+    <ImageRoot
+      ref={mergeRefs([localRef, ref])}
+      effect={visibleByDefault || finalEffect.disabled ? undefined : finalEffect}
+      className={mergeClasses([imageClasses.root, className], {
+        [imageClasses.state.loaded]: !visibleByDefault && isLoaded,
+      })}
+      sx={[
+        {
+          '--aspect-ratio': ratio,
+          ...(!!ratio && { width: 1 }),
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+      {...other}
+    >
+      {renderComponents.overlay()}
+      {renderComponents.placeholder()}
+      {shouldRenderImage && renderComponents.image()}
+    </ImageRoot>
+  );
+}

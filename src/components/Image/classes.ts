@@ -1,7 +1,13 @@
+import { createClasses } from 'src/theme/create-classes';
+
 // ----------------------------------------------------------------------
 
 export const imageClasses = {
-  root: 'mnl__image__root',
-  wrapper: 'mnl__image__wrapper',
-  overlay: 'mnl__image__overlay',
+  root: createClasses('image__root'),
+  img: createClasses('image__img'),
+  overlay: createClasses('image__overlay'),
+  placeholder: createClasses('image__placeholder'),
+  state: {
+    loaded: '--loaded',
+  },
 };
