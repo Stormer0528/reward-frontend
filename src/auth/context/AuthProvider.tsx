@@ -89,5 +89,5 @@ export function AuthProvider({ children }: Props) {
     [user, code, token, loading, signIn, signOut, setCode]
   );
 
-  return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
+  return <AuthContext value={memoizedValue}>{children}</AuthContext>;
 }

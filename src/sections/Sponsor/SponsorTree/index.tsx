@@ -351,7 +351,7 @@ function PlacementListView({ popover }: Props) {
       ) : (
         <ComponentBlock sx={{ px: 0, pb: 0 }}>
           <Stack sx={{ overflow: 'auto', height: '600px', width: '100%' }}>
-            <NodeContext.Provider value={contextValue}>
+            <NodeContext value={contextValue}>
               <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -359,7 +359,7 @@ function PlacementListView({ popover }: Props) {
                 fitViewOptions={fitViewOptions}
                 edgeTypes={edgeTypes}
               />
-            </NodeContext.Provider>
+            </NodeContext>
           </Stack>
         </ComponentBlock>
       )}
