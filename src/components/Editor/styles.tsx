@@ -1,8 +1,5 @@
-import type { StackProps } from '@mui/material/Stack';
-
 import { varAlpha } from 'minimal-shared/utils';
 
-import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 
 import { editorClasses } from './classes';
@@ -11,15 +8,18 @@ import { editorClasses } from './classes';
 
 const MARGIN = '0.75em';
 
-type StyledRootProps = StackProps & {
+type EditorRootProps = {
   error?: boolean;
   disabled?: boolean;
   fullScreen?: boolean;
 };
-export const StyledRoot = styled(Stack, {
-  shouldForwardProp: (prop) => prop !== 'error' && prop !== 'disabled' && prop !== 'fullScreen',
-})<StyledRootProps>(({ error, disabled, fullScreen, theme }) => ({
+
+export const EditorRoot = styled('div', {
+  shouldForwardProp: (prop: string) => !['error', 'disabled', 'fullScreen', 'sx'].includes(prop),
+})<EditorRootProps>(({ error, disabled, fullScreen, theme }) => ({
   minHeight: 240,
+  display: 'flex',
+  flexDirection: 'column',
   borderRadius: theme.shape.borderRadius,
   border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
   scrollbarWidth: 'thin',
@@ -27,16 +27,11 @@ export const StyledRoot = styled(Stack, {
   /**
    * State: error
    */
-  ...(error && {
-    border: `solid 1px ${theme.vars.palette.error.main}`,
-  }),
+  ...(error && { border: `solid 1px ${theme.vars.palette.error.main}` }),
   /**
    * State: disabled
    */
-  ...(disabled && {
-    opacity: 0.48,
-    pointerEvents: 'none',
-  }),
+  ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
   /**
    * State: fullScreen
    */
@@ -74,19 +69,10 @@ export const StyledRoot = styled(Stack, {
     borderBottomLeftRadius: 'inherit',
     borderBottomRightRadius: 'inherit',
     backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-    ...(error && {
-      backgroundColor: varAlpha(theme.vars.palette.error.mainChannel, 0.08),
-    }),
+    ...(error && { backgroundColor: varAlpha(theme.vars.palette.error.mainChannel, 0.08) }),
     '& .tiptap': {
-      '> * + *': {
-        marginTop: 0,
-        marginBottom: MARGIN,
-      },
-      '&.ProseMirror': {
-        flex: '1 1 auto',
-        outline: 'none',
-        padding: theme.spacing(0, 2),
-      },
+      '> * + *': { marginTop: 0, marginBottom: MARGIN },
+      '&.ProseMirror': { flex: '1 1 auto', outline: 'none', padding: theme.spacing(0, 2) },
       /**
        * Heading & Paragraph
        */
@@ -101,9 +87,7 @@ export const StyledRoot = styled(Stack, {
       /**
        * Link
        */
-      [`& .${editorClasses.content.link}`]: {
-        color: theme.vars.palette.primary.main,
-      },
+      [`& .${editorClasses.content.link}`]: { color: theme.vars.palette.primary.main },
       /**
        * Hr Divider
        */
@@ -127,17 +111,9 @@ export const StyledRoot = styled(Stack, {
       },
       /**
        * List
-       */ [`& .${editorClasses.content.bulletList}`]: {
-        paddingLeft: 16,
-        listStyleType: 'disc',
-      },
-      [`& .${editorClasses.content.orderedList}`]: {
-        paddingLeft: 16,
-      },
-      [`& .${editorClasses.content.listItem}`]: {
-        lineHeight: 2,
-        '& > p': { margin: 0, display: 'inline-block' },
-      },
+       */ [`& .${editorClasses.content.bulletList}`]: { paddingLeft: 16, listStyleType: 'disc' },
+      [`& .${editorClasses.content.orderedList}`]: { paddingLeft: 16 },
+      [`& .${editorClasses.content.listItem}`]: { lineHeight: 2, '& > p': { margin: 0 } },
       /**
        * Blockquote
        */
@@ -150,15 +126,8 @@ export const StyledRoot = styled(Stack, {
         padding: theme.spacing(3, 3, 3, 8),
         color: theme.vars.palette.text.secondary,
         borderLeft: `solid 8px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
-        [theme.breakpoints.up('md')]: {
-          width: '100%',
-          maxWidth: 640,
-        },
-        '& p': {
-          margin: 0,
-          fontSize: 'inherit',
-          fontFamily: 'inherit',
-        },
+        [theme.breakpoints.up('md')]: { width: '100%', maxWidth: 640 },
+        '& p': { margin: 0, fontSize: 'inherit', fontFamily: 'inherit' },
         '&::before': {
           left: 16,
           top: -8,
