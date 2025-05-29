@@ -1,79 +1,117 @@
-import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
+import type { Breakpoint } from '@mui/material/styles';
+import type { AuthSplitSectionProps } from './section';
+import type { AuthSplitContentProps } from './content';
+import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '../core';
 
-import { useBoolean } from 'minimal-shared/hooks';
+import { merge } from 'es-toolkit';
 
-import { Section } from './section';
-import { Main, Content } from './main';
-import { HeaderBase } from '../core/header-base';
-import { LayoutSection } from '../core/layout-section';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+
+import { Logo } from 'src/components/Logo';
+
+import { AuthSplitSection } from './section';
+import { AuthSplitContent } from './content';
+import { SettingsButton } from '../components/settings-button';
+import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
 
-export type AuthSplitLayoutProps = {
-  sx?: SxProps<Theme>;
-  children: React.ReactNode;
-  section?: {
-    title?: string;
-    imgUrl?: string;
-    subtitle?: string;
+type LayoutBaseProps = Pick<LayoutSectionProps, 'sx' | 'children' | 'cssVars'>;
+
+export type AuthSplitLayoutProps = LayoutBaseProps & {
+  layoutQuery?: Breakpoint;
+  slotProps?: {
+    header?: HeaderSectionProps;
+    main?: MainSectionProps;
+    section?: AuthSplitSectionProps;
+    content?: AuthSplitContentProps;
   };
-  introVideo?: boolean;
-  width?: string;
 };
 
 export function AuthSplitLayout({
   sx,
-  section,
+  cssVars,
   children,
-  width,
-  introVideo = false,
+  slotProps,
+  layoutQuery = 'md',
 }: AuthSplitLayoutProps) {
-  const mobileNavOpen = useBoolean();
+  const renderHeader = () => {
+    const headerSlotProps: HeaderSectionProps['slotProps'] = {
+      container: { maxWidth: false },
+    };
 
-  const layoutQuery: Breakpoint = 'md';
+    const headerSlots: HeaderSectionProps['slots'] = {
+      topArea: (
+        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+          This is an info Alert.
+        </Alert>
+      ),
+      leftArea: (
+        <>
+          {/** @slot Logo */}
+          <Logo />
+        </>
+      ),
+      rightArea: (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
+          {/** @slot Help link */}
+
+          {/** @slot Settings button */}
+          <SettingsButton />
+        </Box>
+      ),
+    };
+
+    return (
+      <HeaderSection
+        disableElevation
+        layoutQuery={layoutQuery}
+        {...slotProps?.header}
+        slots={{ ...headerSlots, ...slotProps?.header?.slots }}
+        slotProps={merge(headerSlotProps, slotProps?.header?.slotProps ?? {})}
+        sx={[
+          { position: { [layoutQuery]: 'fixed' } },
+          ...(Array.isArray(slotProps?.header?.sx) ? slotProps.header.sx : [slotProps?.header?.sx]),
+        ]}
+      />
+    );
+  };
+
+  const renderFooter = () => null;
+
+  const renderMain = () => (
+    <MainSection
+      {...slotProps?.main}
+      sx={[
+        (theme) => ({ [theme.breakpoints.up(layoutQuery)]: { flexDirection: 'row' } }),
+        ...(Array.isArray(slotProps?.main?.sx) ? slotProps.main.sx : [slotProps?.main?.sx]),
+      ]}
+    >
+      <AuthSplitSection layoutQuery={layoutQuery} {...slotProps?.section} />
+      <AuthSplitContent layoutQuery={layoutQuery} {...slotProps?.content}>
+        {children}
+      </AuthSplitContent>
+    </MainSection>
+  );
 
   return (
     <LayoutSection
-      headerSection={
-        /** **************************************
-         * Header
-         *************************************** */
-        <HeaderBase
-          disableElevation
-          layoutQuery={layoutQuery}
-          onOpenNav={mobileNavOpen.onTrue}
-          slotsDisplay={{
-            account: false,
-            searchbar: false,
-            workspaces: false,
-            menuButton: false,
-          }}
-          slotProps={{ container: { maxWidth: false } }}
-          sx={{ position: { [layoutQuery]: 'fixed' } }}
-        />
-      }
       /** **************************************
-       * Footer
+       * @Header
        *************************************** */
-      footerSection={null}
+      headerSection={renderHeader()}
       /** **************************************
-       * Style
+       * @Footer
        *************************************** */
+      footerSection={renderFooter()}
+      /** **************************************
+       * @Styles
+       *************************************** */
+      cssVars={{ '--layout-auth-content-width': '420px', ...cssVars }}
       sx={sx}
-      cssVars={{
-        '--layout-auth-content-width': `${width ?? '420px'}`,
-      }}
     >
-      <Main layoutQuery={layoutQuery}>
-        <Section
-          title={section?.title}
-          layoutQuery={layoutQuery}
-          imgUrl={section?.imgUrl}
-          subtitle={section?.subtitle}
-          introVideo={introVideo}
-        />
-        <Content layoutQuery={layoutQuery}>{children}</Content>
-      </Main>
+      {renderMain()}
     </LayoutSection>
   );
 }

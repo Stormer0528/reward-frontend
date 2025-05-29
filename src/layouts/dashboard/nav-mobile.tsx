@@ -1,16 +1,19 @@
 import type { NavSectionProps } from 'src/components/NavSection';
 
 import { useEffect } from 'react';
+import { mergeClasses } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
-import Drawer, { drawerClasses } from '@mui/material/Drawer';
+import Drawer from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
 
+import { Logo } from 'src/components/Logo';
 import { ScrollBar } from 'src/components/ScrollBar';
-import DarkLogo from 'src/components/Logo/dark-logo';
-import { useSettingsContext } from 'src/components/Settings';
 import { NavSectionVertical } from 'src/components/NavSection';
+
+import { layoutClasses } from '../core';
+import { NavUpgrade } from '../components/nav-upgrade';
 
 // ----------------------------------------------------------------------
 
@@ -23,9 +26,17 @@ type NavMobileProps = NavSectionProps & {
   };
 };
 
-export function NavMobile({ data, open, onClose, slots, sx, ...other }: NavMobileProps) {
+export function NavMobile({
+  sx,
+  data,
+  open,
+  slots,
+  onClose,
+  className,
+
+  ...other
+}: NavMobileProps) {
   const pathname = usePathname();
-  const { state } = useSettingsContext();
 
   useEffect(() => {
     if (open) {
@@ -38,27 +49,34 @@ export function NavMobile({ data, open, onClose, slots, sx, ...other }: NavMobil
     <Drawer
       open={open}
       onClose={onClose}
-      sx={{
-        [`& .${drawerClasses.paper}`]: {
-          overflow: 'unset',
-          bgcolor: 'var(--layout-nav-bg)',
-          width: 'var(--layout-nav-mobile-width)',
-          ...sx,
+      slotProps={{
+        paper: {
+          className: mergeClasses([layoutClasses.nav.root, layoutClasses.nav.vertical, className]),
+          sx: [
+            {
+              overflow: 'unset',
+              bgcolor: 'var(--layout-nav-bg)',
+              width: 'var(--layout-nav-mobile-width)',
+            },
+            ...(Array.isArray(sx) ? sx : [sx]),
+          ],
         },
       }}
     >
       {slots?.topArea ?? (
         <Box sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
-          {state.navColor === 'apparent' ? (
-            <DarkLogo sx={{ background: '#ffffff', borderRadius: 50 }} />
-          ) : (
-            <DarkLogo />
-          )}
+          <Logo />
         </Box>
       )}
 
       <ScrollBar fillContent>
-        <NavSectionVertical data={data} sx={{ px: 2, flex: '1 1 auto' }} {...other} />
+        <NavSectionVertical
+          data={data}
+          checkPermissions={checkPermissions}
+          sx={{ px: 2, flex: '1 1 auto' }}
+          {...other}
+        />
+        <NavUpgrade />
       </ScrollBar>
 
       {slots?.bottomArea}

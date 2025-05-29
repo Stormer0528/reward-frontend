@@ -1,57 +1,102 @@
-import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
+import type { Breakpoint } from '@mui/material/styles';
+import type { SimpleCompactContentProps } from './content';
+import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '../core';
 
-import { useBoolean } from 'minimal-shared/hooks';
+import { merge } from 'es-toolkit';
 
-import { Main, CompactContent } from './main';
-import { HeaderBase } from '../core/header-base';
-import { LayoutSection } from '../core/layout-section';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+
+import { Logo } from 'src/components/Logo';
+
+import { SimpleCompactContent } from './content';
+import { SettingsButton } from '../components/settings-button';
+import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
 
-export type SimpleLayoutProps = {
-  sx?: SxProps<Theme>;
-  children: React.ReactNode;
-  content?: {
-    compact?: boolean;
+type LayoutBaseProps = Pick<LayoutSectionProps, 'sx' | 'children' | 'cssVars'>;
+
+export type SimpleLayoutProps = LayoutBaseProps & {
+  layoutQuery?: Breakpoint;
+  slotProps?: {
+    header?: HeaderSectionProps;
+    main?: MainSectionProps;
+    content?: SimpleCompactContentProps & { compact?: boolean };
   };
 };
 
-export function SimpleLayout({ sx, children, content }: SimpleLayoutProps) {
-  const mobileNavOpen = useBoolean();
+export function SimpleLayout({
+  sx,
+  cssVars,
+  children,
+  slotProps,
+  layoutQuery = 'md',
+}: SimpleLayoutProps) {
+  const renderHeader = () => {
+    const headerSlotProps: HeaderSectionProps['slotProps'] = { container: { maxWidth: false } };
 
-  const layoutQuery: Breakpoint = 'md';
+    const headerSlots: HeaderSectionProps['slots'] = {
+      topArea: (
+        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+          This is an info Alert.
+        </Alert>
+      ),
+      leftArea: <Logo />,
+      rightArea: (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
+          {/** @slot Settings button */}
+          <SettingsButton />
+        </Box>
+      ),
+    };
+
+    return (
+      <HeaderSection
+        layoutQuery={layoutQuery}
+        {...slotProps?.header}
+        slots={{ ...headerSlots, ...slotProps?.header?.slots }}
+        slotProps={merge(headerSlotProps, slotProps?.header?.slotProps ?? {})}
+        sx={slotProps?.header?.sx}
+      />
+    );
+  };
+
+  const renderFooter = () => null;
+
+  const renderMain = () => {
+    const { compact, ...restContentProps } = slotProps?.content ?? {};
+
+    return (
+      <MainSection {...slotProps?.main}>
+        {compact ? (
+          <SimpleCompactContent layoutQuery={layoutQuery} {...restContentProps}>
+            {children}
+          </SimpleCompactContent>
+        ) : (
+          children
+        )}
+      </MainSection>
+    );
+  };
 
   return (
     <LayoutSection
       /** **************************************
-       * Header
+       * @Header
        *************************************** */
-      headerSection={
-        <HeaderBase
-          layoutQuery={layoutQuery}
-          onOpenNav={mobileNavOpen.onTrue}
-          slotsDisplay={{
-            account: false,
-            searchbar: false,
-            workspaces: false,
-            menuButton: false,
-          }}
-          slotProps={{ container: { maxWidth: false } }}
-        />
-      }
+      headerSection={renderHeader()}
       /** **************************************
-       * Footer
+       * @Footer
        *************************************** */
-      footerSection={null}
+      footerSection={renderFooter()}
       /** **************************************
-       * Style
+       * @Styles
        *************************************** */
-      cssVars={{
-        '--layout-simple-content-compact-width': '448px',
-      }}
+      cssVars={{ '--layout-simple-content-compact-width': '448px', ...cssVars }}
       sx={sx}
     >
-      <Main>{content?.compact ? <CompactContent>{children}</CompactContent> : children}</Main>
+      {renderMain()}
     </LayoutSection>
   );
 }

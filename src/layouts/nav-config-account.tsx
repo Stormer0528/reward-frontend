@@ -1,8 +1,10 @@
+import type { AccountDrawerProps } from './components/account-drawer';
+
 import { Iconify } from 'src/components/Iconify';
 
 // ----------------------------------------------------------------------
 
-export const _account = [
+export const accountNavData: AccountDrawerProps['data'] = [
   {
     label: 'Home',
     href: '/',

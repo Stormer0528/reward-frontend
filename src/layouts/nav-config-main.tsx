@@ -1,8 +1,11 @@
+import type { NavMainProps } from './main/nav/types';
+
 import { paths } from 'src/routes/paths';
+
 
 // ----------------------------------------------------------------------
 
-export const navData = [
+export const navData: NavMainProps['data'] = [
   {
     title: 'Introduction',
     path: paths.pages.intro.root,

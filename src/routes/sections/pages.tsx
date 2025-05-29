@@ -1,10 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, type RouteObject } from 'react-router';
 
-import Container from '@mui/material/Container';
-
 import { MainLayout } from 'src/layouts/main';
-import { NavBasic } from 'src/layouts/main/navItem/nav-basic';
 import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 
 import { LoadingScreen } from 'src/components/loading-screen';
@@ -27,9 +24,6 @@ export const statisticsRoutes: RouteObject[] = [
     path: '',
     element: (
       <Suspense fallback={<LoadingScreen />}>
-        <Container>
-          <NavBasic />
-        </Container>
         <Outlet />
       </Suspense>
     ),

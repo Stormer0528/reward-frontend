@@ -1,87 +1,141 @@
-import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
+import type { Theme, CSSObject, Breakpoint } from '@mui/material/styles';
+import type { AuthCenteredContentProps } from './content';
+import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '../core';
 
-import { useBoolean } from 'minimal-shared/hooks';
+import { merge } from 'es-toolkit';
 
+import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import { useTheme } from '@mui/material/styles';
 
 import { CONFIG } from 'src/config';
 
-import { Main } from './main';
-import { HeaderBase } from '../core/header-base';
-import { LayoutSection } from '../core/layout-section';
+import { Logo } from 'src/components/Logo';
+
+import { AuthCenteredContent } from './content';
+import { SettingsButton } from '../components/settings-button';
+import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
 
-export type AuthCenteredLayoutProps = {
-  sx?: SxProps<Theme>;
-  children: React.ReactNode;
+type LayoutBaseProps = Pick<LayoutSectionProps, 'sx' | 'children' | 'cssVars'>;
+
+export type AuthCenteredLayoutProps = LayoutBaseProps & {
+  layoutQuery?: Breakpoint;
+  slotProps?: {
+    header?: HeaderSectionProps;
+    main?: MainSectionProps;
+    content?: AuthCenteredContentProps;
+  };
 };
 
-export function AuthCenteredLayout({ sx, children }: AuthCenteredLayoutProps) {
-  const theme = useTheme();
+export function AuthCenteredLayout({
+  sx,
+  cssVars,
+  children,
+  slotProps,
+  layoutQuery = 'md',
+}: AuthCenteredLayoutProps) {
+  const renderHeader = () => {
+    const headerSlotProps: HeaderSectionProps['slotProps'] = { container: { maxWidth: false } };
 
-  const mobileNavOpen = useBoolean();
+    const headerSlots: HeaderSectionProps['slots'] = {
+      topArea: (
+        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+          This is an info Alert.
+        </Alert>
+      ),
+      leftArea: (
+        <>
+          {/** @slot Logo */}
+          <Logo />
+        </>
+      ),
+      rightArea: (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
 
-  const layoutQuery: Breakpoint = 'md';
+
+          {/** @slot Settings button */}
+          <SettingsButton />
+        </Box>
+      ),
+    };
+
+    return (
+      <HeaderSection
+        disableElevation
+        layoutQuery={layoutQuery}
+        {...slotProps?.header}
+        slots={{ ...headerSlots, ...slotProps?.header?.slots }}
+        slotProps={merge(headerSlotProps, slotProps?.header?.slotProps ?? {})}
+        sx={[
+          { position: { [layoutQuery]: 'fixed' } },
+          ...(Array.isArray(slotProps?.header?.sx) ? slotProps.header.sx : [slotProps?.header?.sx]),
+        ]}
+      />
+    );
+  };
+
+  const renderFooter = () => null;
+
+  const renderMain = () => (
+    <MainSection
+      {...slotProps?.main}
+      sx={[
+        (theme) => ({
+          alignItems: 'center',
+          p: theme.spacing(3, 2, 10, 2),
+          [theme.breakpoints.up(layoutQuery)]: {
+            justifyContent: 'center',
+            p: theme.spacing(10, 0, 10, 0),
+          },
+        }),
+        ...(Array.isArray(slotProps?.main?.sx) ? slotProps.main.sx : [slotProps?.main?.sx]),
+      ]}
+    >
+      <AuthCenteredContent {...slotProps?.content}>{children}</AuthCenteredContent>
+    </MainSection>
+  );
 
   return (
     <LayoutSection
       /** **************************************
-       * Header
+       * @Header
        *************************************** */
-      headerSection={
-        <HeaderBase
-          disableElevation
-          layoutQuery={layoutQuery}
-          onOpenNav={mobileNavOpen.onTrue}
-          slotsDisplay={{
-            account: false,
-            searchbar: false,
-            workspaces: false,
-            menuButton: false,
-          }}
-          slots={{
-            topArea: (
-              <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-                This is an info Alert.
-              </Alert>
-            ),
-          }}
-          slotProps={{ container: { maxWidth: false } }}
-          sx={{ position: { [layoutQuery]: 'fixed' } }}
-        />
-      }
+      headerSection={renderHeader()}
       /** **************************************
-       * Footer
+       * @Footer
        *************************************** */
-      footerSection={null}
+      footerSection={renderFooter()}
       /** **************************************
-       * Style
+       * @Styles
        *************************************** */
-      cssVars={{
-        '--layout-auth-content-width': '420px',
-      }}
-      sx={{
-        '&::before': {
-          width: 1,
-          height: 1,
-          zIndex: 1,
-          content: "''",
-          opacity: 0.24,
-          position: 'fixed',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center center',
-          backgroundImage: `url(${CONFIG.ASSET_DIR}/assets/background/background-3-blur.webp)`,
-          ...theme.applyStyles('dark', {
-            opacity: 0.08,
-          }),
-        },
-        ...sx,
-      }}
+      cssVars={{ '--layout-auth-content-width': '420px', ...cssVars }}
+      sx={[
+        (theme) => ({
+          position: 'relative',
+          '&::before': backgroundStyles(theme),
+        }),
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
-      <Main layoutQuery={layoutQuery}>{children}</Main>
+      {renderMain()}
     </LayoutSection>
   );
 }
+
+// ----------------------------------------------------------------------
+
+const backgroundStyles = (theme: Theme): CSSObject => ({
+  ...theme.mixins.bgGradient({
+    images: [`url(${CONFIG.ASSET_DIR}/assets/background/background-3-blur.webp)`],
+  }),
+  zIndex: 1,
+  opacity: 0.24,
+  width: '100%',
+  height: '100%',
+  content: "''",
+  position: 'absolute',
+  ...theme.applyStyles('dark', {
+    opacity: 0.08,
+  }),
+});

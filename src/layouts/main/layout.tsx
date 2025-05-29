@@ -1,84 +1,156 @@
-import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
+import type { Breakpoint } from '@mui/material/styles';
+import type { FooterProps } from './footer';
 import type { NavMainProps } from './nav/types';
+import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '../core';
 
 import { useBoolean } from 'minimal-shared/hooks';
 
+import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-// import { usePathname } from 'src/routes/hooks';
-import { useTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
-import { Main } from './main';
+import { paths } from 'src/routes/paths';
+import { usePathname } from 'src/routes/hooks';
+
+import { Logo } from 'src/components/Logo';
+
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
-import { HeaderBase } from './header-base';
-// import { Footer, HomeFooter } from './footer';
-import { LayoutSection } from '../core/layout-section';
-import { navData as mainNavData } from '../config-nav-main';
+import { Footer, HomeFooter } from './footer';
+import { MenuButton } from '../components/menu-button';
+import { navData as mainNavData } from '../nav-config-main';
+import { SignInButton } from '../components/sign-in-button';
+import { SettingsButton } from '../components/settings-button';
+import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
 
-export type MainLayoutProps = {
-  sx?: SxProps<Theme>;
-  children: React.ReactNode;
-  data?: {
-    nav?: NavMainProps['data'];
+type LayoutBaseProps = Pick<LayoutSectionProps, 'sx' | 'children' | 'cssVars'>;
+
+export type MainLayoutProps = LayoutBaseProps & {
+  layoutQuery?: Breakpoint;
+  slotProps?: {
+    header?: HeaderSectionProps;
+    nav?: {
+      data?: NavMainProps['data'];
+    };
+    main?: MainSectionProps;
+    footer?: FooterProps;
   };
 };
 
-export function MainLayout({ sx, data, children }: MainLayoutProps) {
-  const theme = useTheme();
+export function MainLayout({
+  sx,
+  cssVars,
+  children,
+  slotProps,
+  layoutQuery = 'md',
+}: MainLayoutProps) {
+  const pathname = usePathname();
 
-  const mobileNavOpen = useBoolean();
+  const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
-  const layoutQuery: Breakpoint = 'md';
+  const isHomePage = pathname === '/';
 
-  const navData = data?.nav ?? mainNavData;
+  const navData = slotProps?.nav?.data ?? mainNavData;
+
+  const renderHeader = () => {
+    const headerSlots: HeaderSectionProps['slots'] = {
+      topArea: (
+        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+          This is an info Alert.
+        </Alert>
+      ),
+      leftArea: (
+        <>
+          {/** @slot Nav mobile */}
+          <MenuButton
+            onClick={onOpen}
+            sx={(theme) => ({
+              mr: 1,
+              ml: -1,
+              [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+            })}
+          />
+          <NavMobile data={navData} open={open} onClose={onClose} />
+
+          {/** @slot Logo */}
+          <Logo />
+        </>
+      ),
+      rightArea: (
+        <>
+          {/** @slot Nav desktop */}
+          <NavDesktop
+            data={navData}
+            sx={(theme) => ({
+              display: 'none',
+              [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
+            })}
+          />
+
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
+            {/** @slot Settings button */}
+            <SettingsButton />
+
+            {/** @slot Sign in button */}
+            <SignInButton />
+
+            {/** @slot Purchase button */}
+            <Button
+              variant="contained"
+              rel="noopener noreferrer"
+              target="_blank"
+              href={paths.ScrollBarore}
+              sx={(theme) => ({
+                display: 'none',
+                [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
+              })}
+            >
+              Purchase
+            </Button>
+          </Box>
+        </>
+      ),
+    };
+
+    return (
+      <HeaderSection
+        layoutQuery={layoutQuery}
+        {...slotProps?.header}
+        slots={{ ...headerSlots, ...slotProps?.header?.slots }}
+        slotProps={slotProps?.header?.slotProps}
+        sx={slotProps?.header?.sx}
+      />
+    );
+  };
+
+  const renderFooter = () =>
+    isHomePage ? (
+      <HomeFooter sx={slotProps?.footer?.sx} />
+    ) : (
+      <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />
+    );
+
+  const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
 
   return (
-    <>
-      <NavMobile data={navData} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
-
-      <LayoutSection
-        /** **************************************
-         * Header
-         *************************************** */
-        headerSection={
-          <HeaderBase
-            layoutQuery={layoutQuery}
-            onOpenNav={mobileNavOpen.onTrue}
-            slotsDisplay={{
-              account: false,
-            }}
-            slots={{
-              topArea: (
-                <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-                  This is an info Alert.
-                </Alert>
-              ),
-              rightAreaStart: (
-                <NavDesktop
-                  data={navData}
-                  sx={{
-                    display: 'none',
-                    [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
-                  }}
-                />
-              ),
-            }}
-            sx={{ pb: 2 }}
-          />
-        }
-        /** **************************************
-         * Footer
-         *************************************** */
-        // footerSection={homePage ? <HomeFooter /> : <Footer layoutQuery={layoutQuery} />}
-        /** **************************************
-         * Style
-         *************************************** */
-        sx={sx}
-      >
-        <Main sx={{ pb: 20 }}>{children}</Main>
-      </LayoutSection>
-    </>
+    <LayoutSection
+      /** **************************************
+       * @Header
+       *************************************** */
+      headerSection={renderHeader()}
+      /** **************************************
+       * @Footer
+       *************************************** */
+      footerSection={renderFooter()}
+      /** **************************************
+       * @Styles
+       *************************************** */
+      cssVars={cssVars}
+      sx={sx}
+    >
+      {renderMain()}
+    </LayoutSection>
   );
 }

@@ -4,16 +4,15 @@ import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 
-import { paths } from 'src/routes/paths';
-import { useRouter, usePathname } from 'src/routes/hooks';
+import { usePathname } from 'src/routes/hooks';
 
-import { NavUl } from 'src/components/NavSection';
+import { Logo } from 'src/components/Logo';
 import { ScrollBar } from 'src/components/ScrollBar';
-import DarkLogo from 'src/components/Logo/dark-logo';
 
+import { Nav, NavUl } from '../components';
 import { NavList } from './nav-mobile-list';
+import { SignInButton } from '../../../components/sign-in-button';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +27,6 @@ export type NavMobileProps = NavMainProps & {
 
 export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
   const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
     if (open) {
@@ -41,43 +39,59 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
     <Drawer
       open={open}
       onClose={onClose}
-      PaperProps={{
-        sx: {
-          display: 'flex',
-          flexDirection: 'column',
-          width: 'var(--layout-nav-mobile-width)',
-          ...sx,
+      slotProps={{
+        paper: {
+          sx: [
+            {
+              display: 'flex',
+              flexDirection: 'column',
+              width: 'var(--layout-nav-mobile-width)',
+            },
+            ...(Array.isArray(sx) ? sx : [sx]),
+          ],
         },
       }}
     >
       {slots?.topArea ?? (
-        <Box display="flex" sx={{ pt: 3, pb: 2, pl: 2.5 }}>
-          <DarkLogo />
+        <Box
+          sx={{
+            pt: 3,
+            pb: 2,
+            pl: 2.5,
+            display: 'flex',
+          }}
+        >
+          <Logo />
         </Box>
       )}
 
       <ScrollBar fillContent>
-        <Box component="nav" display="flex" flexDirection="column" flex="1 1 auto" sx={{ pb: 3 }}>
+        <Nav
+          sx={{
+            pb: 3,
+            display: 'flex',
+            flex: '1 1 auto',
+            flexDirection: 'column',
+          }}
+        >
           <NavUl>
             {data.map((list) => (
               <NavList key={list.title} data={list} />
             ))}
           </NavUl>
-        </Box>
+        </Nav>
       </ScrollBar>
 
       {slots?.bottomArea ?? (
-        <Box gap={1.5} display="flex" sx={{ px: 2.5, py: 3 }}>
-          <Button
-            color="inherit"
-            size="medium"
-            type="submit"
-            onClick={() => router.push(paths.auth.signIn)}
-            variant="contained"
-            data-slot="login"
-          >
-            Login
-          </Button>
+        <Box
+          sx={{
+            py: 3,
+            px: 2.5,
+            gap: 1.5,
+            display: 'flex',
+          }}
+        >
+          <SignInButton fullWidth />
         </Box>
       )}
     </Drawer>

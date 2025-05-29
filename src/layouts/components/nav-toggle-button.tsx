@@ -2,8 +2,9 @@ import type { IconButtonProps } from '@mui/material/IconButton';
 
 import { varAlpha } from 'minimal-shared/utils';
 
-import SvgIcon from '@mui/material/SvgIcon';
 import IconButton from '@mui/material/IconButton';
+
+import { Iconify } from 'src/components/Iconify';
 
 // ----------------------------------------------------------------------
 
@@ -15,44 +16,37 @@ export function NavToggleButton({ isNavMini, sx, ...other }: NavToggleButtonProp
   return (
     <IconButton
       size="small"
-      sx={{
-        p: 0.5,
-        top: 24,
-        position: 'fixed',
-        color: 'action.active',
-        bgcolor: 'background.default',
-        transform: 'translateX(-50%)',
-        zIndex: 'var(--layout-nav-zIndex)',
-        left: isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)',
-        border: (theme) => `1px solid ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
-        transition: (theme) =>
-          theme.transitions.create(['left'], {
+      sx={[
+        (theme) => ({
+          p: 0.5,
+          position: 'absolute',
+          color: 'action.active',
+          bgcolor: 'background.default',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 'var(--layout-nav-zIndex)',
+          top: 'calc(var(--layout-header-desktop-height) / 2)',
+          left: isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)',
+          border: `1px solid ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
+          transition: theme.transitions.create(['left'], {
             easing: 'var(--layout-transition-easing)',
             duration: 'var(--layout-transition-duration)',
           }),
-        '&:hover': {
-          color: 'text.primary',
-          bgcolor: 'background.neutral',
-        },
-        ...sx,
-      }}
+          '&:hover': {
+            color: 'text.primary',
+            bgcolor: 'background.neutral',
+          },
+        }),
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...other}
     >
-      <SvgIcon
-        sx={{
-          width: 16,
-          height: 16,
-          ...(isNavMini && {
-            transform: 'scaleX(-1)',
-          }),
-        }}
-      >
-        {/* https://icon-sets.iconify.design/eva/arrow-ios-back-fill/ */}
-        <path
-          fill="currentColor"
-          d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64"
-        />
-      </SvgIcon>
+      <Iconify
+        width={16}
+        icon={isNavMini ? 'eva:arrow-ios-forward-fill' : 'eva:arrow-ios-back-fill'}
+        sx={(theme) => ({
+          ...(theme.direction === 'rtl' && { transform: 'scaleX(-1)' }),
+        })}
+      />
     </IconButton>
   );
 }

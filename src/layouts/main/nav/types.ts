@@ -1,43 +1,56 @@
-import type { StackProps } from '@mui/material/Stack';
 import type { Theme, SxProps } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
 // ----------------------------------------------------------------------
 
+/**
+ * Item
+ */
 export type NavItemStateProps = {
   open?: boolean;
   active?: boolean;
+};
+
+export type NavItemOptionsProps = {
   subItem?: boolean;
   hasChild?: boolean;
   externalLink?: boolean;
 };
 
-export type NavItemBaseProps = {
-  title: string;
+export type NavItemDataProps = {
   path: string;
+  title: string;
   icon?: string | React.ReactNode;
+  deepMatch?: boolean;
   children?: {
     subheader: string;
-    items: {
-      title: string;
-      path: string;
-    }[];
+    items: { title: string; path: string }[];
   }[];
 };
 
-export type NavItemProps = ButtonBaseProps & NavItemBaseProps & NavItemStateProps;
+export type NavItemProps = ButtonBaseProps &
+  NavItemDataProps &
+  NavItemStateProps &
+  NavItemOptionsProps;
 
-export type NavListProps = {
-  data: NavItemBaseProps;
+/**
+ * List
+ */
+export type NavListProps = React.ComponentProps<'li'> & {
   sx?: SxProps<Theme>;
+  data: NavItemDataProps;
 };
 
-export type NavSubListProps = StackProps & {
-  data: NavItemBaseProps[];
+export type NavSubListProps = React.ComponentProps<'li'> & {
+  sx?: SxProps<Theme>;
   subheader: string;
+  data: NavItemDataProps[];
 };
 
+/**
+ * Main
+ */
 export type NavMainProps = {
-  data: NavItemBaseProps[];
   sx?: SxProps<Theme>;
+  data: NavItemDataProps[];
 };
