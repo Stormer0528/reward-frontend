@@ -6,7 +6,6 @@ import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '.
 import { merge } from 'es-toolkit';
 
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 
 import { Logo } from 'src/components/Logo';
 
@@ -42,11 +41,11 @@ export function AuthSplitLayout({
     };
 
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
+      // topArea: (
+      //   <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+      //     This is an info Alert.
+      //   </Alert>
+      // ),
       leftArea: (
         <>
           {/** @slot Logo */}
