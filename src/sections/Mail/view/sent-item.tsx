@@ -1,22 +1,17 @@
 import type { ListItemButtonProps } from '@mui/material/ListItemButton';
 import type { Email } from 'src/__generated__/graphql';
 
-import { m } from 'framer-motion';
-
 import Box from '@mui/material/Box';
-import NoSsr from '@mui/material/NoSsr';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import SvgIcon from '@mui/material/SvgIcon';
 import { useTheme } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
 import { fToNow } from 'src/utils/format-time';
 
-import { varHover, AnimateAvatar } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +55,7 @@ export function SentItem({ mail, selected, sx, ...other }: Props) {
         }}
         {...other}
       >
-        <IconButton
+        {/* <IconButton
           component={m.button}
           whileTap="tap"
           whileHover="hover"
@@ -81,7 +76,7 @@ export function SentItem({ mail, selected, sx, ...other }: Props) {
               {mail.to?.charAt(0).toUpperCase()}
             </AnimateAvatar>
           </NoSsr>
-        </IconButton>
+        </IconButton> */}
 
         <ListItemText
           primary={mail.to}

@@ -1,9 +1,6 @@
 import type { IMailLabel } from 'src/types/mail';
 import type { Email } from 'src/__generated__/graphql';
 
-import { m } from 'framer-motion';
-
-import NoSsr from '@mui/material/NoSsr';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
@@ -25,7 +22,6 @@ import { Markdown } from 'src/components/Markdown';
 import { ScrollBar } from 'src/components/ScrollBar';
 import { EmptyContent } from 'src/components/EmptyContent';
 import { LoadingScreen } from 'src/components/loading-screen';
-import { varHover, AnimateAvatar } from 'src/components/animate';
 
 import { FileRecentItem } from './FileRecentItem';
 
@@ -143,7 +139,7 @@ export function SentDetails({ mail, renderLabel, handleMoveTrash, empty, loading
 
   const renderSender = (
     <>
-      <IconButton
+      {/* <IconButton
         component={m.button}
         whileTap="tap"
         whileHover="hover"
@@ -164,7 +160,7 @@ export function SentDetails({ mail, renderLabel, handleMoveTrash, empty, loading
             {mail.to?.charAt(0).toUpperCase()}
           </AnimateAvatar>
         </NoSsr>
-      </IconButton>
+      </IconButton> */}
 
       <Stack spacing={0.5} sx={{ width: 0, flexGrow: 1 }}>
         <Stack spacing={0.5} direction="row">
