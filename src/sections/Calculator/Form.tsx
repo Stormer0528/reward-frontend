@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { today, customizeDate } from 'src/utils/format-time';
@@ -106,9 +106,9 @@ export default function EditForm() {
         </Box>
 
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-          <LoadingButton type="submit" variant="contained" color="primary" loading={loading}>
+          <Button type="submit" variant="contained" color="primary" loading={loading}>
             Calculate
-          </LoadingButton>
+          </Button>
         </Stack>
       </Form>
 

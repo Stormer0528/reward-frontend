@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -61,9 +60,9 @@ export default function Setting({ open, setting }: Props) {
           <Field.Switch name="communication" label="Communication" />
         </DialogContent>
         <DialogActions>
-          <LoadingButton loading={loading} type="submit" variant="contained" color="primary">
+          <Button loading={loading} type="submit" variant="contained" color="primary">
             Save
-          </LoadingButton>
+          </Button>
           <Button variant="outlined" onClick={open.onFalse}>
             Close
           </Button>

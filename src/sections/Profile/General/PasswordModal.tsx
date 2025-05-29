@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -122,7 +121,7 @@ export default function PasswordModal({ open }: Props) {
       <DialogActions>
         <Stack direction="row" spacing={2}>
           {step === 0 && (
-            <LoadingButton
+            <Button
               variant="contained"
               loading={loading}
               onClick={async () => {
@@ -138,7 +137,7 @@ export default function PasswordModal({ open }: Props) {
               }}
             >
               Confirm
-            </LoadingButton>
+            </Button>
           )}
           {step === 1 && (
             <Button
@@ -151,7 +150,7 @@ export default function PasswordModal({ open }: Props) {
             </Button>
           )}
           {step === 2 && (
-            <LoadingButton
+            <Button
               variant="contained"
               loading={verifyLoading}
               onClick={async () => {
@@ -180,7 +179,7 @@ export default function PasswordModal({ open }: Props) {
               }}
             >
               Verify
-            </LoadingButton>
+            </Button>
           )}
 
           {step !== 3 && (

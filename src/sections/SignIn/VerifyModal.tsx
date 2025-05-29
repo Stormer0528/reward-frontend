@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -37,7 +37,7 @@ export default function VerifyModal({ open, signIn }: Props) {
         </Paper>
       </DialogContent>
       <DialogActions>
-        <LoadingButton
+        <Button
           variant="contained"
           loading={loading}
           onClick={async () => {
@@ -51,7 +51,7 @@ export default function VerifyModal({ open, signIn }: Props) {
           }}
         >
           Verify
-        </LoadingButton>
+        </Button>
       </DialogActions>
     </Dialog>
   );

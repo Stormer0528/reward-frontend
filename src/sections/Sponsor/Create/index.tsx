@@ -10,9 +10,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { paths } from 'src/routes/paths';
@@ -227,7 +227,7 @@ export default function AddMiner({ add, tabs }: Props) {
       />
 
       <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center">
-        <LoadingButton
+        <Button
           color="inherit"
           size="large"
           type="submit"
@@ -235,7 +235,7 @@ export default function AddMiner({ add, tabs }: Props) {
           loading={isSubmitting}
         >
           Submit
-        </LoadingButton>
+        </Button>
       </Box>
     </Stack>
   );

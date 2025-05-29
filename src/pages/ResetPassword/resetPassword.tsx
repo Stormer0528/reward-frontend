@@ -2,7 +2,7 @@ import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 
-import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { paths } from 'src/routes/paths';
@@ -55,7 +55,7 @@ export default function Page() {
       {isOpen ? (
         <SplitUpdatePasswordView token={data?.resetTokenVerify.token!} />
       ) : (
-        <LoadingButton loading size="large" loadingIndicator={<CircularProgress />} />
+        <Button loading size="large" loadingIndicator={<CircularProgress />} />
       )}
     </>
   );

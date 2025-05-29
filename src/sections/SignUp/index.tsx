@@ -11,12 +11,12 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -373,7 +373,7 @@ export function SignUpView() {
         <Link onClick={handleSignOut} variant="subtitle2" sx={{ cursor: 'pointer' }}>
           Click here to sign out
         </Link>
-        <LoadingButton
+        <Button
           color="inherit"
           size="large"
           type="submit"
@@ -381,7 +381,7 @@ export function SignUpView() {
           loading={isSubmitting}
         >
           Submit
-        </LoadingButton>
+        </Button>
       </Box>
     </Stack>
   );

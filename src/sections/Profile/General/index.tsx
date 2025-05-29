@@ -14,7 +14,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { paths } from 'src/routes/paths';
@@ -311,14 +310,14 @@ export default function MemberGeneral({ me }: Props) {
           {me?.id === user?.id && (
             <>
               {me.OTPEnabled ? (
-                <LoadingButton
+                <Button
                   type="button"
                   variant="contained"
                   loading={disableLoading}
                   onClick={handleDisable}
                 >
                   Disable 2FA
-                </LoadingButton>
+                </Button>
               ) : (
                 <Button type="button" variant="contained" onClick={open.onTrue}>
                   2FA Settings
@@ -326,9 +325,9 @@ export default function MemberGeneral({ me }: Props) {
               )}
             </>
           )}
-          <LoadingButton type="submit" variant="contained" loading={loading}>
+          <Button type="submit" variant="contained" loading={loading}>
             Save Changes
-          </LoadingButton>
+          </Button>
         </Stack>
       </Form>
 

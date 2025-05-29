@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useParams, useRouter } from 'src/routes/hooks';
 
@@ -174,7 +173,7 @@ export default function Order() {
         )}
 
         {step === 0 && (
-          <LoadingButton
+          <Button
             variant="contained"
             color="primary"
             loading={setLoading}
@@ -190,7 +189,7 @@ export default function Order() {
             }}
           >
             Next
-          </LoadingButton>
+          </Button>
         )}
       </Stack>
     </>

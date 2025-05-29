@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
 
 import { paths } from 'src/routes/paths';
 import { useRouter, usePathname } from 'src/routes/hooks';
@@ -68,7 +68,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
 
       {slots?.bottomArea ?? (
         <Box gap={1.5} display="flex" sx={{ px: 2.5, py: 3 }}>
-          <LoadingButton
+          <Button
             color="inherit"
             size="medium"
             type="submit"
@@ -77,7 +77,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
             data-slot="login"
           >
             Login
-          </LoadingButton>
+          </Button>
         </Box>
       )}
     </Drawer>

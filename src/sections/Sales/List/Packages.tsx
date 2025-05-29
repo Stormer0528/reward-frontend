@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -91,14 +90,14 @@ export default function Packages({ open, available }: Props) {
         <Button variant="outlined" onClick={open.onFalse}>
           Close
         </Button>
-        <LoadingButton
+        <Button
           variant="contained"
           color="primary"
           loading={loading}
           onClick={handleCreateOrder}
         >
           Next
-        </LoadingButton>
+        </Button>
       </DialogActions>
     </Dialog>
   );

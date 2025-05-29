@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { CONFIG } from 'src/config';
 import { EmailInboxIcon } from 'src/assets/icons';
@@ -109,7 +109,7 @@ export default function VerificationCode({ setSuccess }: Props) {
         }}
       />
 
-      <LoadingButton
+      <Button
         fullWidth
         size="large"
         type="submit"
@@ -119,7 +119,7 @@ export default function VerificationCode({ setSuccess }: Props) {
         loadingIndicator="Verify..."
       >
         Verify
-      </LoadingButton>
+      </Button>
 
       <Typography variant="body2" sx={{ mx: 'auto' }}>
         {`Don't have a code? `}

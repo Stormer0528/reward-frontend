@@ -5,8 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -80,7 +80,7 @@ export function SplitResetPasswordView() {
         InputLabelProps={{ shrink: true }}
       />
 
-      <LoadingButton
+      <Button
         fullWidth
         size="large"
         type="submit"
@@ -89,7 +89,7 @@ export function SplitResetPasswordView() {
         loadingIndicator="Send request..."
       >
         Send request
-      </LoadingButton>
+      </Button>
 
       <Link
         component={RouterLink}

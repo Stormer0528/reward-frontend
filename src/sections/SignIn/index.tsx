@@ -8,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
@@ -153,7 +153,7 @@ export function SignInView() {
         />
       </Stack>
 
-      <LoadingButton
+      <Button
         fullWidth
         color="inherit"
         size="large"
@@ -163,7 +163,7 @@ export function SignInView() {
         loadingIndicator="Sign in..."
       >
         Sign in
-      </LoadingButton>
+      </Button>
     </Stack>
   );
 

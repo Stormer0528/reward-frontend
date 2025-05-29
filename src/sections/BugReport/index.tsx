@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { toast } from 'src/components/SnackBar';
@@ -115,9 +114,9 @@ export default function ReportModal({ open }: Props) {
               </Grid>
 
               <Stack direction="row" justifyContent="flex-end" spacing={2}>
-                <LoadingButton type="submit" variant="contained" color="primary" loading={loading}>
+                <Button type="submit" variant="contained" color="primary" loading={loading}>
                   Report
-                </LoadingButton>
+                </Button>
                 <Button
                   variant="outlined"
                   onClick={() => {

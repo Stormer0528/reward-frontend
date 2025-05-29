@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
 
 import { fDate, fTime } from 'src/utils/format-time';
 
@@ -46,13 +46,13 @@ export default function ExportButton({ target, token }: Props) {
   };
 
   return (
-    <LoadingButton
+    <Button
       variant="text"
       startIcon={<Iconify icon="uil:export" />}
       loading={loading}
       onClick={handleExport}
     >
       Export
-    </LoadingButton>
+    </Button>
   );
 }

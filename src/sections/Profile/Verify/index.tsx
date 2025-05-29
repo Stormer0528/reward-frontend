@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import LoadingButton from '@mui/lab/LoadingButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -100,14 +99,14 @@ export default function VerifyModal({ tabs, open, event }: Props) {
       </DialogContent>
       <DialogActions>
         {step === 0 && (
-          <LoadingButton
+          <Button
             color="primary"
             variant="contained"
             loading={loading}
             onClick={handlePasswordVerify}
           >
             Next
-          </LoadingButton>
+          </Button>
         )}
 
         <Button variant="outlined" onClick={onClose}>

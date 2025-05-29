@@ -4,8 +4,8 @@ import { useBoolean, type UseBooleanReturn } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { toast } from 'src/components/SnackBar';
@@ -134,9 +134,9 @@ export default function ResetPassword({ open }: Props) {
           />
         </Box>
 
-        <LoadingButton type="submit" variant="contained" loading={isSubmitting} sx={{ ml: 'auto' }}>
+        <Button type="submit" variant="contained" loading={isSubmitting} sx={{ ml: 'auto' }}>
           Save changes
-        </LoadingButton>
+        </Button>
       </Form>
     </Paper>
   );

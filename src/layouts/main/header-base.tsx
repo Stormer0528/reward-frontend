@@ -4,8 +4,8 @@ import type { AccountDrawerProps } from '../components/account-drawer';
 import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -106,7 +106,7 @@ export function HeaderBase({
               ) : (
                 settings && (
                   <>
-                    <LoadingButton
+                    <Button
                       color="inherit"
                       size="medium"
                       type="submit"
@@ -115,8 +115,8 @@ export function HeaderBase({
                       data-slot="login"
                     >
                       Sign In
-                    </LoadingButton>
-                    <LoadingButton
+                    </Button>
+                    <Button
                       color="inherit"
                       size="medium"
                       type="submit"
@@ -125,7 +125,7 @@ export function HeaderBase({
                       data-slot="login"
                     >
                       Join Now
-                    </LoadingButton>
+                    </Button>
                   </>
                 )
               )}

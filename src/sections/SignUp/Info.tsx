@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useSearchParams } from 'src/routes/hooks';
 
@@ -91,9 +91,9 @@ export default function Info() {
         <Typography variant="body2">{`Click the send button if you haven't received an email in your inbox`}</Typography>
 
         <Stack direction="row" justifyContent="center">
-          <LoadingButton variant="contained" color="primary" loading={loading} onClick={handleSend}>
+          <Button variant="contained" color="primary" loading={loading} onClick={handleSend}>
             Send to Email
-          </LoadingButton>
+          </Button>
         </Stack>
       </Stack>
     </>

@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
@@ -127,7 +127,7 @@ export function SplitUpdatePasswordView({ token }: Props) {
         }}
       />
 
-      <LoadingButton
+      <Button
         fullWidth
         size="large"
         type="submit"
@@ -136,7 +136,7 @@ export function SplitUpdatePasswordView({ token }: Props) {
         loadingIndicator="Update password..."
       >
         Update password
-      </LoadingButton>
+      </Button>
 
       <Link
         component={RouterLink}
