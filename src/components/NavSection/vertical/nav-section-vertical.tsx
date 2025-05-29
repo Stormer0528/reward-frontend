@@ -1,15 +1,14 @@
 import type { NavGroupProps, NavSectionProps } from '../types';
 
-import { useState, useCallback } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
+import { mergeClasses } from 'minimal-shared/utils';
 
-import Stack from '@mui/material/Stack';
 import Collapse from '@mui/material/Collapse';
 import { useTheme } from '@mui/material/styles';
 
 import { NavList } from './nav-list';
-import { navSectionClasses } from '../classes';
-import { navSectionCssVars } from '../css-vars';
-import { NavUl, NavLi, Subheader } from '../styles';
+import { Nav, NavUl, NavLi, NavSubheader } from '../components';
+import { navSectionClasses, navSectionCssVars } from '../styles';
 
 // ----------------------------------------------------------------------
 
@@ -17,19 +16,23 @@ export function NavSectionVertical({
   sx,
   data,
   render,
+  className,
   slotProps,
+  checkPermissions,
   enabledRootRedirect,
   cssVars: overridesVars,
+  ...other
 }: NavSectionProps) {
   const theme = useTheme();
 
-  const cssVars = {
-    ...navSectionCssVars.vertical(theme),
-    ...overridesVars,
-  };
+  const cssVars = { ...navSectionCssVars.vertical(theme), ...overridesVars };
 
   return (
-    <Stack component="nav" className={navSectionClasses.vertical.root} sx={{ ...cssVars, ...sx }}>
+    <Nav
+      className={mergeClasses([navSectionClasses.vertical, className])}
+      sx={[{ ...cssVars }, ...(Array.isArray(sx) ? sx : [sx])]}
+      {...other}
+    >
       <NavUl sx={{ flex: '1 1 auto', gap: 'var(--nav-item-gap)' }}>
         {data.map((group) => (
           <Group
@@ -38,24 +41,28 @@ export function NavSectionVertical({
             items={group.items}
             render={render}
             slotProps={slotProps}
+            checkPermissions={checkPermissions}
             enabledRootRedirect={enabledRootRedirect}
           />
         ))}
       </NavUl>
-    </Stack>
+    </Nav>
   );
 }
 
 // ----------------------------------------------------------------------
 
-function Group({ items, render, subheader, slotProps, enabledRootRedirect }: NavGroupProps) {
-  const [open, setOpen] = useState(true);
+function Group({
+  items,
+  render,
+  subheader,
+  slotProps,
+  checkPermissions,
+  enabledRootRedirect,
+}: NavGroupProps) {
+  const groupOpen = useBoolean(true);
 
-  const handleToggle = useCallback(() => {
-    setOpen((prev) => !prev);
-  }, []);
-
-  const renderContent = (
+  const renderContent = () => (
     <NavUl sx={{ gap: 'var(--nav-item-gap)' }}>
       {items.map((list) => (
         <NavList
@@ -64,6 +71,7 @@ function Group({ items, render, subheader, slotProps, enabledRootRedirect }: Nav
           render={render}
           depth={1}
           slotProps={slotProps}
+          checkPermissions={checkPermissions}
           enabledRootRedirect={enabledRootRedirect}
         />
       ))}
@@ -74,19 +82,19 @@ function Group({ items, render, subheader, slotProps, enabledRootRedirect }: Nav
     <NavLi>
       {subheader ? (
         <>
-          <Subheader
+          <NavSubheader
             data-title={subheader}
-            open={open}
-            onClick={handleToggle}
+            open={groupOpen.value}
+            onClick={groupOpen.onToggle}
             sx={slotProps?.subheader}
           >
             {subheader}
-          </Subheader>
+          </NavSubheader>
 
-          <Collapse in={open}>{renderContent}</Collapse>
+          <Collapse in={groupOpen.value}>{renderContent()}</Collapse>
         </>
       ) : (
-        renderContent
+        renderContent()
       )}
     </NavLi>
   );

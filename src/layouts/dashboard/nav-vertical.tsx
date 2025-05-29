@@ -1,5 +1,5 @@
 import type { Breakpoint } from '@mui/material/styles';
-import type { NavSectionProps } from 'src/components/nav-section';
+import type { NavSectionProps } from 'src/components/NavSection';
 
 import { varAlpha } from 'minimal-shared/utils';
 
@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import { ScrollBar } from 'src/components/ScrollBar';
 import DarkLogo from 'src/components/logo/dark-logo';
 import { useSettingsContext } from 'src/components/Settings';
-import { NavSectionMini, NavSectionVertical } from 'src/components/nav-section';
+import { NavSectionMini, NavSectionVertical } from 'src/components/NavSection';
 
 import { NavToggleButton } from '../components/nav-toggle-button';
 

@@ -1,14 +1,12 @@
 export * from './mini';
 
-export * from './hooks';
+export * from './utils';
 
 export * from './styles';
 
-export * from './classes';
-
-export * from './css-vars';
-
 export * from './vertical';
+
+export * from './components';
 
 export * from './horizontal';
 

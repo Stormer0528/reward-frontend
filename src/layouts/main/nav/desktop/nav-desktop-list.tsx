@@ -12,7 +12,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import { usePathname } from 'src/routes/hooks';
 import { isExternalLink, removeLastSlash } from 'src/routes/utils';
 
-import { NavLi, NavUl } from 'src/components/nav-section';
+import { NavLi, NavUl } from 'src/components/NavSection';
 
 import { NavItem, NavItemDashboard } from './nav-desktop-item';
 

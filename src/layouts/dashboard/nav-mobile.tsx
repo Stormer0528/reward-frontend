@@ -1,4 +1,4 @@
-import type { NavSectionProps } from 'src/components/nav-section';
+import type { NavSectionProps } from 'src/components/NavSection';
 
 import { useEffect } from 'react';
 
@@ -10,7 +10,7 @@ import { usePathname } from 'src/routes/hooks';
 import { ScrollBar } from 'src/components/ScrollBar';
 import DarkLogo from 'src/components/logo/dark-logo';
 import { useSettingsContext } from 'src/components/Settings';
-import { NavSectionVertical } from 'src/components/nav-section';
+import { NavSectionVertical } from 'src/components/NavSection';
 
 // ----------------------------------------------------------------------
 

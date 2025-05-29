@@ -1,5 +1,5 @@
 import type { BoxProps } from '@mui/material/Box';
-import type { NavSectionProps } from 'src/components/nav-section';
+import type { NavSectionProps } from 'src/components/NavSection';
 
 import { useState, useCallback } from 'react';
 import parse from 'autosuggest-highlight/parse';

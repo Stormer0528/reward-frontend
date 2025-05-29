@@ -1,5 +1,5 @@
 import type { HeaderSectionProps } from './header-section';
-import type { NavSectionProps } from 'src/components/nav-section';
+import type { NavSectionProps } from 'src/components/NavSection';
 import type { AccountDrawerProps } from '../components/account-drawer';
 import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
 

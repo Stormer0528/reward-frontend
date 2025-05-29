@@ -11,7 +11,7 @@ import { isExternalLink } from 'src/routes/utils';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { NavItem } from './nav-item';
-import { NavLi, NavUl, navSectionClasses } from '../../nav-section';
+import { NavLi, NavUl, navSectionClasses } from '../../NavSection';
 
 // ----------------------------------------------------------------------
 

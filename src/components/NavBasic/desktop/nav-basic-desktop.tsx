@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
 import { NavList } from './nav-list';
-import { NavUl } from '../../nav-section';
+import { NavUl } from '../../NavSection';
 import { navBasicClasses } from '../classes';
 import { navBasicCssVars } from '../css-vars';
 

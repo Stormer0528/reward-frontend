@@ -9,7 +9,7 @@ import { isExternalLink } from 'src/routes/utils';
 
 import { CONFIG } from 'src/config';
 
-import { NavLi, navSectionClasses, NavSectionVertical } from 'src/components/nav-section';
+import { NavLi, navSectionClasses, NavSectionVertical } from 'src/components/NavSection';
 
 import { NavItem } from './nav-mobile-item';
 

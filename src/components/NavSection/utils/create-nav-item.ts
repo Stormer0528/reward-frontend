@@ -1,4 +1,4 @@
-import type { NavItemProps } from './types';
+import type { NavItemDataProps, NavItemOptionsProps } from '../types';
 
 import { cloneElement } from 'react';
 
@@ -6,7 +6,7 @@ import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
-export type UseNavItemReturn = {
+type CreateNavItemReturn = {
   subItem: boolean;
   rootItem: boolean;
   subDeepItem: boolean;
@@ -15,37 +15,24 @@ export type UseNavItemReturn = {
   renderInfo: React.ReactNode;
 };
 
-export type UseNavItemProps = {
-  path: NavItemProps['path'];
-  icon?: NavItemProps['icon'];
-  info?: NavItemProps['info'];
-  depth?: NavItemProps['depth'];
-  isJoin?: NavItemProps['isJoin'];
-  render?: NavItemProps['render'];
-  hasChild?: NavItemProps['hasChild'];
-  externalLink?: NavItemProps['externalLink'];
-  enabledRootRedirect?: NavItemProps['enabledRootRedirect'];
-};
+type CreateNavItemProps = Pick<NavItemDataProps, 'path' | 'icon' | 'info'> & NavItemOptionsProps;
 
-export function useNavItem({
+export function createNavItem({
   path,
   icon,
   info,
   depth,
-  isJoin,
   render,
   hasChild,
   externalLink,
   enabledRootRedirect,
-}: UseNavItemProps): UseNavItemReturn {
+}: CreateNavItemProps): CreateNavItemReturn {
   const rootItem = depth === 1;
-
   const subItem = !rootItem;
-
   const subDeepItem = Number(depth) > 2;
 
   const linkProps = externalLink
-    ? { href: path, target: '_blank', rel: 'noopener' }
+    ? { href: path, target: '_blank', rel: 'noopener noreferrer' }
     : { component: RouterLink, href: path };
 
   const baseProps = hasChild && !enabledRootRedirect ? { component: 'div' } : linkProps;

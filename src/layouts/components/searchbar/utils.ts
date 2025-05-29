@@ -1,4 +1,4 @@
-import type { NavSectionProps, NavItemBaseProps } from 'src/components/nav-section';
+import type { NavSectionProps, NavItemBaseProps } from 'src/components/NavSection';
 
 import { flattenArray } from 'src/utils/helper';
 

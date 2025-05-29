@@ -1,6 +1,6 @@
 import type { Theme, SxProps, CSSObject, Breakpoint } from '@mui/material/styles';
 import type { SettingsState } from 'src/components/Settings';
-import type { NavSectionProps } from 'src/components/nav-section';
+import type { NavSectionProps } from 'src/components/NavSection';
 
 import { useMemo } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
@@ -9,7 +9,7 @@ import { useBoolean } from 'minimal-shared/hooks';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
-import { bulletColor } from 'src/components/nav-section';
+import { bulletColor } from 'src/components/NavSection';
 import { useSettingsContext } from 'src/components/Settings';
 
 import { Main } from './main';
