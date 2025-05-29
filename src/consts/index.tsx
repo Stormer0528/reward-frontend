@@ -151,5 +151,5 @@ export const CHAIN_UNIT = {
   POLYGON: 9,
 };
 
-export const HELP_MINETXC = 'https://help.minetxc.com/';
+export const HELP_MINETXC_URL = 'https://help.minetxc.com/';
 export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';
