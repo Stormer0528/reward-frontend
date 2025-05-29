@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Skeleton from '@mui/material/Skeleton';
 import { useTheme, useColorScheme, alpha as hexAlpha } from '@mui/material/styles';
 
-import { Chart, useChart } from 'src/components/chart';
+import { Chart, useChart } from 'src/components/Chart';
 
 // ----------------------------------------------------------------------
 

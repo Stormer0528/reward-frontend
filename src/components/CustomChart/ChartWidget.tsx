@@ -1,5 +1,5 @@
 import type { CardProps } from '@mui/material/Card';
-import type { ChartOptions } from 'src/components/chart';
+import type { ChartOptions } from 'src/components/Chart';
 
 import Card from '@mui/material/Card';
 import Paper from '@mui/material/Paper';
@@ -7,7 +7,7 @@ import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import { useTheme, useColorScheme } from '@mui/material/styles';
 
-import { Chart, useChart } from 'src/components/chart';
+import { Chart, useChart } from 'src/components/Chart';
 
 // ----------------------------------------------------------------------
 
