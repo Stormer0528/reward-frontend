@@ -6,6 +6,7 @@ import { CONFIG } from 'src/config';
 
 import { Image } from 'src/components/Image';
 
+import { Line } from './Line';
 import { JoinNowButton } from './components/JoinNowButton';
 
 export function Brief() {
@@ -17,24 +18,8 @@ export function Brief() {
             TEXITcoin is your <br />
             <b>second chance</b> at
           </Typography>
-          <Typography
-            variant="h2"
-            fontWeight={400}
-            component="span"
-            sx={{
-              position: 'relative',
-              '::after': {
-                content: '""',
-                borderBottom: '2px solid #000',
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: -5,
-              },
-            }}
-          >
-            crypto.
-          </Typography>
+
+          <Line sx={{ fontWeight: 400 }}>crypto.</Line>
 
           <Typography sx={{ mt: 4 }}>
             Faster, cheaper and better than Bitcoin in almost every way, our passionate affiliates
