@@ -1,21 +1,23 @@
-import type { UploadProps } from 'src/components/Upload';
+import type { BoxProps } from '@mui/material/Box';
+import type { UploadProps } from '../Upload';
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import FormHelperText from '@mui/material/FormHelperText';
+import Box from '@mui/material/Box';
 
-import { SelectAvatar } from 'src/components/SelectAvatar';
-import { Upload, UploadBox, UploadAvatar } from 'src/components/Upload';
+import { HelperText } from './HelpText';
+import { Upload, UploadBox, UploadAvatar } from '../Upload';
+
 // ----------------------------------------------------------------------
 
-type Props = UploadProps & {
+export type RHFUploadProps = UploadProps & {
   name: string;
-  current?: string;
+  slotProps?: {
+    wrapper?: BoxProps;
+  };
 };
 
-// ----------------------------------------------------------------------
-
-export function RHFUploadAvatar({ name, current, ...other }: Props) {
+export function RHFUploadAvatar({ name, slotProps, ...other }: RHFUploadProps) {
   const { control, setValue } = useFormContext();
 
   return (
@@ -30,21 +32,11 @@ export function RHFUploadAvatar({ name, current, ...other }: Props) {
         };
 
         return (
-          <div>
-            <UploadAvatar
-              value={field.value}
-              error={!!error}
-              onDrop={onDrop}
-              current={current}
-              {...other}
-            />
+          <Box {...slotProps?.wrapper}>
+            <UploadAvatar value={field.value} error={!!error} onDrop={onDrop} {...other} />
 
-            {!!error && (
-              <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
-                {error.message}
-              </FormHelperText>
-            )}
-          </div>
+            <HelperText errorMessage={error?.message} sx={{ textAlign: 'center' }} />
+          </Box>
         );
       }}
     />
@@ -53,7 +45,7 @@ export function RHFUploadAvatar({ name, current, ...other }: Props) {
 
 // ----------------------------------------------------------------------
 
-export function RHFUploadBox({ name, ...other }: Props) {
+export function RHFUploadBox({ name, ...other }: RHFUploadProps) {
   const { control } = useFormContext();
 
   return (
@@ -69,7 +61,7 @@ export function RHFUploadBox({ name, ...other }: Props) {
 
 // ----------------------------------------------------------------------
 
-export function RHFUpload({ name, multiple, helperText, ...other }: Props) {
+export function RHFUpload({ name, multiple, helperText, ...other }: RHFUploadProps) {
   const { control, setValue } = useFormContext();
 
   return (
@@ -92,37 +84,6 @@ export function RHFUpload({ name, multiple, helperText, ...other }: Props) {
 
         return <Upload {...uploadProps} value={field.value} onDrop={onDrop} {...other} />;
       }}
-    />
-  );
-}
-
-// ----------------------------------------------------------------------
-// TODO: Move this out of this upload file to a separate file???
-export function RHFSelectAvatar({ name, ...other }: Props) {
-  const { control } = useFormContext();
-
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <div>
-          <SelectAvatar
-            error={!!error}
-            file={field.value}
-            onChange={(value) => {
-              field.onChange(value);
-            }}
-            {...other}
-          />
-
-          {!!error && (
-            <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
-              {error.message}
-            </FormHelperText>
-          )}
-        </div>
-      )}
     />
   );
 }

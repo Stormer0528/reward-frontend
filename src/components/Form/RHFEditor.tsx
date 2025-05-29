@@ -1,28 +1,31 @@
-import type { PhoneInputProps } from '../PhoneInput';
+import type { EditorProps } from '../Editor';
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { PhoneInput } from '../PhoneInput';
+import { Editor } from '../Editor';
 
 // ----------------------------------------------------------------------
 
-export type RHFPhoneInputProps = Omit<PhoneInputProps, 'value' | 'onChange'> & {
+export type RHFEditorProps = EditorProps & {
   name: string;
 };
 
-export function RHFPhoneInput({ name, helperText, ...other }: RHFPhoneInputProps) {
-  const { control } = useFormContext();
+export function RHFEditor({ name, helperText, ...other }: RHFEditorProps) {
+  const {
+    control,
+    formState: { isSubmitSuccessful },
+  } = useFormContext();
 
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <PhoneInput
+        <Editor
           {...field}
-          fullWidth
           error={!!error}
           helperText={error?.message ?? helperText}
+          resetValue={isSubmitSuccessful}
           {...other}
         />
       )}

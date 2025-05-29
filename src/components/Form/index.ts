@@ -1,14 +1,14 @@
-export * from './Fields';
+export * from './fields';
 
-export * from './RHFUpload';
+export * from './RHFCode';
+
+export * from './RHFEditor';
 
 export * from './RHFSelect';
 
 export * from './RHFSwitch';
 
-export * from './RHFSlider';
-
-export * from './RHFRating';
+export * from './RHFUpload';
 
 export * from './RHFCheckbox';
 
@@ -18,10 +18,8 @@ export * from './FormProvider';
 
 export * from './schema-helper';
 
-export * from './RHFAudioGroup';
+export * from './RHFDatePicker';
 
 export * from './RHFPhoneInput';
 
-export * from './RHFDatePicker';
-
-export * from './RHFAtocomplete';
+export * from './RHFAutocomplete';
