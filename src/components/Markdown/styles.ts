@@ -1,4 +1,3 @@
-import ReactMarkdown from 'react-markdown';
 import { varAlpha } from 'minimal-shared/utils';
 
 import { styled } from '@mui/material/styles';
@@ -9,13 +8,13 @@ import { markdownClasses } from './classes';
 
 const MARGIN = '0.75em';
 
-export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
+export const MarkdownRoot = styled('div')(({ theme }) => ({
   '> * + *': {
     marginTop: 0,
     marginBottom: MARGIN,
   },
   /**
-   * Heading & Paragraph
+   * @Heading & paragraph
    */
   h1: { ...theme.typography.h1, marginTop: 40, marginBottom: 8 },
   h2: { ...theme.typography.h2, marginTop: 40, marginBottom: 8 },
@@ -25,7 +24,7 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
   h6: { ...theme.typography.h6, marginTop: 24, marginBottom: 8 },
   p: { ...theme.typography.body1, marginBottom: '1.25rem' },
   /**
-   * Hr Divider
+   * @Hr divider
    */
   hr: {
     flexShrink: 0,
@@ -38,16 +37,17 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
     borderColor: theme.vars.palette.divider,
   },
   /**
-   * Image
+   * @Image
    */
   [`& .${markdownClasses.content.image}`]: {
     width: '100%',
     height: 'auto',
     maxWidth: '100%',
     margin: 'auto auto 1.25em',
+    borderRadius: theme.shape.borderRadius * 2,
   },
   /**
-   * List
+   * @List
    */
   '& ul': {
     listStyleType: 'disc',
@@ -56,11 +56,14 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
     paddingLeft: 16,
     '& > li': {
       lineHeight: 2,
-      '& > p': { margin: 0, display: 'inline-block' },
+      '& > p': {
+        margin: 0,
+        display: 'inline-block',
+      },
     },
   },
   /**
-   * Blockquote
+   * @Blockquote
    */
   '& blockquote': {
     lineHeight: 1.5,
@@ -71,15 +74,8 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
     padding: theme.spacing(3, 3, 3, 8),
     color: theme.vars.palette.text.secondary,
     borderLeft: `solid 8px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
-      maxWidth: 640,
-    },
-    '& p': {
-      margin: 0,
-      fontSize: 'inherit',
-      fontFamily: 'inherit',
-    },
+    [theme.breakpoints.up('md')]: { width: '100%', maxWidth: 640 },
+    '& p': { margin: 0, fontSize: 'inherit', fontFamily: 'inherit' },
     '&::before': {
       left: 16,
       top: -8,
@@ -91,7 +87,7 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
     },
   },
   /**
-   * Code inline
+   * @Code inline
    */
   [`& .${markdownClasses.content.codeInline}`]: {
     padding: theme.spacing(0.25, 0.5),
@@ -101,7 +97,7 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
     backgroundColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.2),
   },
   /**
-   * Code Block
+   * @Code block
    */
   [`& .${markdownClasses.content.codeBlock}`]: {
     position: 'relative',
@@ -110,56 +106,64 @@ export const StyledRoot = styled(ReactMarkdown)(({ theme }) => ({
       padding: theme.spacing(3),
       color: theme.vars.palette.common.white,
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: theme.vars.palette.grey[900],
       fontFamily: "'JetBrainsMono', monospace",
+      backgroundColor: theme.vars.palette.grey[900],
       '& code': { fontSize: theme.typography.body2.fontSize },
+      ...theme.applyStyles('dark', {
+        backgroundColor: theme.vars.palette.grey[800],
+      }),
     },
   },
   /**
-   * Table
+   * @Table
    */
   table: {
     width: '100%',
     borderCollapse: 'collapse',
+    fontSize: theme.typography.body2.fontSize,
     border: `1px solid ${theme.vars.palette.divider}`,
-    'th, td': { padding: theme.spacing(1), border: `1px solid ${theme.vars.palette.divider}` },
-    'tbody tr:nth-of-type(odd)': { backgroundColor: theme.vars.palette.background.neutral },
+    'th, td': {
+      padding: theme.spacing(1),
+      border: `1px solid ${theme.vars.palette.divider}`,
+    },
+    'tbody tr:nth-of-type(odd)': {
+      backgroundColor: theme.vars.palette.background.neutral,
+    },
   },
   /**
-   * Checkbox
+   * @Checkbox
    */
-  input: {
-    '&[type=checkbox]': {
-      position: 'relative',
-      cursor: 'pointer',
+  [`& .${markdownClasses.content.checkbox}`]: {
+    cursor: 'pointer',
+    position: 'relative',
+    '&:before': {
+      content: '""',
+      top: -2,
+      left: -2,
+      width: 17,
+      height: 17,
+      borderRadius: 3,
+      position: 'absolute',
+      backgroundColor: theme.vars.palette.grey[300],
+      ...theme.applyStyles('dark', {
+        backgroundColor: theme.vars.palette.grey[700],
+      }),
+    },
+    '&:checked': {
       '&:before': {
-        content: '""',
-        top: -2,
-        left: -2,
-        width: 17,
-        height: 17,
-        borderRadius: 3,
-        position: 'absolute',
-        backgroundColor: theme.vars.palette.grey[300],
-        ...theme.applyStyles('dark', {
-          backgroundColor: theme.vars.palette.grey[700],
-        }),
+        backgroundColor: theme.vars.palette.primary.main,
       },
-      '&:checked': {
-        '&:before': { backgroundColor: theme.vars.palette.primary.main },
-        '&:after': {
-          content: '""',
-          top: 1,
-          left: 5,
-          width: 4,
-          height: 9,
-          position: 'absolute',
-          transform: 'rotate(45deg)',
-          msTransform: 'rotate(45deg)',
-          WebkitTransform: 'rotate(45deg)',
-          border: `solid ${theme.vars.palette.common.white}`,
-          borderWidth: '0 2px 2px 0',
-        },
+      '&:after': {
+        top: 1,
+        left: 5,
+        width: 4,
+        height: 9,
+        content: '""',
+        position: 'absolute',
+        borderStyle: 'solid',
+        transform: 'rotate(45deg)',
+        borderWidth: '0 2px 2px 0',
+        borderColor: theme.vars.palette.common.white,
       },
     },
   },
