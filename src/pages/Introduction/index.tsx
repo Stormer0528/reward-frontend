@@ -23,7 +23,7 @@ export default function Page() {
         sx={{ position: 'fixed' }}
       />
 
-      <BackToTopButton />
+      <BackToTopButton scrollThreshold="10%" />
 
       <Brief />
 
