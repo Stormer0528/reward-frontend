@@ -6,7 +6,7 @@ import type { WeeklyReport, TeamReportSection } from 'src/__generated__/graphql'
 import dayjs from 'dayjs';
 import { useMemo, useEffect } from 'react';
 
-import { useAgQuery as useQueryString } from 'src/routes/hooks';
+import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { parseFilterModel } from 'src/utils/parseFilter';
 import { formatWeekNumber } from 'src/utils/format-time';

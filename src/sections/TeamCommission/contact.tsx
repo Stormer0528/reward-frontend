@@ -3,7 +3,7 @@ import type { ColDef, ITextFilterParams } from '@ag-grid-community/core';
 
 import { useMemo, useEffect } from 'react';
 
-import { useAgQuery as useQueryString } from 'src/routes/hooks';
+import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 import { parseFilterModel } from 'src/utils/parseFilter';

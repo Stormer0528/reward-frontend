@@ -12,7 +12,7 @@ import { useMemo, useEffect } from 'react';
 import Card from '@mui/material/Card';
 
 import { paths } from 'src/routes/paths';
-import { useAgQuery as useQueryString } from 'src/routes/hooks';
+import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 import { parseFilterModel } from 'src/utils/parseFilter';
@@ -26,7 +26,7 @@ import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { parseType } from '../parseType';
 import { FileRenderer } from './FileRenderer';
-import { ActionRender } from './ActoinRenderer';
+import { ActionRender } from './ActionRenderer';
 import { useFetchInvoices } from '../useApollo';
 
 export default function InvoiceListView() {

@@ -19,7 +19,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
 import { useColorScheme } from '@mui/material/styles';
 
-import { useAgQuery } from 'src/routes/hooks';
+import { useQuery } from 'src/routes/hooks';
 
 import { debounce } from 'src/utils/lodash';
 
@@ -43,7 +43,7 @@ export const AgGrid = <TData,>(props: Props<TData>) => {
   const gridRef = useRef<AgGridReact<TData>>(null);
   const gridWrapperRef = useRef<HTMLDivElement>(null);
 
-  const [query, { setPage, setPageSize, setSort, setFilter }] = useAgQuery<FilterModel>();
+  const [query, { setPage, setPageSize, setSort, setFilter }] = useQuery<FilterModel>();
   const { pageModel = { page: 1, pageSize: 50 }, sortModel, filter } = query;
   const theme = useTheme();
 

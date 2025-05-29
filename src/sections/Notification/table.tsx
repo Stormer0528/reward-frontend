@@ -7,7 +7,7 @@ import { useMemo, useEffect } from 'react';
 import Card from '@mui/material/Card';
 
 import { paths } from 'src/routes/paths';
-import { useAgQuery as useQueryString } from 'src/routes/hooks';
+import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { formatDateTime } from 'src/utils/format-time';
 import { parseFilterModel } from 'src/utils/parseFilter';
