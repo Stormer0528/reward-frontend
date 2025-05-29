@@ -1,25 +1,25 @@
 import type { TablePaginationProps } from '@mui/material/TablePagination';
-import type { TablePaginationActionsProps } from '@mui/material/TablePagination/TablePaginationActions';
 
 import MuiPagination from '@mui/material/Pagination';
 import TablePagination from '@mui/material/TablePagination';
 
-function CustomPagination({
-  page,
-  count,
-  rowsPerPage,
-  onPageChange,
-  className,
-}: TablePaginationActionsProps) {
+interface TablePaginationActionsProps {
+  count: number;
+  page: number;
+  rowsPerPage: number;
+  onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
+}
+
+function CustomPagination({ page, count, rowsPerPage, onPageChange }: TablePaginationActionsProps) {
   return (
     <MuiPagination
       color="primary"
-      className={className}
       count={Math.ceil(count / rowsPerPage)}
       page={page + 1}
       onChange={(event, newPage) => {
         onPageChange(event as any, newPage - 1);
       }}
+      sx={{ flexShrink: 0 }}
     />
   );
 }

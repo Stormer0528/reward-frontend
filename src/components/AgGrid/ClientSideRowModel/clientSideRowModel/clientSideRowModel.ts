@@ -769,6 +769,7 @@ export class ClientSideRowModel extends BeanStub implements IClientSideRowModel,
 
     this.isRefreshingModel = true;
 
+    // eslint-disable-next-line
     switch (params.step) {
       case ClientSideRowModelSteps.EVERYTHING:
         this.doRowGrouping(
@@ -1051,6 +1052,8 @@ export class ClientSideRowModel extends BeanStub implements IClientSideRowModel,
       if (node.hasChildren() && !node.footer) {
         // depending on the recursion type, we pick a difference set of children
         let nodeChildren: RowNode[] | null = null;
+
+        // eslint-disable-next-line
         switch (recursionType) {
           case RecursionType.Normal:
             nodeChildren = node.childrenAfterGroup;
