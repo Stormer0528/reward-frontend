@@ -99,7 +99,7 @@ export function useFetchTopEarners() {
 export function useFetchTopRecruiters() {
   const [fetchTopRecruiters, { loading, data }] = useLazyQuery(FETCH_TOP_RECRUITERS);
 
-  return { loading, topRecruiteres: data?.topRecruiters ?? [], fetchTopRecruiters };
+  return { loading, topRecruiters: data?.topRecruiters ?? [], fetchTopRecruiters };
 }
 
 export function useFetchMemberByCountry() {
