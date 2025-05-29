@@ -58,7 +58,7 @@ export function NavHorizontal({
           WebkitBackdropFilter: `blur(var(--layout-header-blur))`,
         }}
       >
-        <NavSectionHorizontal data={data} checkPermissions={checkPermissions} {...other} />
+        <NavSectionHorizontal data={data} {...other} />
       </Box>
     </Box>
   );
