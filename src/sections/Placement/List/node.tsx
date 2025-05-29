@@ -1,6 +1,7 @@
 import type { PlacementMember } from 'src/__generated__/graphql';
 
 import { use } from 'react';
+import { usePopover } from 'minimal-shared/hooks';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 
 import Card from '@mui/material/Card';
@@ -14,7 +15,7 @@ import { customizeFullName } from 'src/utils/helper';
 
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import { CustomPopover } from 'src/components/CustomPopover';
 
 import NodeContext from './nodeContext';
 

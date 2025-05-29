@@ -1,11 +1,10 @@
-import type { PaperProps } from '@mui/material/Paper';
 import type { CustomPopoverProps } from './types';
 
 import Popover from '@mui/material/Popover';
 import { listClasses } from '@mui/material/List';
 import { menuItemClasses } from '@mui/material/MenuItem';
 
-import { StyledArrow } from './styles';
+import { Arrow } from './styles';
 import { calculateAnchorOrigin } from './utils';
 
 // ----------------------------------------------------------------------
@@ -18,11 +17,11 @@ export function CustomPopover({
   slotProps,
   ...other
 }: CustomPopoverProps) {
-  const arrowPlacement = slotProps?.arrow?.placement ?? 'top-right';
+  const { arrow: arrowProps, paper: paperProps, ...otherSlotProps } = slotProps ?? {};
 
-  const arrowSize = slotProps?.arrow?.size ?? 14;
-
-  const arrowOffset = slotProps?.arrow?.offset ?? 17;
+  const arrowSize = arrowProps?.size ?? 14;
+  const arrowOffset = arrowProps?.offset ?? 17;
+  const arrowPlacement = arrowProps?.placement ?? 'top-right';
 
   const { paperStyles, anchorOrigin, transformOrigin } = calculateAnchorOrigin(arrowPlacement);
 
@@ -34,26 +33,28 @@ export function CustomPopover({
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
       slotProps={{
-        ...slotProps,
+        ...otherSlotProps,
         paper: {
-          ...slotProps?.paper,
-          sx: {
-            ...paperStyles,
-            overflow: 'inherit',
-            [`& .${listClasses.root}`]: { minWidth: 140 },
-            [`& .${menuItemClasses.root}`]: { gap: 2 },
-            ...(slotProps?.paper as PaperProps)?.sx,
-          },
+          ...paperProps,
+          sx: [
+            paperStyles,
+            {
+              overflow: 'inherit',
+              [`& .${listClasses.root}`]: { minWidth: 140 },
+              [`& .${menuItemClasses.root}`]: { gap: 2 },
+            },
+            ...(Array.isArray(paperProps?.sx) ? paperProps.sx : [paperProps?.sx]),
+          ],
         },
       }}
       {...other}
     >
-      {!slotProps?.arrow?.hide && (
-        <StyledArrow
-          sx={slotProps?.arrow?.sx}
-          placement={arrowPlacement}
-          offset={arrowOffset}
+      {!arrowProps?.hide && (
+        <Arrow
           size={arrowSize}
+          offset={arrowOffset}
+          placement={arrowPlacement}
+          sx={arrowProps?.sx}
         />
       )}
 

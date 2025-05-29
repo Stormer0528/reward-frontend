@@ -14,7 +14,7 @@ import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { Label } from 'src/components/Label';
-import { CustomPopover } from 'src/components/custom-popover';
+import { CustomPopover } from 'src/components/CustomPopover';
 
 import { useMockedUser } from 'src/auth/hooks';
 

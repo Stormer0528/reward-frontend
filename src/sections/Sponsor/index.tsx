@@ -1,4 +1,4 @@
-import { useTabs , useBoolean } from 'minimal-shared/hooks';
+import { useTabs , useBoolean, usePopover } from 'minimal-shared/hooks';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -13,7 +13,6 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
-import { usePopover } from 'src/components/custom-popover';
 
 import AddMiner from './Create';
 import SponsorList from './SponsorList';

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { usePopover } from 'minimal-shared/hooks';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import {
   ReactFlow,
@@ -29,7 +30,7 @@ import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/LoadingScreen';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import {  CustomPopover } from 'src/components/CustomPopover';
 
 import { useFetchPlacementOMembers } from 'src/sections/Profile/useApollo';
 

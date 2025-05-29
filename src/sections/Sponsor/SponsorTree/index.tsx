@@ -22,7 +22,7 @@ import {
 
 import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/LoadingScreen';
-import { CustomPopover, type UsePopoverReturn } from 'src/components/custom-popover';
+import { CustomPopover, type UsePopoverReturn } from 'src/components/CustomPopover';
 
 import { useAuthContext } from 'src/auth/hooks';
 
