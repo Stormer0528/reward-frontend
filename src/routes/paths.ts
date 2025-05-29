@@ -10,15 +10,16 @@ const ROOTS = {
   RESET_PASSWORD: '/reset-password',
   UPDATE_PASSWORD: '/update-password',
   VERIFY_EMAIL: '/verify-email',
-  VERIFYRESULT: '/thanks',
+  VERIFY_RESULT: '/thanks',
 
   // Pages
   INTRO: '/intro',
   CALCULATOR: '/calculator',
   STATISTICS: '/statistics',
-  RAPIDREWARDS: '/rapid-rewards',
+  RAPID_REWARDS: '/rapid-rewards',
   CONTACT: '/contact',
   ORDER: '/order',
+  SILVER_GUARANTEE: '/silver-bugs',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -33,7 +34,6 @@ const ROOTS = {
   MAIL: '/mail',
   INVOICE: '/invoices',
   COMMUNICATION: '/communication',
-  SILVER_GUARANTEE: '/silverbugs',
   NOTIFICATIONS: '/notifications',
 };
 
@@ -52,32 +52,32 @@ export const paths = {
     // RESET PASSWORD
     resetPassword: ROOTS.RESET_PASSWORD,
 
-    // RESET PASSWORD
+    // UPDATE PASSWORD
     updatePassword: ROOTS.UPDATE_PASSWORD,
 
     // VERIFY EMAIL
     verifyEmail: ROOTS.VERIFY_EMAIL,
 
     // RESULT
-    verifyResult: ROOTS.VERIFYRESULT,
+    verifyResult: ROOTS.VERIFY_RESULT,
   },
 
   // PAGES
   pages: {
     // INTRO
-    intro: { root: ROOTS.INTRO },
+    intro: ROOTS.INTRO,
 
     // RAPID REWARDS
-    rapidRewards: { root: ROOTS.RAPIDREWARDS },
+    rapidRewards: ROOTS.RAPID_REWARDS,
 
     // SILVER GUARANTEE
-    silverGuarantee: { root: ROOTS.SILVER_GUARANTEE },
+    silverGuarantee: ROOTS.SILVER_GUARANTEE,
 
     // CONTACT
-    contact: { root: ROOTS.CONTACT },
+    contact: ROOTS.CONTACT,
 
     // STATISTICS
-    statistics: { root: ROOTS.STATISTICS },
+    statistics: ROOTS.STATISTICS,
 
     // ORDER
     order: { root: ROOTS.ORDER, detail: (id: string) => `${ROOTS.ORDER}/${id}` },

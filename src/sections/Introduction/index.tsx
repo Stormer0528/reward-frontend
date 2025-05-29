@@ -26,7 +26,7 @@ export default function Introduction() {
 
   if (pathname.includes('sign-up')) {
     setTimeout(() => {
-      router.push(`${paths.pages.intro.root}${search}#sign-up`);
+      router.push(`${paths.pages.intro}${search}#sign-up`);
     }, 100);
   }
 

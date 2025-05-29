@@ -28,10 +28,10 @@ export const statisticsRoutes: RouteObject[] = [
       </Suspense>
     ),
     children: [
-      { index: true, element: <Navigate to={paths.pages.intro.root} replace /> },
+      { index: true, element: <Navigate to={paths.pages.intro} replace /> },
       { path: 'intro', element: <IntroductionPage /> },
       { path: 'rapid-rewards', element: <RapidRewardsPage /> },
-      { path: 'silverbugs', element: <SilverGuaranteePage /> },
+      { path: 'silver-bugs', element: <SilverGuaranteePage /> },
       { path: 'contact', element: <ContactPage /> },
     ],
   },

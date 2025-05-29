@@ -19,7 +19,7 @@ export default function Packages() {
   const navigate = useNavigate();
 
   const goToJoin = (packageId: string) => {
-    navigate(`${paths.pages.intro.root}#sign-up`, { state: { packageId } });
+    navigate(`${paths.pages.intro}#sign-up`, { state: { packageId } });
   };
 
   return (
