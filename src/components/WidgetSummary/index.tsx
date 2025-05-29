@@ -1,5 +1,5 @@
 import type { CardProps } from '@mui/material/Card';
-import type { ChartOptions } from 'src/components/chart';
+import type { ChartOptions } from 'src/components/Chart';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -9,7 +9,7 @@ import { useTheme, useColorScheme } from '@mui/material/styles';
 import { fNumber } from 'src/utils/formatNumber';
 
 import { Iconify } from 'src/components/Iconify';
-import { Chart, useChart } from 'src/components/chart';
+import { Chart, useChart } from 'src/components/Chart';
 
 // ----------------------------------------------------------------------
 
