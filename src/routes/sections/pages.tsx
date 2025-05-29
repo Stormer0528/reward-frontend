@@ -4,7 +4,7 @@ import { Outlet, Navigate, type RouteObject } from 'react-router';
 import { MainLayout } from 'src/layouts/main';
 import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import { paths } from '../paths';
 

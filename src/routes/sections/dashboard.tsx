@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router';
 
 import { DashboardLayout } from 'src/layouts/dashboard';
 
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import { AuthGuard } from 'src/auth/guard';
 

@@ -12,7 +12,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import { useAuthContext } from 'src/auth/hooks';
 

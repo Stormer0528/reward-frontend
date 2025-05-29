@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { SplashScreen } from 'src/components/loading-screen';
+import { SplashScreen } from 'src/components/LoadingScreen';
 
 import { useAuthContext } from '../hooks';
 

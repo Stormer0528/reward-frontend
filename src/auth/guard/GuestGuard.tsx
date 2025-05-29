@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 
-import { SplashScreen } from 'src/components/loading-screen';
+import { SplashScreen } from 'src/components/LoadingScreen';
 
 import { useAuthContext } from '../hooks';
 import { setToken } from '../context/utils';

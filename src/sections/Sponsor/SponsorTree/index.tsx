@@ -21,7 +21,7 @@ import {
 } from 'src/consts';
 
 import ComponentBlock from 'src/components/Component-Block';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 import { CustomPopover, type UsePopoverReturn } from 'src/components/custom-popover';
 
 import { useAuthContext } from 'src/auth/hooks';

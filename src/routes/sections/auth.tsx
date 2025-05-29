@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 
 import { AuthSplitLayout } from 'src/layouts/auth-split';
 
-import { SplashScreen } from 'src/components/loading-screen';
+import { SplashScreen } from 'src/components/LoadingScreen';
 
 import { GuestGuard } from 'src/auth/guard';
 

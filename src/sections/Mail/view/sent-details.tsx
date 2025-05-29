@@ -21,7 +21,7 @@ import { Iconify } from 'src/components/Iconify';
 import { Markdown } from 'src/components/Markdown';
 import { ScrollBar } from 'src/components/ScrollBar';
 import { EmptyContent } from 'src/components/EmptyContent';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import { FileRecentItem } from './FileRecentItem';
 

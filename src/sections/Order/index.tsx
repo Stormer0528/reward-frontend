@@ -15,7 +15,7 @@ import { useParams, useRouter } from 'src/routes/hooks';
 import { OrderStatus, type Order as OrderType } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import Detail from './Detail';
 import Payment from './Payment';

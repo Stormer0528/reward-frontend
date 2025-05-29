@@ -28,7 +28,7 @@ import {
 import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import ComponentBlock from 'src/components/Component-Block';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { useFetchPlacementOMembers } from 'src/sections/Profile/useApollo';

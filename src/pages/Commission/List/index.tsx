@@ -4,7 +4,7 @@ import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config';
 
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import CommissionList from 'src/sections/Commission/List';
 

@@ -9,7 +9,7 @@ import { paths } from 'src/routes/paths';
 import { useSearchParams } from 'src/routes/hooks';
 
 import { Iconify } from 'src/components/Iconify';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import { useVerifyEmail } from './useApollo';
 

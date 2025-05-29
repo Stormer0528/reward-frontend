@@ -18,7 +18,7 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { BackToTopButton } from 'src/components/animate';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
 export default function Detail() {
   const { slug } = useParams();

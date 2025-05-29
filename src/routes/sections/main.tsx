@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import { lazy, Suspense } from 'react';
 
-import { SplashScreen } from 'src/components/loading-screen';
+import { SplashScreen } from 'src/components/LoadingScreen';
 
 // ----------------------------------------------------------------------
 
