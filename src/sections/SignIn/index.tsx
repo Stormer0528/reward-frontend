@@ -1,7 +1,7 @@
-import { z as zod } from 'zod';
+import type { SignInSchemaType } from './schema';
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -9,55 +9,42 @@ import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config';
 
 import { toast } from 'src/components/SnackBar';
-import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-import { useApollo } from './useApollo';
+import { useLogin } from './useApollo';
 import VerifyModal from './VerifyModal';
+import { SignInSchema } from './schema';
 import Calculator from '../SignUp/Calculator';
 
 // ----------------------------------------------------------------------
 
-export type SignInSchemaType = zod.infer<typeof SignInSchema>;
-
-export const SignInSchema = zod.object({
-  email: zod
-    .string()
-    .min(1, { message: 'Email is required!' })
-    .email({ message: 'Email must be a valid email address!' }),
-  password: zod
-    .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
-});
-
-// ----------------------------------------------------------------------
-
 export function SignInView() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { signIn } = useAuthContext();
-  const { submitLogin } = useApollo();
+  const { submitLogin } = useLogin();
 
   const [errorMsg, setErrorMsg] = useState('');
 
   const open = useBoolean();
-  const password = useBoolean();
   const calculator = useBoolean();
 
   const methods = useForm<SignInSchemaType>({
     resolver: zodResolver(SignInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const {
@@ -67,15 +54,13 @@ export function SignInView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await submitLogin({ variables: { data } });
+      const response = await submitLogin(data);
       const token = response.data?.memberLogin.accessToken ?? '';
 
+      // TODO: Need to confirm 2FA and clean up reset password logic
       if (response.data?.memberLogin.passwordExpired) {
         toast.warning('Your Password Token has expired. Please reset your password');
-
-        setTimeout(() => {
-          navigate(paths.auth.updatePassword, { state: { token } });
-        }, 2000);
+        router.replace(paths.auth.updatePassword, { state: { token } });
       } else if (response.data?.memberLogin.status === 'success') {
         signIn(token);
       } else {
@@ -89,21 +74,17 @@ export function SignInView() {
     }
   });
 
-  const renderHead = (
+  const renderHead = () => (
     <Stack spacing={1.5} sx={{ mb: 5 }}>
-      <Typography variant="h5">Sign in to your account</Typography>
+      <Typography variant="h5">Sign in to MineTXC</Typography>
 
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {`Don't have an account?`}
+          Don&apos;t have an account?
         </Typography>
 
         <Stack direction="row" columnGap={2}>
-          <Link
-            component={RouterLink}
-            href={`${paths.pages.intro}#sign-up`}
-            variant="subtitle2"
-          >
+          <Link component={RouterLink} href={`${paths.pages.intro}#sign-up`} variant="subtitle2">
             Join Now
           </Link>
 
@@ -135,24 +116,7 @@ export function SignInView() {
           Forgot password?
         </Link>
 
-        <Field.Text
-          name="password"
-          label="Password"
-          placeholder="6+ characters"
-          type={password.value ? 'text' : 'password'}
-          slotProps={{
-            inputLabel: { shrink: true },
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={password.onToggle} edge="end">
-                    <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+        <Field.Password name="password" label="Password" placeholder="6+ characters" />
       </Stack>
 
       <Button
@@ -171,7 +135,7 @@ export function SignInView() {
 
   return (
     <>
-      {renderHead}
+      {renderHead()}
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>

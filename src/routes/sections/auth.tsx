@@ -28,7 +28,7 @@ export const authRoutes: RouteObject[] = [
           <AuthSplitLayout
             slotProps={{
               section: {
-                title: 'Hi, Welcome mineTXC',
+                title: 'Hi, Welcome to MineTXC',
                 subtitle: 'TEXITcoin is the future of money in Texas.',
               },
             }}
