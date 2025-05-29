@@ -1,6 +1,6 @@
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
@@ -10,9 +10,14 @@ import { CONFIG } from 'src/config';
 
 import { Image } from 'src/components/Image';
 
-export default function Texit() {
+export function Texit() {
   return (
-    <CustomPaper>
+    <Box
+      sx={(theme) => ({
+        bgcolor: theme.vars.palette.grey['A200'],
+        py: { xs: 4, md: 6 },
+      })}
+    >
       <Container>
         <Description container spacing={2.5} alignItems="center">
           <Grid size={{ xs: 12, md: 6 }}>
@@ -82,15 +87,9 @@ export default function Texit() {
           </Grid>
         </Description>
       </Container>
-    </CustomPaper>
+    </Box>
   );
 }
-
-const CustomPaper = styled(Paper)`
-  background-color: #f2f2f2;
-  border-radius: 0;
-  padding: 50px 0 20px;
-`;
 
 const ContentCard = styled(Card)`
   padding: 25px;

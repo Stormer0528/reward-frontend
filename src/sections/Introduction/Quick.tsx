@@ -1,38 +1,26 @@
 import MediaPlayer from 'react-player';
 
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-export default function Quick() {
+export function Quick() {
   return (
-    <Content>
+    <Box
+      sx={(theme) => ({
+        bgcolor: theme.vars.palette.grey['A200'],
+        py: {xs: 4, md: 6},
+      })}
+    >
       <Container>
-        <Header>A Quick Introduction...</Header>
+        <Typography variant="h2" textAlign="center" sx={{ my: 2 }}>
+          A Quick Introduction...
+        </Typography>
 
-        <CustomContainer>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <MediaPlayer url="https://www.youtube.com/watch?v=-XP4JzOFYFI" controls />
-        </CustomContainer>
+        </Box>
       </Container>
-    </Content>
+    </Box>
   );
 }
-
-const Content = styled(Paper)`
-  background-color: #e5e5e5;
-  padding: 50px 0 30px;
-  text-align: center;
-  border-radius: 0;
-`;
-
-const CustomContainer = styled(Container)`
-  padding: 40px 0;
-  display: flex;
-  justify-content: center;
-`;
-
-const Header = styled(Typography)`
-  font-size: 3rem;
-  font-weight: 700;
-`;

@@ -15,7 +15,7 @@ import { PACKAGES } from 'src/consts';
 
 import { Iconify } from 'src/components/Iconify';
 
-export default function Packages() {
+export function Packages() {
   const navigate = useNavigate();
 
   const goToJoin = (packageId: string) => {
