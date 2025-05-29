@@ -5,7 +5,7 @@ import { mergeClasses } from 'minimal-shared/utils';
 import { useTheme } from '@mui/material/styles';
 
 import { NavList } from './nav-list';
-import { Scrollbar } from '../../scrollbar';
+import { ScrollBar } from '../../ScrollBar';
 import { Nav, NavUl, NavLi } from '../components';
 import { navSectionClasses, navSectionCssVars } from '../styles';
 
@@ -17,7 +17,6 @@ export function NavSectionHorizontal({
   render,
   className,
   slotProps,
-  checkPermissions,
   enabledRootRedirect,
   cssVars: overridesVars,
   ...other
@@ -27,7 +26,7 @@ export function NavSectionHorizontal({
   const cssVars = { ...navSectionCssVars.horizontal(theme), ...overridesVars };
 
   return (
-    <Scrollbar
+    <ScrollBar
       sx={{ height: 1 }}
       slotProps={{ contentSx: { height: 1, display: 'flex', alignItems: 'center' } }}
     >
@@ -54,26 +53,18 @@ export function NavSectionHorizontal({
               cssVars={cssVars}
               items={group.items}
               slotProps={slotProps}
-              checkPermissions={checkPermissions}
               enabledRootRedirect={enabledRootRedirect}
             />
           ))}
         </NavUl>
       </Nav>
-    </Scrollbar>
+    </ScrollBar>
   );
 }
 
 // ----------------------------------------------------------------------
 
-function Group({
-  items,
-  render,
-  cssVars,
-  slotProps,
-  checkPermissions,
-  enabledRootRedirect,
-}: NavGroupProps) {
+function Group({ items, render, cssVars, slotProps, enabledRootRedirect }: NavGroupProps) {
   return (
     <NavLi>
       <NavUl sx={{ flexDirection: 'row', gap: 'var(--nav-item-gap)' }}>
@@ -85,7 +76,6 @@ function Group({
             render={render}
             cssVars={cssVars}
             slotProps={slotProps}
-            checkPermissions={checkPermissions}
             enabledRootRedirect={enabledRootRedirect}
           />
         ))}
