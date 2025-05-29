@@ -1,4 +1,3 @@
-import type { GridFilterModel } from '@mui/x-data-grid';
 import type {
   FilterModel,
   SetFilterModel,
@@ -76,13 +75,31 @@ export function parseFilterModel(curFilter: any = {}, filter?: FilterModel) {
         } else {
           filterObj.push({ [field]: parseNumberFilter(value) });
         }
-      } else {
-        filterObj.push({ [field]: value });
       }
     });
   }
 
   return { ...curFilter, ...(filterObj.length > 0 && { AND: filterObj }) };
+}
+
+function parseTextFilter({ type, filter }: TextFilterModel) {
+  switch (type) {
+    case 'equals':
+      return { eq: filter };
+    case 'notEqual':
+      return { ne: filter };
+    case 'contains':
+      return { contains: `%${filter}%`, mode: 'insensitive' };
+    case 'notContains':
+      return { not: { contains: `%${filter}%`, mode: 'insensitive' } };
+    case 'startsWith':
+      return { startsWith: filter, mode: 'insensitive' };
+    case 'endsWith':
+      return { endsWith: filter, mode: 'insensitive' };
+    default:
+      console.log(`unknown text filter type: ${type}`);
+      return null;
+  }
 }
 
 function parseNumberFilter({ type, filter, filterTo }: NumberFilterModel) {
@@ -105,30 +122,6 @@ function parseNumberFilter({ type, filter, filterTo }: NumberFilterModel) {
       return { gte: from, lte: to };
     default:
       console.log(`unknown number filter type: ${type}`);
-      return null;
-  }
-}
-
-function parseTextFilter({ type, filter }: TextFilterModel) {
-  switch (type) {
-    case 'equals':
-      return { equals: filter };
-    case 'notEqual':
-      return { not: { equals: filter } };
-    case 'contains':
-      return { contains: `${filter}`, mode: 'insensitive' };
-    case 'notContains':
-      return { not: { contains: `${filter}`, mode: 'insensitive' } };
-    case 'startsWith':
-      return { startsWith: filter, mode: 'insensitive' };
-    case 'endsWith':
-      return { endsWith: filter, mode: 'insensitive' };
-    case 'blank':
-      return null;
-    case 'notBlank':
-      return { not: null };
-    default:
-      console.log(`unknown text filter type: ${type}`);
       return null;
   }
 }
@@ -159,47 +152,4 @@ function parseDateFilter({ type, dateFrom, dateTo }: DateFilterModel) {
       console.log(`unknown date filter type: ${type}`);
       return null;
   }
-}
-
-export function parseFilter(curFilter: any = {}, filter?: GridFilterModel) {
-  const filterObj: any = { ...curFilter };
-
-  (filter?.items ?? []).forEach((item) => {
-    const { value, field, operator } = item;
-
-    if (operator === 'isEmpty') {
-      filterObj[field] = null;
-    } else if (operator === 'isNotEmpty') {
-      filterObj[field] = { not: null };
-    } else if (value !== undefined) {
-      if (operator === '=' || operator === 'equals') {
-        filterObj[field] = value;
-      } else if (operator === 'is') {
-        filterObj[field] = value === 'true';
-      } else if (operator === '>') {
-        filterObj[field] = { gt: value };
-      } else if (operator === '>=') {
-        filterObj[field] = { gte: value };
-      } else if (operator === '<=') {
-        filterObj[field] = { lte: value };
-      } else if (operator === '<') {
-        filterObj[field] = { lt: value };
-      } else if (operator === '!=') {
-        filterObj[field] = { ne: value };
-      } else if (operator === 'isAnyOf') {
-        filterObj[field] = { in: value };
-      } else if (operator === 'contains') {
-        filterObj[field] = { contains: `${value}`, mode: 'insensitive' };
-      } else if (operator === 'startsWith') {
-        filterObj[field] = { startsWith: value, mode: 'insensitive' };
-      } else if (operator === 'endsWith') {
-        filterObj[field] = { endsWith: value, mode: 'insensitive' };
-      } else if (operator === 'blank') {
-        filterObj[field] = null;
-      } else if (operator === 'notBlank') {
-        filterObj[field] = { not: null };
-      }
-    }
-  });
-  return filterObj;
 }
