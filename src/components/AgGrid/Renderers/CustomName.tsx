@@ -31,7 +31,7 @@ export const CustomName = memo(({ id, username, email }: Props) => {
         secondary={
           <Typography
             variant="body2"
-            color={(theme) => theme.palette.text.disabled}
+            color='textDisabled'
             sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
             {email}
