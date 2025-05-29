@@ -16,7 +16,6 @@ export function NavSectionMini({
   render,
   className,
   slotProps,
-  checkPermissions,
   enabledRootRedirect,
   cssVars: overridesVars,
   ...other
@@ -39,7 +38,6 @@ export function NavSectionMini({
             cssVars={cssVars}
             items={group.items}
             slotProps={slotProps}
-            checkPermissions={checkPermissions}
             enabledRootRedirect={enabledRootRedirect}
           />
         ))}
@@ -50,14 +48,7 @@ export function NavSectionMini({
 
 // ----------------------------------------------------------------------
 
-function Group({
-  items,
-  render,
-  cssVars,
-  slotProps,
-  checkPermissions,
-  enabledRootRedirect,
-}: NavGroupProps) {
+function Group({ items, render, cssVars, slotProps, enabledRootRedirect }: NavGroupProps) {
   return (
     <NavLi>
       <NavUl sx={{ gap: 'var(--nav-item-gap)' }}>
@@ -69,7 +60,6 @@ function Group({
             render={render}
             cssVars={cssVars}
             slotProps={slotProps}
-            checkPermissions={checkPermissions}
             enabledRootRedirect={enabledRootRedirect}
           />
         ))}
