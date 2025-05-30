@@ -149,7 +149,7 @@ export function SignInView() {
 
       <Calculator open={calculator} />
 
-      <VerifyModal open={open} signIn={signIn} />
+      <VerifyModal open={open} />
     </>
   );
 }

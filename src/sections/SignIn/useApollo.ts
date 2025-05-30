@@ -1,20 +1,10 @@
-import type { MemberLoginInput } from 'src/__generated__/graphql';
+import type { TokenInput, MemberLoginInput } from 'src/__generated__/graphql';
 
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { gql } from 'src/__generated__/gql';
+import { LOGIN_MUTATION, VERIFY_2FA_TOKEN } from './query';
 // ----------------------------------------------------------------------
-
-export const LOGIN_MUTATION = gql(/* GraphQL */ `
-  mutation Login($data: MemberLoginInput!) {
-    memberLogin(data: $data) {
-      status
-      accessToken
-      passwordExpired
-    }
-  }
-`);
 
 // ----------------------------------------------------------------------
 
@@ -27,4 +17,15 @@ export function useLogin() {
   );
 
   return { loading, error, submitLogin };
+}
+
+export function useVerify2FAAndToken() {
+  const [submit, { loading, error }] = useMutation(VERIFY_2FA_TOKEN);
+
+  const verify2FAAndToken = useCallback(
+    (data: TokenInput) => submit({ variables: { data } }),
+    [submit]
+  );
+
+  return { loading, error, verify2FAAndToken };
 }

@@ -12,3 +12,9 @@ export const SignInSchema = zod.object({
     .min(1, { message: 'Password is required!' })
     .min(6, { message: 'Password must be at least 6 characters!' }),
 });
+
+export type TwoFactorSchemaType = zod.infer<typeof TwoFactorSchema>;
+
+export const TwoFactorSchema = zod.object({
+  token: zod.string().min(1, { message: 'Code is required!' }),
+});

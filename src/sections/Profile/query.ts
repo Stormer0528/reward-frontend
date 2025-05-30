@@ -334,15 +334,6 @@ export const VERIFY_2FA_ENABLE = gql(/* GraphQL */ `
   }
 `);
 
-export const VERIFY_2FA_TOKEN = gql(/* GraphQL */ `
-  mutation Verify2FAToken($data: TokenInput!) {
-    verify2FAToken(data: $data) {
-      accessToken
-      status
-    }
-  }
-`);
-
 export const DISABLE_2FA = gql(/* GraphQL */ `
   mutation Disable2FA {
     disable2FA {

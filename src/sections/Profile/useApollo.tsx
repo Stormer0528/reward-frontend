@@ -7,7 +7,6 @@ import {
   MEMBER_LOGOUT,
   UPDATE_MEMBER,
   FETCH_ME_QUERY,
-  VERIFY_2FA_TOKEN,
   VERIFY_2FA_ENABLE,
   EMAIL_VERIFY_CODE,
   FETCH_PAYOUTS_QUERY,
@@ -124,11 +123,7 @@ export function useVerify2FAAndEnable() {
   return { loading, accessToken: data?.verify2FAAndEnable.accessToken, error, verify2FAAndEnable };
 }
 
-export function useVerify2FAAndToken() {
-  const [verify2FAAndToken, { loading, data, error }] = useMutation(VERIFY_2FA_TOKEN);
 
-  return { loading, data, error, verify2FAAndToken };
-}
 
 export function useDisable2FA() {
   const [disable2FA, { loading, data, error }] = useMutation(DISABLE_2FA);
