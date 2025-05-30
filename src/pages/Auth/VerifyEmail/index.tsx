@@ -1,6 +1,6 @@
 import { CONFIG } from 'src/config';
 
-import { VerifyEmailView } from 'src/sections/VerifyEmail';
+import { VerifyEmailView } from 'src/sections/Auth/VerifyEmail';
 
 // ----------------------------------------------------------------------
 
