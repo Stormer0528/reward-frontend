@@ -59,9 +59,10 @@ export function AuthProvider({ children }: Props) {
 
   useEffect(() => {
     if (error) {
-      // TODO: Show alert token is invalid
-      setToken(null);
+      toast.error('Your session has expired. Please login again.');
+      signOut();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
 
   useEffect(() => {
