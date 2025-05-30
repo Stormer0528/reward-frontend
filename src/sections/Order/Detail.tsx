@@ -164,7 +164,7 @@ export default function Detail({
             icon={copy === item.value ? 'line-md:check-all' : 'bxs:copy'}
             color={theme.palette.primary.main}
             sx={{ cursor: 'pointer' }}
-            onClick={() => handleCopy(item.value)}
+            onDoubleClick={() => handleCopy(item.value)}
           />
         </Box>
       ))}
