@@ -1,0 +1,38 @@
+import { z as zod } from 'zod';
+
+import { PASSWORD_REGEXP } from 'src/consts';
+
+export type SchemaType = zod.infer<typeof Schema>;
+
+export const Schema = zod
+  .object({
+    firstName: zod.string({ required_error: 'First Name is required' }),
+    lastName: zod.string({ required_error: 'Last Name is required' }),
+    uname: zod.string({ required_error: 'Username is required' }),
+    email: zod
+      .string({ required_error: 'Email is required' })
+      .email({ message: 'Invalid email address is provided' }),
+    mobile: zod.string(),
+    city: zod.string(),
+    zipCode: zod.string(),
+    state: zod.string(),
+    primaryAddress: zod.string(),
+    sponsorUserId: zod.string(),
+    secondaryAddress: zod.string(),
+    paymentMethod: zod.string({ required_error: 'Payment Method is requried' }),
+    password: zod
+      .string()
+      .min(1, { message: 'Password is required!' })
+      .min(8, { message: 'Password must be at least 8 characters!' })
+      .regex(PASSWORD_REGEXP, {
+        message:
+          'Password must include uppercase, lowercase, number, and special character! Available special characters: ! @ # $ % ^ & * ( ) _ + [ ] { } | ; : , . < > ?',
+      }),
+    confirmPassword: zod.string().min(1, { message: 'Confirm Password is required!' }),
+    assetId: zod.string().optional().nullable(),
+    note: zod.string().optional().nullable(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match!',
+    path: ['confirmPassword'],
+  });

@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react';
 import { Outlet, Navigate } from 'react-router';
 
 import { AuthSplitLayout } from 'src/layouts/auth-split';
+import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 
 import { SplashScreen } from 'src/components/LoadingScreen';
 
@@ -14,8 +15,8 @@ import { paths } from '../paths';
 // ----------------------------------------------------------------------
 
 const SignInPage = lazy(() => import('src/pages/SignIn'));
+const VerifyEmail = lazy(() => import('src/pages/VerifyEmail'));
 const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
-const VerifyEmail = lazy(() => import('src/sections/SignUp/verify'));
 const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
 const UpdatePasswordPage = lazy(() => import('src/pages/ResetPassword/updatePassword'));
 const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
@@ -41,11 +42,22 @@ export const authRoutes: RouteObject[] = [
     children: [
       { path: 'sign-up', element: <Navigate to={paths.pages.intro} replace /> },
       { path: 'sign-in', element: <SignInPage /> },
-      { path: 'verify-email', element: <VerifyEmail /> },
       { path: 'thanks', element: <VerifyResult /> },
       { path: 'update-password', element: <UpdatePasswordPage /> },
       { path: 'forgot-password', element: <ForgotPasswordPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
     ],
+  },
+  {
+    path: 'verify-email',
+    element: (
+      <Suspense fallback={<SplashScreen />}>
+        <GuestGuard>
+          <AuthCenteredLayout>
+            <VerifyEmail />
+          </AuthCenteredLayout>
+        </GuestGuard>
+      </Suspense>
+    ),
   },
 ];
