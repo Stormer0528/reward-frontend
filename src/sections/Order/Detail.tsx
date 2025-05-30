@@ -66,7 +66,7 @@ export default function Detail({
         value:
           (current?.requiredBalance ?? 0) /
           (PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0),
-        icon: 'lsicon:amount-dollar-filled',
+        icon: `${CONFIG.site.basePath}/assets/${paymentType.paymentToken}.png`,
       },
     ],
     [current, paymentType]
@@ -119,7 +119,7 @@ export default function Detail({
         </Box>
       </Box>
 
-      {ITEMS.map((item) => (
+      {ITEMS.map((item, index) => (
         <Box
           sx={{
             mb: 1,
@@ -140,7 +140,20 @@ export default function Detail({
               background: theme.palette.primary.main,
             }}
           >
-            <Iconify icon={item.icon} color="#ffffff" sx={{ display: 'block', margin: 'auto' }} />
+            {index === 0 ? (
+              <Iconify icon={item.icon} color="#ffffff" sx={{ display: 'block', margin: 'auto' }} />
+            ) : (
+              <Box
+                sx={{
+                  background: theme.palette.background.paper,
+                  borderRadius: '50%',
+                  padding: 0.25,
+                  margin: 'auto',
+                }}
+              >
+                <Avatar src={item.icon} sx={{ width: 20, height: 20 }} />
+              </Box>
+            )}
           </Box>
 
           <Box sx={{ width: '100%' }}>
