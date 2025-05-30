@@ -102,6 +102,11 @@ export default function Order() {
         setStep(2);
         setStatus(OrderStatus.Canceled);
       }
+
+      if (order.status === OrderStatus.Completed) {
+        setStep(2);
+        setStatus(OrderStatus.Completed);
+      }
     }
   }, [order]);
 
