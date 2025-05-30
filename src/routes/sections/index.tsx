@@ -1,11 +1,12 @@
 import type { RouteObject } from 'react-router';
 
-import { Navigate } from 'react-router';
+import { lazy } from 'react';
 
 import { authRoutes } from './auth';
 import { mainRoutes } from './main';
 import { dashboardRoutes } from './dashboard';
 
+const Page404 = lazy(() => import('src/pages/error/404'));
 // ----------------------------------------------------------------------
 
 export const routesSection: RouteObject[] = [
@@ -19,5 +20,5 @@ export const routesSection: RouteObject[] = [
   ...dashboardRoutes,
 
   // No match
-  { path: '*', element: <Navigate to="/404" replace /> },
+  { path: '*', element: <Page404 />  },
 ];
