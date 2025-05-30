@@ -54,7 +54,7 @@ export default function PaymentWaiting() {
         value:
           (current?.requiredBalance ?? 0) /
           PAYMENT_METHOD[current?.paymentToken as PaymentToken]?.balance,
-        icon: 'lsicon:amount-dollar-filled',
+        icon: `${CONFIG.ASSET_DIR}/assets/${current?.paymentToken}.png`,
       },
     ],
     [current]
