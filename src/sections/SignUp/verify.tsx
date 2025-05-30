@@ -9,6 +9,7 @@ import { useSearchParams } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/useBoolean';
 
+import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { LoadingScreen } from 'src/components/loading-screen';
 
@@ -57,7 +58,7 @@ export default function AmplifyVerifyView() {
           loading.onTrue();
         }
       } catch (error) {
-        console.log('error => ', error);
+        toast.error(error.message);
       }
     }
 
