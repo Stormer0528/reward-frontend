@@ -16,7 +16,7 @@ import { useAuthContext } from 'src/auth/hooks';
 import { ActionRender } from './ActionRenderer';
 
 export default function CommunicationTable() {
-  const { loading, user } = useAuthContext();
+  const { user } = useAuthContext();
 
   const colDefs = useMemo<ColDef<CampaignMember>[]>(
     () => [
@@ -119,7 +119,6 @@ export default function CommunicationTable() {
     >
       <AgGrid<CampaignMember>
         gridKey="member-communication-list"
-        loading={loading}
         rowData={user?.communications}
         columnDefs={colDefs}
         totalRowCount={user?.communications?.length}
