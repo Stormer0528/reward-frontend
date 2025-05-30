@@ -118,7 +118,7 @@ export enum State {
 export const PAYMENT_METHOD = {
   TXC: {
     label: 'Texitcoin',
-    balance: 10 ** 9,
+    balance: 10 ** 8,
     token: null,
   },
   USDC: {
@@ -144,7 +144,7 @@ export const PAYMENT_METHOD = {
 };
 
 export const CHAIN_UNIT = {
-  TXC: 9,
+  TXC: 8,
   BNB: 18,
   ETH: 18,
   USDC: 6,
