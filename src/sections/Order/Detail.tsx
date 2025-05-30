@@ -6,10 +6,10 @@ import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { truncateMiddle } from 'src/utils/helper';
+import { makeDecimal, truncateMiddle } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
-import { PAYMENT_METHOD } from 'src/consts';
+import { CHAIN_UNIT, PAYMENT_METHOD } from 'src/consts';
 import { type Order, OrderStatus } from 'src/__generated__/graphql';
 
 import { Iconify } from 'src/components/Iconify';
@@ -58,9 +58,11 @@ export default function Detail({
         icon: 'entypo:wallet',
       },
       {
-        label:
+        label: makeDecimal(
           (current?.requiredBalance ?? 0) /
-          (PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0),
+            (PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0),
+          CHAIN_UNIT[paymentType.paymentChain]
+        ),
         value:
           (current?.requiredBalance ?? 0) /
           (PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0),
@@ -147,7 +149,7 @@ export default function Detail({
 
           <Iconify
             icon={copy === item.value ? 'line-md:check-all' : 'bxs:copy'}
-            color="#00A76F"
+            color={theme.palette.primary.main}
             sx={{ cursor: 'pointer' }}
             onClick={() => handleCopy(item.value)}
           />
