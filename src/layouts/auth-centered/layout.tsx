@@ -5,7 +5,6 @@ import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '.
 import { merge } from 'es-toolkit';
 
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 
 import { CONFIG } from 'src/config';
 
@@ -39,21 +38,19 @@ export function AuthCenteredLayout({
     const headerSlotProps: HeaderSectionProps['slotProps'] = { container: { maxWidth: false } };
 
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
+      // topArea: (
+      //   <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+      //     This is an info Alert.
+      //   </Alert>
+      // ),
       leftArea: (
         <>
           {/** @slot Logo */}
-          <Logo />
+          <Logo sx={{ width: '40px !important' , height: '40px !important' }} />
         </>
       ),
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
-
-
           {/** @slot Settings button */}
           <SettingsButton />
         </Box>
