@@ -1,17 +1,17 @@
 import { CONFIG } from 'src/config';
 
-import { SplitResetPasswordView } from 'src/sections/Auth/ForgotPassword';
+import { ForgotPasswordView } from 'src/sections/Auth/ForgotPassword';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `${CONFIG.APP_NAME} - Reset password` };
+const metadata = { title: `${CONFIG.APP_NAME} - Forgot password` };
 
 export default function Page() {
   return (
     <>
       <title>{metadata.title}</title>
 
-      <SplitResetPasswordView />
+      <ForgotPasswordView />
     </>
   );
 }
