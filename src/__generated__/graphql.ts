@@ -1382,7 +1382,6 @@ export type Mutation = {
   setReadAllNotifications: ManySuccessResponse;
   setReadNotification: SuccessResponse;
   setRecipientStatus: Recipient;
-  shareWithMemberId: SuccessResponse;
   signUpMember: SignupMemberResponse;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
@@ -1870,11 +1869,6 @@ export type MutationSetReadNotificationArgs = {
 
 export type MutationSetRecipientStatusArgs = {
   data: EmailStatusInput;
-};
-
-
-export type MutationShareWithMemberIdArgs = {
-  data: ShareMemberInput;
 };
 
 
@@ -3123,12 +3117,7 @@ export type ShareAccountResponse = {
 };
 
 export type ShareMemberInput = {
-<<<<<<< HEAD
   memberIds: Array<Scalars['ID']['input']>;
-=======
-  childId: Scalars['ID']['input'];
-  parentId: Scalars['ID']['input'];
->>>>>>> 1efa8c11 (Update overview query)
 };
 
 export type SignupFormInput = {

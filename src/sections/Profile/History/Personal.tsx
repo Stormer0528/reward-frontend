@@ -1,15 +1,14 @@
 import type { Member, Setting as SettingType } from 'src/__generated__/graphql';
 
 import { useState, useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Unstable_Grid2';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import { useBoolean } from 'src/hooks/useBoolean';
 
 import { formatDate } from 'src/utils/format-time';
 import { formatID, truncateMiddle } from 'src/utils/helper';
@@ -54,7 +53,7 @@ export default function Personal({ me }: Props) {
 
   return (
     <>
-      <Grid xl={12}>
+      <Grid size={12}>
         <Card sx={{ mt: 2, p: 3 }}>
           <Stack direction="row" justifyContent="space-between" sx={{ pb: 2 }} columnGap={2}>
             <Typography variant="h6">{me?.fullName}</Typography>
