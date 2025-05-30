@@ -14,12 +14,12 @@ import { paths } from '../paths';
 
 // ----------------------------------------------------------------------
 
-const SignInPage = lazy(() => import('src/pages/SignIn'));
-const VerifyEmail = lazy(() => import('src/pages/VerifyEmail'));
+const SignInPage = lazy(() => import('src/pages/Auth/SignIn'));
+const VerifyEmail = lazy(() => import('src/pages/Auth/VerifyEmail'));
 const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
-const ResetPasswordPage = lazy(() => import('src/pages/ResetPassword/resetPassword'));
-const UpdatePasswordPage = lazy(() => import('src/pages/ResetPassword/updatePassword'));
-const ForgotPasswordPage = lazy(() => import('src/pages/ResetPassword/forgotPassword'));
+const ResetPasswordPage = lazy(() => import('src/pages/Auth/ResetPassword/resetPassword'));
+const UpdatePasswordPage = lazy(() => import('src/pages/Auth/ResetPassword/updatePassword'));
+const ForgotPasswordPage = lazy(() => import('src/pages/Auth/ResetPassword/forgotPassword'));
 
 export const authRoutes: RouteObject[] = [
   {
