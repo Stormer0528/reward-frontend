@@ -17,7 +17,7 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
-import { RESET_PASSWORD_REQUEST } from './query';
+import { RESET_PASSWORD_REQUEST } from '../ResetPassword/query';
 
 // ----------------------------------------------------------------------
 
