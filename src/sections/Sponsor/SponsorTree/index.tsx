@@ -14,10 +14,10 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 
 import {
-  SPONSORTREE_NODE_HEIGHT,
-  PLACEMENTTREE_NODE_WIDTH,
-  PLACEMENTTREE_NODE_X_SPACE,
-  PLACEMENTTREE_NODE_Y_SPACE,
+  SPONSOR_TREE_NODE_HEIGHT,
+  PLACEMENT_TREE_NODE_WIDTH,
+  PLACEMENT_TREE_NODE_X_SPACE,
+  PLACEMENT_TREE_NODE_Y_SPACE,
 } from 'src/consts';
 
 import ComponentBlock from 'src/components/Component-Block';
@@ -75,17 +75,17 @@ function buildTree(node: any, baseX: number, depth: number, tree: any[], visible
       data: { label: <StandardNode {...node} /> },
       position: {
         x: baseX,
-        y: (depth - 1) * (SPONSORTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE),
+        y: (depth - 1) * (SPONSOR_TREE_NODE_HEIGHT + PLACEMENT_TREE_NODE_Y_SPACE),
       },
       draggable: true,
       style: {
         padding: 0,
         border: 'none',
         borderRadius: '12px',
-        width: PLACEMENTTREE_NODE_WIDTH,
-        height: SPONSORTREE_NODE_HEIGHT,
+        width: PLACEMENT_TREE_NODE_WIDTH,
+        height: SPONSOR_TREE_NODE_HEIGHT,
       },
-      maxX: baseX + PLACEMENTTREE_NODE_WIDTH,
+      maxX: baseX + PLACEMENT_TREE_NODE_WIDTH,
     };
 
     tree.push(element);
@@ -100,7 +100,7 @@ function buildTree(node: any, baseX: number, depth: number, tree: any[], visible
     children.forEach((child: any, idx: number) => {
       const { maxX: tempX, position } = buildTree(
         child,
-        maxX + (idx === 0 ? 0 : PLACEMENTTREE_NODE_X_SPACE),
+        maxX + (idx === 0 ? 0 : PLACEMENT_TREE_NODE_X_SPACE),
         depth + 1,
         tree,
         visibleMap
@@ -112,25 +112,25 @@ function buildTree(node: any, baseX: number, depth: number, tree: any[], visible
 
   let resPositionX = maxX;
   if (!visibleMap || visibleMap[node.id] === 2) {
-    resPositionX = (maxX + baseX - PLACEMENTTREE_NODE_WIDTH) / 2;
+    resPositionX = (maxX + baseX - PLACEMENT_TREE_NODE_WIDTH) / 2;
   } else {
     resPositionX = baseX;
-    maxX = resPositionX + PLACEMENTTREE_NODE_WIDTH;
+    maxX = resPositionX + PLACEMENT_TREE_NODE_WIDTH;
   }
   const res = {
     id: node.id,
     data: { label: <StandardNode {...node} /> },
     position: {
       x: resPositionX,
-      y: (depth - 1) * (SPONSORTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE),
+      y: (depth - 1) * (SPONSOR_TREE_NODE_HEIGHT + PLACEMENT_TREE_NODE_Y_SPACE),
     },
     draggable: true,
     style: {
       padding: 0,
       border: 'none',
       borderRadius: '12px',
-      width: PLACEMENTTREE_NODE_WIDTH,
-      height: SPONSORTREE_NODE_HEIGHT,
+      width: PLACEMENT_TREE_NODE_WIDTH,
+      height: SPONSOR_TREE_NODE_HEIGHT,
     },
     maxX,
   };

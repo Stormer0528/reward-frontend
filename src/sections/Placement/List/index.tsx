@@ -19,10 +19,10 @@ import { paths } from 'src/routes/paths';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { type Member, PlacementPosition, type PlacementMember } from 'src/__generated__/graphql';
 import {
-  PLACEMENTTREE_NODE_WIDTH,
-  PLACEMENTTREE_NODE_HEIGHT,
-  PLACEMENTTREE_NODE_X_SPACE,
-  PLACEMENTTREE_NODE_Y_SPACE,
+  PLACEMENT_TREE_NODE_WIDTH,
+  PLACEMENT_TREE_NODE_HEIGHT,
+  PLACEMENT_TREE_NODE_X_SPACE,
+  PLACEMENT_TREE_NODE_Y_SPACE,
 } from 'src/consts';
 
 import { Iconify } from 'src/components/Iconify';
@@ -97,23 +97,24 @@ function buildTree(root: PlacementTreeNode, vMap: Record<string, number> | null 
     )[0];
     const baseX = Math.max(depthHeights[depth] ?? 0, startX);
     let positionX = baseX;
-    const positionY = depth * (PLACEMENTTREE_NODE_HEIGHT + PLACEMENTTREE_NODE_Y_SPACE);
+    const positionY = depth * (PLACEMENT_TREE_NODE_HEIGHT + PLACEMENT_TREE_NODE_Y_SPACE);
 
     if (!vMap || vMap[node.id] === 2) {
       if (leftChild && rightChild) {
-        const childStartX = baseX - (PLACEMENTTREE_NODE_WIDTH + PLACEMENTTREE_NODE_X_SPACE) / 2;
+        const childStartX = baseX - (PLACEMENT_TREE_NODE_WIDTH + PLACEMENT_TREE_NODE_X_SPACE) / 2;
         const { endX: leftEndX } = func(leftChild, childStartX, depth + 1, tree);
         const { endX: rightEndX } = func(rightChild, leftEndX, depth + 1, tree);
         positionX =
-          (leftEndX + rightEndX - 2 * (PLACEMENTTREE_NODE_X_SPACE + PLACEMENTTREE_NODE_WIDTH)) / 2;
+          (leftEndX + rightEndX - 2 * (PLACEMENT_TREE_NODE_X_SPACE + PLACEMENT_TREE_NODE_WIDTH)) /
+          2;
       } else if (leftChild) {
-        const childStartX = baseX - (PLACEMENTTREE_NODE_WIDTH + PLACEMENTTREE_NODE_X_SPACE) / 2;
+        const childStartX = baseX - (PLACEMENT_TREE_NODE_WIDTH + PLACEMENT_TREE_NODE_X_SPACE) / 2;
         const { endX: leftEndX } = func(leftChild, childStartX, depth + 1, tree);
-        positionX = leftEndX - (PLACEMENTTREE_NODE_X_SPACE + PLACEMENTTREE_NODE_WIDTH) / 2;
+        positionX = leftEndX - (PLACEMENT_TREE_NODE_X_SPACE + PLACEMENT_TREE_NODE_WIDTH) / 2;
       } else if (rightChild) {
-        const childStartX = baseX + (PLACEMENTTREE_NODE_WIDTH + PLACEMENTTREE_NODE_X_SPACE) / 2;
+        const childStartX = baseX + (PLACEMENT_TREE_NODE_WIDTH + PLACEMENT_TREE_NODE_X_SPACE) / 2;
         const { endX: rightEndX } = func(rightChild, childStartX, depth + 1, tree);
-        positionX = rightEndX - ((PLACEMENTTREE_NODE_X_SPACE + PLACEMENTTREE_NODE_WIDTH) * 3) / 2;
+        positionX = rightEndX - ((PLACEMENT_TREE_NODE_X_SPACE + PLACEMENT_TREE_NODE_WIDTH) * 3) / 2;
       }
     }
     const element: Node = {
@@ -121,15 +122,15 @@ function buildTree(root: PlacementTreeNode, vMap: Record<string, number> | null 
       position: { x: positionX, y: positionY },
       data: node,
       style: {
-        width: PLACEMENTTREE_NODE_WIDTH,
-        height: PLACEMENTTREE_NODE_HEIGHT,
+        width: PLACEMENT_TREE_NODE_WIDTH,
+        height: PLACEMENT_TREE_NODE_HEIGHT,
       },
       type: 'treeNode',
     };
 
     tree.push(element);
 
-    const endX = positionX + PLACEMENTTREE_NODE_WIDTH + PLACEMENTTREE_NODE_X_SPACE;
+    const endX = positionX + PLACEMENT_TREE_NODE_WIDTH + PLACEMENT_TREE_NODE_X_SPACE;
     depthHeights[depth] = endX;
 
     return { element, endX };

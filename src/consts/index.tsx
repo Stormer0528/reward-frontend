@@ -3,16 +3,15 @@ export * from './resource';
 // AUTH TOKEN KEY
 export const STORAGE_TOKEN_KEY = 'token';
 
-export const PLACEMENTTREE_NODE_WIDTH = 200;
-export const PLACEMENTTREE_NODE_HEIGHT = 135;
-export const PLACEMENTTREE_NODE_X_SPACE = 15;
-export const PLACEMENTTREE_NODE_Y_SPACE = 60;
+export const PLACEMENT_TREE_NODE_WIDTH = 200;
+export const PLACEMENT_TREE_NODE_HEIGHT = 135;
+export const PLACEMENT_TREE_NODE_X_SPACE = 15;
+export const PLACEMENT_TREE_NODE_Y_SPACE = 60;
 
-export const SPONSORTREE_NODE_HEIGHT = 100;
+export const SPONSOR_TREE_NODE_HEIGHT = 100;
 
 export const PASSWORD_REGEXP =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.>])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.>]{8,}$/;
-export const TIME_LEFT = 1200;
 
 export const COMMISSION_TYPE = {
   PENDING: 'PENDING',
@@ -24,7 +23,7 @@ export const COMMISSION_TYPE = {
 export const PAYMENT_TYPE = [
   // { label: 'CREDIT_CARD', value: 'Credit Card' },
   { label: 'ZELLE', value: 'Zelle' },
-  { label: 'CASH_APP', value: 'CsahApp' },
+  { label: 'CASH_APP', value: 'CashApp' },
   { label: 'VENMO', value: 'Venmo' },
   { label: 'PAPER_CHECK', value: 'Paper Check' },
   { label: 'CASH', value: 'Cash' },
@@ -115,7 +114,7 @@ export enum State {
 export const PAYMENT_METHOD = {
   TXC: {
     label: 'Texitcoin',
-    balance: 10 ** 9,
+    balance: 10 ** 8,
     token: null,
   },
   USDC: {
@@ -141,7 +140,7 @@ export const PAYMENT_METHOD = {
 };
 
 export const CHAIN_UNIT = {
-  TXC: 9,
+  TXC: 8,
   BNB: 18,
   ETH: 18,
   USDC: 6,
