@@ -1,6 +1,6 @@
 import { CONFIG } from 'src/config';
 
-import { SplitResetPasswordView } from 'src/sections/ResetPassword/forgotPassword';
+import { SplitResetPasswordView } from 'src/sections/Auth/ResetPassword/forgotPassword';
 
 // ----------------------------------------------------------------------
 

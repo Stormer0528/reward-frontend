@@ -1,6 +1,6 @@
 import { CONFIG } from 'src/config';
 
-import { SignInView } from 'src/sections/SignIn';
+import { SignInView } from 'src/sections/Auth/SignIn';
 
 // ----------------------------------------------------------------------
 

@@ -19,7 +19,7 @@ import { CONFIG } from 'src/config';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-import { useApollo } from 'src/sections/SignIn/useApollo';
+import { useApollo } from 'src/sections/Auth/SignIn/useApollo';
 
 import { useAuthContext } from 'src/auth/hooks';
 

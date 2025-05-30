@@ -11,7 +11,7 @@ import { CONFIG } from 'src/config';
 
 import { toast } from 'src/components/SnackBar';
 
-import { SplitUpdatePasswordView } from 'src/sections/ResetPassword/resetPassoword';
+import { SplitUpdatePasswordView } from 'src/sections/Auth/ResetPassword/resetPassoword';
 
 import { RESET_TOKEN_VERIFY } from './query';
 

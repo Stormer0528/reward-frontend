@@ -22,7 +22,7 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
-import { useUpdatePassword } from '../Profile/useApollo';
+import { useUpdatePassword } from '../../Profile/useApollo';
 
 // ----------------------------------------------------------------------
 

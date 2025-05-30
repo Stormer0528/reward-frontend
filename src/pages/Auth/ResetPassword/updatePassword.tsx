@@ -1,6 +1,6 @@
 import { CONFIG } from 'src/config';
 
-import { UpdatePasswordView } from 'src/sections/ResetPassword/updatePassword';
+import { UpdatePasswordView } from 'src/sections/Auth/ResetPassword/updatePassword';
 
 // ----------------------------------------------------------------------
 

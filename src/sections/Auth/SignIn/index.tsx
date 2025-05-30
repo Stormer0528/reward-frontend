@@ -25,7 +25,7 @@ import { useAuthContext } from 'src/auth/hooks';
 import { useLogin } from './useApollo';
 import VerifyModal from './VerifyModal';
 import { SignInSchema } from './schema';
-import Calculator from '../SignUp/Calculator';
+import Calculator from '../../SignUp/Calculator';
 
 // ----------------------------------------------------------------------
 
