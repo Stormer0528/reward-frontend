@@ -2170,6 +2170,7 @@ export type PaymentMethodResponse = {
 export enum PaymentToken {
   Eth = 'ETH',
   Pyusd = 'PYUSD',
+  Txc = 'TXC',
   Usdc = 'USDC',
   Usdt = 'USDT'
 }
@@ -3271,15 +3272,12 @@ export type TopRecruitersResponse = {
 
 export type Transaction = {
   __typename?: 'Transaction';
-  balance: Scalars['BigInt']['output'];
   chain: PaymentChain;
   createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deletedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  from: Scalars['String']['output'];
   frontActions?: Maybe<Array<FrontAction>>;
   hash: Scalars['ID']['output'];
   order?: Maybe<Order>;
-  to: Scalars['String']['output'];
   tokenType: PaymentToken;
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };

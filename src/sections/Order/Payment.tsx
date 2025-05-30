@@ -13,13 +13,14 @@ import { Iconify } from 'src/components/Iconify';
 import type { PAYMENT_TYPE, PAYMENT_METHOD_TYPE } from './type';
 
 const payments: PAYMENT_METHOD_TYPE[] = [
-  // {
-  //   value: PaymentToken.Txc,
-  //   label: 'Texitcoin',
-  //   icon: `${CONFIG.site.basePath}/assets/TXC.png`,
-  //   backgroundColor: '#eeeeee',
-  //   disable: true,
-  // },
+  {
+    value: PaymentToken.Txc,
+    label: 'Texitcoin',
+    chain: PaymentChain.Txc,
+    icon: `${CONFIG.site.basePath}/assets/TXC.png`,
+    backgroundColor: '#ffffff',
+    disable: false,
+  },
   // {
   //   value: PaymentToken.Eth,
   //   label: 'Ethereum',
