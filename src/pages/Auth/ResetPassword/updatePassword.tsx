@@ -1,6 +1,7 @@
+// TODO: Move this to Profile????
 import { CONFIG } from 'src/config';
 
-import { UpdatePasswordView } from 'src/sections/Auth/ResetPassword/updatePassword';
+import { UpdatePasswordView } from 'src/sections/Auth/ResetPassword/UpdatePassword';
 
 // ----------------------------------------------------------------------
 

@@ -1,15 +1,13 @@
+// TODO: Move this to Profile???
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
-import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -50,8 +48,6 @@ export const UpdatePasswordSchema = zod
 
 export function UpdatePasswordView() {
   const location = useLocation();
-
-  const confirm = useBoolean();
 
   const defaultValues = {
     oldPassword: '',
@@ -105,56 +101,11 @@ export function UpdatePasswordView() {
   const renderForm = (
     <Stack spacing={3}>
       {/* TODO: Duplicated input */}
-      <Field.Text
-        name="oldPassword"
-        label="Old password"
-        type={confirm.value ? 'text' : 'password'}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={confirm.onToggle} edge="end">
-                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+      <Field.Password name="oldPassword" label="Old password" />
 
-      <Field.Text
-        name="newPassword"
-        label="New password"
-        type={confirm.value ? 'text' : 'password'}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={confirm.onToggle} edge="end">
-                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+      <Field.Password name="newPassword" label="New password" />
 
-      <Field.Text
-        name="confirmPassword"
-        label="Confirm new password"
-        type={confirm.value ? 'text' : 'password'}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={confirm.onToggle} edge="end">
-                  <Iconify icon={confirm.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
+      <Field.Password name="confirmPassword" label="Confirm new password" />
 
       <Button
         fullWidth

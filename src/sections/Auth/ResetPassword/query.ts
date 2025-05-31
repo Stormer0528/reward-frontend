@@ -8,3 +8,11 @@ export const RESET_PASSWORD_TOKEN = gql(/* GraphQL */ `
     }
   }
 `);
+
+export const VERIFY_RESET_PASSWORD_TOKEN = gql(/* GraphQL */ `
+  mutation VerifyResetPasswordToken($data: TokenInput!) {
+    verifyResetPasswordToken(data: $data) {
+      token
+    }
+  }
+`);

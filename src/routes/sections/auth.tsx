@@ -17,9 +17,9 @@ import { paths } from '../paths';
 const SignInPage = lazy(() => import('src/pages/Auth/SignIn'));
 const VerifyEmail = lazy(() => import('src/pages/Auth/VerifyEmail'));
 const VerifyResult = lazy(() => import('src/sections/SignUp/Info'));
-const ResetPasswordPage = lazy(() => import('src/pages/Auth/ResetPassword/resetPassword'));
-const UpdatePasswordPage = lazy(() => import('src/pages/Auth/ResetPassword/updatePassword'));
 const ForgotPasswordPage = lazy(() => import('src/pages/Auth/ForgotPassword'));
+const ResetPasswordPage = lazy(() => import('src/pages/Auth/ResetPassword'));
+// const UpdatePasswordPage = lazy(() => import('src/pages/Auth/ResetPassword/updatePassword'));
 
 export const authRoutes: RouteObject[] = [
   {
@@ -43,9 +43,9 @@ export const authRoutes: RouteObject[] = [
       { path: 'sign-up', element: <Navigate to={paths.pages.intro} replace /> },
       { path: 'sign-in', element: <SignInPage /> },
       { path: 'thanks', element: <VerifyResult /> },
-      { path: 'update-password', element: <UpdatePasswordPage /> },
       { path: 'forgot-password', element: <ForgotPasswordPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
+      // { path: 'update-password', element: <UpdatePasswordPage /> },
     ],
   },
   {
