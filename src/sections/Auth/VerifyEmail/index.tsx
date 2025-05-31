@@ -91,7 +91,7 @@ export function VerifyEmailView() {
         Verifying your email address...
       </Typography>
       <Typography variant="body2" textAlign="center">
-        You will be asked login again after verification succeed
+        You will be asked to login again after verification succeed
       </Typography>
     </Stack>
   );
@@ -99,7 +99,7 @@ export function VerifyEmailView() {
   return (
     <>
       {called && !loading
-        ? data?.emailVerify.result === 'success'
+        ? data?.verifyEmailToken.result === 'success'
           ? renderSuccess()
           : renderFail()
         : renderLoading()}

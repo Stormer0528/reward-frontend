@@ -3,10 +3,10 @@ import type { TokenInput } from 'src/__generated__/graphql';
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { VERIFY_EMAIL } from './query';
+import { VERIFY_EMAIL_TOKEN } from './query';
 
 export function useVerifyEmail() {
-  const [submit, { loading, called, data }] = useMutation(VERIFY_EMAIL);
+  const [submit, { loading, called, data }] = useMutation(VERIFY_EMAIL_TOKEN);
 
   const verifyEmail = useCallback(
     (token: TokenInput) => submit({ variables: { data: token } }),

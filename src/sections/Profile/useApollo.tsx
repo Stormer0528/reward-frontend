@@ -8,7 +8,7 @@ import {
   UPDATE_MEMBER,
   FETCH_ME_QUERY,
   VERIFY_2FA_ENABLE,
-  EMAIL_VERIFY_CODE,
+  VERIFY_EMAIL_CODE,
   FETCH_PAYOUTS_QUERY,
   FETCH_MEMBER_HISTORY,
   UPDATE_SETTING_MEMBER,
@@ -153,7 +153,7 @@ export function useMemberExchangeLogin() {
 }
 
 export function useEmailVerifyCode() {
-  const [emailVerifyCode, { loading, data, error }] = useMutation(EMAIL_VERIFY_CODE);
+  const [emailVerifyCode, { loading, data, error }] = useMutation(VERIFY_EMAIL_CODE);
 
   return { loading, data, error, emailVerifyCode };
 }
