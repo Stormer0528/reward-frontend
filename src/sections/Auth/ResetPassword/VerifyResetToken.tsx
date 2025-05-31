@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -24,6 +24,8 @@ interface Props {
 
 export function VerifyResetTokenView({ token }: Props) {
   const theme = useTheme();
+  const { pathname, search } = useLocation();
+
   const { submitVerifyResetToken, loading, called, error, newToken } = useVerifyResetToken();
 
   useEffect(() => {
@@ -76,7 +78,7 @@ export function VerifyResetTokenView({ token }: Props) {
       return <>{renderFail()}</>;
     }
 
-    return <Navigate to="." state={{ newToken }} />;
+    return <Navigate to={{ pathname, search }} state={{ newToken }} replace />;
   }
 
   return <>{renderLoading()}</>;

@@ -1,6 +1,5 @@
 import type { ResetPasswordSchemaType } from './schema';
 
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -17,10 +16,9 @@ import NewPasswordIcon from 'src/assets/icons/new-password-icon';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
-import { InfinityLoader } from 'src/components/LoadingScreen';
 
 import { ResetPasswordSchema } from './schema';
-import { useResetPassword, useVerifyResetToken } from './useApollo';
+import { useResetPassword } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -31,15 +29,7 @@ interface Props {
 // ----------------------------------------------------------------------
 
 export function ResetPasswordView({ token }: Props) {
-  const { submitVerifyResetToken, loading: verifyingToken, called } = useVerifyResetToken();
   const { submitResetPassword, loading } = useResetPassword();
-
-  useEffect(() => {
-    if (token) {
-      submitVerifyResetToken({ token });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const methods = useForm<ResetPasswordSchemaType>({
     resolver: zodResolver(ResetPasswordSchema),
@@ -57,7 +47,7 @@ export function ResetPasswordView({ token }: Props) {
 
       if (data?.resetPasswordByToken.result === 'success') {
         toast.success('Successfully changed!');
-
+        // TODO: Show success render which has back link to signin
         setTimeout(() => {
           window.location.href = paths.auth.signIn;
         }, 1000);
@@ -66,19 +56,6 @@ export function ResetPasswordView({ token }: Props) {
       console.error(error);
     }
   });
-
-  const renderLoading = () => (
-    <Stack justifyContent="center" alignItems="center">
-      <InfinityLoader />
-      <Typography variant="h5" sx={{ mb: 2 }} textAlign="center">
-        Validating the request...
-      </Typography>
-      <Typography variant="body2" textAlign="center">
-        We&apos;re just validating the information, and this will only take a moment. We appreciate your
-        patience.
-      </Typography>
-    </Stack>
-  );
 
   const renderHead = () => (
     <>
@@ -92,9 +69,9 @@ export function ResetPasswordView({ token }: Props) {
 
   const renderForm = () => (
     <Stack spacing={3}>
-      <Field.Password name="password" label="Password" placeholder="6+ characters" />
+      <Field.Password name="password" label="New password" placeholder="6+ characters" />
 
-      <Field.Password name="confirmPassword" label="Confirm new password" />
+      <Field.Password name="confirmPassword" label="Confirm password" />
 
       <Button
         fullWidth
@@ -127,16 +104,12 @@ export function ResetPasswordView({ token }: Props) {
     </Stack>
   );
 
-  if (called && !verifyingToken) {
-    return (
-      <>
-        {renderHead()}
-        <Form methods={methods} onSubmit={onSubmit}>
-          {renderForm()}
-        </Form>
-      </>
-    );
-  }
-
-  return <>{renderLoading()}</>;
+  return (
+    <>
+      {renderHead()}
+      <Form methods={methods} onSubmit={onSubmit}>
+        {renderForm()}
+      </Form>
+    </>
+  );
 }
