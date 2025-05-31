@@ -36,7 +36,6 @@ export function RHFPassword({ name, helperText, slotProps, ...other }: RHFPasswo
           error={!!error}
           helperText={error?.message ?? helperText}
           slotProps={{
-            inputLabel: { shrink: true },
             input: {
               endAdornment: (
                 <InputAdornment position="end">
