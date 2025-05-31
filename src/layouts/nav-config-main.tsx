@@ -15,7 +15,7 @@ export const navData: NavMainProps['data'] = [
     path: paths.pages.contact,
   },
   {
-    title: 'Dashboard',
+    title: 'Statistics',
     path: paths.pages.statistics
     // path: token ? paths.dashboard.history : paths.pages.statistics,
   },
