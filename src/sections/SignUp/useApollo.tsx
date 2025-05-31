@@ -2,7 +2,6 @@ import { useRef, useMemo } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/client';
 
 import {
-  VERIFY_EMAIL,
   SIGN_UP_MEMBER,
   FETCH_PROMOS_QUERY,
   SEND_EMAIL_VERIFICATION_CODE,
@@ -27,11 +26,6 @@ export function useSendEmailVerificationLink() {
   return { loading, result: data, sendVerificationLink };
 }
 
-export function useVerifyEmail() {
-  const [verifyEmail, { loading, data }] = useMutation(VERIFY_EMAIL);
-
-  return { loading, result: data, verifyEmail };
-}
 export function useFetchPromos() {
   const [fetchPromos, { loading, data, called }] = useLazyQuery(FETCH_PROMOS_QUERY);
 
