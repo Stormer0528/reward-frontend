@@ -10,9 +10,12 @@ export const PLACEMENT_TREE_NODE_Y_SPACE = 60;
 
 export const SPONSOR_TREE_NODE_HEIGHT = 100;
 
+export const TIME_LEFT = 1200;
+
 export const PASSWORD_REGEXP =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|[\]{};:/?.>])[A-Za-z\d!@#$%^&*()\-_=+\\|[\]{};:/?.>]{8,}$/;
-export const TIME_LEFT = 1200;
+
+export const MOBILE_REGEXP = /^(\+?\d{1,3}[- ]?)?(\(?\d{3,4}\)?[- ]?)?[\d\- ]{7,15}$/;
 
 export const COMMISSION_TYPE = {
   PENDING: 'PENDING',
