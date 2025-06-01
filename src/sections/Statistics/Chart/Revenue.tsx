@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 
 import Card from '@mui/material/Card';
-import Paper from '@mui/material/Paper';
-import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import { useTheme, useColorScheme, alpha as hexAlpha } from '@mui/material/styles';
 
@@ -31,7 +29,7 @@ export default function RevenueOverview() {
     theme.palette.secondary.light,
   ];
 
-  const { loading, revenue, fetchRevenue } = useFetchRevenue();
+  const { revenue, loading } = useFetchRevenue();
 
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },
@@ -89,40 +87,30 @@ export default function RevenueOverview() {
     },
   });
 
-  useEffect(() => {
-    fetchRevenue({});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const series = useMemo(
+    () => [
+      revenue.total - revenue.spent.reduce((prev, cur) => prev + (cur?.value ?? 0), 0),
+      ...revenue.spent.map((spt) => spt?.value ?? 0),
+    ],
+    [revenue]
+  );
 
   return (
     <Card>
       <CardHeader title="Use Of Funds" />
-      {loading ? (
-        <Paper sx={{ p: 3 }}>
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-        </Paper>
-      ) : (
-        <Chart
-          type="donut"
-          series={[
-            revenue.total - revenue.spent.reduce((prev, cur) => prev + (cur?.value ?? 0), 0),
-            ...revenue.spent.map((spt) => spt?.value ?? 0),
-          ]}
-          options={chartOptions}
-          width={274}
-          height={274}
-          sx={{
-            my: 3,
-            mx: 'auto',
-          }}
-        />
-      )}
+
+      <Chart
+        type="donut"
+        series={series}
+        options={chartOptions}
+        loading={loading}
+        sx={{
+          my: 3,
+          mx: 'auto',
+          width: 274,
+          height: 274,
+        }}
+      />
     </Card>
   );
 }

@@ -1,7 +1,7 @@
 import { gql } from 'src/__generated__';
 
-export const GENERAL_QUERY = gql(/* GraphQL */ `
-  query Query($data: LiveStatsArgs!) {
+export const FETCH_LIVE_STATS = gql(/* GraphQL */ `
+  query LiveStats($data: LiveStatsArgs!) {
     liveBlockStats(data: $data) {
       dailyData {
         count

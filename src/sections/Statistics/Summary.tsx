@@ -1,29 +1,23 @@
-import { useEffect } from 'react';
 
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
 
 import WidgetSummary from 'src/components/WidgetSummary';
 
-import { useFetchGeneral } from './useApollo';
+import { useFetchLiveStats } from './useApollo';
 
 export default function Summary() {
   const theme = useTheme();
 
-  const { loading, data, fetchGeneral } = useFetchGeneral();
+  const { loading, data } = useFetchLiveStats();
 
   const liveBlockStats = data?.liveBlockStats ?? { dailyData: [], meta: 0, total: 0 };
   const liveMiningStats = data?.liveMiningStats ?? { dailyData: [], meta: 0, total: 0 };
   const liveUserStats = data?.liveUserStats ?? { dailyData: [], meta: 0, total: 0 };
 
-  useEffect(() => {
-    fetchGeneral({ variables: { data: { pastDays: 7 } } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <Grid container spacing={3} sx={{ mb: 1 }}>
-      <Grid size={{ xs: 12, md: 4 }}>
+    <Grid container spacing={3}>
+      <Grid size={{ xs: 12, md: 6, lg: 4 }}>
         <WidgetSummary
           loading={loading}
           title="Total blocks"
@@ -37,7 +31,7 @@ export default function Summary() {
           }}
         />
       </Grid>
-      <Grid size={{ xs: 12, md: 4 }}>
+      <Grid size={{ xs: 12, md: 6, lg: 4 }}>
         <WidgetSummary
           loading={loading}
           title="New blocks since last reward"
@@ -56,7 +50,7 @@ export default function Summary() {
           }}
         />
       </Grid>
-      <Grid size={{ xs: 12, md: 4 }}>
+      <Grid size={{ xs: 12, md: 6, lg: 4 }}>
         <WidgetSummary
           loading={loading}
           title="Members"

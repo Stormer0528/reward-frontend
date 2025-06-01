@@ -1,7 +1,7 @@
-import { useLazyQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 
 import {
-  GENERAL_QUERY,
+  FETCH_LIVE_STATS,
   FETCH_TXC_SHARES,
   FETCH_TOP_EARNERS,
   FETCH_MEMBER_COUNT,
@@ -17,10 +17,10 @@ import {
   FETCH_COMMISSION_BY_PERIOD,
 } from './query';
 
-export function useFetchGeneral() {
-  const [fetchGeneral, { loading, data }] = useLazyQuery(GENERAL_QUERY);
+export function useFetchLiveStats(pastDays: number = 7) {
+  const { loading, data } = useQuery(FETCH_LIVE_STATS, { variables: { data: { pastDays } } });
 
-  return { loading, data, fetchGeneral };
+  return { loading, data };
 }
 
 export function useFetchBlocksQuery() {
@@ -66,15 +66,14 @@ export function useFetchCommissionByPeriod() {
 }
 
 export function useFetchRevenue() {
-  const [fetchRevenue, { loading, data }] = useLazyQuery(FETCH_REVENUE_QUERY);
+  const { data, loading } = useQuery(FETCH_REVENUE_QUERY);
 
   return {
-    loading,
     revenue: {
       total: data?.revenueOverview.revenue ?? 0,
       spent: data?.revenueOverview.spent ?? [],
     },
-    fetchRevenue,
+    loading
   };
 }
 

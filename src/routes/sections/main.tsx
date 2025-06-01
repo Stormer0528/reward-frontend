@@ -30,7 +30,7 @@ export const mainRoutes: RouteObject[] = [
             header: {
               position: 'relative',
               disableElevation: true,
-              slots: { rightArea: <JoinNowButton sx={{ml: 2}}/> },
+              slots: { rightArea: <JoinNowButton sx={{ ml: 2 }} /> },
             },
           }}
         >
@@ -50,7 +50,14 @@ export const mainRoutes: RouteObject[] = [
     path: 'statistics',
     element: (
       <Suspense fallback={<LoadingScreen />}>
-        <MainLayout>
+        <MainLayout
+          slotProps={{
+            header: {
+              slots: { rightArea: <JoinNowButton sx={{ ml: 2 }} /> },
+              slotProps: { container: { maxWidth: 'xl' } },
+            },
+          }}
+        >
           <StatisticsPage />
         </MainLayout>
       </Suspense>

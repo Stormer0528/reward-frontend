@@ -1,3 +1,4 @@
+import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 
 import Chart from './Chart';
@@ -7,9 +8,11 @@ import Summary from './Summary';
 export default function StatisticsSection() {
   return (
     <Container maxWidth="xl">
-      <Summary />
-      <Chart />
-      <Reward />
+      <Stack spacing={3} sx={{my: 3}}>
+        <Summary />
+        <Chart />
+        <Reward />
+      </Stack>
     </Container>
   );
 }
