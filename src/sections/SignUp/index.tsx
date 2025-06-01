@@ -1,24 +1,20 @@
-import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { ApolloError } from '@apollo/client';
+import { states, type State } from 'states-us';
 import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Autocomplete from '@mui/material/Autocomplete';
-import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -41,34 +37,28 @@ import { useSignUp, useSendEmailVerificationLink } from './useApollo';
 // ----------------------------------------------------------------------
 
 export function SignUpView() {
-  const [state, setState] = useState<string>();
-  const [country, setCountry] = useState<string>();
+  const router = useRouter();
+  const location = useLocation();
+  const calculator = useBoolean();
+
   const [packageId, setPackageId] = useState<string>();
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-
-  const referralID = queryParams.get('sponsor');
+  const referralID = new URLSearchParams(location.search).get('sponsor');
   const localStorageReferralID = localStorage.getItem('payout_reference');
   const refID = referralID || localStorageReferralID || '';
 
-  const router = useRouter();
-
-  const password = useBoolean();
-  const calculator = useBoolean();
-
   const defaultValues = {
-    sponsorUserId: refID,
-    email: '',
-    assetId: null,
+    city: '',
     note: '',
     uname: '',
+    email: '',
+    state: '',
+    assetId: '',
+    zipCode: '',
     password: '',
     primaryAddress: '',
     secondaryAddress: '',
-    state: '',
-    zipCode: '',
-    city: '',
+    sponsorUserId: refID,
   };
 
   const methods = useForm<SchemaType>({
@@ -84,10 +74,18 @@ export function SignUpView() {
 
   const { submitSignUp } = useSignUp();
   const { payments } = useFetchPayments();
-  const { createSignUpOrder } = useCreateSignUpOrder();
   const { user, signOut } = useAuthContext();
+  const { createSignUpOrder } = useCreateSignUpOrder();
   const { packages, fetchPackages } = useFetchPackages();
   const { sendVerificationLink } = useSendEmailVerificationLink();
+
+  const handleSignOut = useCallback(async () => {
+    try {
+      signOut();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [signOut]);
 
   const onSubmit = handleSubmit(
     async ({ confirmPassword, firstName, lastName, sponsorUserId, uname, ...rest }) => {
@@ -95,7 +93,8 @@ export function SignUpView() {
         if (user) {
           await handleSignOut();
         }
-        localStorage.setItem('payout_reference', refID || sponsorUserId);
+
+        localStorage.setItem('payout_reference', refID || sponsorUserId!);
 
         if (!packageId) {
           toast.error('PackageId is required');
@@ -107,8 +106,6 @@ export function SignUpView() {
             data: {
               ...rest,
               username: removeSpecialCharacters(uname),
-              state,
-              country,
               fullName: `${firstName} ${lastName}`,
               sponsorUserId,
               packageId,
@@ -155,20 +152,11 @@ export function SignUpView() {
     });
 
     localStorage.setItem('payout_reference', refID);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchPackages, refID]);
 
   const handlePackageChange = (value: string) => {
     setPackageId(value);
   };
-
-  const handleSignOut = useCallback(async () => {
-    try {
-      signOut();
-    } catch (error) {
-      console.error(error);
-    }
-  }, [signOut]);
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 5, outline: 'none' }} id="sign-up" tabIndex={-1}>
@@ -196,39 +184,24 @@ export function SignUpView() {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Autocomplete
+        <Field.Autocomplete
+          name="country"
+          label="Country"
+          defaultValue="United States of America"
           freeSolo
           fullWidth
           options={countries.getNames()}
-          getOptionLabel={(option: any) => option}
-          defaultValue="United States of America"
-          renderInput={(params) => (
-            <TextField {...params} name="country" label="Country" margin="none" />
-          )}
-          renderOption={(props, option) => (
-            <li {...props} key={option}>
-              {option}
-            </li>
-          )}
-          onChange={(_, value: any) => setCountry(value)}
-          onInputChange={(_, value: any) => setCountry(value)}
+          getOptionLabel={(option) => option}
         />
 
-        <Autocomplete
+        <Field.Autocomplete
+          name="state"
+          label="States"
           freeSolo
           fullWidth
-          options={states}
-          getOptionLabel={(option: any) => option.name}
-          renderInput={(params) => (
-            <TextField {...params} name="state" label="States" margin="none" />
-          )}
-          renderOption={(props, option) => (
-            <li {...props} key={option!.name}>
-              {option.name}
-            </li>
-          )}
-          onChange={(_, value: any) => setState(value.name)}
-          onInputChange={(_, value: any) => setState(value)}
+          options={states.map((state: State) => state.name)}
+          getOptionLabel={(option: any) => option}
+          isOptionEqualToValue={(option, value) => option === value}
         />
       </Stack>
 
@@ -238,33 +211,25 @@ export function SignUpView() {
         <Field.Text name="zipCode" label="Zip Code" />
       </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Grid size={{ xs: 12 }} container alignItems="center">
-          {/* TODO: GRID SIZE */}
-          <Grid size={{ xs: 12, md: 11.4 }}>
-            <Field.Select
-              name="packageId"
-              label="Package"
-              fullWidth
-              slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
-              value={location.state?.packageId ?? packageId}
-              onChange={(event) => handlePackageChange(event.target.value)}
-              required
-            >
-              {packages.map((option) => (
-                <MenuItem key={option?.id} value={option?.id}>
-                  {`$${option?.amount} @ ${option?.productName}`}
-                </MenuItem>
-              ))}
-            </Field.Select>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 0.6 }} textAlign="center">
-            <IconButton onClick={calculator.onTrue}>
-              <Iconify icon="system-uicons:calculator" width={30} />
-            </IconButton>
-          </Grid>
-        </Grid>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Field.Select
+          name="packageId"
+          label="Package"
+          fullWidth
+          slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
+          value={location.state?.packageId ?? packageId}
+          onChange={(event) => handlePackageChange(event.target.value)}
+          required
+        >
+          {packages.map((option) => (
+            <MenuItem key={option?.id} value={option?.id}>
+              {`$${option?.amount} @ ${option?.productName}`}
+            </MenuItem>
+          ))}
+        </Field.Select>
+        <IconButton onClick={calculator.onTrue}>
+          <Iconify icon="solar:calculator-linear" width={24} height={24} />
+        </IconButton>
       </Stack>
 
       <Field.Text
@@ -273,7 +238,6 @@ export function SignUpView() {
         multiline
         rows={3}
         placeholder="Write a comment here (optional)"
-        slotProps={{ inputLabel: { shrink: true } }}
       />
 
       <Stack direction={{ xs: 'column', sm: 'row' }} alignItems="center" spacing={2}>
@@ -285,7 +249,6 @@ export function SignUpView() {
             name="uname"
             label="Affiliate ID"
             placeholder="5 characters or more"
-            slotProps={{ inputLabel: { shrink: true } }}
             required
           />
         </Stack>
@@ -314,7 +277,6 @@ export function SignUpView() {
           <Field.Text
             name="sponsorUserId"
             label="Sponsor ID"
-            slotProps={{ inputLabel: { shrink: true } }}
             placeholder="name or ID of the person"
           />
         </Stack>
@@ -328,50 +290,15 @@ export function SignUpView() {
           <Field.Text
             name="assetId"
             label="Coin ID"
-            slotProps={{ inputLabel: { shrink: true } }}
             placeholder="Do you have a coin? Enter the ID here"
           />
         </Stack>
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        {/* TODO: Duplicated inputs */}
-        <Field.Text
-          name="password"
-          label="Password"
-          placeholder="8+ characters"
-          type={password.value ? 'text' : 'password'}
-          required
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={password.onToggle} edge="end">
-                    <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+        <Field.Password name="password" label="Password" placeholder="8+ characters" required />
 
-        <Field.Text
-          name="confirmPassword"
-          label="Confirm New Password"
-          type={password.value ? 'text' : 'password'}
-          required
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={password.onToggle} edge="end">
-                    <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+        <Field.Password name="confirmPassword" label="Confirm new password" required />
       </Stack>
 
       <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center">
