@@ -11,4 +11,5 @@ export type ChartProps = React.ComponentProps<'div'> &
     slotProps?: {
       loading?: SxProps<Theme>;
     };
+    loading?: boolean;
   };

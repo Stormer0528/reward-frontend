@@ -15,7 +15,16 @@ const LazyChart = lazy(() =>
   import('react-apexcharts').then((module) => ({ default: module.default }))
 );
 
-export function Chart({ type, series, options, slotProps, className, sx, ...other }: ChartProps) {
+export function Chart({
+  type,
+  series,
+  options,
+  loading,
+  slotProps,
+  className,
+  sx,
+  ...other
+}: ChartProps) {
   const isClient = useIsClient();
 
   const renderFallback = () => <ChartLoading type={type} sx={slotProps?.loading} />;
@@ -29,7 +38,11 @@ export function Chart({ type, series, options, slotProps, className, sx, ...othe
     >
       {isClient ? (
         <Suspense fallback={renderFallback()}>
-          <LazyChart type={type} series={series} options={options} width="100%" height="100%" />
+          {loading ? (
+            renderFallback()
+          ) : (
+            <LazyChart type={type} series={series} options={options} width="100%" height="100%" />
+          )}
         </Suspense>
       ) : (
         renderFallback()
