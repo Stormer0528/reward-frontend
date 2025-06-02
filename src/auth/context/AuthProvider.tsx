@@ -37,7 +37,7 @@ export function AuthProvider({ children }: Props) {
       setSession(newToken);
       setToken(newToken);
       toast.success('Successfully logged in');
-      router.push(paths.dashboard.history.root);
+      router.push(paths.dashboard.root);
     },
     [router]
   );
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: Props) {
     if (token && isValidToken(token)) {
       fetchMe();
       timerId = setTokenTimer(token);
-    } else if (!token && pathname === paths.dashboard.history.root) {
+    } else if (!token && pathname === paths.dashboard.root) {
       router.push(paths.auth.signIn);
     }
 

@@ -85,10 +85,7 @@ export const paths = {
 
   // DASHBOARD
   dashboard: {
-    root: '/',
-    history: {
-      root: ROOTS.DASHBOARD,
-    },
+    root: '/overview',
     sales: {
       root: ROOTS.SALES,
       edit: (id: string) => `${ROOTS.SALES}/${id}`,

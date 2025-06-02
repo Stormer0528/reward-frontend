@@ -1,20 +1,18 @@
+import { Outlet } from 'react-router';
 import { lazy, Suspense } from 'react';
-import { Outlet, Navigate } from 'react-router';
 
-import { DashboardLayout } from 'src/layouts/dashboard';
+import { DashboardLayout, DashboardContent } from 'src/layouts/dashboard';
 
 import { LoadingScreen } from 'src/components/LoadingScreen';
 
 import { AuthGuard } from 'src/auth/guard';
 
-import { paths } from '../paths';
+// ----------------------------------------------------------------------
+const OverviewPage = lazy(() => import('src/pages/Overview'));
+// ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 const SaleListPage = lazy(() => import('src/pages/Sale/List'));
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
-const DashboardPage = lazy(() => import('src/pages/Dashboard'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -69,21 +67,21 @@ const InvoiceListPage = lazy(() => import('src/pages/Invoice/List'));
 
 export const dashboardRoutes = [
   {
-    path: '',
     element: (
       <AuthGuard>
         <DashboardLayout>
           <Suspense fallback={<LoadingScreen />}>
-            <Outlet />
+            <DashboardContent maxWidth="xl">
+              <Outlet />
+            </DashboardContent>
           </Suspense>
         </DashboardLayout>
       </AuthGuard>
     ),
     children: [
-      { element: <Navigate to={paths.dashboard.history.root} replace />, index: true },
       {
-        path: 'dashboard',
-        children: [{ index: true, element: <DashboardPage /> }],
+        path: 'overview',
+        children: [{ index: true, element: <OverviewPage /> }],
       },
       {
         path: 'sales',
