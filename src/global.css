@@ -101,44 +101,6 @@ input[type='number']::-webkit-inner-spin-button {
   align-items: center;
 }
 
-.ag-flex-cell input {
-  padding: 8.5px 10px !important;
-  border: var(--ag-input-border);
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  outline: none;
-  flex: 1;
-}
-
-.ag-debit-cell {
-  color: var(--palette-error-main);
-  justify-content: flex-end;
-}
-
-.ag-credit-cell {
-  color: var(--palette-primary-main);
-  justify-content: flex-end;
-}
-
-.ag-amount-input {
-  text-align: right;
-}
-
-.ag-row-pinned .ag-cell {
-  border: none !important;
-}
-
-.ag-row-pinned .ag-cell[col-id='fund'] {
-  overflow: visible;
-  letter-spacing: normal;
-  justify-content: flex-start;
-}
-
-.ag-row-pinned .ag-cell[col-id='year'] {
-  overflow: visible;
-  justify-content: flex-start;
-}
 
 .ag-cell-center {
   padding-top: 7px;
