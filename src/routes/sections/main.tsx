@@ -6,8 +6,6 @@ import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 
 import { LoadingScreen } from 'src/components/LoadingScreen';
 
-import { JoinNowButton } from 'src/sections/Introduction/components/JoinNowButton';
-
 import { paths } from '../paths';
 
 // ----------------------------------------------------------------------
@@ -30,7 +28,6 @@ export const mainRoutes: RouteObject[] = [
             header: {
               position: 'relative',
               disableElevation: true,
-              slots: { rightArea: <JoinNowButton sx={{ ml: 2 }} /> },
               slotProps: { logo: { sx: { width: { md: 70 }, height: { md: 70 } } } },
             },
           }}
@@ -55,7 +52,6 @@ export const mainRoutes: RouteObject[] = [
         <MainLayout
           slotProps={{
             header: {
-              slots: { rightArea: <JoinNowButton sx={{ ml: 2 }} /> },
               slotProps: { container: { maxWidth: 'xl' } },
             },
           }}
