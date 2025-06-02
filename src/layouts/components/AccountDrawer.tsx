@@ -11,8 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
-import { paths } from 'src/routes/paths';
-import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { Label } from 'src/components/Label';
@@ -37,8 +35,6 @@ export type AccountDrawerProps = IconButtonProps & {
 };
 
 export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
-  const pathname = usePathname();
-
   const { user } = useAuthContext();
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
@@ -73,44 +69,39 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
         }),
       ]}
     >
-      {data.map((option) => {
-        const rootLabel = pathname.includes('/dashboard') ? 'Home' : 'Dashboard';
-        const rootHref = pathname.includes('/dashboard') ? '/' : paths.dashboard.root;
+      {data.map((option) => (
+        <MenuItem key={option.label}>
+          <Link
+            component={RouterLink}
+            href={option.href}
+            color="inherit"
+            underline="none"
+            onClick={onClose}
+            sx={{
+              p: 1,
+              width: 1,
+              display: 'flex',
+              typography: 'body2',
+              alignItems: 'center',
+              color: 'text.secondary',
+              '& svg': { width: 24, height: 24 },
+              '&:hover': { color: 'text.primary' },
+            }}
+          >
+            {option.icon}
 
-        return (
-          <MenuItem key={option.label}>
-            <Link
-              component={RouterLink}
-              href={option.label === 'Home' ? rootHref : option.href}
-              color="inherit"
-              underline="none"
-              onClick={onClose}
-              sx={{
-                p: 1,
-                width: 1,
-                display: 'flex',
-                typography: 'body2',
-                alignItems: 'center',
-                color: 'text.secondary',
-                '& svg': { width: 24, height: 24 },
-                '&:hover': { color: 'text.primary' },
-              }}
-            >
-              {option.icon}
+            <Box component="span" sx={{ ml: 2 }}>
+              {option.label}
+            </Box>
 
-              <Box component="span" sx={{ ml: 2 }}>
-                {option.label === 'Home' ? rootLabel : option.label}
-              </Box>
-
-              {option.info && (
-                <Label color="error" sx={{ ml: 1 }}>
-                  {option.info}
-                </Label>
-              )}
-            </Link>
-          </MenuItem>
-        );
-      })}
+            {option.info && (
+              <Label color="error" sx={{ ml: 1 }}>
+                {option.info}
+              </Label>
+            )}
+          </Link>
+        </MenuItem>
+      ))}
     </MenuList>
   );
 
@@ -156,7 +147,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
           >
             {renderAvatar()}
 
-            <Typography variant="subtitle1" noWrap sx={{ mt: 2 }}>
+            <Typography variant="subtitle1" noWrap sx={{ mb: 2 }}>
               {user?.username}
             </Typography>
           </Box>
