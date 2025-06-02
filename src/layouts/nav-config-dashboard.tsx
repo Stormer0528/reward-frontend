@@ -75,7 +75,7 @@ export const navData: NavSectionProps['data'] = [
     subheader: `${CONFIG.APP_NAME} Overview`,
     items: [
       { title: 'Overview', path: paths.dashboard.root, icon: ICONS.analytics },
-      { title: 'Sale', path: paths.dashboard.sales.root, icon: ICONS.sale },
+      { title: 'Orders', path: paths.dashboard.orders.root, icon: ICONS.sale },
       { title: 'Sponsor', path: paths.dashboard.sponsor.root, icon: ICONS.sponsor },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
       { title: 'Commission', path: paths.dashboard.commission.root, icon: ICONS.commission },

@@ -84,7 +84,7 @@ export const dashboardRoutes = [
         children: [{ index: true, element: <OverviewPage /> }],
       },
       {
-        path: 'sales',
+        path: 'orders',
         children: [{ index: true, element: <SaleListPage /> }],
       },
       {

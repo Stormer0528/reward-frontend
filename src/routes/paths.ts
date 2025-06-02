@@ -23,7 +23,7 @@ const ROOTS = {
 
   // Dashboard
   DASHBOARD: '/dashboard',
-  SALES: '/sales',
+  ORDERS: '/orders',
   REWARD: '/reward',
   SPONSOR: '/sponsor',
   PLACEMENT: '/placement',
@@ -86,10 +86,10 @@ export const paths = {
   // DASHBOARD
   dashboard: {
     root: '/overview',
-    sales: {
-      root: ROOTS.SALES,
-      edit: (id: string) => `${ROOTS.SALES}/${id}`,
-      new: `${ROOTS.SALES}/new`,
+    orders: {
+      root: ROOTS.ORDERS,
+      edit: (id: string) => `${ROOTS.ORDERS}/${id}`,
+      new: `${ROOTS.ORDERS}/new`,
     },
     reward: {
       root: ROOTS.REWARD,
