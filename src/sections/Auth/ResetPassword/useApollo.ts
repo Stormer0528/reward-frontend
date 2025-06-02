@@ -3,9 +3,7 @@ import type { TokenInput, ResetPasswordTokenInput } from 'src/__generated__/grap
 import { useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 
-import { RESET_PASSWORD_TOKEN, VERIFY_RESET_PASSWORD_TOKEN } from './query';
-// ----------------------------------------------------------------------
-
+import { VERIFY_RESET_TOKEN, RESET_PASSWORD_TOKEN } from './query';
 // ----------------------------------------------------------------------
 
 export function useResetPassword() {
@@ -20,9 +18,7 @@ export function useResetPassword() {
 }
 
 export function useVerifyResetToken() {
-  const [submit, { loading, error, called, data: newToken }] = useMutation(
-    VERIFY_RESET_PASSWORD_TOKEN
-  );
+  const [submit, { loading, error, called, data: newToken }] = useMutation(VERIFY_RESET_TOKEN);
 
   const submitVerifyResetToken = useCallback(
     (data: TokenInput) => submit({ variables: { data } }),

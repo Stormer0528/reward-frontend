@@ -9,9 +9,9 @@ export const RESET_PASSWORD_TOKEN = gql(/* GraphQL */ `
   }
 `);
 
-export const VERIFY_RESET_PASSWORD_TOKEN = gql(/* GraphQL */ `
-  mutation VerifyResetPasswordToken($data: TokenInput!) {
-    verifyResetPasswordToken(data: $data) {
+export const VERIFY_RESET_TOKEN = gql(/* GraphQL */ `
+  mutation ResetTokenVerify($data: TokenInput!) {
+    resetTokenVerify(data: $data) {
       token
     }
   }
