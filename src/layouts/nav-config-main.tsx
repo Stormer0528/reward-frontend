@@ -16,7 +16,7 @@ export const navData: NavMainProps['data'] = [
   },
   {
     title: 'Statistics',
-    path: paths.pages.statistics
+    path: paths.pages.statistics,
     // path: token ? paths.dashboard.history : paths.pages.statistics,
   },
   {
@@ -41,5 +41,9 @@ export const navData: NavMainProps['data'] = [
   {
     title: 'Help',
     path: HELP_MINETXC_URL,
+  },
+  {
+    title: 'Sign In',
+    path: paths.auth.signIn,
   },
 ];
