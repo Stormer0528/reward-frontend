@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery, useLazyQuery, useSuspenseQuery } from '@apollo/client';
 
 import { useQuery as useQueryString } from 'src/routes/hooks';
 
@@ -8,8 +8,8 @@ import { parseFilterModel } from 'src/utils/parseFilter';
 import {
   FETCH_SALES_QUERY,
   FETCH_PACKAGES_QUERY,
-  ORDER_AVAILABLE_POINT,
   FETCH_SALES_STATS_QUERY,
+  FETCH_ORDER_AVAILABLE_POINT,
 } from './query';
 
 export function useFetchSales() {
@@ -70,8 +70,8 @@ export function useFetchPackages() {
   };
 }
 
-export function useOrderAvailablePoint() {
-  const { loading, data, error } = useQuery(ORDER_AVAILABLE_POINT);
+export function useFetchOrderAvailablePoint() {
+  const { data, error } = useSuspenseQuery(FETCH_ORDER_AVAILABLE_POINT);
 
-  return { loading, available: data?.orderAvailablePoint ?? 0, error };
+  return { available: data.orderAvailablePoint ?? 0, error };
 }

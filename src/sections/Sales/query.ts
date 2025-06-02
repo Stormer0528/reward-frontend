@@ -64,7 +64,7 @@ export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
   }
 `);
 
-export const ORDER_AVAILABLE_POINT = gql(/* GraphQL */ `
+export const FETCH_ORDER_AVAILABLE_POINT = gql(/* GraphQL */ `
   query OrderAvailablePoint {
     orderAvailablePoint
   }
