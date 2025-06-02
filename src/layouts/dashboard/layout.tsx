@@ -97,8 +97,6 @@ export function DashboardLayout({
           {isNavHorizontal && (
             <Logo
               sx={{
-                width: '40px !important',
-                height: '40px !important',
                 display: 'none',
                 [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
               }}

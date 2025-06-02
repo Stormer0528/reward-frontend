@@ -1,9 +1,8 @@
-import type { BoxProps } from '@mui/material/Box';
+import type { SvgIconProps } from '@mui/material/SvgIcon';
 
 import { memo } from 'react';
 
-import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
+import SvgIcon from '@mui/material/SvgIcon';
 
 import { CONFIG } from 'src/config';
 
@@ -11,35 +10,41 @@ import { BackgroundShape } from './background-shape';
 
 // ----------------------------------------------------------------------
 
-type Props = BoxProps & {
-  hideBackground?: boolean;
-};
+type SvgProps = SvgIconProps & { hideBackground?: boolean };
 
-function MaintenanceIllustration({ hideBackground, sx, ...other }: Props) {
-  const theme = useTheme();
-
-  const PRIMARY_LIGHT = theme.vars.palette.primary.light;
-
-  const PRIMARY_MAIN = theme.vars.palette.primary.main;
-
-  const PRIMARY_DARK = theme.vars.palette.primary.dark;
-
-  const PRIMARY_DARKER = theme.vars.palette.primary.darker;
+function MaintenanceIllustration({ hideBackground, sx, ...other }: SvgProps) {
+  const renderCharacterImage = () => (
+    <image
+      href={`${CONFIG.ASSET_DIR}/assets/illustrations/characters/character-maintenance.webp`}
+      height="280"
+      x="290"
+      y="40"
+    />
+  );
 
   return (
-    <Box
-      component="svg"
-      width="100%"
-      height="100%"
+    <SvgIcon
       viewBox="0 0 480 360"
       xmlns="http://www.w3.org/2000/svg"
-      sx={{ width: 320, maxWidth: 1, flexShrink: 0, height: 'auto', ...sx }}
+      sx={[
+        (theme) => ({
+          '--primary-light': theme.vars.palette.primary.light,
+          '--primary-main': theme.vars.palette.primary.main,
+          '--primary-dark': theme.vars.palette.primary.dark,
+          '--primary-darker': theme.vars.palette.primary.darker,
+          width: 320,
+          maxWidth: 1,
+          flexShrink: 0,
+          height: 'auto',
+        }),
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       {...other}
     >
       {!hideBackground && <BackgroundShape />}
 
       <path
-        fill={PRIMARY_MAIN}
+        fill="var(--primary-main)"
         d="M297.46 99.296l-185.934-5.29c-6.35-.18-11.526 4.158-11.526 9.693v159.882c0 5.534 5.176 9.742 11.526 9.4l185.934-10.028c5.28-.284 9.54-4.576 9.54-9.585v-144.73c0-5.012-4.26-9.194-9.54-9.342z"
         opacity="0.12"
       />
@@ -79,13 +84,13 @@ function MaintenanceIllustration({ hideBackground, sx, ...other }: Props) {
       />
 
       <path
-        fill={PRIMARY_DARKER}
+        fill="var(--primary-darker)"
         d="M238.581 194.781l-1.199 1.199-25.289-25.298 4.595-4.597a2.173 2.173 0 012.977-.091l18.553 16.422.004.004c3.645 3.243 3.812 8.907.359 12.361z"
         opacity="0.24"
       />
 
       <path
-        fill={PRIMARY_DARKER}
+        fill="var(--primary-darker)"
         d="M236.161 154.083c-5.298 5.298-13.254 6.31-19.566 3.038l-33.13 40.345a5.761 5.761 0 01-8.607.516l-3.145-3.145 6.122-6.125a2.174 2.174 0 103.075-3.076l42.668-42.682 1.907 1.907a3.308 3.308 0 004.68 0l7.117-7.12c1.142-1.144 3.097-.561 3.429 1.021 1.125 5.357-.392 11.161-4.55 15.321z"
         opacity="0.24"
       />
@@ -137,8 +142,8 @@ function MaintenanceIllustration({ hideBackground, sx, ...other }: Props) {
           y2="199.671"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor={PRIMARY_LIGHT} />
-          <stop offset="1" stopColor={PRIMARY_DARK} />
+          <stop stopColor="var(--primary-light)" />
+          <stop offset="1" stopColor="var(--primary-dark)" />
         </linearGradient>
 
         <linearGradient
@@ -149,8 +154,8 @@ function MaintenanceIllustration({ hideBackground, sx, ...other }: Props) {
           y2="199.671"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor={PRIMARY_LIGHT} />
-          <stop offset="1" stopColor={PRIMARY_DARK} />
+          <stop stopColor="var(--primary-light)" />
+          <stop offset="1" stopColor="var(--primary-dark)" />
         </linearGradient>
 
         <linearGradient
@@ -216,13 +221,8 @@ function MaintenanceIllustration({ hideBackground, sx, ...other }: Props) {
         </linearGradient>
       </defs>
 
-      <image
-        href={`${CONFIG.ASSET_DIR}/assets/illustrations/characters/character-5.webp`}
-        height="300"
-        x="245"
-        y="30"
-      />
-    </Box>
+      {renderCharacterImage()}
+    </SvgIcon>
   );
 }
 

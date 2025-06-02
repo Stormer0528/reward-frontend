@@ -5,7 +5,6 @@ import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '.
 import { merge } from 'es-toolkit';
 
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 
 import { Logo } from 'src/components/Logo';
 
@@ -37,11 +36,11 @@ export function SimpleLayout({
     const headerSlotProps: HeaderSectionProps['slotProps'] = { container: { maxWidth: false } };
 
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
+      // topArea: (
+      //   <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+      //     This is an info Alert.
+      //   </Alert>
+      // ),
       leftArea: <Logo />,
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
