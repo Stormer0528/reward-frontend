@@ -2,17 +2,10 @@ import { useTabs , useBoolean, usePopover } from 'minimal-shared/hooks';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 
-import { paths } from 'src/routes/paths';
 import { useQuery } from 'src/routes/hooks';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-
 import { Iconify } from 'src/components/Iconify';
-import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import AddMiner from './Create';
 import SponsorList from './SponsorList';
@@ -46,35 +39,8 @@ export default function SponsorView() {
   };
 
   return (
-    <DashboardContent>
-      <Breadcrumbs
-        heading="Sponsor"
-        links={[{ name: 'Sponsor', href: paths.dashboard.sponsor.root }, { name: 'List' }]}
-        sx={{
-          mb: { xs: 1, md: 2 },
-        }}
-        action={
-          <Stack direction="row" columnGap={1}>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<Iconify icon="fa6-solid:plus" />}
-              onClick={() => {
-                add.onTrue();
-                tabs.onChange(null as any, '');
-              }}
-            >
-              Add Miner
-            </Button>
-
-            {tabs.value === 'tree' && (
-              <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-                <Iconify icon="eva:more-horizontal-fill" />
-              </IconButton>
-            )}
-          </Stack>
-        }
-      />
+    <>
+     
 
       <Tabs value={tabs.value} onChange={handleTabChange} sx={{ mb: 1 }}>
         {TABS.map((tab) => (
@@ -97,6 +63,6 @@ export default function SponsorView() {
           {tabs.value === 'tree' && <SponsorTree popover={popover} />}
         </>
       )}
-    </DashboardContent>
+    </>
   );
 }

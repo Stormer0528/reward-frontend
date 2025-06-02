@@ -50,7 +50,7 @@ const CommunicationPage = lazy(() => import('src/pages/Communication'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
+const SponsorshipPage = lazy(() => import('src/pages/Sponsorship/List'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -88,6 +88,10 @@ export const dashboardRoutes = [
         children: [{ index: true, element: <SaleListPage /> }],
       },
       {
+        path: 'sponsorships',
+        children: [{ index: true, element: <SponsorshipPage /> }],
+      },
+      {
         path: 'reward',
         children: [
           { index: true, element: <RewardPage /> },
@@ -97,10 +101,7 @@ export const dashboardRoutes = [
           },
         ],
       },
-      {
-        path: 'sponsor',
-        children: [{ index: true, element: <SponsorListPage /> }],
-      },
+
       {
         path: 'placement',
         children: [{ index: true, element: <PlacementListPage /> }],
