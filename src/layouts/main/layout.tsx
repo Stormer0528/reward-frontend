@@ -1,17 +1,23 @@
 import type { Breakpoint } from '@mui/material/styles';
 import type { FooterProps } from './footer';
-import type { NavMainProps } from './nav/types';
 import type { MainSectionProps, HeaderSectionProps, LayoutSectionProps } from '../core';
 
 import { useBoolean } from 'minimal-shared/hooks';
 
 import { Logo } from 'src/components/Logo';
 
+// TODO: Consider move JoinNowButton to layouts/components folder...
+import { JoinNowButton } from 'src/sections/Introduction/components/JoinNowButton';
+
+import { useAuthContext } from 'src/auth/hooks';
+
 import { Footer } from './footer';
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
+import { mainNav } from '../nav-config-main';
 import { MenuButton } from '../components/menu-button';
-import { navData as mainNavData } from '../nav-config-main';
+import { accountNavData } from '../nav-config-account';
+import { AccountDrawer } from '../components/AccountDrawer';
 import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
@@ -22,9 +28,6 @@ export type MainLayoutProps = LayoutBaseProps & {
   layoutQuery?: Breakpoint;
   slotProps?: {
     header?: HeaderSectionProps;
-    nav?: {
-      data?: NavMainProps['data'];
-    };
     main?: MainSectionProps;
     footer?: FooterProps;
   };
@@ -39,7 +42,9 @@ export function MainLayout({
 }: MainLayoutProps) {
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
-  const navData = slotProps?.nav?.data ?? mainNavData;
+  const { isAuthenticated } = useAuthContext();
+
+  const navData = mainNav(isAuthenticated);
 
   const renderHeader = () => {
     const headerSlots: HeaderSectionProps['slots'] = {
@@ -75,7 +80,11 @@ export function MainLayout({
               [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
             })}
           />
-          {slotProps?.header?.slots?.rightArea}
+          {isAuthenticated ? (
+            <AccountDrawer data={accountNavData} />
+          ) : (
+            <JoinNowButton sx={{ ml: 2 }} />
+          )}
         </>
       ),
     };
