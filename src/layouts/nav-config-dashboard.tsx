@@ -72,9 +72,9 @@ export const navData: NavSectionProps['data'] = [
    * Overview
    */
   {
-    subheader: 'mineTXC Administration',
+    subheader: `${CONFIG.APP_NAME} Overview`,
     items: [
-      { title: 'Dashboard', path: paths.dashboard.history.root, icon: ICONS.analytics },
+      { title: 'Overview', path: paths.dashboard.root, icon: ICONS.analytics },
       { title: 'Sale', path: paths.dashboard.sales.root, icon: ICONS.sale },
       { title: 'Sponsor', path: paths.dashboard.sponsor.root, icon: ICONS.sponsor },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
