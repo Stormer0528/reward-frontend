@@ -49,8 +49,8 @@ export function Logo({
       className={mergeClasses([logoClasses.root, className])}
       sx={[
         {
-          width: { xs: 40, md: 70 },
-          height: { xs: 40, md: 70 },
+          width: 40,
+          height: 40,
           ...(!isSingle && { width: 102, height: 36 }),
           ...(disabled && { pointerEvents: 'none' }),
         },

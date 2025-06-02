@@ -62,7 +62,7 @@ export function MainLayout({
           <NavMobile data={navData} open={open} onClose={onClose} />
 
           {/** @slot Logo */}
-          <Logo />
+          <Logo sx={slotProps?.header?.slotProps?.logo?.sx} />
         </>
       ),
       rightArea: (

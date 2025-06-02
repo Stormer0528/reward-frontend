@@ -6,7 +6,6 @@ import { merge } from 'es-toolkit';
 import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
@@ -77,11 +76,11 @@ export function DashboardLayout({
     };
 
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
+      // topArea: (
+      //   <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+      //     This is an info Alert.
+      //   </Alert>
+      // ),
       bottomArea: isNavHorizontal ? (
         <NavHorizontal data={navData} layoutQuery={layoutQuery} cssVars={navVars.section} />
       ) : null,
@@ -98,6 +97,8 @@ export function DashboardLayout({
           {isNavHorizontal && (
             <Logo
               sx={{
+                width: '40px !important',
+                height: '40px !important',
                 display: 'none',
                 [theme.breakpoints.up(layoutQuery)]: { display: 'inline-flex' },
               }}

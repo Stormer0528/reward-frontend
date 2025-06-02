@@ -31,8 +31,10 @@ export const mainRoutes: RouteObject[] = [
               position: 'relative',
               disableElevation: true,
               slots: { rightArea: <JoinNowButton sx={{ ml: 2 }} /> },
+              slotProps: { logo: { sx: { width: { md: 70 }, height: { md: 70 } } } },
             },
           }}
+          cssVars={{ '--layout-header-desktop-height': '100px' }}
         >
           <Outlet />
         </MainLayout>

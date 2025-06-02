@@ -27,6 +27,7 @@ export type HeaderSectionProps = AppBarProps & {
   slotProps?: {
     container?: ContainerProps;
     centerArea?: React.ComponentProps<'div'> & { sx?: SxProps<Theme> };
+    logo?: { sx?: SxProps<Theme> };
   };
 };
 
