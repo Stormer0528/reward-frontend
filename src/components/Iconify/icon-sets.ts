@@ -895,11 +895,6 @@ export default {
   'mdi:graveyard': {
     body: '<path fill="currentColor" d="M10 2h4c3.31 0 5 2.69 5 6v10.66C16.88 17.63 15.07 17 12 17s-4.88.63-7 1.66V8c0-3.31 1.69-6 5-6M8 8v1.5h8V8zm1 4v1.5h6V12zM3 22v-.69c2.66-1.69 10.23-5.47 18-.06V22z" stroke-width="0.5" stroke="currentColor"/>',
   },
-  'fa6-solid:plus': {
-    width: 24,
-    height: 24,
-    body: '<path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256z" stroke-width="13" stroke="currentColor"/>',
-  },
   'clarity:block-line': {
     width: 24,
     height: 24,
