@@ -10,7 +10,6 @@ import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -127,23 +126,41 @@ export default function AddMiner({ add, tabs }: Props) {
   };
 
   const renderForm = (
-    <Stack spacing={3}>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+    <>
+      <Box
+        rowGap={2}
+        columnGap={2}
+        display="grid"
+        gridTemplateColumns={{
+          xs: 'repeat(1, 1fr)',
+          sm: 'repeat(2, 1fr)',
+        }}
+      >
         <Field.Text name="firstName" label="First Name" required />
         <Field.Text name="lastName" label="Last Name" required />
-      </Stack>
-
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="email" label="Email Address" required />
         <Field.Phone name="mobile" label="Phone" />
-      </Stack>
-
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="primaryAddress" label="Address" />
         <Field.Text name="secondaryAddress" label="Address 2" />
-      </Stack>
+        <Field.Text name="city" label="City" />
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        <Autocomplete
+          freeSolo
+          fullWidth
+          options={states}
+          getOptionLabel={(option: any) => option.name}
+          renderInput={(params) => (
+            <TextField {...params} name="state" label="States" margin="none" />
+          )}
+          renderOption={(props, option) => (
+            <li {...props} key={option!.name}>
+              {option.name}
+            </li>
+          )}
+          onChange={(_, value: any) => setState(value.name)}
+          onInputChange={(_, value: any) => setState(value)}
+        />
+
         <Autocomplete
           freeSolo
           fullWidth
@@ -162,63 +179,36 @@ export default function AddMiner({ add, tabs }: Props) {
           onInputChange={(_, value: any) => setCountry(value)}
         />
 
-        <Autocomplete
-          freeSolo
-          fullWidth
-          options={states}
-          getOptionLabel={(option: any) => option.name}
-          renderInput={(params) => (
-            <TextField {...params} name="state" label="States" margin="none" />
-          )}
-          renderOption={(props, option) => (
-            <li {...props} key={option!.name}>
-              {option.name}
-            </li>
-          )}
-          onChange={(_, value: any) => setState(value.name)}
-          onInputChange={(_, value: any) => setState(value)}
-        />
-      </Stack>
-
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="city" label="City" />
-
         <Field.Text name="zipCode" label="Zip Code" />
-      </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Stack width={1}>
-          <Field.Select
-            name="packageId"
-            label="Package"
-            fullWidth
-            inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
-            value={location.state?.packageId ?? packageId}
-            onChange={(event) => handlePackageChange(event.target.value)}
-            required
-          >
-            {packages.map((option) => (
-              <MenuItem key={option?.id} value={option?.id}>
-                {`$${option?.amount} @ ${option?.productName}`}
-              </MenuItem>
-            ))}
-          </Field.Select>
-        </Stack>
+        <Field.Text
+          name="assetId"
+          label="Coin ID"
+          placeholder="Do you have a Coin ID? Enter the ID here"
+        />
 
-        <Stack direction="row" width={1} spacing={2}>
-          <Field.Text
-            name="uname"
-            label="Affiliate ID"
-            placeholder="5 characters or more"
-            InputLabelProps={{ shrink: true }}
-            required
-          />
+        <Field.Text name="uname" label="Affiliate ID" placeholder="5 characters or more" required />
 
-          {user?.isTexitRanger && (
-            <SearchMiner label="Sponsor" setMemberId={setSponsorId} currentMember={user?.sponsor} />
-          )}
-        </Stack>
-      </Stack>
+        {user?.isTexitRanger && (
+          <SearchMiner label="Sponsor" setMemberId={setSponsorId} currentMember={user?.sponsor} />
+        )}
+
+        <Field.Select
+          name="packageId"
+          label="Package"
+          fullWidth
+          inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
+          value={location.state?.packageId ?? packageId}
+          onChange={(event) => handlePackageChange(event.target.value)}
+          required
+        >
+          {packages.map((option) => (
+            <MenuItem key={option?.id} value={option?.id}>
+              {`$${option?.amount} @ ${option?.productName}`}
+            </MenuItem>
+          ))}
+        </Field.Select>
+      </Box>
 
       <Field.Text
         name="note"
@@ -226,10 +216,10 @@ export default function AddMiner({ add, tabs }: Props) {
         multiline
         rows={3}
         placeholder="Write a comment here (optional)"
-        InputLabelProps={{ shrink: true }}
+        sx={{ mt: 2 }}
       />
 
-      <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center">
+      <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center" mt={2}>
         <LoadingButton
           color="inherit"
           size="large"
@@ -240,7 +230,7 @@ export default function AddMiner({ add, tabs }: Props) {
           Submit
         </LoadingButton>
       </Box>
-    </Stack>
+    </>
   );
 
   return (

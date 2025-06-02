@@ -1324,6 +1324,7 @@ export type Mutation = {
   generateWDMSVegasReport: SuccessResponse;
   generateWeekP2PInvoice: SuccessResponse;
   generateWeeklyReport: SuccessResponse;
+  linkMembers: SuccessResponse;
   memberExchangeLogin: LoginResponse;
   memberLogin: LoginResponse;
   memberLogout: SuccessResponse;
@@ -1374,7 +1375,6 @@ export type Mutation = {
   setReadAllNotifications: ManySuccessResponse;
   setReadNotification: SuccessResponse;
   setRecipientStatus: Recipient;
-  shareWithMemberId: SuccessResponse;
   signUpMember: SignupMemberResponse;
   updateAdmin: Admin;
   updateAdminNote: AdminNotes;
@@ -1625,6 +1625,11 @@ export type MutationGenerateWeeklyReportArgs = {
 };
 
 
+export type MutationLinkMembersArgs = {
+  data: ShareMemberInput;
+};
+
+
 export type MutationMemberExchangeLoginArgs = {
   data: MemberLoginInput;
 };
@@ -1857,11 +1862,6 @@ export type MutationSetReadNotificationArgs = {
 
 export type MutationSetRecipientStatusArgs = {
   data: EmailStatusInput;
-};
-
-
-export type MutationShareWithMemberIdArgs = {
-  data: ShareMemberInput;
 };
 
 
@@ -2195,6 +2195,26 @@ export type PayoutResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type PeerAcceptableReportMember = {
+  __typename?: 'PeerAcceptableReportMember';
+  ID: Scalars['Int']['output'];
+  assetId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTimeISO']['output'];
+  email: Scalars['String']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  mobile: Scalars['String']['output'];
+  peerETHAddress?: Maybe<Scalars['String']['output']>;
+  totalIntroducers: Scalars['Float']['output'];
+  username: Scalars['String']['output'];
+};
+
+export type PeerReportMemberResponse = {
+  __typename?: 'PeerReportMemberResponse';
+  members?: Maybe<Array<PeerAcceptableReportMember>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
 export type PeriodStatsArgs = {
   type: Scalars['String']['input'];
 };
@@ -2375,7 +2395,7 @@ export type Query = {
   packages: PackageResponse;
   paymentMethods: PaymentMethodResponse;
   payouts: PayoutResponse;
-  peerAcceptableMembers: ReportMemberResponse;
+  peerAcceptableMembers: PeerReportMemberResponse;
   placementMembers: Array<PlacementMember>;
   placementMembersForWeek: Array<WeekPlacementMember>;
   promos: PromoResponse;
@@ -3113,8 +3133,7 @@ export type ShareAccountResponse = {
 };
 
 export type ShareMemberInput = {
-  childId: Scalars['ID']['input'];
-  parentId: Scalars['ID']['input'];
+  memberIds: Array<Scalars['ID']['input']>;
 };
 
 export type SignupFormInput = {
