@@ -67,6 +67,7 @@ export default function MemberReward() {
           ],
           options: {
             xaxis: {
+              labels: { show: false },
               tooltip: { enabled: false },
               tickAmount: 10,
               categories: commission!

@@ -63,6 +63,7 @@ export default function MemberCount() {
           ],
           options: {
             xaxis: {
+              labels: { show: false },
               tooltip: { enabled: false },
               tickAmount: 10,
               categories: totalMiner!

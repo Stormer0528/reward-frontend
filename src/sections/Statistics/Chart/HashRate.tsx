@@ -67,6 +67,7 @@ export default function HashRate() {
     },
     grid: { show: false },
     xaxis: {
+      labels: { show: false },
       tooltip: { enabled: false },
       tickAmount: 30,
       categories: blocks!

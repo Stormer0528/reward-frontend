@@ -63,6 +63,7 @@ export default function TXCShared() {
           ],
           options: {
             xaxis: {
+              labels: { show: false },
               tooltip: { enabled: false },
               tickAmount: 18,
               categories: txcShares!

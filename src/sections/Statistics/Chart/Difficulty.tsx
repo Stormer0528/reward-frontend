@@ -32,6 +32,7 @@ export default function Difficulty() {
         ],
         options: {
           xaxis: {
+            labels: { show: false },
             tooltip: { enabled: false },
             tickAmount: 25,
             categories: blocks!.map((item) => `${item?.blockNo}`).reverse(),

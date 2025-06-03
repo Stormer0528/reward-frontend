@@ -67,6 +67,7 @@ export default function MemberCount() {
               bar: { columnWidth: '80%' },
             },
             xaxis: {
+              labels: { show: false },
               tooltip: { enabled: false },
               tickAmount: 10,
               categories: memberCount!
