@@ -93,7 +93,7 @@ export const FETCH_HISTORY_STATISTICS_QUERY = gql(/* GraphQL */ `
   }
 `);
 
-export const FETCH_BLOCKS_DATA_QUERY = gql(/* GraphQL */ `
+export const FETCH_BLOCKS_DATA = gql(/* GraphQL */ `
   query BlocksData($data: PeriodStatsArgs!) {
     blocksData(data: $data) {
       hashRate
