@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -7,8 +7,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
-import { ChartSelect } from 'src/components/Chart';
-import { ChartWidget } from 'src/components/CustomChart';
+import { Chart, useChart, ChartSelect } from 'src/components/Chart';
 
 import { useFetchMemberReward } from '../useApollo';
 
@@ -22,21 +21,50 @@ const series = [
 ];
 
 export default function MemberReward() {
-  const [selectedSeries, setSelectedSeries] = useState('Day');
   const theme = useTheme();
+  const [selectedSeries, setSelectedSeries] = useState('Day');
+
+  const currentSeries = series.find((i) => i.label === selectedSeries)!;
+
+  const { loading, memberReward } = useFetchMemberReward(currentSeries.value);
+
+  const chartSeries = useMemo(
+    () => [
+      {
+        name: 'Reward',
+        data: memberReward.map((item) => Number(item.reward.toFixed(8))).reverse(),
+      },
+    ],
+    [memberReward]
+  );
+
+  const chartOptions = useChart({
+    colors: [alpha(theme.palette.info.dark, 0.8)],
+    xaxis: {
+      labels: { show: false },
+      tooltip: { enabled: false },
+      tickAmount: 10,
+      categories: memberReward!
+        .map((item) =>
+          currentSeries?.value === 'week'
+            ? `#${formatWeekNumber(item.baseDate)} (${dayjs(item.baseDate).utc().format('MM/DD')} - ${dayjs(item.baseDate).utc().add(6, 'day').format('MM/DD')})`
+            : item.base
+        )
+        .reverse(),
+    },
+    yaxis: {
+      title: { text: 'Reward' },
+      labels: {
+        formatter(val) {
+          return `${Math.floor(val)}`;
+        },
+      },
+    },
+  });
 
   const handleChangeSeries = useCallback((newValue: string) => {
     setSelectedSeries(newValue);
   }, []);
-
-  const currentSeries = series.find((i) => i.label === selectedSeries);
-
-  const { loading, memberReward, fetchMemberReward } = useFetchMemberReward();
-
-  useEffect(() => {
-    fetchMemberReward({ variables: { data: { type: currentSeries?.value ?? '' } } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSeries]);
 
   return (
     <Card>
@@ -51,39 +79,12 @@ export default function MemberReward() {
         }
       />
 
-      <ChartWidget
+      <Chart
+        type="area"
         loading={loading}
-        chart={{
-          categories: memberReward!.map((item) => item.baseDate).reverse(),
-          series: [
-            {
-              name: 'Reward',
-              data: memberReward.map((item) => Number(item.reward.toFixed(8))).reverse(),
-            },
-          ],
-          options: {
-            xaxis: {
-              tooltip: { enabled: false },
-              tickAmount: 10,
-              categories: memberReward!
-                .map((item) =>
-                  currentSeries?.value === 'week'
-                    ? `#${formatWeekNumber(item.baseDate)} (${dayjs(item.baseDate).utc().format('MM/DD')} - ${dayjs(item.baseDate).utc().add(6, 'day').format('MM/DD')})`
-                    : item.base
-                )
-                .reverse(),
-            },
-            yaxis: {
-              labels: {
-                formatter(val) {
-                  return `${Math.floor(val)}`;
-                },
-              },
-            },
-          },
-          colors: [alpha(theme.palette.info.dark, 0.8)],
-        }}
-        card
+        options={chartOptions}
+        series={chartSeries}
+        sx={{ height: 305, p: 2 }}
       />
     </Card>
   );

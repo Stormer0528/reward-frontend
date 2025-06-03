@@ -1,18 +1,14 @@
 import type { ApexOptions } from 'apexcharts';
 
 import dayjs from 'dayjs';
-import ReactApexChart from 'react-apexcharts';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
-import Paper from '@mui/material/Paper';
-import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
-import { useColorScheme } from '@mui/material/styles';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
-import { ChartSelect } from 'src/components/Chart';
+import { Chart, ChartSelect } from 'src/components/Chart';
 
 import { useFetchBlocks } from '../useApollo';
 
@@ -27,20 +23,10 @@ const series = [
 
 export default function HashRate() {
   const [selectedSeries, setSelectedSeries] = useState('Block');
-  const { colorScheme } = useColorScheme();
 
-  const handleChangeSeries = useCallback((newValue: string) => {
-    setSelectedSeries(newValue);
-  }, []);
+  const currentSeries = series.find((i) => i.label === selectedSeries)!;
 
-  const currentSeries = series.find((i) => i.label === selectedSeries);
-
-  const { loading: blocksLoading, blocks, fetchBlocks } = useFetchBlocks();
-
-  useEffect(() => {
-    fetchBlocks({ variables: { data: { type: currentSeries?.value ?? '' } } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSeries]);
+  const { loading, blocks } = useFetchBlocks(currentSeries.value);
 
   const chartSeries = [
     {
@@ -67,8 +53,9 @@ export default function HashRate() {
     },
     grid: { show: false },
     xaxis: {
+      labels: { show: false },
       tooltip: { enabled: false },
-      tickAmount: 30,
+      tickAmount: 5,
       categories: blocks!
         .map((item) =>
           currentSeries?.value === 'week'
@@ -83,7 +70,7 @@ export default function HashRate() {
           text: 'HashRate',
         },
         labels: {
-          formatter: (value: number) => `${Math.floor(value)} GH/s`,
+          formatter: (value: number) => `${Math.floor(value)}GH/s`,
         },
       },
       {
@@ -92,7 +79,7 @@ export default function HashRate() {
           text: 'Sold HashPower',
         },
         labels: {
-          formatter: (value: number) => `${value} GH/s`,
+          formatter: (value: number) => `${value}GH/s`,
         },
         min: 0,
       },
@@ -101,30 +88,12 @@ export default function HashRate() {
     fill: {
       opacity: 0.6,
     },
-    tooltip: {
-      shared: true,
-      intersect: false,
-      custom: ({ dataPointIndex, w }) => {
-        const category = w.globals.categoryLabels.length
-          ? w.globals.categoryLabels[dataPointIndex]
-          : w.globals.labels[dataPointIndex];
-        const data = w.globals.initialSeries.map((item: any) => item.data[dataPointIndex]);
-
-        const chartData = data.reduce(
-          (
-            prev: any,
-            item: any,
-            index: number
-          ) => `${prev}<div style="display: flex; padding: 10px;"><div style="margin-right: 8px; width: 12px; height: 12px; border-radius: 50%; background-color: ${w.globals.colors[index]}; margin-top: 4px;">
-          </div><div><span style="color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; margin-right: 5px;">${w.globals.seriesNames[index]}:</span> <span style="font-weight: bold;">${item} GH/s</span></div></div>`,
-          ''
-        );
-
-        return `<div style="background: ${colorScheme === 'dark' ? '#141A21' : '#ffffff'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#6a7987'};"><div style="background: ${colorScheme === 'dark' ? '#28323D' : '#f4f6f8'}; color: ${colorScheme === 'dark' ? '#ffffff' : '#637381'}; font-weight: bold; padding: 5px 10px;">${category}</div>${chartData}</div>`;
-      },
-    },
     legend: { show: false },
   };
+
+  const handleChangeSeries = useCallback((newValue: string) => {
+    setSelectedSeries(newValue);
+  }, []);
 
   return (
     <Card>
@@ -139,19 +108,13 @@ export default function HashRate() {
         }
       />
 
-      {blocksLoading ? (
-        <Paper sx={{ p: 3 }}>
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-          <Skeleton variant="text" sx={{ fontSize: 26 }} />
-        </Paper>
-      ) : (
-        <ReactApexChart options={chartOptions} series={chartSeries} type="line" height={305} />
-      )}
+      <Chart
+        options={chartOptions}
+        series={chartSeries}
+        type="line"
+        loading={loading}
+        sx={{ height: 305, p: 2 }}
+      />
     </Card>
   );
 }

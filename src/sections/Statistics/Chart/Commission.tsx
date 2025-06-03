@@ -1,17 +1,14 @@
 import dayjs from 'dayjs';
-import { useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
+import { Card, CardHeader } from '@mui/material';
+import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
 
 import { formatWeekNumber } from 'src/utils/format-time';
 
-import { ChartSelect } from 'src/components/Chart';
-import { ChartMixed } from 'src/components/CustomChart';
+import { Chart, useChart, ChartSelect } from 'src/components/Chart';
 
 import { useFetchCommissionByPeriod } from '../useApollo';
-
-// ----------------------------------------------------------------------
 
 const series = [
   { value: 'week', label: 'Week' },
@@ -19,23 +16,64 @@ const series = [
   { value: 'quarter', label: 'Quarter' },
 ];
 
-export default function MemberReward() {
+export default function Commission() {
+  const theme = useTheme();
   const [selectedSeries, setSelectedSeries] = useState('Week');
+
+  const currentSeries = series.find((i) => i.label === selectedSeries)!;
+
+  const { loading, commission } = useFetchCommissionByPeriod(currentSeries.value);
+
+  const max = Math.max(...commission.map((item) => item.revenue));
+
+  const chartColors = [hexAlpha(theme.palette.primary.dark, 0.8), theme.palette.warning.main];
+
+  const chartSeries = useMemo(
+    () => [
+      {
+        name: 'Commission',
+        type: 'column',
+        data: commission.map((item) => item.commission / 1000).reverse(),
+      },
+      {
+        name: 'Revenue',
+        type: 'area',
+        data: commission.map((item) => item.revenue / 1000).reverse(),
+      },
+    ],
+    [commission]
+  );
+
+  const chartOptions = useChart({
+    colors: chartColors,
+    stroke: { width: [0, 2] },
+    fill: { type: ['solid', 'gradient'] },
+    legend: { show: true },
+    xaxis: {
+      labels: { show: false },
+      tooltip: { enabled: false },
+      categories: commission!
+        .map((item) =>
+          currentSeries?.value === 'week'
+            ? `#${formatWeekNumber(item.baseDate)} (${dayjs(item.baseDate).utc().format('MM/DD')} - ${dayjs(item.baseDate).utc().add(6, 'day').format('MM/DD')})`
+            : item.base
+        )
+        .reverse(),
+    },
+    yaxis: {
+      stepSize: Math.floor(max / 4000),
+      labels: {
+        formatter(val: any) {
+          return `${Math.floor(val)}K`;
+        },
+      },
+    },
+  });
 
   const handleChangeSeries = useCallback((newValue: string) => {
     setSelectedSeries(newValue);
   }, []);
 
-  const currentSeries = series.find((i) => i.label === selectedSeries);
-
-  const { loading, commission, fetchCommissionByPeriod } = useFetchCommissionByPeriod();
-
-  const max = Math.max(...commission.map((item) => item.revenue));
-
-  useEffect(() => {
-    fetchCommissionByPeriod({ variables: { data: { type: currentSeries?.value ?? '' } } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSeries]);
   return (
     <Card>
       <CardHeader
@@ -49,44 +87,12 @@ export default function MemberReward() {
         }
       />
 
-      <ChartMixed
+      <Chart
+        type="line"
         loading={loading}
-        chart={{
-          categories: commission!.map((item) => item.base).reverse(),
-          series: [
-            {
-              name: 'Commission',
-              type: 'column',
-              data: commission.map((item) => item.commission / 1000).reverse(),
-            },
-            {
-              name: 'Revenue',
-              type: 'area',
-              data: commission.map((item) => item.revenue / 1000).reverse(),
-            },
-          ],
-          options: {
-            xaxis: {
-              tooltip: { enabled: false },
-              tickAmount: 10,
-              categories: commission!
-                .map((item) =>
-                  currentSeries?.value === 'week'
-                    ? `#${formatWeekNumber(item.baseDate)} (${dayjs(item.baseDate).utc().format('MM/DD')} - ${dayjs(item.baseDate).utc().add(6, 'day').format('MM/DD')})`
-                    : item.base
-                )
-                .reverse(),
-            },
-            yaxis: {
-              stepSize: Math.floor(max / 4000),
-              labels: {
-                formatter(val: any) {
-                  return `${Math.floor(val)}K`;
-                },
-              },
-            },
-          },
-        }}
+        series={chartSeries}
+        options={chartOptions}
+        sx={{ height: 305, p: 2 }}
       />
     </Card>
   );
