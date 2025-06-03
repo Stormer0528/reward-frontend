@@ -42,7 +42,7 @@ export const FETCH_SALES_STATS_QUERY = gql(/* GraphQL */ `
   }
 `);
 
-export const FETCH_PACKAGES_QUERY = gql(/* GraphQL */ `
+export const FETCH_PACKAGES = gql(/* GraphQL */ `
   query Packages($sort: String, $page: String, $filter: JSONObject) {
     packages(sort: $sort, page: $page, filter: $filter) {
       packages {

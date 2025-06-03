@@ -2,6 +2,7 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 
 import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config';
 
@@ -31,10 +32,11 @@ export default function SponsorshipWrapper({ children }: Props) {
         }}
         action={
           <Button
-            variant="contained"
+            component={RouterLink}
             color="primary"
+            variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
-            onClick={() => {}}
+            href="new"
           >
             Add Miner
           </Button>
@@ -46,7 +48,7 @@ export default function SponsorshipWrapper({ children }: Props) {
           flexGrow: 1,
           overflow: 'hidden',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
       >
         <SponsorshipTab />

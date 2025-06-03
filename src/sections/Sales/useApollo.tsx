@@ -6,8 +6,8 @@ import { useQuery as useQueryString } from 'src/routes/hooks';
 import { parseFilterModel } from 'src/utils/parseFilter';
 
 import {
+  FETCH_PACKAGES,
   FETCH_SALES_QUERY,
-  FETCH_PACKAGES_QUERY,
   FETCH_SALES_STATS_QUERY,
   FETCH_ORDER_AVAILABLE_POINT,
 } from './query';
@@ -48,7 +48,7 @@ export function useFetchSaleStats() {
 }
 
 export function useFetchPackages() {
-  const [fetchPackages, { loading, data }] = useLazyQuery(FETCH_PACKAGES_QUERY);
+  const [fetchPackages, { loading, data }] = useLazyQuery(FETCH_PACKAGES);
 
   const rowCountRef = useRef(data?.packages.total ?? 0);
 

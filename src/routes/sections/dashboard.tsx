@@ -53,6 +53,7 @@ const CommunicationPage = lazy(() => import('src/pages/Communication'));
 const SponsorshipWrapper = lazy(() => import('src/pages/Sponsorship/Wrapper'));
 const SponsorshipListPage = lazy(() => import('src/pages/Sponsorship/SponsorshipList'));
 const SponsorshipTreePage = lazy(() => import('src/pages/Sponsorship/SponsorshipTree'));
+const SponsorshipCreatePage = lazy(() => import('src/pages/Sponsorship/SponsorshipCreate'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -91,18 +92,23 @@ export const dashboardRoutes = [
       },
       {
         path: 'sponsorships',
-        element: (
-          <SponsorshipWrapper>
-            <Outlet />
-          </SponsorshipWrapper>
-        ),
         children: [
-          { index: true, element: <Navigate to="approved" replace /> },
-          { path: 'approved', element: <SponsorshipListPage allowState="approved" /> },
-          { path: 'pending', element: <SponsorshipListPage allowState="pending" /> },
-          { path: 'added', element: <SponsorshipListPage allowState="added" /> },
-          { path: 'graveyard', element: <SponsorshipListPage allowState="graveyard" /> },
-          { path: 'tree', element: <SponsorshipTreePage /> },
+          {
+            element: (
+              <SponsorshipWrapper>
+                <Outlet />
+              </SponsorshipWrapper>
+            ),
+            children: [
+              { index: true, element: <Navigate to="approved" replace /> },
+              { path: 'approved', element: <SponsorshipListPage allowState="approved" /> },
+              { path: 'pending', element: <SponsorshipListPage allowState="pending" /> },
+              { path: 'added', element: <SponsorshipListPage allowState="added" /> },
+              { path: 'graveyard', element: <SponsorshipListPage allowState="graveyard" /> },
+              { path: 'tree', element: <SponsorshipTreePage /> },
+            ],
+          },
+          { path: 'new', element: <SponsorshipCreatePage /> },
         ],
       },
       {

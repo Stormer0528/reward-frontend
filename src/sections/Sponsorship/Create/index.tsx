@@ -1,11 +1,9 @@
-import type { UseTabsReturn, UseBooleanReturn } from 'minimal-shared/hooks';
-
 import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
-import { useState, useEffect } from 'react';
 import { ApolloError } from '@apollo/client';
+import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
@@ -22,6 +20,7 @@ import { removeSpecialCharacters } from 'src/utils/helper';
 
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
+// TODO: Move this to section
 import SearchMiner from 'src/components/SearchMiner';
 
 import { useFetchPackages } from 'src/sections/Sales/useApollo';
@@ -31,12 +30,7 @@ import { useAuthContext } from 'src/auth/hooks';
 import { Schema, type SchemaType } from './schema';
 import { useCreateAddMemberOrder } from '../useApollo';
 
-interface Props {
-  add: UseBooleanReturn;
-  tabs: UseTabsReturn;
-}
-
-export default function AddMiner({ add, tabs }: Props) {
+export function SponsorshipCreateView() {
   const router = useRouter();
   const { user } = useAuthContext();
 
@@ -47,17 +41,20 @@ export default function AddMiner({ add, tabs }: Props) {
 
   const location = useLocation();
 
-  const defaultValues = {
-    email: '',
-    assetId: null,
-    note: '',
-    uname: '',
-    primaryAddress: '',
-    secondaryAddress: '',
-    state: '',
-    zipCode: '',
-    city: '',
-  };
+  const defaultValues = useMemo(
+    () => ({
+      email: '',
+      assetId: null,
+      note: '',
+      uname: '',
+      primaryAddress: '',
+      secondaryAddress: '',
+      state: '',
+      zipCode: '',
+      city: '',
+    }),
+    []
+  );
 
   const methods = useForm<SchemaType>({
     resolver: zodResolver(Schema),
@@ -75,6 +72,7 @@ export default function AddMiner({ add, tabs }: Props) {
 
   const onSubmit = handleSubmit(async ({ firstName, lastName, uname, ...rest }) => {
     try {
+      // TODO: Package id should be included in form data...
       if (!packageId) {
         toast.error('PackageId is required');
         return;
@@ -95,8 +93,6 @@ export default function AddMiner({ add, tabs }: Props) {
       });
 
       if (data) {
-        tabs.onChange(null as any, 'added');
-        add.onFalse();
         router.push(paths.pages.order.detail(data.createAddMemberOrder.id));
       }
     } catch (err) {
@@ -124,7 +120,7 @@ export default function AddMiner({ add, tabs }: Props) {
   };
 
   const renderForm = (
-    <Stack spacing={3}>
+    <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="firstName" label="First Name" required />
         <Field.Text name="lastName" label="Last Name" required />
@@ -141,6 +137,7 @@ export default function AddMiner({ add, tabs }: Props) {
       </Stack>
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        {/* TODO: Clean up duplicated code???? */}
         <Autocomplete
           freeSolo
           fullWidth
