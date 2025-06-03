@@ -76,7 +76,7 @@ export const navData: NavSectionProps['data'] = [
     items: [
       { title: 'Overview', path: paths.dashboard.root, icon: ICONS.analytics },
       { title: 'Orders', path: paths.dashboard.orders.root, icon: ICONS.sale },
-      { title: 'Sponsorships', path: paths.dashboard.sponsorships.root, icon: ICONS.sponsor },
+      { title: 'Sponsorships', path: paths.dashboard.sponsorships.root, icon: ICONS.sponsor, deepMatch: true },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
       { title: 'Commission', path: paths.dashboard.commission.root, icon: ICONS.commission },
       { title: 'Invoice', path: paths.dashboard.invoice.root, icon: ICONS.invoice },

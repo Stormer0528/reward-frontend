@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router';
 import { lazy, Suspense } from 'react';
+import { Outlet, Navigate } from 'react-router';
 
 import { DashboardLayout, DashboardContent } from 'src/layouts/dashboard';
 
@@ -50,6 +50,7 @@ const CommunicationPage = lazy(() => import('src/pages/Communication'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const SponsorshipWrapper = lazy(() => import('src/pages/Sponsorship/Wrapper'));
 const SponsorshipPage = lazy(() => import('src/pages/Sponsorship/List'));
 // ----------------------------------------------------------------------
 
@@ -89,7 +90,19 @@ export const dashboardRoutes = [
       },
       {
         path: 'sponsorships',
-        children: [{ index: true, element: <SponsorshipPage /> }],
+        element: (
+          <SponsorshipWrapper>
+            <Outlet />
+          </SponsorshipWrapper>
+        ),
+        children: [
+          { index: true, element: <Navigate to="approved" replace /> },
+          { path: 'approved', element: <SponsorshipPage allowState='approved'/> },
+          { path: 'pending', element: <SponsorshipPage allowState='pending' /> },
+          { path: 'added', element: <SponsorshipPage allowState='added' /> },
+          { path: 'graveyard', element: <SponsorshipPage allowState='graveyard' /> },
+          { path: 'tree', element: <div>Tree</div> },
+        ],
       },
       {
         path: 'reward',

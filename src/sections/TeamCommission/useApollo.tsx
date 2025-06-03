@@ -1,5 +1,9 @@
 import { useRef, useMemo } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
+
+import { useQuery as useQueryString } from 'src/routes/hooks';
+
+import { parseFilterModel } from 'src/utils/parseFilter';
 
 import {
   FETCH_SPONSOR_QUERY,
@@ -60,8 +64,17 @@ export function useFetchIntroducers() {
   };
 }
 
-export function useFetchSponsors() {
-  const [fetchSponsors, { loading, data }] = useLazyQuery(FETCH_SPONSOR_QUERY);
+export function useFetchSponsors(allowState: string) {
+  const [{ page, sort, filter }] = useQueryString();
+
+  const graphQueryFilter = useMemo(
+    () => parseFilterModel({ allowState }, filter),
+    [filter, allowState]
+  );
+
+  const { loading, data } = useQuery(FETCH_SPONSOR_QUERY, {
+    variables: { page, sort, filter: graphQueryFilter },
+  });
 
   const rowCountRef = useRef(data?.introducers.total ?? 0);
 
@@ -79,6 +92,5 @@ export function useFetchSponsors() {
     loading,
     rowCount,
     introducers: data?.introducers.introducers ?? [],
-    fetchSponsors,
   };
 }

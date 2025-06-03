@@ -98,7 +98,7 @@ export const paths = {
       detail: (id: string) => `${ROOTS.REWARD}/${id}`,
       view: (id: string) => `${ROOTS.REWARD}/statistics/${id}`,
     },
-    sponsorships: { root: ROOTS.SPONSORSHIPS },
+    sponsorships: { root: ROOTS.SPONSORSHIPS, tabMatch: `${ROOTS.SPONSORSHIPS}/:tab` },
     placement: { root: ROOTS.PLACEMENT },
     commission: { root: ROOTS.COMMISSION, action: `${ROOTS.COMMISSION}/action` },
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },

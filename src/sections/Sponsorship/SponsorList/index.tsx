@@ -2,14 +2,9 @@ import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-community/core';
 import type { Introducer } from './type';
 
-import { useMemo, useEffect } from 'react';
-
-import Card from '@mui/material/Card';
-
-import { useQuery as useQueryString } from 'src/routes/hooks';
+import { useMemo } from 'react';
 
 import { formatDate } from 'src/utils/format-time';
-import { parseFilterModel } from 'src/utils/parseFilter';
 import { formatID, customizeFullName } from 'src/utils/helper';
 
 import { AgGrid } from 'src/components/AgGrid';
@@ -17,22 +12,11 @@ import { AgGrid } from 'src/components/AgGrid';
 import { useFetchSponsors } from 'src/sections/TeamCommission/useApollo';
 
 interface Props {
-  filter: any;
+  allowState: string;
 }
 
-export default function SPonsorListView({ filter: customFilter }: Props) {
-  const { loading, introducers, rowCount, fetchSponsors } = useFetchSponsors();
-  const [{ page = '1,50', sort = 'createdAt', filter }] = useQueryString();
-
-  const graphQueryFilter = useMemo(
-    () => parseFilterModel({ ...customFilter }, filter),
-    [filter, customFilter]
-  );
-
-  useEffect(() => {
-    fetchSponsors({ variables: { filter: graphQueryFilter, page, sort } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, page, sort]);
+export default function SponsorListView({ allowState }: Props) {
+  const { loading, introducers, rowCount } = useFetchSponsors(allowState);
 
   const colDefs = useMemo<ColDef<Introducer>[]>(
     () => [
@@ -95,20 +79,12 @@ export default function SPonsorListView({ filter: customFilter }: Props) {
   );
 
   return (
-    <Card
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-        overflow: 'hidden',
-      }}
-    >
-      <AgGrid<Introducer>
-        gridKey="miner-sponsor-list"
-        loading={loading}
-        rowData={introducers}
-        columnDefs={colDefs}
-        totalRowCount={rowCount}
-      />
-    </Card>
+    <AgGrid<Introducer>
+      gridKey="miner-sponsor-list"
+      loading={loading}
+      rowData={introducers}
+      columnDefs={colDefs}
+      totalRowCount={rowCount}
+    />
   );
 }
