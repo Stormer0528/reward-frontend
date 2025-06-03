@@ -210,8 +210,8 @@ export const FETCH_MEMBER_SEARCH_QUERY = gql(/* GraphQL */ `
     }
   }
 `);
-
-export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
+// TODO: Consider move this to sponsorship tree section????
+export const FETCH_PLACEMENT_MEMBERS = gql(/* GraphQL */ `
   query FetchPlacementMembers {
     sponsorMembers {
       id

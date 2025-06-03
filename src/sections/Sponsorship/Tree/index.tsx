@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { m } from 'framer-motion';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import {
   ReactFlow,
@@ -9,9 +10,8 @@ import {
   type FitViewOptions,
 } from '@xyflow/react';
 
+import Fab from '@mui/material/Fab';
 import Stack from '@mui/material/Stack';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
 
 import {
   SPONSOR_TREE_NODE_HEIGHT,
@@ -20,9 +20,9 @@ import {
   PLACEMENT_TREE_NODE_Y_SPACE,
 } from 'src/consts';
 
-import ComponentBlock from 'src/components/Component-Block';
+import { Iconify } from 'src/components/Iconify';
 import { LoadingScreen } from 'src/components/LoadingScreen';
-import { CustomPopover, type UsePopoverReturn } from 'src/components/CustomPopover';
+import { varTap, transitionTap } from 'src/components/animate';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -41,10 +41,6 @@ const edgeTypes = {
   customEdge: CustomEdge,
 };
 
-interface Props {
-  popover: UsePopoverReturn;
-}
-
 function buildSponsorTree(members: any[], me: any) {
   const memberMap: Record<string, any> = {};
   let result: any = {};
@@ -58,8 +54,8 @@ function buildSponsorTree(members: any[], me: any) {
   });
 
   members.forEach((member) => {
-    if (member?.sponsorId && memberMap[member?.sponsorId] && member.id !== me.id) {
-      memberMap[member?.sponsorId!].children.push(memberMap[member.id]);
+    if (member.sponsorId && memberMap[member.sponsorId] && member.id !== me.id) {
+      memberMap[member.sponsorId].children.push(memberMap[member.id]);
     }
   });
 
@@ -197,19 +193,14 @@ function getNewVisibleMap(
   return newVisibleMap;
 }
 
-function PlacementListView({ popover }: Props) {
+function PlacementListView() {
   const { user: me } = useAuthContext();
-  const { fetchMembers, members, loading, called } = useFetchPlacementMembers();
+  const { members, loading, called, refetch: refetchMembers } = useFetchPlacementMembers();
 
   const [visibleMap, setVisibleMap] = useState<Record<string, number>>({});
   const exSetVisibleMap = useCallback((newVisibleMap: Record<string, number>) => {
     setVisibleMap(newVisibleMap);
     localStorage.setItem('sponsorVisibleMap', JSON.stringify(newVisibleMap));
-  }, []);
-
-  useEffect(() => {
-    fetchMembers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const nodes: Node[] = useMemo(() => {
@@ -227,11 +218,11 @@ function PlacementListView({ popover }: Props) {
   const edges: Edge[] = useMemo(
     () =>
       members
-        .filter((member) => member?.sponsorId)
+        .filter((member) => member.sponsorId)
         .map((member) => ({
-          id: `${member?.sponsorId}:${member?.id}`,
-          source: member?.sponsorId ?? '',
-          target: member?.id ?? '',
+          id: `${member.sponsorId}:${member.id}`,
+          source: member.sponsorId ?? '',
+          target: member.id ?? '',
           type: 'customEdge',
         })),
     [members]
@@ -242,15 +233,15 @@ function PlacementListView({ popover }: Props) {
       const newVisibleMap: Record<string, number> = { ...visibleMap };
 
       members
-        .filter((mb) => mb?.sponsorId === id)
+        .filter((mb) => mb.sponsorId === id)
         .forEach((mb) => {
-          if (!newVisibleMap[mb?.id ?? '']) {
-            newVisibleMap[mb?.id ?? ''] =
-              members.findIndex((mber) => mber?.sponsorId === mb?.id) === -1 ? 3 : 1;
+          if (!newVisibleMap[mb.id ?? '']) {
+            newVisibleMap[mb.id ?? ''] =
+              members.findIndex((member) => member?.sponsorId === mb.id) === -1 ? 3 : 1;
           }
         });
 
-      newVisibleMap[id] = members.findIndex((mb) => mb?.sponsorId === id) === -1 ? 3 : 2;
+      newVisibleMap[id] = members.findIndex((mb) => mb.sponsorId === id) === -1 ? 3 : 2;
 
       exSetVisibleMap(newVisibleMap);
     },
@@ -309,13 +300,16 @@ function PlacementListView({ popover }: Props) {
     if (!called || loading) return;
     const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
 
-    if (!storageVisibleMap || _.isEmpty(JSON.parse(storageVisibleMap))) resetVisibleMap();
-    else reSyncVisibleMap();
+    if (!storageVisibleMap || _.isEmpty(JSON.parse(storageVisibleMap))) {
+      resetVisibleMap();
+    } else {
+      reSyncVisibleMap();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [members, loading]);
 
   const reset = useCallback(async () => {
-    const { data } = await fetchMembers();
+    const { data } = await refetchMembers();
     const newVisibleMap = getResetVisibleMap(data?.sponsorMembers, me);
 
     exSetVisibleMap(newVisibleMap);
@@ -326,10 +320,10 @@ function PlacementListView({ popover }: Props) {
         nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
       });
     }, 100);
-  }, [fetchMembers, exSetVisibleMap, fitView, me]);
+  }, [refetchMembers, exSetVisibleMap, fitView, me]);
 
   const refresh = useCallback(async () => {
-    const { data } = await fetchMembers();
+    const { data } = await refetchMembers();
     const storageVisibleMap = localStorage.getItem('sponsorVisibleMap');
     const newVisibleMap = storageVisibleMap
       ? getNewVisibleMap(data?.sponsorMembers, me, JSON.parse(storageVisibleMap))
@@ -342,61 +336,66 @@ function PlacementListView({ popover }: Props) {
         nodes: Object.keys(newVisibleMap).map((id) => ({ id })),
       });
     }, 100);
-  }, [fetchMembers, exSetVisibleMap, fitView, me]);
+  }, [refetchMembers, exSetVisibleMap, fitView, me]);
 
   return (
     <>
       {loading ? (
         <LoadingScreen />
       ) : (
-        <ComponentBlock sx={{ px: 0, pb: 0 }}>
-          <Stack sx={{ overflow: 'auto', height: '600px', width: '100%' }}>
-            <NodeContext value={contextValue}>
-              <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                fitView
-                fitViewOptions={fitViewOptions}
-                edgeTypes={edgeTypes}
-              />
-            </NodeContext>
-          </Stack>
-        </ComponentBlock>
-      )}
-
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
-      >
-        <MenuList>
-          <MenuItem
-            onClick={() => {
-              reset();
-              popover.onClose();
-            }}
+        <Stack sx={{ overflow: 'auto', height: '600px', width: '100%', position: 'relative' }}>
+          <NodeContext value={contextValue}>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              fitView
+              fitViewOptions={fitViewOptions}
+              edgeTypes={edgeTypes}
+            />
+          </NodeContext>
+          <Fab
+            component={m.button}
+            whileTap={varTap()}
+            transition={transitionTap()}
+            variant="softExtended"
+            color="info"
+            onClick={refresh}
+            sx={(theme) => ({
+              position: 'absolute',
+              top: theme.spacing(2),
+              left: theme.spacing(2),
+            })}
           >
-            Reset
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              refresh();
-              popover.onClose();
-            }}
-          >
+            <Iconify icon="solar:refresh-bold" width={24} />
             Refresh
-          </MenuItem>
-        </MenuList>
-      </CustomPopover>
+          </Fab>
+
+          <Fab
+            component={m.button}
+            whileTap={varTap()}
+            transition={transitionTap()}
+            variant="softExtended"
+            color="error"
+            onClick={reset}
+            sx={(theme) => ({
+              position: 'absolute',
+              top: theme.spacing(10),
+              left: theme.spacing(2),
+            })}
+          >
+            <Iconify icon="solar:restart-bold" width={24} />
+            Reset
+          </Fab>
+        </Stack>
+      )}
     </>
   );
 }
 
-export default function PlacementListViewWithReactFlowProvider({ popover }: Props) {
+export function SponsorshipTreeView() {
   return (
     <ReactFlowProvider>
-      <PlacementListView popover={popover} />
+      <PlacementListView />
     </ReactFlowProvider>
   );
 }

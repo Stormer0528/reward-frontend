@@ -15,7 +15,7 @@ interface Props {
   allowState: string;
 }
 
-export default function SponsorListView({ allowState }: Props) {
+export function SponsorshipListView({ allowState }: Props) {
   const { loading, introducers, rowCount } = useFetchSponsors(allowState);
 
   const colDefs = useMemo<ColDef<Introducer>[]>(

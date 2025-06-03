@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { useMutation, useLazyQuery, useQuery as useGraphQuery } from '@apollo/client';
+import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
 
 import {
   DISABLE_2FA,
@@ -14,9 +14,9 @@ import {
   UPDATE_SETTING_MEMBER,
   MEMBER_EXCHANGE_LOGIN,
   UPDATE_MEMBER_PASSWORD,
+  FETCH_PLACEMENT_MEMBERS,
   FETCH_MEMBER_STATS_QUERY,
   FETCH_MEMBER_SEARCH_QUERY,
-  FETCH_PLACEMENT_MEMBERS_QUERY,
   FETCH_PLACEMENT_MEMBERS_O_QUERY,
 } from './query';
 
@@ -46,13 +46,13 @@ export function useFetchPlacementOMembers() {
 }
 
 export function useFetchPlacementMembers() {
-  const [fetchMembers, { loading, data, called }] = useLazyQuery(FETCH_PLACEMENT_MEMBERS_QUERY);
+  const { loading, data, called, refetch } = useQuery(FETCH_PLACEMENT_MEMBERS);
 
   return {
     called,
     loading,
     members: data?.sponsorMembers ?? [],
-    fetchMembers,
+    refetch
   };
 }
 
@@ -62,8 +62,8 @@ export function useFetchMembersStats() {
   return { data, fetchMemberStats };
 }
 
-export function useFetchMemberOvewview(id: string) {
-  const { loading, data, error } = useGraphQuery(FETCH_MEMBER_HISTORY, {
+export function useFetchMemberOverview(id: string) {
+  const { loading, data, error } = useQuery(FETCH_MEMBER_HISTORY, {
     variables: { data: { id } },
   });
 
@@ -122,8 +122,6 @@ export function useVerify2FAAndEnable() {
 
   return { loading, accessToken: data?.verify2FAAndEnable.accessToken, error, verify2FAAndEnable };
 }
-
-
 
 export function useDisable2FA() {
   const [disable2FA, { loading, data, error }] = useMutation(DISABLE_2FA);

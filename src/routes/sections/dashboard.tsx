@@ -51,7 +51,8 @@ const CommunicationPage = lazy(() => import('src/pages/Communication'));
 
 // ----------------------------------------------------------------------
 const SponsorshipWrapper = lazy(() => import('src/pages/Sponsorship/Wrapper'));
-const SponsorshipPage = lazy(() => import('src/pages/Sponsorship/List'));
+const SponsorshipListPage = lazy(() => import('src/pages/Sponsorship/SponsorshipList'));
+const SponsorshipTreePage = lazy(() => import('src/pages/Sponsorship/SponsorshipTree'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -97,11 +98,11 @@ export const dashboardRoutes = [
         ),
         children: [
           { index: true, element: <Navigate to="approved" replace /> },
-          { path: 'approved', element: <SponsorshipPage allowState='approved'/> },
-          { path: 'pending', element: <SponsorshipPage allowState='pending' /> },
-          { path: 'added', element: <SponsorshipPage allowState='added' /> },
-          { path: 'graveyard', element: <SponsorshipPage allowState='graveyard' /> },
-          { path: 'tree', element: <div>Tree</div> },
+          { path: 'approved', element: <SponsorshipListPage allowState="approved" /> },
+          { path: 'pending', element: <SponsorshipListPage allowState="pending" /> },
+          { path: 'added', element: <SponsorshipListPage allowState="added" /> },
+          { path: 'graveyard', element: <SponsorshipListPage allowState="graveyard" /> },
+          { path: 'tree', element: <SponsorshipTreePage /> },
         ],
       },
       {
