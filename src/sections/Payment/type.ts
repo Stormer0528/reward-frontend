@@ -1,7 +1,7 @@
 // TODO: Get type from codegen instead of copying
 // Copied from src/__generated__/graphql/AccountsQuery
 
-import type { Package } from 'src/sections/Products/type';
+import type { Package } from 'src/sections/Package/type';
 
 export type PaymentMethodLink = {
   __typename?: 'PaymentMethodLink';
