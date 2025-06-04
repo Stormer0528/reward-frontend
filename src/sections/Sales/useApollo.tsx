@@ -6,7 +6,6 @@ import { useQuery as useQueryString } from 'src/routes/hooks';
 import { parseFilterModel } from 'src/utils/parseFilter';
 
 import {
-  FETCH_PACKAGES,
   FETCH_SALES_QUERY,
   FETCH_SALES_STATS_QUERY,
   FETCH_ORDER_AVAILABLE_POINT,
@@ -45,29 +44,6 @@ export function useFetchSaleStats() {
   const [fetchSaleStats, { data }] = useLazyQuery(FETCH_SALES_STATS_QUERY);
 
   return { stats: data, fetchSaleStats };
-}
-
-export function useFetchPackages() {
-  const [fetchPackages, { loading, data }] = useLazyQuery(FETCH_PACKAGES);
-
-  const rowCountRef = useRef(data?.packages.total ?? 0);
-
-  const rowCount = useMemo(() => {
-    const newTotal = data?.packages.total ?? undefined;
-
-    if (newTotal !== undefined) {
-      rowCountRef.current = newTotal;
-    }
-
-    return rowCountRef.current;
-  }, [data]);
-
-  return {
-    loading,
-    rowCount,
-    packages: data?.packages.packages ?? [],
-    fetchPackages,
-  };
 }
 
 export function useFetchOrderAvailablePoint() {
