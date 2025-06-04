@@ -20,11 +20,14 @@ import { useRouter } from 'src/routes/hooks';
 
 import { removeSpecialCharacters } from 'src/utils/helper';
 
+import { PlacementPosition } from 'src/__generated__/graphql';
+
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
 import SearchMiner from 'src/components/SearchMiner';
 
 import { useFetchPackages } from 'src/sections/Sales/useApollo';
+import PlacementSelector from 'src/sections/Placement/components/placementSelector';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -87,9 +90,9 @@ export default function AddMiner({ add, tabs }: Props) {
             username: removeSpecialCharacters(uname),
             state,
             country,
-            ...(user?.isTexitRanger && { sponsorId }),
-            fullName: `${firstName} ${lastName}`,
             packageId,
+            fullName: `${firstName} ${lastName}`,
+            ...(user?.isTexitRanger && { sponsorId }),
           },
         },
       });
@@ -118,6 +121,7 @@ export default function AddMiner({ add, tabs }: Props) {
     fetchPackages({
       variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -205,6 +209,16 @@ export default function AddMiner({ add, tabs }: Props) {
           {packages.map((option) => (
             <MenuItem key={option?.id} value={option?.id}>
               {`$${option?.amount} @ ${option?.productName}`}
+            </MenuItem>
+          ))}
+        </Field.Select>
+
+        <PlacementSelector />
+
+        <Field.Select name="placementPosition" label="Placement Position">
+          {Object.values(PlacementPosition).map((item) => (
+            <MenuItem key={item} value={item}>
+              {item}
             </MenuItem>
           ))}
         </Field.Select>

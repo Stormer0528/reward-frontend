@@ -1,5 +1,7 @@
 import { z as zod } from 'zod';
 
+import { PlacementPosition } from 'src/__generated__/graphql';
+
 export type SchemaType = zod.infer<typeof Schema>;
 
 export const Schema = zod.object({
@@ -17,4 +19,8 @@ export const Schema = zod.object({
   zipCode: zod.string(),
   state: zod.string(),
   note: zod.string().optional().nullable(),
+  placementParentId: zod.string().optional().nullable(),
+  placementPosition: zod
+    .enum([PlacementPosition.Left, PlacementPosition.Right, PlacementPosition.None])
+    .optional(),
 });
