@@ -18,6 +18,8 @@ import { Iconify } from 'src/components/Iconify';
 import { ScrollBar } from 'src/components/ScrollBar';
 import { AnimateBorder } from 'src/components/animate';
 
+import { ReferralLink } from 'src/sections/Profile/components/ReferralLink';
+
 import { useAuthContext } from 'src/auth/hooks';
 
 import { AccountButton } from './AccountButton';
@@ -154,6 +156,10 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
 
           {renderList()}
         </ScrollBar>
+
+        <Box sx={{ p: 2.5 }}>
+          <ReferralLink />
+        </Box>
 
         <Box sx={{ p: 2.5 }}>
           <SignOutButton onClose={onClose} />

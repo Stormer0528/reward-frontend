@@ -14,7 +14,6 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n": typeof types.GenerateReferenceLinkDocument,
     "\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      result\n      message\n    }\n  }\n": typeof types.ResetPasswordRequestDocument,
     "\n  mutation ResetPasswordByToken($data: ResetPasswordTokenInput!) {\n    resetPasswordByToken(data: $data) {\n      message\n      result\n    }\n  }\n": typeof types.ResetPasswordByTokenDocument,
     "\n  mutation ResetTokenVerify($data: TokenInput!) {\n    resetTokenVerify(data: $data) {\n      token\n    }\n  }\n": typeof types.ResetTokenVerifyDocument,
@@ -66,6 +65,7 @@ type Documents = {
     "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n": typeof types.MemberLogoutDocument,
     "\n  mutation MemberExchangeLogin($data: MemberLoginInput!) {\n    memberExchangeLogin(data: $data) {\n      status\n      accessToken\n      passwordExpired\n    }\n  }\n": typeof types.MemberExchangeLoginDocument,
     "\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      accessToken\n    }\n  }\n": typeof types.EmailVerifyCodeDocument,
+    "\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n": typeof types.GenerateReferenceLinkDocument,
     "\n  query Reward($sort: String, $page: String, $filter: JSONObject) {\n    statistics(sort: $sort, page: $page, filter: $filter) {\n      statistics {\n        id\n        to\n        from\n        status\n        issuedAt\n        txcShared\n        newBlocks\n        totalBlocks\n        totalMembers\n        totalHashPower\n        statisticsSales {\n          id\n          saleId\n          issuedAt\n        }\n        memberStatistics {\n          txcShared\n          memberStatisticsWallets {\n            id\n          }\n        }\n      }\n      total\n    }\n  }\n": typeof types.RewardDocument,
     "\n  query FetchMemberStatistics($sort: String, $page: String, $filter: JSONObject) {\n    memberStatistics(sort: $sort, page: $page, filter: $filter) {\n      memberStatistics {\n        id\n        percent\n        issuedAt\n        memberId\n        txcShared\n        hashPower\n        createdAt\n        updatedAt\n        deletedAt\n        statisticsId\n        member {\n          id\n          ID\n          email\n          state\n          point\n          mobile\n          status\n          assetId\n          username\n          fullName\n          allowState\n          teamReport\n          OTPEnabled\n          teamStrategy\n          emailVerified\n          syncWithSendy\n          isTexitRanger\n          peerAcceptable\n          primaryAddress\n          secondaryAddress\n          totalIntroducers\n          preferredContact\n          commissionDefault\n          placementPosition\n          cmnCalculatedWeeks\n          placementRequested\n          preferredContactDetail\n          commission {\n            begL\n            begR\n            newL\n            newR\n          }\n          memberWallets {\n            id\n            address\n            percent\n            memberId\n            payoutId\n            isDefault\n            payout {\n              id\n              name\n              method\n              status\n              display\n            }\n          }\n        }\n        statistics {\n          id\n          to\n          from\n          status\n          issuedAt\n          txcShared\n          newBlocks\n          totalBlocks\n          totalMembers\n          totalHashPower\n        }\n      }\n      total\n    }\n  }\n": typeof types.FetchMemberStatisticsDocument,
     "\n  mutation CreateStatistics($data: CreateStatisticsInput!) {\n    createStatistics(data: $data) {\n      id\n      newBlocks\n    }\n  }\n": typeof types.CreateStatisticsDocument,
@@ -105,7 +105,6 @@ type Documents = {
     "\n  query Sponsors($sort: String, $page: String, $filter: JSONObject) {\n    introducers(sort: $sort, page: $page, filter: $filter) {\n      introducers {\n        id\n        ID\n        point\n        username\n        fullName\n        createdAt\n      }\n      total\n    }\n  }\n": typeof types.SponsorsDocument,
 };
 const documents: Documents = {
-    "\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n": types.GenerateReferenceLinkDocument,
     "\n  mutation ResetPasswordRequest($data: EmailInput!) {\n    resetPasswordRequest(data: $data) {\n      result\n      message\n    }\n  }\n": types.ResetPasswordRequestDocument,
     "\n  mutation ResetPasswordByToken($data: ResetPasswordTokenInput!) {\n    resetPasswordByToken(data: $data) {\n      message\n      result\n    }\n  }\n": types.ResetPasswordByTokenDocument,
     "\n  mutation ResetTokenVerify($data: TokenInput!) {\n    resetTokenVerify(data: $data) {\n      token\n    }\n  }\n": types.ResetTokenVerifyDocument,
@@ -157,6 +156,7 @@ const documents: Documents = {
     "\n  mutation MemberLogout {\n    memberLogout {\n      result\n      message\n    }\n  }\n": types.MemberLogoutDocument,
     "\n  mutation MemberExchangeLogin($data: MemberLoginInput!) {\n    memberExchangeLogin(data: $data) {\n      status\n      accessToken\n      passwordExpired\n    }\n  }\n": types.MemberExchangeLoginDocument,
     "\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      accessToken\n    }\n  }\n": types.EmailVerifyCodeDocument,
+    "\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n": types.GenerateReferenceLinkDocument,
     "\n  query Reward($sort: String, $page: String, $filter: JSONObject) {\n    statistics(sort: $sort, page: $page, filter: $filter) {\n      statistics {\n        id\n        to\n        from\n        status\n        issuedAt\n        txcShared\n        newBlocks\n        totalBlocks\n        totalMembers\n        totalHashPower\n        statisticsSales {\n          id\n          saleId\n          issuedAt\n        }\n        memberStatistics {\n          txcShared\n          memberStatisticsWallets {\n            id\n          }\n        }\n      }\n      total\n    }\n  }\n": types.RewardDocument,
     "\n  query FetchMemberStatistics($sort: String, $page: String, $filter: JSONObject) {\n    memberStatistics(sort: $sort, page: $page, filter: $filter) {\n      memberStatistics {\n        id\n        percent\n        issuedAt\n        memberId\n        txcShared\n        hashPower\n        createdAt\n        updatedAt\n        deletedAt\n        statisticsId\n        member {\n          id\n          ID\n          email\n          state\n          point\n          mobile\n          status\n          assetId\n          username\n          fullName\n          allowState\n          teamReport\n          OTPEnabled\n          teamStrategy\n          emailVerified\n          syncWithSendy\n          isTexitRanger\n          peerAcceptable\n          primaryAddress\n          secondaryAddress\n          totalIntroducers\n          preferredContact\n          commissionDefault\n          placementPosition\n          cmnCalculatedWeeks\n          placementRequested\n          preferredContactDetail\n          commission {\n            begL\n            begR\n            newL\n            newR\n          }\n          memberWallets {\n            id\n            address\n            percent\n            memberId\n            payoutId\n            isDefault\n            payout {\n              id\n              name\n              method\n              status\n              display\n            }\n          }\n        }\n        statistics {\n          id\n          to\n          from\n          status\n          issuedAt\n          txcShared\n          newBlocks\n          totalBlocks\n          totalMembers\n          totalHashPower\n        }\n      }\n      total\n    }\n  }\n": types.FetchMemberStatisticsDocument,
     "\n  mutation CreateStatistics($data: CreateStatisticsInput!) {\n    createStatistics(data: $data) {\n      id\n      newBlocks\n    }\n  }\n": types.CreateStatisticsDocument,
@@ -210,10 +210,6 @@ const documents: Documents = {
  */
 export function gql(source: string): unknown;
 
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n"): (typeof documents)["\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -418,6 +414,10 @@ export function gql(source: "\n  mutation MemberExchangeLogin($data: MemberLogin
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      accessToken\n    }\n  }\n"): (typeof documents)["\n  mutation EmailVerifyCode($data: VerificationCodeInput!) {\n    emailVerifyCode(data: $data) {\n      accessToken\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n"): (typeof documents)["\n  query GenerateReferenceLink {\n    generateReferenceLink {\n      link\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
