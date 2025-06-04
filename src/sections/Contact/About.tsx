@@ -13,9 +13,9 @@ export default function About() {
             mineTXC.com was launched in April 2024 as the official, exclusive mining partner of TXC.
           </Text>
           <Text>
-            {`We're doing something that hasn't been done in a long time. It's new & different, so it
-            makes sense that you have questions. Get in contact and let us know how we can serve you
-            best.`}
+            We&apos;re doing something that hasn&apos;t been done in a long time. It&apos;s new &
+            different, so it makes sense that you have questions. Get in contact and let us know how
+            we can serve you best.
           </Text>
         </Paper>
       </CustomPaper>

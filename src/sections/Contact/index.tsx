@@ -1,6 +1,5 @@
 import About from './About';
 import Address from './Address';
-import Footer from '../Introduction/Footer';
 
 export default function Contact() {
   return (
@@ -8,8 +7,6 @@ export default function Contact() {
       <About />
 
       <Address />
-
-      <Footer />
     </>
   );
 }
