@@ -1,15 +1,13 @@
 import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router';
+import { useMemo, useState } from 'react';
 import { ApolloError } from '@apollo/client';
-import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
@@ -23,12 +21,12 @@ import { Form, Field } from 'src/components/Form';
 // TODO: Move this to section
 import SearchMiner from 'src/components/SearchMiner';
 
-import { useFetchPackages } from 'src/sections/Sales/useApollo';
+import { RHFPackageSelect } from 'src/sections/Package/RHFPackageSelect';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-import { Schema, type SchemaType } from './schema';
 import { useCreateAddMemberOrder } from '../useApollo';
+import { SponsorshipCreateSchema, type SponsorshipCreateSchemaType } from './schema';
 
 export function SponsorshipCreateView() {
   const router = useRouter();
@@ -37,9 +35,6 @@ export function SponsorshipCreateView() {
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [sponsorId, setSponsorId] = useState<string>('');
-  const [packageId, setPackageId] = useState<string>();
-
-  const location = useLocation();
 
   const defaultValues = useMemo(
     () => ({
@@ -56,8 +51,8 @@ export function SponsorshipCreateView() {
     []
   );
 
-  const methods = useForm<SchemaType>({
-    resolver: zodResolver(Schema),
+  const methods = useForm<SponsorshipCreateSchemaType>({
+    resolver: zodResolver(SponsorshipCreateSchema),
     defaultValues,
   });
 
@@ -67,17 +62,10 @@ export function SponsorshipCreateView() {
     formState: { isSubmitting },
   } = methods;
 
-  const { packages, fetchPackages } = useFetchPackages();
   const { createAddMemberOrder } = useCreateAddMemberOrder();
 
   const onSubmit = handleSubmit(async ({ firstName, lastName, uname, ...rest }) => {
     try {
-      // TODO: Package id should be included in form data...
-      if (!packageId) {
-        toast.error('PackageId is required');
-        return;
-      }
-
       const { data } = await createAddMemberOrder({
         variables: {
           data: {
@@ -87,7 +75,6 @@ export function SponsorshipCreateView() {
             country,
             ...(user?.isTexitRanger && { sponsorId }),
             fullName: `${firstName} ${lastName}`,
-            packageId,
           },
         },
       });
@@ -107,17 +94,6 @@ export function SponsorshipCreateView() {
       }
     }
   });
-
-  useEffect(() => {
-    fetchPackages({
-      variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handlePackageChange = (value: string) => {
-    setPackageId(value);
-  };
 
   const renderForm = (
     <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
@@ -182,21 +158,14 @@ export function SponsorshipCreateView() {
 
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Stack width={1}>
-          <Field.Select
+          <RHFPackageSelect
             name="packageId"
             label="Package"
+            filter={{ enrollVisibility: true }}
             fullWidth
-            value={location.state?.packageId ?? packageId}
-            onChange={(event) => handlePackageChange(event.target.value)}
             required
             slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
-          >
-            {packages.map((option) => (
-              <MenuItem key={option?.id} value={option?.id}>
-                {`$${option?.amount} @ ${option?.productName}`}
-              </MenuItem>
-            ))}
-          </Field.Select>
+          />
         </Stack>
 
         <Stack direction="row" width={1} spacing={2}>
