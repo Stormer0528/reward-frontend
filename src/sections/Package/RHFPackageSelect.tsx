@@ -27,8 +27,8 @@ export function RHFPackageSelectWithoutLoading({
   return (
     <RHFSelect {...selectProps}>
       {packages.map((option) => (
-        <MenuItem key={option?.id} value={option?.id}>
-          {`$${option?.amount} @ ${option?.productName}`}
+        <MenuItem key={option.id} value={option.token}>
+          {`$${option.amount} @ ${option.productName}`}
         </MenuItem>
       ))}
     </RHFSelect>
