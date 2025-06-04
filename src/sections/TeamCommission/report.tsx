@@ -67,7 +67,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.begL}, R${data?.begR}`,
       },
@@ -77,7 +77,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.newL}, R${data?.newR}`,
       },
@@ -87,7 +87,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.maxL}, R${data?.maxR}`,
       },
@@ -97,7 +97,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.pkgL}, R${data?.pkgR}`,
       },
@@ -107,7 +107,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.endL}, R${data?.endR}`,
       },
@@ -118,7 +118,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
       },
       {
         field: 'shortNote',
@@ -127,7 +127,7 @@ export default function Report({ teamReport }: Props) {
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
       },
     ],
 

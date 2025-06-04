@@ -49,7 +49,7 @@ export default function InvoiceListView() {
         width: 100,
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<Invoice>) =>
           data?.ID.toString().padStart(6, '0'),
       },
@@ -77,7 +77,7 @@ export default function InvoiceListView() {
         width: 150,
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<Invoice>) =>
           (data?.amountInCents ?? 0) / 100,
       },

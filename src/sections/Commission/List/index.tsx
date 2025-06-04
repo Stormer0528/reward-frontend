@@ -45,7 +45,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         initialSort: 'desc',
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
       },
       {
         field: 'weekStartDate',
@@ -69,7 +69,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.begL}, R${data?.begR}`,
       },
@@ -79,7 +79,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.newL}, R${data?.begR}`,
       },
@@ -89,7 +89,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.maxL}, R${data?.maxR}`,
       },
@@ -99,7 +99,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.pkgL}, R${data?.pkgR}`,
       },
@@ -109,7 +109,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.endL}, R${data?.endR}`,
       },
@@ -120,7 +120,7 @@ export default function Commission({ me }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell ag-cell-center',
+        cellClass: 'tabular-nums ag-cell-center',
       },
       {
         field: 'status',

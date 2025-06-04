@@ -45,7 +45,7 @@ export default function Contact() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
       },
       {
         field: 'fullName',
@@ -63,7 +63,7 @@ export default function Contact() {
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'ag-number-cell',
+        cellClass: 'tabular-nums',
       },
       {
         field: 'createdAt',

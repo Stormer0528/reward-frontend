@@ -62,7 +62,7 @@ export default function Latest() {
                     <Tooltip title="New Blocks" arrow placement="top">
                       <Iconify icon="clarity:block-line" width={18} />
                     </Tooltip>
-                    <Typography variant="body1" className="ag-number-cell">
+                    <Typography variant="body1" className="tabular-nums">
                       {item.newBlocks}
                     </Typography>
                   </Stack>
@@ -70,7 +70,7 @@ export default function Latest() {
                     <Tooltip title="Total Miners" arrow placement="top">
                       <Iconify icon="stash:user-group" width={18} />
                     </Tooltip>
-                    <Typography variant="body1" className="ag-number-cell">
+                    <Typography variant="body1" className="tabular-nums">
                       {item.totalMembers}
                     </Typography>
                   </Stack>
@@ -81,7 +81,7 @@ export default function Latest() {
                         sx={{ width: 15, height: 15 }}
                       />
                     </Tooltip>
-                    <Typography variant="body1" className="ag-number-cell">
+                    <Typography variant="body1" className="tabular-nums">
                       {Math.ceil(item.txcShared)}
                     </Typography>
                   </Stack>
@@ -89,7 +89,7 @@ export default function Latest() {
                     <Tooltip title="Issued At" arrow placement="top">
                       <Iconify icon="stash:data-date-duotone" width={18} />
                     </Tooltip>
-                    <Typography variant="body1" className="ag-number-cell">
+                    <Typography variant="body1" className="tabular-nums">
                       {formatDate(item.issuedAt)}
                     </Typography>
                   </Stack>

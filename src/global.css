@@ -68,16 +68,16 @@ input[type='number']::-webkit-inner-spin-button {
   display: none !important;
 }
 
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+}
+
 /** **************************************
 * AG-Grid
 *************************************** */
 .ag-react-container {
   height: 100%;
-}
-
-.ag-number-cell {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -1px;
 }
 
 .ag-center-cell {
@@ -100,7 +100,6 @@ input[type='number']::-webkit-inner-spin-button {
   line-height: 1;
   align-items: center;
 }
-
 
 .ag-cell-center {
   padding-top: 7px;
