@@ -83,6 +83,7 @@ export default function AddMiner() {
             state,
             country,
             packageId,
+            placementParentId: rest.placementParentId ?? location?.state?.placementParentId ?? '',
             fullName: `${firstName} ${lastName}`,
             ...(user?.isTexitRanger && { sponsorId }),
           },
@@ -203,7 +204,7 @@ export default function AddMiner() {
           ))}
         </Field.Select>
 
-        <PlacementSelector />
+        <PlacementSelector current={location?.state?.placementParentId} />
 
         <Field.Select name="placementPosition" label="Placement Position">
           {Object.values(PlacementPosition).map((item) => (

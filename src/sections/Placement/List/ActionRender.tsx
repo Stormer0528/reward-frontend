@@ -1,8 +1,10 @@
 import type { UsePopoverReturn } from 'src/components/custom-popover';
 
+import { useNavigate } from 'react-router';
+
 import MenuItem from '@mui/material/MenuItem';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { paths } from 'src/routes/paths';
 
 import { Iconify } from 'src/components/Iconify';
 import { CustomPopover } from 'src/components/custom-popover';
@@ -15,7 +17,7 @@ interface Props {
 }
 
 export default function ActionRender({ id, popover, expandAll, collapseAll }: Props) {
-  const open = useBoolean();
+  const navigate = useNavigate();
 
   return (
     <CustomPopover
@@ -42,7 +44,13 @@ export default function ActionRender({ id, popover, expandAll, collapseAll }: Pr
         <Iconify icon="fluent:arrow-collapse-all-16-filled" />
         Collapse All
       </MenuItem>
-      <MenuItem onClick={open.onTrue}>
+      <MenuItem
+        onClick={() =>
+          navigate(`${paths.dashboard.sponsor.root}/new`, {
+            state: { placementParentId: id },
+          })
+        }
+      >
         <Iconify icon="gridicons:user-add" />
         Add Miner
       </MenuItem>
