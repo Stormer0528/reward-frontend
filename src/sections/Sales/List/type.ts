@@ -1,6 +1,6 @@
 import type { Proof } from 'src/sections/Proof/type';
 import type { Member } from 'src/sections/Profile/type';
-import type { Package } from 'src/sections/Products/type';
+import type { Package } from 'src/sections/Package/type';
 import type { StatisticsSale } from 'src/sections/Statistics/type';
 
 export type Sale = {
