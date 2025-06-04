@@ -80,9 +80,9 @@ export function useFetchRevenue() {
 }
 
 export function useFetchLatestReward() {
-  const [fetchReward, { loading, data }] = useLazyQuery(FETCH_LATEST_REWARD);
+  const { loading, data } = useQuery(FETCH_LATEST_REWARD);
 
-  return { loading, latest: data?.latestStatistics ?? [], fetchReward };
+  return { loading, latest: data?.latestStatistics ?? [] };
 }
 
 export function useFetchTXCShares(type: string) {

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -21,12 +19,7 @@ import { ScrollBar } from 'src/components/ScrollBar';
 import { useFetchLatestReward } from '../useApollo';
 
 export default function Latest() {
-  const { loading, latest, fetchReward } = useFetchLatestReward();
-
-  useEffect(() => {
-    fetchReward();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { loading, latest } = useFetchLatestReward();
 
   return (
     <Card sx={{ mt: 2 }}>
@@ -69,13 +62,17 @@ export default function Latest() {
                     <Tooltip title="New Blocks" arrow placement="top">
                       <Iconify icon="clarity:block-line" width={18} />
                     </Tooltip>
-                    <Typography variant="body1">{item.newBlocks}</Typography>
+                    <Typography variant="body1" className="ag-number-cell">
+                      {item.newBlocks}
+                    </Typography>
                   </Stack>
                   <Stack width={0.3} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
                     <Tooltip title="Total Miners" arrow placement="top">
                       <Iconify icon="stash:user-group" width={18} />
                     </Tooltip>
-                    <Typography variant="body1">{item.totalMembers}</Typography>
+                    <Typography variant="body1" className="ag-number-cell">
+                      {item.totalMembers}
+                    </Typography>
                   </Stack>
                   <Stack width={0.5} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
                     <Tooltip title="TXC Shared" arrow placement="top">
@@ -84,13 +81,17 @@ export default function Latest() {
                         sx={{ width: 15, height: 15 }}
                       />
                     </Tooltip>
-                    <Typography variant="body1">{item.txcShared}</Typography>
+                    <Typography variant="body1" className="ag-number-cell">
+                      {Math.ceil(item.txcShared)}
+                    </Typography>
                   </Stack>
                   <Stack width={0.3} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
                     <Tooltip title="Issued At" arrow placement="top">
                       <Iconify icon="stash:data-date-duotone" width={18} />
                     </Tooltip>
-                    <Typography variant="body1">{formatDate(item.issuedAt)}</Typography>
+                    <Typography variant="body1" className="ag-number-cell">
+                      {formatDate(item.issuedAt)}
+                    </Typography>
                   </Stack>
                 </Stack>
               ))}
