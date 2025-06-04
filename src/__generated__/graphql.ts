@@ -493,11 +493,6 @@ export enum ConfirmationStatus {
   Preview = 'PREVIEW'
 }
 
-export type CountResponse = {
-  __typename?: 'CountResponse';
-  count: Scalars['Float']['output'];
-};
-
 export type CreateAddMemberOrderInput = {
   assetId?: InputMaybe<Scalars['String']['input']>;
   city?: InputMaybe<Scalars['String']['input']>;
@@ -507,6 +502,8 @@ export type CreateAddMemberOrderInput = {
   mobile: Scalars['String']['input'];
   note?: InputMaybe<Scalars['String']['input']>;
   packageId: Scalars['String']['input'];
+  placementParentId?: InputMaybe<Scalars['String']['input']>;
+  placementPosition?: InputMaybe<PlacementPosition>;
   primaryAddress: Scalars['String']['input'];
   secondaryAddress?: InputMaybe<Scalars['String']['input']>;
   sponsorId?: InputMaybe<Scalars['String']['input']>;
@@ -1342,7 +1339,6 @@ export type Mutation = {
   removeAdminNote: SuccessResponse;
   removeAutoCampaign: AutoCampaign;
   removeCampaignSchedule: ScheduleCampaign;
-  removeCompleteMemberPlacement: SuccessResponse;
   removeEmail: Email;
   removeGroupSetting: GroupSetting;
   removeInvoice: Invoice;
@@ -1706,11 +1702,6 @@ export type MutationRemoveAutoCampaignArgs = {
 
 
 export type MutationRemoveCampaignScheduleArgs = {
-  data: IdInput;
-};
-
-
-export type MutationRemoveCompleteMemberPlacementArgs = {
   data: IdInput;
 };
 
@@ -2228,6 +2219,7 @@ export type PlacementMember = {
   id: Scalars['ID']['output'];
   placementParentId: Scalars['ID']['output'];
   placementPosition: PlacementPosition;
+  placementStatus: PlacementStatus;
   teamStrategy: TeamStrategy;
   username: Scalars['String']['output'];
 };
@@ -2238,11 +2230,11 @@ export enum PlacementPosition {
   Right = 'RIGHT'
 }
 
-export type PlacementPositionCountResponse = {
-  __typename?: 'PlacementPositionCountResponse';
-  leftCount: Scalars['Float']['output'];
-  rightCount: Scalars['Float']['output'];
-};
+export enum PlacementStatus {
+  Hidden = 'HIDDEN',
+  Temp = 'TEMP',
+  Visible = 'VISIBLE'
+}
 
 export type ProfitabilityCalculationInput = {
   init: Scalars['Int']['input'];
@@ -2352,9 +2344,6 @@ export type Query = {
   commissionByMemberIDAndWeek: WeeklyCommission;
   commissionByPeriod: Array<CommissionPeriodResponse>;
   commissionsByWeek: CommissionOverviewResponse;
-  countBelowMembers: PlacementPositionCountResponse;
-  countLeftMembers: CountResponse;
-  countRightMembers: CountResponse;
   dailyRewards: DailyRewards;
   emailById: Email;
   emailTemplateById: EmailTemplate;
@@ -2538,21 +2527,6 @@ export type QueryCommissionsByWeekArgs = {
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
   weekStartDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
-};
-
-
-export type QueryCountBelowMembersArgs = {
-  data: IdInput;
-};
-
-
-export type QueryCountLeftMembersArgs = {
-  data: IdInput;
-};
-
-
-export type QueryCountRightMembersArgs = {
-  data: IdInput;
 };
 
 
@@ -3401,6 +3375,7 @@ export type UpdateMemberInput = {
   placementParentId?: InputMaybe<Scalars['ID']['input']>;
   placementPosition?: InputMaybe<PlacementPosition>;
   placementRequested?: InputMaybe<Scalars['Boolean']['input']>;
+  placementStatus?: InputMaybe<PlacementStatus>;
   preferredContact?: InputMaybe<Scalars['String']['input']>;
   preferredContactDetail?: InputMaybe<Scalars['String']['input']>;
   primaryAddress?: InputMaybe<Scalars['String']['input']>;
@@ -3564,6 +3539,7 @@ export type WeekPlacementMember = {
   pkgR: Scalars['Int']['output'];
   placementParentId: Scalars['ID']['output'];
   placementPosition: PlacementPosition;
+  placementStatus: PlacementStatus;
   username: Scalars['String']['output'];
 };
 
@@ -3883,7 +3859,7 @@ export type FetchPlacementMembersQuery = { __typename?: 'Query', sponsorMembers:
 export type PlacementMembersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlacementMembersQuery = { __typename?: 'Query', placementMembers: Array<{ __typename?: 'PlacementMember', id: string, username: string, fullName: string, createdAt: any, teamStrategy: TeamStrategy, placementPosition: PlacementPosition, placementParentId: string, cmnCalculatedWeeks: number, commission: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } }> };
+export type PlacementMembersQuery = { __typename?: 'Query', placementMembers: Array<{ __typename?: 'PlacementMember', id: string, username: string, fullName: string, createdAt: any, teamStrategy: TeamStrategy, placementStatus: PlacementStatus, placementPosition: PlacementPosition, placementParentId: string, cmnCalculatedWeeks: number, commission: { __typename?: 'CommissionStatus', begL: number, begR: number, newL: number, newR: number } }> };
 
 export type UpdateMemberMutationVariables = Exact<{
   data: UpdateMemberInput;
@@ -4334,7 +4310,7 @@ export const FetchMeDocument = {"kind":"Document","definitions":[{"kind":"Operat
 export const FetchMemberStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchMemberStats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inactiveFilter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"all"},"name":{"kind":"Name","value":"members"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"inactive"},"name":{"kind":"Name","value":"members"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inactiveFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<FetchMemberStatsQuery, FetchMemberStatsQueryVariables>;
 export const SearchMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchMembers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchMembers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"members"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}}]}}]}}]}}]} as unknown as DocumentNode<SearchMembersQuery, SearchMembersQueryVariables>;
 export const FetchPlacementMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"FetchPlacementMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sponsorMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"sponsorId"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<FetchPlacementMembersQuery, FetchPlacementMembersQueryVariables>;
-export const PlacementMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PlacementMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"placementMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"placementParentId"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}},{"kind":"Field","name":{"kind":"Name","value":"commission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}}]}}]}}]}}]} as unknown as DocumentNode<PlacementMembersQuery, PlacementMembersQueryVariables>;
+export const PlacementMembersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PlacementMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"placementMembers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"teamStrategy"}},{"kind":"Field","name":{"kind":"Name","value":"placementStatus"}},{"kind":"Field","name":{"kind":"Name","value":"placementPosition"}},{"kind":"Field","name":{"kind":"Name","value":"placementParentId"}},{"kind":"Field","name":{"kind":"Name","value":"cmnCalculatedWeeks"}},{"kind":"Field","name":{"kind":"Name","value":"commission"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"begL"}},{"kind":"Field","name":{"kind":"Name","value":"begR"}},{"kind":"Field","name":{"kind":"Name","value":"newL"}},{"kind":"Field","name":{"kind":"Name","value":"newR"}}]}}]}}]}}]} as unknown as DocumentNode<PlacementMembersQuery, PlacementMembersQueryVariables>;
 export const UpdateMemberDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateMember"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateMemberInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateMember"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mobile"}},{"kind":"Field","name":{"kind":"Name","value":"primaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"secondaryAddress"}},{"kind":"Field","name":{"kind":"Name","value":"memberWallets"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}},{"kind":"Field","name":{"kind":"Name","value":"memberId"}},{"kind":"Field","name":{"kind":"Name","value":"payoutId"}},{"kind":"Field","name":{"kind":"Name","value":"payout"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"method"}},{"kind":"Field","name":{"kind":"Name","value":"display"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"assetId"}}]}}]}}]} as unknown as DocumentNode<UpdateMemberMutation, UpdateMemberMutationVariables>;
 export const MemberOverviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MemberOverview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"IDInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberOverview"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"point"}},{"kind":"Field","name":{"kind":"Name","value":"joinDate"}},{"kind":"Field","name":{"kind":"Name","value":"totalTXCShared"}},{"kind":"Field","name":{"kind":"Name","value":"currentHashPower"}},{"kind":"Field","name":{"kind":"Name","value":"orderedAvailablePoint"}},{"kind":"Field","name":{"kind":"Name","value":"cashCommissionPotential"}}]}}]}}]} as unknown as DocumentNode<MemberOverviewQuery, MemberOverviewQueryVariables>;
 export const MemberStatisticsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MemberStatistics"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filter"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"JSONObject"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberStatistics"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"memberStatistics"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"issuedAt"}},{"kind":"Field","name":{"kind":"Name","value":"hashPower"}},{"kind":"Field","name":{"kind":"Name","value":"txcShared"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<MemberStatisticsQuery, MemberStatisticsQueryVariables>;
