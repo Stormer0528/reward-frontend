@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { ApolloError } from '@apollo/client';
 import { states, type State } from 'states-us';
+import { useEffect, useCallback } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -29,9 +29,9 @@ import { useAuthContext } from 'src/auth/hooks';
 
 import Calculator from './Calculator';
 import { Schema, type SchemaType } from './schema';
-import { useFetchPackages } from '../Sales/useApollo';
 import { useFetchPayments } from '../Payment/useApollo';
 import { useCreateSignUpOrder } from '../Order/useApollo';
+import { RHFPackageSelect } from '../Package/RHFPackageSelect';
 import { useSignUp, useSendEmailVerificationLink } from './useApollo';
 
 // ----------------------------------------------------------------------
@@ -40,8 +40,6 @@ export function SignUpView() {
   const router = useRouter();
   const location = useLocation();
   const calculator = useBoolean();
-
-  const [packageId, setPackageId] = useState<string>();
 
   const referralID = new URLSearchParams(location.search).get('sponsor');
   const localStorageReferralID = localStorage.getItem('payout_reference');
@@ -76,7 +74,6 @@ export function SignUpView() {
   const { payments } = useFetchPayments();
   const { user, signOut } = useAuthContext();
   const { createSignUpOrder } = useCreateSignUpOrder();
-  const { packages, fetchPackages } = useFetchPackages();
   const { sendVerificationLink } = useSendEmailVerificationLink();
 
   const handleSignOut = useCallback(async () => {
@@ -96,11 +93,6 @@ export function SignUpView() {
 
         localStorage.setItem('payout_reference', refID || sponsorUserId!);
 
-        if (!packageId) {
-          toast.error('PackageId is required');
-          return;
-        }
-
         const { data } = await submitSignUp({
           variables: {
             data: {
@@ -108,7 +100,6 @@ export function SignUpView() {
               username: removeSpecialCharacters(uname),
               fullName: `${firstName} ${lastName}`,
               sponsorUserId,
-              packageId,
             },
           },
         });
@@ -120,7 +111,7 @@ export function SignUpView() {
 
           if (rest.paymentMethod === 'Crypto') {
             const { data: order } = await createSignUpOrder({
-              variables: { data: { memberId: data.signUpMember.id, packageId } },
+              variables: { data: { memberId: data.signUpMember.id, packageId: rest.packageId } },
             });
 
             if (order) {
@@ -147,16 +138,8 @@ export function SignUpView() {
   );
 
   useEffect(() => {
-    fetchPackages({
-      variables: { filter: { status: true, enrollVisibility: true }, sort: '-amount' },
-    });
-
     localStorage.setItem('payout_reference', refID);
-  }, [fetchPackages, refID]);
-
-  const handlePackageChange = (value: string) => {
-    setPackageId(value);
-  };
+  }, [refID]);
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 5, outline: 'none' }} id="sign-up" tabIndex={-1}>
@@ -168,31 +151,17 @@ export function SignUpView() {
 
   const renderForm = (
     <Stack spacing={3}>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+      <Box display="grid" gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr' }} gap={2}>
         <Field.Text name="firstName" label="First Name" required />
         <Field.Text name="lastName" label="Last Name" required />
-      </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="email" label="Email Address" required />
         <Field.Phone name="mobile" label="Phone" />
-      </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
         <Field.Text name="primaryAddress" label="Address" />
         <Field.Text name="secondaryAddress" label="Address 2" />
-      </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Autocomplete
-          name="country"
-          label="Country"
-          defaultValue="United States of America"
-          freeSolo
-          fullWidth
-          options={countries.getNames()}
-          getOptionLabel={(option) => option}
-        />
+        <Field.Text name="city" label="City" />
 
         <Field.Autocomplete
           name="state"
@@ -203,30 +172,31 @@ export function SignUpView() {
           getOptionLabel={(option: any) => option}
           isOptionEqualToValue={(option, value) => option === value}
         />
-      </Stack>
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="city" label="City" />
+        <Field.Autocomplete
+          name="country"
+          label="Country"
+          defaultValue="United States of America"
+          freeSolo
+          fullWidth
+          options={countries.getNames()}
+          getOptionLabel={(option) => option}
+        />
 
         <Field.Text name="zipCode" label="Zip Code" />
-      </Stack>
+      </Box>
 
       <Stack direction="row" spacing={2} alignItems="center">
-        <Field.Select
+        <RHFPackageSelect
           name="packageId"
           label="Package"
+          filter={{ status: true, enrollVisibility: true }}
+          sort="-amount"
+          required
           fullWidth
           slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
-          value={location.state?.packageId ?? packageId}
-          onChange={(event) => handlePackageChange(event.target.value)}
-          required
-        >
-          {packages.map((option) => (
-            <MenuItem key={option?.id} value={option?.id}>
-              {`$${option?.amount} @ ${option?.productName}`}
-            </MenuItem>
-          ))}
-        </Field.Select>
+        />
+
         <IconButton onClick={calculator.onTrue}>
           <Iconify icon="solar:calculator-linear" width={24} height={24} />
         </IconButton>

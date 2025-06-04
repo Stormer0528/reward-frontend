@@ -15,6 +15,7 @@ export const Schema = zod
     sponsorUserId: zod.string().optional(),
     secondaryAddress: zod.string().optional(),
     uname: zod.string({ required_error: 'Username is required' }),
+    packageId: zod.string({ required_error: 'Package is required' }),
     lastName: zod.string({ required_error: 'Last Name is required' }),
     firstName: zod.string({ required_error: 'First Name is required' }),
     paymentMethod: zod.string({ required_error: 'Payment Method is required' }),
