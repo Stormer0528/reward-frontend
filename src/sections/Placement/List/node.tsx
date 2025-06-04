@@ -1,25 +1,25 @@
-import type { PlacementMember } from 'src/__generated__/graphql';
-
 import { useContext } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
 import { formatDate } from 'src/utils/format-time';
 import { customizeFullName } from 'src/utils/helper';
 
+import { PlacementStatus, type PlacementMember } from 'src/__generated__/graphql';
+
 import { Label } from 'src/components/Label';
 import { Iconify } from 'src/components/Iconify';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
+import { usePopover } from 'src/components/custom-popover';
 
 import NodeContext from './nodeContext';
+import ActionRender from './ActionRender';
 
 export function StandardNode({
-  data: { id, placementPosition, username, fullName, commission, createdAt },
+  data: { id, placementStatus, placementPosition, username, fullName, commission, createdAt },
 }: NodeProps & { data: PlacementMember }) {
   const popover = usePopover();
 
@@ -38,6 +38,9 @@ export function StandardNode({
           position: 'relative',
           display: 'inline-flex',
           flexDirection: 'column',
+          ...(placementStatus === PlacementStatus.Temp && {
+            border: (theme) => `1px solid ${theme.palette.error.main}`,
+          }),
         }}
       >
         <IconButton
@@ -116,31 +119,7 @@ export function StandardNode({
         </Stack>
       </Card>
 
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'left-center' } }}
-      >
-        <MenuItem
-          onClick={() => {
-            if (expandAll) expandAll(id);
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="fluent:arrow-expand-all-16-filled" />
-          Expand All
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            if (collapseAll) collapseAll(id);
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="fluent:arrow-collapse-all-16-filled" />
-          Collapse All
-        </MenuItem>
-      </CustomPopover>
+      <ActionRender id={id} expandAll={expandAll} collapseAll={collapseAll} popover={popover} />
     </>
   );
 }
