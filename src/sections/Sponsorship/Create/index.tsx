@@ -17,12 +17,15 @@ import { useRouter } from 'src/routes/hooks';
 
 import { removeSpecialCharacters } from 'src/utils/helper';
 
+import { PlacementPosition } from 'src/__generated__/graphql';
+
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
 // TODO: Move this to section
 import SearchMiner from 'src/components/SearchMiner';
 
 import { useFetchPackages } from 'src/sections/Package/useApollo';
+import PlacementSelector from 'src/sections/Placement/components/placementSelector';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -81,8 +84,9 @@ export function SponsorshipCreateView() {
             username: removeSpecialCharacters(uname),
             state,
             country,
-            ...(user?.isTexitRanger && { sponsorId }),
+            // packageId,
             fullName: `${firstName} ${lastName}`,
+            ...(user?.isTexitRanger && { sponsorId }),
           },
         },
       });
@@ -181,6 +185,16 @@ export function SponsorshipCreateView() {
           {packages.map((option) => (
             <MenuItem key={option?.id} value={option?.id}>
               {`$${option?.amount} @ ${option?.productName}`}
+            </MenuItem>
+          ))}
+        </Field.Select>
+
+        <PlacementSelector />
+
+        <Field.Select name="placementPosition" label="Placement Position">
+          {Object.values(PlacementPosition).map((item) => (
+            <MenuItem key={item} value={item}>
+              {item}
             </MenuItem>
           ))}
         </Field.Select>

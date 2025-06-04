@@ -1,5 +1,7 @@
 import { z as zod } from 'zod';
 
+import { PlacementPosition } from 'src/__generated__/graphql';
+
 export type SponsorshipCreateSchemaType = zod.infer<typeof SponsorshipCreateSchema>;
 
 export const SponsorshipCreateSchema = zod.object({
@@ -18,4 +20,8 @@ export const SponsorshipCreateSchema = zod.object({
   zipCode: zod.string(),
   state: zod.string(),
   note: zod.string().optional().nullable(),
+  placementParentId: zod.string().optional().nullable(),
+  placementPosition: zod
+    .enum([PlacementPosition.Left, PlacementPosition.Right, PlacementPosition.None])
+    .optional(),
 });
