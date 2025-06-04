@@ -13,6 +13,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/useBoolean';
@@ -47,6 +48,7 @@ export const SignInSchema = zod.object({
 // ----------------------------------------------------------------------
 
 export function SignInView() {
+  const router = useRouter();
   const navigate = useNavigate();
   const { signIn } = useAuthContext();
   const { submitLogin } = useApollo();
@@ -66,28 +68,24 @@ export function SignInView() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      const response = await submitLogin({ variables: { data } });
-      const token = response.data?.memberLogin.accessToken ?? '';
+  const handleClick = () => {
+    router.push(`${paths.pages.intro.root}#sign-up`);
 
-      if (response.data?.memberLogin.passwordExpired) {
-        toast.warning('Your Password Token has expired. Please reset your password');
+    const maxAttempts = 20;
+    let attempts = 0;
 
-        setTimeout(() => {
-          navigate(paths.auth.updatePassword, { state: { token } });
-        }, 2000);
-      } else if (response.data?.memberLogin.status === 'success') {
-        signIn(token);
-      } else {
-        localStorage.setItem(CONFIG.storageTokenKey, token);
-        open.onTrue();
+    const scrollToSignUp = () => {
+      const el = document.getElementById('sign-up');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else if (attempts < maxAttempts) {
+        attempts += 1;
+        setTimeout(scrollToSignUp, 100);
       }
-    } catch (error) {
-      console.error(error);
-      setErrorMsg(error instanceof Error ? error.message : error);
-    }
-  });
+    };
+
+    scrollToSignUp();
+  };
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 5 }}>
@@ -99,11 +97,7 @@ export function SignInView() {
         </Typography>
 
         <Stack direction="row" columnGap={2}>
-          <Link
-            component={RouterLink}
-            href={`${paths.pages.intro.root}#sign-up`}
-            variant="subtitle2"
-          >
+          <Link sx={{ cursor: 'pointer' }} variant="subtitle2" onClick={handleClick}>
             Join Now
           </Link>
 
@@ -166,6 +160,29 @@ export function SignInView() {
       </LoadingButton>
     </Stack>
   );
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const response = await submitLogin({ variables: { data } });
+      const token = response.data?.memberLogin.accessToken ?? '';
+
+      if (response.data?.memberLogin.passwordExpired) {
+        toast.warning('Your Password Token has expired. Please reset your password');
+
+        setTimeout(() => {
+          navigate(paths.auth.updatePassword, { state: { token } });
+        }, 2000);
+      } else if (response.data?.memberLogin.status === 'success') {
+        signIn(token);
+      } else {
+        localStorage.setItem(CONFIG.storageTokenKey, token);
+        open.onTrue();
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMsg(error instanceof Error ? error.message : error);
+    }
+  });
 
   return (
     <>

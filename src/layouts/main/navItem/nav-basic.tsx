@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 
@@ -12,6 +13,8 @@ import { HELP_MINETXC } from 'src/consts';
 import { Iconify } from 'src/components/Iconify';
 import DarkLogo from 'src/components/logo/dark-logo';
 import { NavBasicMobile, NavBasicDesktop } from 'src/components/NavBasic';
+
+import { JoinNowButton } from 'src/sections/Introduction/components/JoinNowButton';
 
 // ----------------------------------------------------------------------
 
@@ -50,11 +53,6 @@ export function NavBasic() {
       title: 'Help',
       path: HELP_MINETXC,
     },
-    {
-      title: 'JOIN NOW!',
-      path: `${paths.pages.intro.root}#sign-up`,
-      isJoin: true,
-    },
   ];
 
   return (
@@ -76,35 +74,39 @@ export function NavBasic() {
 
       <DarkLogo sx={{ width: { xs: 40, md: 70 }, height: { xs: 40, md: 70 } }} />
 
-      <NavBasicDesktop
-        data={NAV_ITEMS}
-        cssVars={{
-          '--nav-item-gap': '50px',
-        }}
-        slotProps={{
-          rootItem: {
-            sx: {},
-            icon: {},
-            texts: {},
-            title: {
-              // typography: 'subtitle1',
-              // fontFamily: (theme) => theme.typography.fontSecondaryFamily,
+      <Stack direction="row" alignItems="center" spacing={6}>
+        <NavBasicDesktop
+          data={NAV_ITEMS}
+          cssVars={{
+            '--nav-item-gap': '50px',
+          }}
+          slotProps={{
+            rootItem: {
+              sx: {},
+              icon: {},
+              texts: {},
+              title: {
+                // typography: 'subtitle1',
+                // fontFamily: (theme) => theme.typography.fontSecondaryFamily,
+              },
+              caption: {},
+              arrow: {},
             },
-            caption: {},
-            arrow: {},
-          },
-          subItem: {
-            sx: {},
-            icon: {},
-            texts: {},
-            title: {},
-            caption: {},
-            arrow: {},
-          },
-          paper: {},
-        }}
-        sx={{ display: { xs: 'none', sm: 'block' } }}
-      />
+            subItem: {
+              sx: {},
+              icon: {},
+              texts: {},
+              title: {},
+              caption: {},
+              arrow: {},
+            },
+            paper: {},
+          }}
+          sx={{ display: { xs: 'none', sm: 'block' } }}
+        />
+
+        <JoinNowButton />
+      </Stack>
 
       <Drawer
         open={mobileOpen.value}

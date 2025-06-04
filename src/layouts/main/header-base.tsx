@@ -11,6 +11,8 @@ import { STORAGE_TOKEN_KEY } from 'src/consts';
 
 import DarkLogo from 'src/components/logo/dark-logo';
 
+import { JoinNowButton } from 'src/sections/Introduction/components/JoinNowButton';
+
 import { HeaderSection } from './header-section';
 import { _account } from '../config-nav-account';
 import { MenuButton } from '../components/menu-button';
@@ -117,16 +119,17 @@ export function HeaderBase({
                     >
                       Sign In
                     </LoadingButton>
-                    <LoadingButton
+                    <JoinNowButton
                       color="inherit"
-                      size="medium"
-                      type="submit"
-                      onClick={() => router.push(`${paths.pages.intro.root}#sign-up`)}
-                      variant="contained"
-                      data-slot="login"
-                    >
-                      Join Now
-                    </LoadingButton>
+                      sx={{
+                        bgcolor: (themeConfig) => themeConfig.palette.grey[800],
+                        fontWeight: 700,
+                        px: 2,
+                        py: 0.9,
+                        borderRadius: 1,
+                        mt: 0,
+                      }}
+                    />
                   </>
                 )
               )}

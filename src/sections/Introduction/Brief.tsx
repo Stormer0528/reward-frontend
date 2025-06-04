@@ -1,21 +1,17 @@
 import styled from 'styled-components';
 
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
-
 import { CONFIG } from 'src/config';
 
 import { Image } from 'src/components/Image';
 
-export default function Brief() {
-  const router = useRouter();
+import { JoinNowButton } from './components/JoinNowButton';
 
+export default function Brief() {
   return (
     <Container>
       <Content container sx={{ mt: '50px' }} alignItems="center">
@@ -33,13 +29,7 @@ export default function Brief() {
           TEXITcoin network, and play an active role in the success of $TXC.`}
           </Typography>
 
-          <JoinButton
-            color="secondary"
-            variant="contained"
-            onClick={() => router.push(`${paths.pages.intro.root}#sign-up`)}
-          >
-            Join Now
-          </JoinButton>
+          <JoinNowButton sx={{ m: '30px 0 20px' }} />
         </Grid>
         <Grid xs={12} md={6} display="flex" justifyContent="flex-end">
           <Image src={`${CONFIG.site.basePath}/assets/images/texitcoin-key.png`} />
@@ -64,15 +54,4 @@ const Line = styled(Divider)`
   width: 20%;
   margin: 20px 0px;
   border: 1.2px solid #000000;
-`;
-
-const JoinButton = styled(Button)`
-  color: #ffffff;
-  background-color: #262262;
-  padding: 10px 30px;
-  border-radius: 25px;
-  font-weight: 600;
-  box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-  font-family: sans-serif;
-  margin: 30px 0px 20px;
 `;
