@@ -376,3 +376,12 @@ export const VERIFY_EMAIL_CODE = gql(/* GraphQL */ `
     }
   }
 `);
+
+
+export const GENERATE_REFERENCE_LINK = gql(/* GraphQL */ `
+  query GenerateReferenceLink {
+    generateReferenceLink {
+      link
+    }
+  }
+`);

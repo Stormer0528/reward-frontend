@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
+import { useQuery, useMutation, useLazyQuery, useSuspenseQuery } from '@apollo/client';
 
 import {
   DISABLE_2FA,
@@ -15,6 +15,7 @@ import {
   MEMBER_EXCHANGE_LOGIN,
   UPDATE_MEMBER_PASSWORD,
   FETCH_PLACEMENT_MEMBERS,
+  GENERATE_REFERENCE_LINK,
   FETCH_MEMBER_STATS_QUERY,
   FETCH_MEMBER_SEARCH_QUERY,
   FETCH_PLACEMENT_MEMBERS_O_QUERY,
@@ -52,7 +53,7 @@ export function useFetchPlacementMembers() {
     called,
     loading,
     members: data?.sponsorMembers ?? [],
-    refetch
+    refetch,
   };
 }
 
@@ -154,4 +155,9 @@ export function useEmailVerifyCode() {
   const [emailVerifyCode, { loading, data, error }] = useMutation(VERIFY_EMAIL_CODE);
 
   return { loading, data, error, emailVerifyCode };
+}
+
+export function useFetchReferralLink() {
+  const { data } = useSuspenseQuery(GENERATE_REFERENCE_LINK);
+  return { link: data.generateReferenceLink.link };
 }
