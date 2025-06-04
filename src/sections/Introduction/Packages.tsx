@@ -53,7 +53,9 @@ export function Packages() {
   return (
     <Box textAlign="center" py={5}>
       <Container>
-        <Typography variant="h2">3 Packages to Choose From...</Typography>
+        <Typography variant="h2" sx={{ my: {xs: 2, md: 4} }}>
+          3 Packages to Choose From...
+        </Typography>
         <Container sx={{ position: 'relative' }}>
           <Grid container spacing={5} sx={{ py: 3 }}>
             <Grid size={{ xs: 12, md: 6, xl: 4 }}>
