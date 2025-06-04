@@ -82,7 +82,9 @@ export default function Latest() {
                     <Typography variant="subtitle1">{customizeFullName(item.fullName)}</Typography>
                   </Stack>
                   <Stack direction="row" sx={{ alignItems: 'center' }} columnGap={1}>
-                    <Typography variant="body1">{item.totalIntroducers}</Typography>
+                    <Typography variant="body1" className="tabular-nums">
+                      {item.totalIntroducers}
+                    </Typography>
                   </Stack>
                 </Stack>
               ))}

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -19,12 +17,7 @@ import { ScrollBar } from 'src/components/ScrollBar';
 import { useFetchTopEarners } from '../useApollo';
 
 export default function Latest() {
-  const { loading, topEarners, fetchTopEarners } = useFetchTopEarners();
-
-  useEffect(() => {
-    fetchTopEarners();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { loading, topEarners } = useFetchTopEarners();
 
   return (
     <Card sx={{ mt: 2 }}>
@@ -82,7 +75,9 @@ export default function Latest() {
                     <Typography variant="subtitle1">{customizeFullName(item.fullName)}</Typography>
                   </Stack>
                   <Stack direction="row" sx={{ alignItems: 'center' }} columnGap={1}>
-                    <Typography variant="body1">{item.earned}</Typography>
+                    <Typography variant="body1" className="tabular-nums">
+                      {item.earned}
+                    </Typography>
                   </Stack>
                 </Stack>
               ))}

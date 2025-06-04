@@ -92,9 +92,9 @@ export function useFetchTXCShares(type: string) {
 }
 
 export function useFetchTopEarners() {
-  const [fetchTopEarners, { loading, data }] = useLazyQuery(FETCH_TOP_EARNERS);
+  const { loading, data } = useQuery(FETCH_TOP_EARNERS);
 
-  return { loading, topEarners: data?.topEarners ?? [], fetchTopEarners };
+  return { loading, topEarners: data?.topEarners ?? [] };
 }
 
 export function useFetchTopRecruiters() {
