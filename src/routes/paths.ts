@@ -8,7 +8,7 @@ const ROOTS = {
   RESET_PASSWORD: '/reset-password',
   UPDATE_PASSWORD: '/update-password',
   VERIFY_EMAIL: '/verify-email',
-  VERIFYRESULT: '/thanks',
+  VERIFY_RESULT: '/thanks',
 
   // Pages
   INTRO: '/intro',
@@ -56,7 +56,7 @@ export const paths = {
     verifyEmail: ROOTS.VERIFY_EMAIL,
 
     // RESULT
-    verifyResult: ROOTS.VERIFYRESULT,
+    verifyResult: ROOTS.VERIFY_RESULT,
   },
 
   // PAGES
@@ -98,7 +98,7 @@ export const paths = {
       detail: (id: string) => `${ROOTS.REWARD}/${id}`,
       view: (id: string) => `${ROOTS.REWARD}/statistics/${id}`,
     },
-    sponsor: { root: ROOTS.SPONSOR },
+    sponsor: { root: ROOTS.SPONSOR, tabMatch: `${ROOTS.SPONSOR}/:tab` },
     placement: { root: ROOTS.PLACEMENT },
     commission: { root: ROOTS.COMMISSION, action: `${ROOTS.COMMISSION}/action` },
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },

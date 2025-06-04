@@ -1,6 +1,3 @@
-import type { UseTabsReturn } from 'src/hooks/use-tabs';
-import type { UseBooleanReturn } from 'src/hooks/useBoolean';
-
 import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
@@ -34,19 +31,14 @@ import { useAuthContext } from 'src/auth/hooks';
 import { Schema, type SchemaType } from './schema';
 import { useCreateAddMemberOrder } from '../useApollo';
 
-interface Props {
-  add: UseBooleanReturn;
-  tabs: UseTabsReturn;
-}
-
-export default function AddMiner({ add, tabs }: Props) {
+export default function AddMiner() {
   const router = useRouter();
   const { user } = useAuthContext();
 
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
-  const [sponsorId, setSponsorId] = useState<string>('');
   const [packageId, setPackageId] = useState<string>();
+  const [sponsorId, setSponsorId] = useState<string>('');
 
   const location = useLocation();
 
@@ -98,8 +90,6 @@ export default function AddMiner({ add, tabs }: Props) {
       });
 
       if (data) {
-        tabs.onChange(null as any, 'added');
-        add.onFalse();
         router.push(paths.pages.order.detail(data.createAddMemberOrder.id));
       }
     } catch (err) {

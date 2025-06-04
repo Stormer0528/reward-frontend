@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { m } from 'framer-motion';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import {
   ReactFlow,
@@ -9,9 +10,8 @@ import {
   type FitViewOptions,
 } from '@xyflow/react';
 
+import Fab from '@mui/material/Fab';
 import Stack from '@mui/material/Stack';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
 
 import {
   SPONSOR_TREE_NODE_HEIGHT,
@@ -20,9 +20,9 @@ import {
   PLACEMENT_TREE_NODE_Y_SPACE,
 } from 'src/consts';
 
+import { Iconify } from 'src/components/Iconify';
 import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/loading-screen';
-import { CustomPopover, type UsePopoverReturn } from 'src/components/custom-popover';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -40,10 +40,6 @@ const fitViewOptions: FitViewOptions = {
 const edgeTypes = {
   customEdge: CustomEdge,
 };
-
-interface Props {
-  popover: UsePopoverReturn;
-}
 
 function buildSponsorTree(members: any[], me: any) {
   const memberMap: Record<string, any> = {};
@@ -197,7 +193,7 @@ function getNewVisibleMap(
   return newVisibleMap;
 }
 
-function PlacementListView({ popover }: Props) {
+function PlacementListView() {
   const { user: me } = useAuthContext();
   const { fetchMembers, members, loading, called } = useFetchPlacementMembers();
 
@@ -350,7 +346,7 @@ function PlacementListView({ popover }: Props) {
         <LoadingScreen />
       ) : (
         <ComponentBlock sx={{ px: 0, pb: 0 }}>
-          <Stack sx={{ overflow: 'auto', height: '600px', width: '100%' }}>
+          <Stack sx={{ overflow: 'auto', height: '600px', width: '100%', position: 'relative' }}>
             <NodeContext.Provider value={contextValue}>
               <ReactFlow
                 nodes={nodes}
@@ -360,43 +356,48 @@ function PlacementListView({ popover }: Props) {
                 edgeTypes={edgeTypes}
               />
             </NodeContext.Provider>
+            <Fab
+              component={m.button}
+              whileTap="tap"
+              variant="softExtended"
+              color="info"
+              onClick={refresh}
+              sx={(theme) => ({
+                position: 'absolute',
+                top: theme.spacing(2),
+                left: theme.spacing(2),
+              })}
+            >
+              <Iconify icon="solar:refresh-bold" width={24} />
+              Refresh
+            </Fab>
+
+            <Fab
+              component={m.button}
+              whileTap="tap"
+              variant="softExtended"
+              color="error"
+              onClick={reset}
+              sx={(theme) => ({
+                position: 'absolute',
+                top: theme.spacing(10),
+                left: theme.spacing(2),
+              })}
+            >
+              <Iconify icon="solar:restart-bold" width={24} />
+              Reset
+            </Fab>
           </Stack>
         </ComponentBlock>
       )}
-
-      <CustomPopover
-        open={popover.open}
-        anchorEl={popover.anchorEl}
-        onClose={popover.onClose}
-        slotProps={{ arrow: { placement: 'right-top' } }}
-      >
-        <MenuList>
-          <MenuItem
-            onClick={() => {
-              reset();
-              popover.onClose();
-            }}
-          >
-            Reset
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              refresh();
-              popover.onClose();
-            }}
-          >
-            Refresh
-          </MenuItem>
-        </MenuList>
-      </CustomPopover>
     </>
   );
 }
 
-export default function PlacementListViewWithReactFlowProvider({ popover }: Props) {
+export default function PlacementListViewWithReactFlowProvider() {
   return (
     <ReactFlowProvider>
-      <PlacementListView popover={popover} />
+      <PlacementListView />
     </ReactFlowProvider>
   );
 }

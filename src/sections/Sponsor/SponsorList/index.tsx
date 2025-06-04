@@ -33,7 +33,7 @@ export default function SPonsorListView({ filter: customFilter }: Props) {
   useEffect(() => {
     fetchSponsors({ variables: { filter: graphQueryFilter, page, sort } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, page, sort]);
+  }, [graphQueryFilter, page, sort]);
 
   const colDefs = useMemo<ColDef<Introducer>[]>(
     () => [
