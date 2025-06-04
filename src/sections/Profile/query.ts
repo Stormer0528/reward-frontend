@@ -197,6 +197,7 @@ export const FETCH_PLACEMENT_MEMBERS_O_QUERY = gql(/* GraphQL */ `
       fullName
       createdAt
       teamStrategy
+      placementStatus
       placementPosition
       placementParentId
       cmnCalculatedWeeks
