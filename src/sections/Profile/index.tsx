@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router';
-import { useTabs , useBoolean } from 'minimal-shared/hooks';
+import { useTabs, useBoolean } from 'minimal-shared/hooks';
 
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -8,7 +8,6 @@ import Tabs from '@mui/material/Tabs';
 import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config';
-import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
@@ -62,25 +61,23 @@ export default function Profile() {
     <>
       <title>{`${CONFIG.APP_NAME}: ${user?.username}`}</title>
 
-      <DashboardContent>
-        <Breadcrumbs
-          heading={user?.username}
-          links={[{ name: 'Profile', href: '#' }, { name: user?.username }]}
-          sx={{
-            mb: { xs: 2, md: 3 },
-          }}
-        />
+      <Breadcrumbs
+        heading={user?.username}
+        links={[{ name: 'Profile', href: '#' }, { name: user?.username }]}
+        sx={{
+          mb: { xs: 2, md: 3 },
+        }}
+      />
 
-        <Tabs value={tabs.value} onChange={onTabChange} sx={{ mb: { xs: 2, md: 3 } }}>
-          {TABS.map((tab) => (
-            <Tab key={tab.value} label={tab.label} icon={tab.icon} value={tab.value} />
-          ))}
-        </Tabs>
+      <Tabs value={tabs.value} onChange={onTabChange} sx={{ mb: { xs: 2, md: 3 } }}>
+        {TABS.map((tab) => (
+          <Tab key={tab.value} label={tab.label} icon={tab.icon} value={tab.value} />
+        ))}
+      </Tabs>
 
-        {tabs.value === 'edit' && <General me={user} />}
+      {tabs.value === 'edit' && <General me={user} />}
 
-        {tabs.value === 'history' && <History me={user} />}
-      </DashboardContent>
+      {tabs.value === 'history' && <History me={user} />}
 
       <VerifyModal open={open} tabs={tabs} event={tabEvent} />
     </>
