@@ -161,10 +161,11 @@ export function SponsorshipCreateView() {
           <RHFPackageSelect
             name="packageId"
             label="Package"
-            filter={{ enrollVisibility: true }}
             fullWidth
             required
             slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
+            filter={{ status: true, enrollVisibility: true }}
+            sort="-amount"
           />
         </Stack>
 
