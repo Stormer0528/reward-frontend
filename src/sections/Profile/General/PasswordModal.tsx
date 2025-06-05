@@ -19,7 +19,7 @@ import { CONFIG } from 'src/config';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-import { useApollo } from 'src/sections/Auth/SignIn/useApollo';
+import { useLogin } from 'src/sections/Auth/SignIn/useApollo';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -37,7 +37,7 @@ export default function PasswordModal({ open }: Props) {
   const [token, setToken] = useState<string>('');
   const [newPassword, setNewPassword] = useState<any>();
 
-  const { loading, submitLogin } = useApollo();
+  const { loading, submitLogin } = useLogin();
   const { qrString, generate2FA } = useGenerate2FA();
   const { fetchMe } = useFetchMe();
   const { loading: verifyLoading, verify2FAAndEnable } = useVerify2FAAndEnable();
@@ -129,7 +129,8 @@ export default function PasswordModal({ open }: Props) {
               loading={loading}
               onClick={async () => {
                 const { data } = await submitLogin({
-                  variables: { data: { email: user?.email!, password: newPassword } },
+                  email: user?.email ?? '',
+                  password: newPassword,
                 });
 
                 if (data) {
