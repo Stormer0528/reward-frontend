@@ -15,7 +15,7 @@ import { formatID, truncateMiddle } from 'src/utils/helper';
 import { Iconify } from 'src/components/Iconify';
 
 import Setting from './Setting';
-import { useFetchMemberOvewview } from '../useApollo';
+import { useFetchMemberOverview } from '../useApollo';
 
 interface Props {
   me: Member;
@@ -26,7 +26,7 @@ export default function Personal({ me }: Props) {
   const open = useBoolean();
   const [children, setChildren] = useState<any>();
 
-  const { overview } = useFetchMemberOvewview(me.id);
+  const { overview } = useFetchMemberOverview(me.id);
 
   const handleCopy = async (addressValue: string) => {
     try {
@@ -52,7 +52,7 @@ export default function Personal({ me }: Props) {
 
   return (
     <>
-      <Card sx={{ mt: 2, p: 3 }}>
+      <Card sx={{ p: 3 }}>
         <Stack direction="row" justifyContent="space-between" sx={{ pb: 2 }} columnGap={2}>
           <Typography variant="h6">{me?.fullName}</Typography>
           <Stack direction="row" spacing={1} justifyContent="end" alignItems="center">

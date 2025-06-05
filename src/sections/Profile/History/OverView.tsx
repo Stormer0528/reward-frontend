@@ -11,17 +11,17 @@ import { CASH_POTENTIAL_URL } from 'src/consts';
 
 import { Iconify } from 'src/components/Iconify';
 
-import { useFetchMemberOvewview } from '../useApollo';
+import { useFetchMemberOverview } from '../useApollo';
 
 interface Props {
   me: Member;
 }
 
 export default function OverView({ me }: Props) {
-  const { overview } = useFetchMemberOvewview(me.id);
+  const { overview } = useFetchMemberOverview(me.id);
 
   return (
-    <Card sx={{ mt: 2, py: 3, textAlign: 'center', typography: 'h4' }}>
+    <Card sx={{ mb: 2, py: 3, textAlign: 'center', typography: 'h4' }}>
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem sx={{ borderStyle: 'dashed' }} />}
