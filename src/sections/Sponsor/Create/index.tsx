@@ -83,7 +83,7 @@ export default function AddMiner() {
             state,
             country,
             packageId,
-            placementParentId: rest.placementParentId ?? location?.state?.placementParentId ?? '',
+            placementParentId: rest.placementParentId ?? location?.state?.placementParentId,
             fullName: `${firstName} ${lastName}`,
             ...(user?.isTexitRanger && { sponsorId }),
           },
