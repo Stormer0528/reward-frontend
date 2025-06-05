@@ -2220,6 +2220,7 @@ export type PlacementMember = {
   placementParentId: Scalars['ID']['output'];
   placementPosition: PlacementPosition;
   placementStatus: PlacementStatus;
+  status: Scalars['Boolean']['output'];
   teamStrategy: TeamStrategy;
   username: Scalars['String']['output'];
 };
