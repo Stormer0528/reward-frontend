@@ -14,6 +14,7 @@ import {
   UPDATE_SETTING_MEMBER,
   MEMBER_EXCHANGE_LOGIN,
   UPDATE_MEMBER_PASSWORD,
+  FETCH_MEMBER_STATISTICS,
   FETCH_PLACEMENT_MEMBERS,
   GENERATE_REFERENCE_LINK,
   FETCH_MEMBER_STATS_QUERY,
@@ -44,6 +45,18 @@ export function useFetchPlacementOMembers() {
     members: data?.placementMembers ?? [],
     fetchPlacementMembers,
   };
+}
+
+export function useFetchMemberStatistics(variables: {
+  filter?: any;
+  page?: string;
+  sort?: string;
+}) {
+  const { loading, data } = useQuery(FETCH_MEMBER_STATISTICS, {
+    variables: { filter: variables?.filter, page: variables?.page, sort: variables?.sort },
+  });
+
+  return { loading, memberStatistics: data?.memberStatistics?.memberStatistics ?? [] };
 }
 
 export function useFetchPlacementMembers() {
