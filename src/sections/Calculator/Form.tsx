@@ -69,8 +69,9 @@ export default function EditForm() {
           <RHFPackageSelect
             name="init"
             label="Package"
-            filter={{ enrollVisibility: true }}
             slotProps={{ input: { sx: { width: 'auto', minWidth: '100%' } } }}
+            filter={{ status: true, enrollVisibility: true }}
+            sort="-amount"
           />
           <Autocomplete
             freeSolo
