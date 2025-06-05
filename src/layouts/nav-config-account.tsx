@@ -53,6 +53,11 @@ const ICONS = {
 
 export const accountNavData: AccountDrawerProps['data'] = [
   {
+    label: 'Profile',
+    href: '/profile',
+    icon: <Iconify icon="heroicons:user" />,
+  },
+  {
     label: 'Overview',
     href: '/overview',
     icon: ICONS.analytics,
@@ -78,28 +83,13 @@ export const accountNavData: AccountDrawerProps['data'] = [
     icon: ICONS.commission,
   },
   {
-    label: 'Resource',
-    href: '/resource',
-    icon: <Iconify icon="lucide:folder-open" />,
-  },
-  {
     label: 'Reward',
     href: '/reward',
-    icon: <Iconify icon="marketeq:reward" />,
-  },
-  {
-    label: 'Calculator',
-    href: '/calculator',
-    icon: <Iconify icon="system-uicons:calculator" />,
+    icon: ICONS.reward,
   },
   {
     label: 'Team',
     href: '/team',
-    icon: <Iconify icon="fluent:people-team-20-regular" />,
-  },
-  {
-    label: 'Profile',
-    href: '/profile',
-    icon: <Iconify icon="heroicons:user" />,
+    icon: ICONS.team,
   },
 ];
