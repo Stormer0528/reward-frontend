@@ -54,6 +54,7 @@ export default function MemberStatistics() {
         field: 'member.username',
         headerName: 'Username',
         flex: 1,
+        minWidth: 250,
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
@@ -64,7 +65,7 @@ export default function MemberStatistics() {
       {
         field: 'hashPower',
         headerName: 'Hash Power',
-        width: 250,
+        width: 150,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
@@ -74,7 +75,7 @@ export default function MemberStatistics() {
       {
         field: 'txcShared',
         headerName: 'Rewarded TXC',
-        width: 250,
+        width: 150,
         resizable: true,
         editable: false,
         sortable: false,
@@ -84,7 +85,7 @@ export default function MemberStatistics() {
       {
         field: 'percent',
         headerName: 'Percent',
-        width: 250,
+        width: 150,
         resizable: true,
         editable: false,
         sortable: false,
