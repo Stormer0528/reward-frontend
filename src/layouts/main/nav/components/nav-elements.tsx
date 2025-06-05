@@ -22,6 +22,7 @@ export const NavLi = styled(
 )(() => ({
   display: 'inline-block',
   variants: [{ props: { disabled: true }, style: { cursor: 'not-allowed' } }],
+  position: 'relative'
 }));
 
 // ----------------------------------------------------------------------

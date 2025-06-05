@@ -2236,6 +2236,19 @@ export enum PlacementStatus {
   Visible = 'VISIBLE'
 }
 
+export type PlacementTempMember = {
+  __typename?: 'PlacementTempMember';
+  createdAt: Scalars['DateTimeISO']['output'];
+  email: Scalars['String']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  placementParentFullname: Scalars['String']['output'];
+  placementParentId: Scalars['String']['output'];
+  placementParentUsername: Scalars['String']['output'];
+  placementPosition: PlacementPosition;
+  username: Scalars['String']['output'];
+};
+
 export type ProfitabilityCalculationInput = {
   init: Scalars['Int']['input'];
   joinDate: Scalars['DateTimeISO']['input'];
@@ -2387,6 +2400,7 @@ export type Query = {
   peerAcceptableMembers: PeerReportMemberResponse;
   placementMembers: Array<PlacementMember>;
   placementMembersForWeek: Array<WeekPlacementMember>;
+  placementTempMembers: Array<PlacementTempMember>;
   promos: PromoResponse;
   proofById: Proof;
   proofs: ProofResponse;

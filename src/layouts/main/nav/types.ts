@@ -43,7 +43,6 @@ export type NavListProps = React.ComponentProps<'li'> & {
 
 export type NavSubListProps = React.ComponentProps<'li'> & {
   sx?: SxProps<Theme>;
-  subheader: string;
   data: NavItemDataProps[];
 };
 

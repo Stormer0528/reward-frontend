@@ -8,7 +8,6 @@ import { usePathname } from 'src/routes/hooks';
 
 import { NavItem } from './nav-desktop-item';
 import { Nav, NavLi, NavUl, NavDropdown } from '../components';
-import { NavItemDashboard } from './nav-desktop-item-dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -57,7 +56,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
         <Nav>
           <NavUl sx={{ gap: 3, flexDirection: 'row' }}>
             {data.children.map((list) => (
-              <NavSubList key={list.subheader} subheader={list.subheader} data={list.items} />
+              <NavSubList key={list.subheader} data={list.items} />
             ))}
           </NavUl>
         </Nav>
@@ -74,10 +73,8 @@ export function NavList({ data, sx, ...other }: NavListProps) {
 
 // ----------------------------------------------------------------------
 
-function NavSubList({ data, subheader, sx, ...other }: NavSubListProps) {
+function NavSubList({ data, sx, ...other }: NavSubListProps) {
   const pathname = usePathname();
-
-  const isDashboard = subheader === 'Dashboard';
 
   return (
     <NavLi
@@ -85,40 +82,23 @@ function NavSubList({ data, subheader, sx, ...other }: NavSubListProps) {
         () => ({
           flexGrow: 1,
           flexBasis: 'auto',
-          flexShrink: isDashboard ? 1 : 0,
-          ...(isDashboard && { maxWidth: 560 }),
+          flexShrink: 0,
         }),
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...other}
     >
       <NavUl>
-        <NavLi
-          sx={(theme) => ({
-            mb: 0.75,
-            typography: 'overline',
-            fontSize: theme.typography.pxToRem(11),
-          })}
-        >
-          {subheader}
-        </NavLi>
-
-        {data.map((item) =>
-          isDashboard ? (
-            <NavLi key={item.title} sx={{ mt: 0.75 }}>
-              <NavItemDashboard path={item.path} />
-            </NavLi>
-          ) : (
-            <NavLi key={item.title} sx={{ mt: 0.75 }}>
-              <NavItem
-                subItem
-                title={item.title}
-                path={item.path}
-                active={isEqualPath(item.path, pathname)}
-              />
-            </NavLi>
-          )
-        )}
+        {data.map((item) => (
+          <NavLi key={item.title} sx={{ my: 0.75 }}>
+            <NavItem
+              subItem
+              title={item.title}
+              path={item.path}
+              active={isEqualPath(item.path, pathname)}
+            />
+          </NavLi>
+        ))}
       </NavUl>
     </NavLi>
   );
