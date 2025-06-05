@@ -13,7 +13,7 @@ interface Props {
 
 export default function HistoryView({ me }: Props) {
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid size={{ md: 12, xl: 8 }}>
         <Reward me={me} />
         <Table />
