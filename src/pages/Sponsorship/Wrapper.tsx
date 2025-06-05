@@ -49,6 +49,7 @@ export default function SponsorshipWrapper({ children }: Props) {
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
+          height: { xs: 'calc(100vh - var(--layout-header-mobile-height) - 20px)', md: 2 },
         }}
       >
         <SponsorshipTab />
