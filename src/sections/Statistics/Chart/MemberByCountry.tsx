@@ -1,6 +1,8 @@
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 
+import { fNumber } from 'src/utils/formatNumber';
+
 import { Chart, useChart } from 'src/components/Chart';
 
 import { useFetchMemberByCountry } from '../useApollo';
@@ -16,6 +18,23 @@ export default function MemberByCountry() {
       pie: {
         donut: {
           size: '60%',
+          labels: {
+            total: {
+              show: true,
+              formatter(w) {
+                return fNumber(
+                  w.globals.seriesTotals.reduce((prev: any, save: any) => prev + save, 0)
+                );
+              },
+            },
+          },
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        formatter(val) {
+          return fNumber(val);
         },
       },
     },

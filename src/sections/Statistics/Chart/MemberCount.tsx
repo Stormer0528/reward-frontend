@@ -60,7 +60,7 @@ export default function MemberCount() {
     yaxis: {
       labels: {
         formatter(val) {
-          return `${Math.floor(val)}`;
+          return `${val}`;
         },
       },
     },

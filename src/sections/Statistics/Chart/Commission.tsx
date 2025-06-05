@@ -4,6 +4,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { Card, CardHeader } from '@mui/material';
 import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { formatWeekNumber } from 'src/utils/format-time';
 
 import { Chart, useChart, ChartSelect } from 'src/components/Chart';
@@ -64,7 +65,7 @@ export default function Commission() {
       stepSize: Math.floor(max / 4000),
       labels: {
         formatter(val: any) {
-          return `${Math.floor(val)}K`;
+          return `${fNumber(Math.floor(val))}K`;
         },
       },
     },

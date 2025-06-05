@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import { alpha, useTheme } from '@mui/material/styles';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { formatWeekNumber } from 'src/utils/format-time';
 
 import { Chart, useChart, ChartSelect } from 'src/components/Chart';
@@ -55,7 +56,7 @@ export default function MemberCount() {
     yaxis: {
       labels: {
         formatter(val) {
-          return `${Math.floor(val)}`;
+          return `${fNumber(val)}`;
         },
       },
     },
