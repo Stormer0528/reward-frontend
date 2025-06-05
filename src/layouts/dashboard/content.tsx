@@ -40,8 +40,9 @@ export function DashboardContent({
           flex: '1 1 auto',
           flexDirection: 'column',
           pt: 'var(--layout-dashboard-content-pt)',
-          pb: 'var(--layout-dashboard-content-pb)',
+          pb: theme.spacing(2),
           [theme.breakpoints.up(layoutQuery)]: {
+            pb: 'var(--layout-dashboard-content-pb)',
             px: 'var(--layout-dashboard-content-px)',
             ...(isNavHorizontal && { '--layout-dashboard-content-pt': '40px' }),
           },
