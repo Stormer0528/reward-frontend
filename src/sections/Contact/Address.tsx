@@ -1,115 +1,108 @@
+import type { IconifyName } from 'src/components/Iconify';
+
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+
+import { themeConfig } from 'src/theme';
 
 import { Iconify } from 'src/components/Iconify';
 
 import ContactForm from './ContactForm';
 
+const items = [
+  {
+    icon: 'basil:telegram-solid',
+    title: 'TELEGRAM',
+    text: [
+      '@<a href="https://t.me/blockchainmint">BlockchainMint</a> (general inquiries)',
+      '@<a href="https://t.me/texitcoin_txc">TEXITcoin_TXC</a> (announcements)',
+    ],
+  },
+  {
+    icon: 'carbon:phone-filled',
+    title: 'PHONE (or TEXT)',
+    text: ['+1 484 MINE TXC', '+1 484 646 3892'],
+  },
+  {
+    icon: 'icomoon-free:location',
+    title: 'OUR OFFICE LOCATION',
+    text: ['424 Rose Garden Drive', 'McKinney, Republic of Texas'],
+  },
+];
+
 export default function Address() {
   return (
-    <CustomPaper>
+    <Box sx={{ mt: 12, pb: 5, background: themeConfig.palette.common.texit }}>
       <Container>
-        <ContactContent container>
-          <ContactItem size={{ xs: 12, md: 6, lg: 4 }}>
-            <ContactAvatar icon="lineicons:telegram" />
-            <Title>TELEGRAM</Title>
-            <Text>
-              @<a href="https://t.me/blockchainmint">BlockchainMint</a> (general inquiries)
-            </Text>
-            <Text>
-              @<a href="https://t.me/texitcoin_txc">TEXITcoin_TXC</a> (announcements)
-            </Text>
-          </ContactItem>
-          <ContactItem size={{ xs: 12, md: 6, lg: 4 }}>
-            <ContactAvatar icon="solar:phone-bold" />
-            <Title>PHONE (or TEXT)</Title>
-            <Text>+1 484 MINE TXC</Text>
-            <Text>+1 484 646 3892</Text>
-          </ContactItem>
-          <ContactItem size={{ xs: 12, md: 6, lg: 4 }}>
-            <ContactAvatar icon="icomoon-free:location" />
-            <Title>OUR OFFICE LOCATION</Title>
-            <Text>424 Rose Garden Drive</Text>
-            <Text>McKinney, Republic of Texas</Text>
-          </ContactItem>
-        </ContactContent>
-        <LocationContent container>
-          <Grid size={{ xs: 12, md: 6 }} sx={{ p: 4 }}>
-            <Header>Get in Touch</Header>
-            <Typography>
-              Have an inquiry or some feedbak for us? Fill out the form below to contact our team.
-            </Typography>
+        <Box sx={{ mt: -8, background: themeConfig.palette.grey[100] }}>
+          <Grid container>
+            {items.map((item) => (
+              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+                <Box key={item.title} mt={-5} pb={5} textAlign="center">
+                  <ContactAvatar icon={item.icon as IconifyName} />
+                  <Typography variant="h5" fontFamily="'Open sans' sans-serif" m="20px 0 10px">
+                    {item.title}
+                  </Typography>
+                  {item.text.map((text, index) => (
+                    <Typography
+                      variant="body1"
+                      key={index}
+                      lineHeight={2}
+                      dangerouslySetInnerHTML={{ __html: text }}
+                    />
+                  ))}
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        <Box
+          sx={{
+            background: themeConfig.palette.common.white,
+            m: '100px 30px 0',
+            textAlign: 'center',
+          }}
+        >
+          <Grid container>
+            <Grid size={{ xs: 12, md: 6 }} sx={{ p: 4 }}>
+              <Typography variant="h2" fontWeight={600} mb={2}>
+                Get in Touch
+              </Typography>
+              <Typography>
+                Have an inquiry or some feedback for us? Fill out the form below to contact our
+                team.
+              </Typography>
 
-            <ContactForm />
+              <ContactForm />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Map
+                title="McKinney"
+                src="https://maps.google.com/maps?output=embed&amp;q=McKinney%2C%20Texas&amp;z=10&amp;t=m"
+                data-map="JTdCJTIyYWRkcmVzcyUyMiUzQSUyMk1jS2lubmV5JTJDJTIwVGV4YXMlMjIlMkMlMjJ6b29tJTIyJTNBMTAlMkMlMjJ0eXBlSWQlMjIlM0ElMjJyb2FkJTIyJTJDJTIybGFuZyUyMiUzQW51bGwlMkMlMjJhcGlLZXklMjIlM0FudWxsJTJDJTIybWFya2VycyUyMiUzQSU1QiU1RCU3RA=="
+              />
+            </Grid>
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Map
-              title="McKinney"
-              src="https://maps.google.com/maps?output=embed&amp;q=McKinney%2C%20Texas&amp;z=10&amp;t=m"
-              data-map="JTdCJTIyYWRkcmVzcyUyMiUzQSUyMk1jS2lubmV5JTJDJTIwVGV4YXMlMjIlMkMlMjJ6b29tJTIyJTNBMTAlMkMlMjJ0eXBlSWQlMjIlM0ElMjJyb2FkJTIyJTJDJTIybGFuZyUyMiUzQW51bGwlMkMlMjJhcGlLZXklMjIlM0FudWxsJTJDJTIybWFya2VycyUyMiUzQSU1QiU1RCU3RA=="
-            />
-          </Grid>
-        </LocationContent>
+        </Box>
       </Container>
-    </CustomPaper>
+    </Box>
   );
 }
 
-const CustomPaper = styled(Paper)`
-  background: #262262;
-  border-radius: 0;
-  margin-top: 100px;
-  padding-bottom: 40px;
-`;
+const ContactAvatar = styled(Iconify)(() => ({
+  width: 100,
+  height: 100,
+  color: themeConfig.palette.info.main,
+  border: `2px solid ${themeConfig.palette.common.texit}`,
+  borderRadius: 50,
+  padding: 15,
+}));
 
-const ContactContent = styled(Grid)`
-  background: #f2f2f2;
-  margin-top: -60px;
-`;
-
-const LocationContent = styled(Grid)`
-  margin: 100px 30px 0;
-  background: #ffffff;
-  text-align: center;
-`;
-
-const ContactItem = styled(Grid)`
-  margin-top: -40px;
-  text-align: center;
-  padding-bottom: 40px;
-`;
-
-const Title = styled(Typography)`
-  margin: 20px 0 10px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-spacing: 1px;
-  font-family: 'Open sans' sans-serif !important;
-`;
-
-const Header = styled(Typography)`
-  font-size: 3rem;
-  margin-bottom: 10px;
-`;
-
-const Text = styled(Typography)`
-  line-height: 2;
-`;
-
-const ContactAvatar = styled(Iconify)`
-  width: 100px;
-  height: 100px;
-  color: #478ac9;
-  border: 2px solid #262262;
-  border-radius: 50%;
-  padding: 15px;
-`;
-
-const Map = styled('iframe')`
-  width: 100%;
-  height: 100%;
-  border: none;
-`;
+const Map = styled('iframe')(() => ({
+  width: '100%',
+  height: '100%',
+  border: 'none',
+}));
