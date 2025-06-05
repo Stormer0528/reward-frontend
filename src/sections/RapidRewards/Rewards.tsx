@@ -1,13 +1,15 @@
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 export default function Rewards() {
   return (
     <Container>
-      <CustomPaper>
-        <Header>Our Rapid Rewards Program</Header>
+      <Box textAlign="center" p="50px 0">
+        <Typography variant="h2" mb={5}>
+          Our Rapid Rewards Program
+        </Typography>
         <Paper sx={{ px: { lg: 40 } }}>
           <Typography>
             In addition to our simple one, two, free referral program (refer three and get more
@@ -16,19 +18,7 @@ export default function Rewards() {
             of our commission program.
           </Typography>
         </Paper>
-      </CustomPaper>
+      </Box>
     </Container>
   );
 }
-
-const CustomPaper = styled(Paper)`
-  border-radius: 0;
-  padding: 50px 0;
-  text-align: center;
-`;
-
-const Header = styled(Typography)`
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 40px;
-`;
