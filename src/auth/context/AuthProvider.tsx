@@ -41,7 +41,6 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    console.log('@@@@', token, timeToLive)
     if (token) {
       if (timeToLive <= 0) {
         expireToken();
