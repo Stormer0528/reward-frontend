@@ -69,7 +69,7 @@ export function Packages() {
                 </Typography>
 
                 {features.single.map((feature) => (
-                  <Stack direction="row" sx={{ mb: 1 }}>
+                  <Stack direction="row" sx={{ mb: 1 }} key={feature}>
                     <Iconify icon="radix-icons:dot-filled" sx={{ mt: 0.6 }} />
                     <Typography>{feature}</Typography>
                   </Stack>
@@ -97,7 +97,7 @@ export function Packages() {
                 </Box>
                 <Box sx={{ background: '#000000', color: '#ffffff', padding: '20px 30px 20px' }}>
                   {features.triple.map((feature) => (
-                    <Stack direction="row" sx={{ mb: 1 }}>
+                    <Stack direction="row" sx={{ mb: 1 }} key={feature}>
                       <Iconify icon="radix-icons:dot-filled" sx={{ mt: 0.6 }} />
                       <Typography>{feature}</Typography>
                     </Stack>
@@ -124,7 +124,7 @@ export function Packages() {
                 </Typography>
 
                 {features.builder.map((feature) => (
-                  <Stack direction="row" sx={{ mb: 1 }}>
+                  <Stack direction="row" sx={{ mb: 1 }} key={feature}>
                     <Iconify icon="radix-icons:dot-filled" sx={{ mt: 0.6 }} />
                     <Typography>{feature}</Typography>
                   </Stack>
