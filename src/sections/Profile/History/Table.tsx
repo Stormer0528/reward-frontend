@@ -23,7 +23,7 @@ import { useFetchMemberStatistics } from 'src/sections/Reward/useApollo';
 
 export default function MemberStatistics() {
   const { id: memberId } = useParams();
-  const [{ page = '1,50', sort = 'createdAt', filter }] = useQueryString();
+  const [{ page = '1,10', sort = 'createdAt', filter }, { setPageSize }] = useQueryString();
 
   const graphQueryFilter = useMemo(
     () => parseFilterModel({ memberId }, filter),
@@ -98,6 +98,10 @@ export default function MemberStatistics() {
   );
 
   useEffect(() => {
+    setPageSize(10);
+  }, [setPageSize]);
+
+  useEffect(() => {
     fetchMemberStatistics({
       variables: { filter: graphQueryFilter, page, sort },
     });
@@ -109,6 +113,7 @@ export default function MemberStatistics() {
         flexGrow: 1,
         display: 'flex',
         overflow: 'hidden',
+        height: 'calc(100vh - 400px)',
       }}
     >
       <AgGrid<MemberStatistics>
