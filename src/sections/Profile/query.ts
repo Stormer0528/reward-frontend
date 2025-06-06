@@ -1,43 +1,9 @@
 import { gql } from 'src/__generated__/gql';
 
-export const FETCH_ME_QUERY = gql(/* GraphQL */ `
-  query fetchMe {
+export const FETCH_MY_PROFILE = gql(/* GraphQL */ `
+  query fetchMyProfile {
     memberMe {
-      id
-      ID
-      city
-      email
-      point
-      state
-      avatar
-      mobile
-      status
-      assetId
-      country
-      zipCode
-      username
-      fullName
-      sponsorId
-      allowState
-      ethAssetId
-      teamReport
-      OTPEnabled
-      teamStrategy
-      syncWithSendy
-      emailVerified
-      isTexitRanger
-      peerAcceptable
-      peerETHAddress
-      primaryAddress
-      secondaryAddress
-      totalIntroducers
-      preferredContact
-      commissionDefault
-      placementParentId
-      placementPosition
-      cmnCalculatedWeeks
-      placementRequested
-      preferredContactDetail
+      ...MemberFields
       groupSetting {
         id
         name

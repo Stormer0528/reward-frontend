@@ -6,7 +6,7 @@ import {
   GENERATE_2FA,
   MEMBER_LOGOUT,
   UPDATE_MEMBER,
-  FETCH_ME_QUERY,
+  FETCH_MY_PROFILE,
   VERIFY_2FA_ENABLE,
   VERIFY_EMAIL_CODE,
   FETCH_PAYOUTS_QUERY,
@@ -23,7 +23,7 @@ import {
 } from './query';
 
 export function useFetchMe() {
-  const [fetchMe, { loading, data, called }] = useLazyQuery(FETCH_ME_QUERY);
+  const [fetchMe, { loading, data, called }] = useLazyQuery(FETCH_MY_PROFILE);
 
   return { loading, me: data?.memberMe, called, fetchMe };
 }
