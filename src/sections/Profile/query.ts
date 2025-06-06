@@ -227,6 +227,7 @@ export const FETCH_PLACEMENT_MEMBERS_O_QUERY = gql(/* GraphQL */ `
   query PlacementMembers {
     placementMembers {
       id
+      status
       username
       fullName
       createdAt
