@@ -43,6 +43,7 @@ export default function SaleListView() {
         field: 'productName',
         headerName: 'Product Name',
         flex: 1,
+        minWidth: 200,
         resizable: true,
         editable: false,
         filter: 'agTextColumnFilter',
@@ -52,6 +53,7 @@ export default function SaleListView() {
         field: 'paymentMethod',
         headerName: 'Payment Method',
         flex: 1,
+        minWidth: 200,
         resizable: true,
         editable: false,
         filter: 'agTextColumnFilter',
@@ -112,6 +114,7 @@ export default function SaleListView() {
         flexGrow: 1,
         display: 'flex',
         overflow: 'hidden',
+        height: { xs: 'calc(100vh - var(--layout-header-mobile-height) - 20px)', md: 2 },
       }}
     >
       <AgGrid<BasicSale>
