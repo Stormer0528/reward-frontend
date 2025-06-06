@@ -16,20 +16,20 @@ export type StatisticsSale = {
 
 export type Statistics = {
   __typename?: 'Statistics';
-  createdAt?: any | null;
-  deletedAt?: any | null;
+  to: any;
   from: any;
   id: string;
   issuedAt: any;
-  memberStatistics?: Array<MemberStatistics> | null;
-  newBlocks: number;
-  statisticsSales?: Array<StatisticsSale> | null;
   status: boolean;
-  to: any;
-  totalBlocks: number;
-  totalHashPower: number;
-  totalMembers: number;
-  transactionId?: string | null;
   txcShared: bigint;
+  newBlocks: number;
+  totalBlocks: number;
+  totalMembers: number;
+  totalHashPower: number;
+  createdAt?: any | null;
+  deletedAt?: any | null;
   updatedAt?: any | null;
+  transactionId?: string | null;
+  statisticsSales?: Array<StatisticsSale> | null;
+  memberStatistics?: Array<MemberStatistics> | null;
 };
