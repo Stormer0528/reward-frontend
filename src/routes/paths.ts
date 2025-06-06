@@ -93,10 +93,7 @@ export const paths = {
     },
     reward: {
       root: ROOTS.REWARD,
-      new: `${ROOTS.REWARD}/new`,
-      edit: (id: string) => `${ROOTS.REWARD}/new/${id}`,
-      detail: (id: string) => `${ROOTS.REWARD}/${id}`,
-      view: (id: string) => `${ROOTS.REWARD}/statistics/${id}`,
+      tabMatch: `${ROOTS.REWARD}/:tab`,
     },
     sponsorships: { root: ROOTS.SPONSORSHIPS, tabMatch: `${ROOTS.SPONSORSHIPS}/:tab` },
     placement: { root: ROOTS.PLACEMENT },

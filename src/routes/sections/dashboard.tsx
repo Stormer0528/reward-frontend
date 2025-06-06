@@ -22,8 +22,9 @@ const ProfileEditPage = lazy(() => import('src/pages/Profile/ProfileEdit'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-const RewardPage = lazy(() => import('src/pages/Reward/List'));
-const StatisticsDetailPage = lazy(() => import('src/pages/Reward/Statistics/Detail'));
+const RewardWrapper = lazy(() => import('src/pages/Reward/Wrapper'));
+const RewardDailyPage = lazy(() => import('src/pages/Reward/Daily'));
+const RewardWalletsPage = lazy(() => import('src/pages/Reward/Wallets'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -116,10 +117,17 @@ export const dashboardRoutes = [
       {
         path: 'reward',
         children: [
-          { index: true, element: <RewardPage /> },
           {
-            path: 'statistics',
-            children: [{ path: ':id', element: <StatisticsDetailPage /> }],
+            element: (
+              <RewardWrapper>
+                <Outlet />
+              </RewardWrapper>
+            ),
+            children: [
+              { index: true, element: <Navigate to="daily" replace /> },
+              { path: 'daily', element: <RewardDailyPage /> },
+              { path: 'wallets', element: <RewardWalletsPage /> },
+            ],
           },
         ],
       },
