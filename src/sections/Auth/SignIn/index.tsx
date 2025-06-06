@@ -12,8 +12,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
+import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config';
 
@@ -31,10 +31,12 @@ import Calculator from '../../SignUp/Calculator';
 
 export function SignInView() {
   const router = useRouter();
-  const { signIn } = useAuthContext();
-  const { submitLogin } = useLogin();
+  const searchParams = useSearchParams();
 
   const [errorMsg, setErrorMsg] = useState('');
+
+  const { signIn } = useAuthContext();
+  const { submitLogin } = useLogin();
 
   const open = useBoolean();
   const calculator = useBoolean();
@@ -63,6 +65,9 @@ export function SignInView() {
         router.replace(paths.auth.updatePassword, { state: { token } });
       } else if (response.data?.memberLogin.status === 'success') {
         signIn(token);
+        toast.success(`Welcome to ${CONFIG.APP_NAME}`);
+        const returnTo = searchParams.get('returnTo') || paths.dashboard.root;
+        router.push(returnTo);
       } else {
         localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, token);
         open.onTrue();

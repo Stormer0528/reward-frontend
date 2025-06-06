@@ -51,7 +51,7 @@ export function getTimeToLive(accessToken: string | null | undefined) {
 
 // ----------------------------------------------------------------------
 
-export async function setSession(accessToken: string | null) {
+export function setSession(accessToken: string | null) {
   if (accessToken) {
     localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, accessToken);
   } else {

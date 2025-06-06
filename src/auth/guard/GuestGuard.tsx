@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
 
 import { paths } from 'src/routes/paths';
@@ -7,25 +6,23 @@ import { useRouter, useSearchParams } from 'src/routes/hooks';
 import { SplashScreen } from 'src/components/LoadingScreen';
 
 import { useAuthContext } from '../hooks';
-import { setToken } from '../context/utils';
 
 // ----------------------------------------------------------------------
 
-type Props = {
+type GuestGuardProps = {
   children: React.ReactNode;
 };
 
-export function GuestGuard({ children }: Props) {
+export function GuestGuard({ children }: GuestGuardProps) {
   const router = useRouter();
-  const location = useLocation();
 
   const searchParams = useSearchParams();
 
   const { loading, isAuthenticated } = useAuthContext();
 
-  const [isChecking, setIsChecking] = useState<boolean>(true);
+  const returnTo = searchParams.get('returnTo') || paths.dashboard.root;
 
-  const returnTo = searchParams.get('returnTo') || paths.root;
+  const [isChecking, setIsChecking] = useState(true);
 
   const checkPermissions = async (): Promise<void> => {
     if (loading) {
@@ -33,12 +30,7 @@ export function GuestGuard({ children }: Props) {
     }
 
     if (isAuthenticated) {
-      if (location.pathname === '/sign-up') {
-        setToken(null);
-      } else {
-        router.replace(returnTo);
-      }
-      setIsChecking(false);
+      router.replace(returnTo);
       return;
     }
 

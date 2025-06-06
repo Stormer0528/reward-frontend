@@ -1,92 +1,77 @@
 import type { AuthContextValue } from '../types';
 
-import { useLocation } from 'react-router';
-import { useLazyQuery } from '@apollo/client';
-import { useMemo, useState, useEffect, useCallback } from 'react';
-
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
-
-import { STORAGE_TOKEN_KEY } from 'src/consts';
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
 import { toast } from 'src/components/SnackBar';
 
-import { FETCH_ME_QUERY } from 'src/sections/Profile/query';
-
-import { setSession } from '../utils';
+import { useFetchMe } from '../useApollo';
 import { AuthContext } from './AuthContext';
-import { setToken, isValidToken, setTokenTimer } from './utils';
+import { getSession, setSession, getTimeToLive } from '../utils';
 // ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode;
 };
 
+const initialToken = getSession();
+
 export function AuthProvider({ children }: Props) {
-  const token = localStorage.getItem(STORAGE_TOKEN_KEY);
+  const [token, setToken] = useState<string | undefined | null>(initialToken);
+  const timeToLive = useMemo(() => getTimeToLive(token), [token]);
+  const timerId = useRef<NodeJS.Timeout | undefined>(undefined);
 
-  const router = useRouter();
-  const [code, setCode] = useState<any>('');
+  const { fetchMe, user, loading, error } = useFetchMe();
 
-  const { pathname } = useLocation();
+  const expireToken = useCallback(() => {
+    setToken(null);
+    setSession(null);
+    toast.error('Your session has expired. Please sign in again.');
+    // TODO: Redirect to previous page if exists or maybe, AuthGuard can handle this?
+  }, []);
 
-  const [fetchMe, { loading, error, data }] = useLazyQuery(FETCH_ME_QUERY);
+  const signIn = useCallback((newToken: string) => {
+    setSession(newToken);
+    setToken(newToken);
+  }, []);
 
-  const signIn = useCallback(
-    (newToken: string) => {
-      setSession(newToken);
-      setToken(newToken);
-      toast.success('Successfully logged in');
-      router.push(paths.dashboard.root);
-    },
-    [router]
-  );
+  const signOut = useCallback(() => {
+    setSession(null);
+    setToken(null);
+    toast.success('You have successfully signed out.');
+  }, []);
 
   useEffect(() => {
-    let timerId: NodeJS.Timeout | undefined;
-    if (token && isValidToken(token)) {
-      fetchMe();
-      timerId = setTokenTimer(token);
-    } else if (!token && pathname === paths.dashboard.root) {
-      router.push(paths.auth.signIn);
+    console.log('@@@@', token, timeToLive)
+    if (token) {
+      if (timeToLive <= 0) {
+        expireToken();
+      } else {
+        fetchMe();
+      }
     }
-
-    return () => {
-      clearTimeout(timerId);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, pathname, fetchMe]);
+  }, [token, timeToLive, expireToken, fetchMe]);
 
   useEffect(() => {
     if (error) {
-      // TODO: Show alert token is invalid
-      setToken(null);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (code) {
-      const timer = setTimeout(() => {
-        setCode(null);
-      }, 1800000); // 30 minutes
-
-      return () => clearTimeout(timer); // Cleanup timer on unmount or code change
+      expireToken();
+      return;
     }
 
-    return undefined;
-  }, [code]);
+    if (!timerId.current) {
+      timerId.current = setTimeout(() => {
+        expireToken();
+      }, timeToLive);
+    }
 
-  // LOGOUT ACTION
-  const signOut = useCallback(() => {
-    setToken(null);
-    router.push(paths.pages.intro);
-  }, [router]);
-
-  const user = data?.memberMe;
+    // eslint-disable-next-line consistent-return
+    return () => {
+      clearTimeout(timerId.current);
+    };
+  }, [timeToLive, error, expireToken]);
 
   const memoizedValue: AuthContextValue = useMemo(
-    () => ({ user, token, code, isAuthenticated: !!token, loading, signIn, signOut, setCode }),
-    [user, code, token, loading, signIn, signOut, setCode]
+    () => ({ user, token, isAuthenticated: !!token, loading, signIn, signOut }),
+    [user, token, loading, signIn, signOut]
   );
 
   return <AuthContext value={memoizedValue}>{children}</AuthContext>;
