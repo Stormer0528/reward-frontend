@@ -77,11 +77,11 @@ export function useFetchMembersStats() {
 }
 
 export function useFetchMemberOverview(id: string) {
-  const { loading, data, error } = useQuery(FETCH_MEMBER_HISTORY, {
+  const { data, loading, error } = useQuery(FETCH_MEMBER_HISTORY, {
     variables: { data: { id } },
   });
 
-  return { loading, overview: data?.memberOverview, error };
+  return { overview: data?.memberOverview, loading, error };
 }
 
 export function useUpdateMember() {

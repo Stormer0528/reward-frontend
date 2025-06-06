@@ -104,6 +104,7 @@ export const paths = {
     resource: { root: ROOTS.RESOURCE, view: (slug: string) => `${ROOTS.RESOURCE}/${slug}` },
     profile: {
       root: ROOTS.PROFILE,
+      tabMatch: `${ROOTS.PROFILE}/:tab`,
     },
     notifications: {
       root: ROOTS.NOTIFICATIONS,

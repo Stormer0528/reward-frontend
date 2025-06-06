@@ -1,4 +1,4 @@
-import type { Member, Setting as SettingType } from 'src/__generated__/graphql';
+import type { Setting as SettingType } from 'src/__generated__/graphql';
 
 import { useState, useEffect } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
@@ -14,19 +14,18 @@ import { formatID, truncateMiddle } from 'src/utils/helper';
 
 import { Iconify } from 'src/components/Iconify';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 import Setting from './Setting';
 import { useFetchMemberOverview } from '../useApollo';
 
-interface Props {
-  me: Member;
-}
-
-export default function Personal({ me }: Props) {
+export function ProfileDetailView() {
+  const { user } = useAuthContext();
   const copy = useBoolean();
   const open = useBoolean();
   const [children, setChildren] = useState<any>();
 
-  const { overview } = useFetchMemberOverview(me.id);
+  const { overview } = useFetchMemberOverview(user!.id);
 
   const handleCopy = async (addressValue: string) => {
     try {
@@ -43,21 +42,21 @@ export default function Personal({ me }: Props) {
 
   useEffect(() => {
     setChildren(
-      me?.placementChildren?.reduce(
+      user?.placementChildren?.reduce(
         (prev, save) => ({ ...prev, [save?.placementPosition ?? '']: save?.fullName }),
         {}
       )
     );
-  }, [me]);
+  }, [user]);
 
   return (
     <>
       <Card sx={{ p: 3 }}>
         <Stack direction="row" justifyContent="space-between" sx={{ pb: 2 }} columnGap={2}>
-          <Typography variant="h6">{me?.fullName}</Typography>
+          <Typography variant="h6">{user!.fullName}</Typography>
           <Stack direction="row" spacing={1} justifyContent="end" alignItems="center">
             <Typography variant="body2" sx={{ pt: 0.4 }}>
-              {formatID(me.ID!)}
+              {formatID(user!.ID!)}
             </Typography>
             <IconButton onClick={open.onTrue}>
               <Iconify icon="ant-design:setting-twotone" />
@@ -74,7 +73,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.username}</Typography>
+              <Typography variant="body2">{user!.username}</Typography>
             </Stack>
           </Stack>
 
@@ -85,7 +84,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.sponsor?.fullName}</Typography>
+              <Typography variant="body2">{user!.sponsor?.fullName}</Typography>
             </Stack>
           </Stack>
 
@@ -96,7 +95,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.email}</Typography>
+              <Typography variant="body2">{user!.email}</Typography>
             </Stack>
           </Stack>
 
@@ -107,7 +106,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.mobile}</Typography>
+              <Typography variant="body2">{user!.mobile}</Typography>
             </Stack>
           </Stack>
 
@@ -118,7 +117,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.primaryAddress}</Typography>
+              <Typography variant="body2">{user!.primaryAddress}</Typography>
             </Stack>
           </Stack>
 
@@ -129,7 +128,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.secondaryAddress}</Typography>
+              <Typography variant="body2">{user!.secondaryAddress}</Typography>
             </Stack>
           </Stack>
 
@@ -140,7 +139,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.city}</Typography>
+              <Typography variant="body2">{user!.city}</Typography>
             </Stack>
           </Stack>
 
@@ -151,7 +150,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.zipCode}</Typography>
+              <Typography variant="body2">{user!.zipCode}</Typography>
             </Stack>
           </Stack>
 
@@ -162,7 +161,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.country}</Typography>
+              <Typography variant="body2">{user!.country}</Typography>
             </Stack>
           </Stack>
 
@@ -173,7 +172,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.state}</Typography>
+              <Typography variant="body2">{user!.state}</Typography>
             </Stack>
           </Stack>
 
@@ -184,7 +183,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.assetId}</Typography>
+              <Typography variant="body2">{user!.assetId}</Typography>
             </Stack>
           </Stack>
 
@@ -195,7 +194,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.ethAssetId}</Typography>
+              <Typography variant="body2">{user!.ethAssetId}</Typography>
             </Stack>
           </Stack>
 
@@ -207,7 +206,7 @@ export default function Personal({ me }: Props) {
             </Stack>
             <Stack width={1}>
               <Typography variant="body2">
-                {me?.createdAt ? formatDate(me.createdAt) : ''}
+                {user!.createdAt ? formatDate(user!.createdAt) : ''}
               </Typography>
             </Stack>
           </Stack>
@@ -219,7 +218,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.commissionDefault}</Typography>
+              <Typography variant="body2">{user!.commissionDefault}</Typography>
             </Stack>
           </Stack>
 
@@ -241,15 +240,15 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
 
-            {me?.peerETHAddress && (
+            {user!.peerETHAddress && (
               <Stack width={1} direction="row" spacing={1} alignItems="center">
                 <Typography variant="body2">
-                  {truncateMiddle(me?.peerETHAddress ?? '', 30)}
+                  {truncateMiddle(user!.peerETHAddress ?? '', 30)}
                 </Typography>
                 <Iconify
                   sx={{ cursor: 'pointer' }}
                   icon={copy.value ? 'system-uicons:check' : 'stash:copy-light'}
-                  onClick={() => handleCopy(me?.peerETHAddress ?? '')}
+                  onClick={() => handleCopy(user!.peerETHAddress ?? '')}
                 />
               </Stack>
             )}
@@ -265,7 +264,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.groupSetting?.name}</Typography>
+              <Typography variant="body2">{user!.groupSetting?.name}</Typography>
             </Stack>
           </Stack>
 
@@ -276,7 +275,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me.teamStrategy}</Typography>
+              <Typography variant="body2">{user!.teamStrategy}</Typography>
             </Stack>
           </Stack>
 
@@ -287,7 +286,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{`L${me?.commission?.begL ?? 0}, R${me?.commission?.begR ?? 0}`}</Typography>
+              <Typography variant="body2">{`L${user!.commission?.begL ?? 0}, R${user!.commission?.begR ?? 0}`}</Typography>
             </Stack>
           </Stack>
 
@@ -298,7 +297,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{`L${me?.commission?.newL ?? 0}, R${me?.commission?.newR ?? 0}`}</Typography>
+              <Typography variant="body2">{`L${user!.commission?.newL ?? 0}, R${user!.commission?.newR ?? 0}`}</Typography>
             </Stack>
           </Stack>
 
@@ -309,7 +308,7 @@ export default function Personal({ me }: Props) {
               </Typography>
             </Stack>
             <Stack width={1}>
-              <Typography variant="body2">{me?.placementParent?.fullName}</Typography>
+              <Typography variant="body2">{user!.placementParent?.fullName}</Typography>
             </Stack>
           </Stack>
 
@@ -340,7 +339,7 @@ export default function Personal({ me }: Props) {
 
         {/* Wallet info */}
         <Stack sx={{ mt: 2 }}>
-          {me?.memberWallets?.map((item) => (
+          {user!.memberWallets?.map((item) => (
             <Stack sx={{ pb: 1 }}>
               <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
                 {item?.payout?.method}
@@ -369,17 +368,17 @@ export default function Personal({ me }: Props) {
           <Stack width={1}>
             <Iconify
               icon={
-                me?.setting?.communication
+                user!.setting?.communication
                   ? 'ic:twotone-check-box'
                   : 'iconamoon:sign-times-square-duotone'
               }
-              color={me?.setting?.communication ? 'green' : 'red'}
+              color={user!.setting?.communication ? 'green' : 'red'}
             />
           </Stack>
         </Stack>
       </Card>
 
-      <Setting open={open} setting={me?.setting ?? ({} as SettingType)} />
+      <Setting open={open} setting={user!.setting ?? ({} as SettingType)} />
     </>
   );
 }

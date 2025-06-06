@@ -21,7 +21,7 @@ import { AgGrid } from 'src/components/AgGrid';
 
 import { useFetchMemberStatistics } from 'src/sections/Reward/useApollo';
 
-export default function MemberStatistics() {
+export function RewardHistoryTable() {
   const { id: memberId } = useParams();
   const [{ page = '1,10', sort = 'createdAt', filter }, { setPageSize }] = useQueryString();
 

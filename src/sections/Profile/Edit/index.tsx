@@ -43,7 +43,7 @@ type Props = {
   me: Member;
 };
 
-export default function MemberGeneral({ me }: Props) {
+export function ProfileEditView({ me }: Props) {
   const open = useBoolean();
   const router = useRouter();
 

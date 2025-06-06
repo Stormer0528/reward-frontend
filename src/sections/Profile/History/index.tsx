@@ -1,26 +1,18 @@
-import type { Member } from 'src/__generated__/graphql';
-
 import Grid from '@mui/material/Grid';
 
-import Table from './Table';
-import Reward from './Reward';
-import OverView from './OverView';
-import Personal from './Personal';
+import { ProfileDetailView } from './Detail';
+import { ProfileHistoryOverView } from './OverView';
+import { RewardHistoryTable } from './RewardHistoryTable';
 
-interface Props {
-  me: Member;
-}
-
-export default function HistoryView({ me }: Props) {
+export function ProfileHistoryView() {
   return (
     <Grid container spacing={2}>
       <Grid size={{ md: 12, xl: 8 }}>
-        <Reward me={me} />
-        <Table />
+        <RewardHistoryTable />
       </Grid>
       <Grid size={{ md: 12, xl: 4 }}>
-        <OverView me={me} />
-        <Personal me={me} />
+        <ProfileHistoryOverView />
+        <ProfileDetailView />
       </Grid>
     </Grid>
   );

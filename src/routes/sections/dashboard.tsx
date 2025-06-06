@@ -16,7 +16,9 @@ const SaleListPage = lazy(() => import('src/pages/Sale/List'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-const ProfilePage = lazy(() => import('src/pages/Profile'));
+const ProfileWrapper = lazy(() => import('src/pages/Profile/Wrapper'));
+const ProfileHistoryPage = lazy(() => import('src/pages/Profile/ProfileHistory'));
+const ProfileEditPage = lazy(() => import('src/pages/Profile/ProfileEdit'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -137,7 +139,20 @@ export const dashboardRoutes = [
           { path: ':slug', children: [{ index: true, element: <ResourceDetailPage /> }] },
         ],
       },
-      { path: 'profile', element: <ProfilePage /> },
+      {
+        path: 'profile',
+        element: (
+          <ProfileWrapper>
+            <Outlet />
+          </ProfileWrapper>
+        ),
+        children: [
+          { index: true, element: <Navigate to="history" replace /> },
+          { path: 'history', element: <ProfileHistoryPage /> },
+          { path: 'edit', element: <ProfileEditPage /> },
+          // TODO: security page
+        ],
+      },
       {
         path: 'notifications',
         element: (
