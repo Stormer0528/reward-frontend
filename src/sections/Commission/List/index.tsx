@@ -12,17 +12,13 @@ import { useMemo, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 
-import { paths } from 'src/routes/paths';
 import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
 import { parseFilterModel } from 'src/utils/parseFilter';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-
 import { Label } from 'src/components/Label';
 import { AgGrid } from 'src/components/AgGrid';
-import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { useFetchCommissions } from 'src/sections/Commission/useApollo';
 
@@ -45,7 +41,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         initialSort: 'desc',
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
       },
       {
         field: 'weekStartDate',
@@ -61,7 +57,6 @@ export default function Commission({ me }: Props) {
         editable: false,
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           formatDate(data?.weekStartDate),
-        cellClass: 'ag-cell-center',
       },
       {
         headerName: 'BegLR',
@@ -69,7 +64,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.begL}, R${data?.begR}`,
       },
@@ -79,7 +74,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.newL}, R${data?.begR}`,
       },
@@ -89,7 +84,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.maxL}, R${data?.maxR}`,
       },
@@ -99,7 +94,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.pkgL}, R${data?.pkgR}`,
       },
@@ -109,7 +104,7 @@ export default function Commission({ me }: Props) {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           `L${data?.endL}, R${data?.endR}`,
       },
@@ -120,7 +115,7 @@ export default function Commission({ me }: Props) {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'tabular-nums ag-cell-center',
+        cellClass: 'tabular-nums',
       },
       {
         field: 'status',
@@ -141,11 +136,11 @@ export default function Commission({ me }: Props) {
         field: 'shortNote',
         headerName: 'Note',
         flex: 1,
+        minWidth: 200,
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
-        cellClass: 'ag-cell-center',
       },
     ],
 
@@ -165,31 +160,22 @@ export default function Commission({ me }: Props) {
   }, [graphQueryFilter, page, sort, fetchCommissions]);
 
   return (
-    <DashboardContent sx={{ overflowX: 'hidden' }}>
-      <Breadcrumbs
-        heading="Commission"
-        links={[{ name: 'Commission', href: paths.dashboard.commission.root }, { name: 'List' }]}
-        sx={{
-          mb: { xs: 1, md: 2 },
-        }}
+    <Card
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        overflow: 'hidden',
+        height: { xs: 'calc(100vh - var(--layout-header-mobile-height) - 20px)', md: 2 },
+      }}
+    >
+      <AgGrid<WeeklyCommission>
+        gridKey="commission-list"
+        loading={loading}
+        rowData={weeklyCommissions}
+        columnDefs={colDefs}
+        totalRowCount={rowCount}
       />
-
-      <Card
-        sx={{
-          flexGrow: 1,
-          display: 'flex',
-          overflow: 'hidden',
-        }}
-      >
-        <AgGrid<WeeklyCommission>
-          gridKey="commission-list"
-          loading={loading}
-          rowData={weeklyCommissions}
-          columnDefs={colDefs}
-          totalRowCount={rowCount}
-        />
-      </Card>
-    </DashboardContent>
+    </Card>
   );
 }
 
