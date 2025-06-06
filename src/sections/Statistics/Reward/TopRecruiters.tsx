@@ -49,6 +49,7 @@ export default function Latest() {
             <Stack sx={{ mt: 2 }}>
               {topRecruiters.map((item, index) => (
                 <Stack
+                  key={item.fullName}
                   sx={{
                     gap: 1,
                     minWidth: 120,

@@ -48,6 +48,7 @@ export default function Latest() {
             <Stack sx={{ mt: 2 }}>
               {latest.map((item) => (
                 <Stack
+                  key={item.id}
                   sx={{
                     gap: 1,
                     minWidth: 120,
