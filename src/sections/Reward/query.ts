@@ -1,6 +1,6 @@
 import { gql } from 'src/__generated__/gql';
 
-export const FETCH_STATISTICS_QUERY = gql(/* GraphQL */ `
+export const FETCH_STATISTICS = gql(/* GraphQL */ `
   query Reward($sort: String, $page: String, $filter: JSONObject) {
     statistics(sort: $sort, page: $page, filter: $filter) {
       statistics {
@@ -14,11 +14,6 @@ export const FETCH_STATISTICS_QUERY = gql(/* GraphQL */ `
         totalBlocks
         totalMembers
         totalHashPower
-        statisticsSales {
-          id
-          saleId
-          issuedAt
-        }
         memberStatistics {
           txcShared
           memberStatisticsWallets {
@@ -31,7 +26,7 @@ export const FETCH_STATISTICS_QUERY = gql(/* GraphQL */ `
   }
 `);
 
-export const FETCH_MEMBERSTATISTICS_QUERY = gql(/* GraphQL */ `
+export const FETCH_MEMBER_STATISTICS = gql(/* GraphQL */ `
   query FetchMemberStatistics($sort: String, $page: String, $filter: JSONObject) {
     memberStatistics(sort: $sort, page: $page, filter: $filter) {
       memberStatistics {
@@ -140,7 +135,7 @@ export const UPDATE_STATISTICS = gql(/* GraphQL */ `
 `);
 
 export const REMOVE_MEMBER_STATISTICS = gql(/* GraphQL */ `
-  mutation RemoveMemberStatisticsByStaitisId($data: IDInput!) {
+  mutation RemoveMemberStatisticsByStatisticsId($data: IDInput!) {
     removeMemberStatisticsByStaitisId(data: $data) {
       count
     }
@@ -155,8 +150,8 @@ export const REMOVE_STATISTICS = gql(/* GraphQL */ `
   }
 `);
 
-export const REWARD_BY_WALLETS = gql(/* GraphQL */ `
-  query Rewards($from: DateTimeISO!, $to: DateTimeISO!) {
+export const FETCH_REWARD_BY_WALLETS = gql(/* GraphQL */ `
+  query RewardByWallet($from: DateTimeISO!, $to: DateTimeISO!) {
     rewardsByWallets(from: $from, to: $to) {
       rewards {
         txc
@@ -174,27 +169,7 @@ export const REWARD_BY_WALLETS = gql(/* GraphQL */ `
   }
 `);
 
-export const FETCH_DAILY_REWARD = gql(/* GraphQL */ `
-  query DailyRewards($from: DateTimeISO!, $to: DateTimeISO!) {
-    dailyRewards(from: $from, to: $to) {
-      rewards {
-        day
-        rewardsByWallet {
-          txc
-          wallet {
-            address
-            payout {
-              method
-            }
-          }
-        }
-        totalTxc
-      }
-    }
-  }
-`);
-
-export const FETCH_MEMBERSTATISTICS_WALLETS_QUERY = gql(/* GraphQL */ `
+export const FETCH_MEMBER_STATISTICS_WALLETS = gql(/* GraphQL */ `
   query MemberStatisticsWallets($sort: String, $page: String, $filter: JSONObject) {
     memberStatisticsWallets(sort: $sort, page: $page, filter: $filter) {
       memberStatisticsWallets {
@@ -203,6 +178,8 @@ export const FETCH_MEMBERSTATISTICS_WALLETS_QUERY = gql(/* GraphQL */ `
         issuedAt
         memberWallet {
           address
+          percent
+          isDefault
         }
         memberStatistic {
           hashPower
