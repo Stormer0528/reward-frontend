@@ -4,7 +4,7 @@ export const getWallets = (memberWallets: any) => {
   if (!Array.isArray(memberWallets)) return [[], []];
 
   const txcWallets: any[] = memberWallets
-    .filter((mw) => TXC_WALLET.findIndex((item) => item.id === mw.payoutId) !== -1)
+    .filter((mw) => TXC_WALLET.findIndex((txcWallet) => txcWallet.id === mw.payout.id) !== -1)
     .map((mw) => ({
       id: mw.id,
       payoutId: mw.payoutId,
@@ -15,13 +15,14 @@ export const getWallets = (memberWallets: any) => {
     }));
 
   const otherWallets: any = memberWallets
-    .filter((mw) => OTHER_WALLET.findIndex((item) => item.id === mw.payoutId) !== -1)
+    .filter((mw) => OTHER_WALLET.findIndex((otherWallet) => otherWallet.id === mw.payout.id) !== -1)
     .map((mw) => ({
       id: mw.id,
       payoutId: mw.payoutId,
       address: mw.address,
       note: mw.note,
       percent: mw.percent,
+      isDefault: mw.isDefault,
     }));
 
   return [txcWallets, otherWallets];

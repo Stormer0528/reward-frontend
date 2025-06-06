@@ -24,6 +24,7 @@ interface Wallet {
   payoutId?: string;
   address?: string;
   percent?: number;
+  isDefault?: boolean;
 }
 
 export default function OtherWallets({ wallets }: Props) {
@@ -34,13 +35,14 @@ export default function OtherWallets({ wallets }: Props) {
 
   useEffect(() => {
     if (fields.length === 0) {
-      wallets.forEach(({ id, payoutId, address, percent, note }) => {
+      wallets.forEach(({ id, payoutId, address, percent, note, isDefault }) => {
         append({
           id,
           payoutId,
           address,
           percent: percent || 0,
           note: note || '',
+          isDefault,
         });
       });
     }
@@ -48,11 +50,12 @@ export default function OtherWallets({ wallets }: Props) {
   }, []);
 
   useEffect(() => {
-    wallets.forEach(({ payoutId, address, note }, index) => {
+    wallets.forEach(({ payoutId, address, note, isDefault }, index) => {
       setValue(`otherWallets[${index}].payoutId`, payoutId);
       setValue(`otherWallets[${index}].address`, address);
       setValue(`otherWallets[${index}].note`, note);
       setValue(`otherWallets[${index}].percent`, 0);
+      setValue(`otherWallets[${index}].isDefault`, isDefault);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallets]);
@@ -63,6 +66,7 @@ export default function OtherWallets({ wallets }: Props) {
       address: '',
       note: '',
       percent: 0,
+      isDefault: !fields.length,
     });
   };
 
@@ -73,7 +77,7 @@ export default function OtherWallets({ wallets }: Props) {
   return (
     <Card sx={{ p: 3, mb: 2 }}>
       <Typography sx={{ pb: 2 }} variant="subtitle1">
-        Other Wallets
+        Commission Wallets
       </Typography>
       {forms?.map((item, index) => (
         <Stack key={item.id} sx={{ mb: 3 }}>
@@ -104,8 +108,10 @@ export default function OtherWallets({ wallets }: Props) {
               size="small"
             />
           </Box>
-          <Box display="grid" sx={{ gridTemplateColumns: '90% auto' }}>
+          <Box display="grid" sx={{ gridTemplateColumns: '70% 15% auto' }} columnGap={2}>
             <Field.Text name={`otherWallets[${index}].note`} label="Note" size="small" />
+
+            <Field.Switch name={`otherWallets[${index}].isDefault`} label="Default" />
 
             <Button
               size="small"
