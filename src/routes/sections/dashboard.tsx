@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate } from 'react-router';
 
+import { TeamReportSection } from 'src/__generated__/graphql';
 import { DashboardLayout, DashboardContent } from 'src/layouts/dashboard';
 
 import { LoadingScreen } from 'src/components/LoadingScreen';
@@ -41,6 +42,7 @@ const CommissionListPage = lazy(() => import('src/pages/Commission/List'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const TeamWrapper = lazy(() => import('src/pages/TeamCommission/Wrapper'));
 const TeamCommissionListPage = lazy(() => import('src/pages/TeamCommission'));
 // ----------------------------------------------------------------------
 
@@ -131,7 +133,6 @@ export const dashboardRoutes = [
           },
         ],
       },
-
       {
         path: 'placement',
         children: [{ index: true, element: <PlacementListPage /> }],
@@ -176,7 +177,37 @@ export const dashboardRoutes = [
         path: 'invoices',
         element: <InvoiceListPage />,
       },
-      { path: 'team', element: <TeamCommissionListPage /> },
+      {
+        path: 'team',
+        children: [
+          {
+            element: (
+              <TeamWrapper>
+                <Outlet />
+              </TeamWrapper>
+            ),
+            children: [
+              { index: true, element: <Navigate to="left" replace /> },
+              {
+                path: 'left',
+                element: <TeamCommissionListPage teamReport={TeamReportSection.Left} />,
+              },
+              {
+                path: 'right',
+                element: <TeamCommissionListPage teamReport={TeamReportSection.Right} />,
+              },
+              {
+                path: 'referral',
+                element: <TeamCommissionListPage teamReport={TeamReportSection.Referral} />,
+              },
+              {
+                path: 'contact',
+                element: <TeamCommissionListPage contact />,
+              },
+            ],
+          },
+        ],
+      },
       { path: 'mail', element: <MailPage /> },
       { path: 'communication', element: <CommunicationPage /> },
       {

@@ -111,6 +111,7 @@ export const paths = {
     },
     team: {
       root: ROOTS.TEAM,
+      tabMatch: `${ROOTS.TEAM}/:tab`,
     },
     invoice: { root: ROOTS.INVOICE },
     mail: {

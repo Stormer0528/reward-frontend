@@ -1,33 +1,16 @@
-import { Navigate } from 'react-router';
-
-import { paths } from 'src/routes/paths';
-
-import { CONFIG } from 'src/config';
-
-import { LoadingScreen } from 'src/components/LoadingScreen';
+import type { TeamReportSection } from 'src/__generated__/graphql';
 
 import TeamCommission from 'src/sections/TeamCommission';
 
-import { useAuthContext } from 'src/auth/hooks';
-
 // ----------------------------------------------------------------------
 
-export default function Page() {
-  const { user, loading } = useAuthContext();
+interface Props {
+  contact?: boolean;
+  teamReport?: TeamReportSection;
+}
 
-  if (loading) {
-    return <LoadingScreen />;
-  }
-
-  if (!user) {
-    return <Navigate to={paths.notFound} replace />;
-  }
-
+export default function TeamCommissionPage({ contact, teamReport }: Props) {
   return (
-    <>
-      <title>{`${CONFIG.APP_NAME} - Team`}</title>
-
-      <TeamCommission me={user} />
-    </>
+    <TeamCommission contact={contact as boolean} teamReport={teamReport as TeamReportSection} />
   );
 }

@@ -8,6 +8,7 @@ import { useMemo, useEffect } from 'react';
 
 import { useQuery as useQueryString } from 'src/routes/hooks';
 
+import { customizeFullName } from 'src/utils/helper';
 import { parseFilterModel } from 'src/utils/parseFilter';
 import { formatWeekNumber } from 'src/utils/format-time';
 
@@ -38,32 +39,35 @@ export default function Report({ teamReport }: Props) {
       {
         field: 'weekStartDate',
         headerName: 'Week',
-        width: 250,
+        width: 200,
         filter: 'agDateColumnFilter',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyReport>) =>
-          `week #${formatWeekNumber(data?.weekStartDate)} (${dayjs(data?.weekStartDate).utc().format('MM/DD')} - ${dayjs(data?.weekStartDate).utc().add(6, 'day').format('MM/DD')})`,
+          `#${formatWeekNumber(data?.weekStartDate)} (${dayjs(data?.weekStartDate).utc().format('MM/DD')} - ${dayjs(data?.weekStartDate).utc().add(6, 'day').format('MM/DD')})`,
+      },
+      {
+        field: 'username',
+        headerName: 'Username',
+        width: 150,
+        filter: 'agTextColumnFilter',
+        resizable: true,
+        editable: false,
+        filterParams: { buttons: ['reset'] } as ITextFilterParams,
       },
       {
         field: 'fullName',
-        headerName: 'Name',
+        headerName: 'Full Name',
         width: 140,
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
-      },
-      {
-        field: 'username',
-        headerName: 'Username',
-        width: 110,
-        filter: 'agTextColumnFilter',
-        resizable: true,
-        editable: false,
-        filterParams: { buttons: ['reset'] } as ITextFilterParams,
+        cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
+          customizeFullName(data?.fullName ?? ''),
       },
       {
         headerName: 'BegLR',
-        width: 120,
+        width: 110,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
@@ -73,7 +77,7 @@ export default function Report({ teamReport }: Props) {
       },
       {
         headerName: 'NewLR',
-        width: 120,
+        width: 110,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
@@ -83,7 +87,7 @@ export default function Report({ teamReport }: Props) {
       },
       {
         headerName: 'MaxLR',
-        width: 120,
+        width: 110,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
@@ -93,7 +97,7 @@ export default function Report({ teamReport }: Props) {
       },
       {
         headerName: 'PackageLR',
-        width: 120,
+        width: 110,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
@@ -103,7 +107,7 @@ export default function Report({ teamReport }: Props) {
       },
       {
         headerName: 'EndLR',
-        width: 120,
+        width: 110,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
@@ -114,7 +118,7 @@ export default function Report({ teamReport }: Props) {
       {
         field: 'commission',
         headerName: 'Commission',
-        width: 150,
+        width: 140,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,

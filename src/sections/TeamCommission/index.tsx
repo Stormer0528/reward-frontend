@@ -1,36 +1,41 @@
-import type { Member } from 'src/__generated__/graphql';
+import type { TeamReportSection } from 'src/__generated__/graphql';
 
+import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
+import { useAuthContext } from 'src/auth/hooks';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-
-import { Breadcrumbs } from 'src/components/Breadcrumbs';
-
-import Table from './table';
+import Report from './report';
+import Contact from './contact';
 
 interface Props {
-  me: Member;
+  contact: boolean;
+  teamReport: TeamReportSection;
 }
 
-export default function TeamCommissionListView({ me }: Props) {
+export default function TeamCommissionListView({ contact, teamReport }: Props) {
+  const { user } = useAuthContext();
+
   return (
-    <DashboardContent>
-      <Breadcrumbs
-        heading="Team"
-        links={[{ name: 'Team', href: paths.dashboard.team.root }, { name: 'List' }]}
-        sx={{
-          mb: { xs: 1, md: 2 },
-        }}
-      />
-      {me.teamReport.length === 0 ? (
+    <>
+      {user!.teamReport.length ? (
+        <Card
+          sx={{
+            flexGrow: 1,
+            display: 'flex',
+            overflow: 'hidden',
+            justifyContent: 'center',
+            borderRadius: '0 0 16px 16px',
+            height: { xs: 'calc(100vh - var(--layout-header-mobile-height) - 20px)', md: 2 },
+          }}
+        >
+          {contact ? <Contact /> : <Report teamReport={teamReport} />}
+        </Card>
+      ) : (
         <Typography variant="subtitle1" textAlign="center">
           Please contact the office to enable TEAM reporting!
         </Typography>
-      ) : (
-        <Table />
       )}
-    </DashboardContent>
+    </>
   );
 }

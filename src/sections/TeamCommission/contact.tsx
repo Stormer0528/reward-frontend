@@ -6,6 +6,7 @@ import { useMemo, useEffect } from 'react';
 import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
+import { customizeFullName } from 'src/utils/helper';
 import { parseFilterModel } from 'src/utils/parseFilter';
 
 import { type Introducer } from 'src/__generated__/graphql';
@@ -45,16 +46,17 @@ export default function Contact() {
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'tabular-nums',
       },
       {
         field: 'fullName',
         headerName: 'Full Name',
-        width: 150,
+        flex: 1,
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
+        cellRenderer: ({ data }: CustomCellRendererProps<Introducer>) =>
+          customizeFullName(data?.fullName ?? ''),
       },
       {
         field: 'mobile',
@@ -70,6 +72,7 @@ export default function Contact() {
         headerName: 'Date',
         width: 150,
         filter: 'agDateColumnFilter',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<Introducer>) =>
           formatDate(data?.createdAt),
       },
