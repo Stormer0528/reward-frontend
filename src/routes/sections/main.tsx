@@ -16,7 +16,7 @@ const ActionPage = lazy(() => import('src/pages/Commission/Action'));
 const IntroductionPage = lazy(() => import('src/pages/Introduction'));
 const RapidRewardsPage = lazy(() => import('src/pages/RapidRewards'));
 const SilverGuaranteePage = lazy(() => import('src/pages/SilverGuarantee'));
-const RewardDetailPage = lazy(() => import('src/pages/MemberStatistics/List'));
+// const RewardDetailPage = lazy(() => import('src/pages/MemberStatistics/List'));
 // ----------------------------------------------------------------------
 
 export const mainRoutes: RouteObject[] = [
@@ -61,16 +61,16 @@ export const mainRoutes: RouteObject[] = [
       </Suspense>
     ),
   },
-  {
-    path: 'reward/:id',
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <MainLayout>
-          <RewardDetailPage />
-        </MainLayout>
-      </Suspense>
-    ),
-  },
+  // {
+  //   path: 'reward/:id',
+  //   element: (
+  //     <Suspense fallback={<LoadingScreen />}>
+  //       <MainLayout>
+  //         <RewardDetailPage />
+  //       </MainLayout>
+  //     </Suspense>
+  //   ),
+  // },
   {
     path: `${paths.dashboard.commission.action}`,
     element: (
