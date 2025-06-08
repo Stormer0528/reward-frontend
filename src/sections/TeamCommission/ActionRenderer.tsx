@@ -12,6 +12,7 @@ export const ActionRender = memo(
   ({ data }: CustomCellRendererProps<Introducer>) => {
     const copy = useBoolean();
 
+    // TODO: Use useCopyToClipboard from minimal-shared
     const handleCopy = async () => {
       await navigator.clipboard.writeText(`${CONFIG.ASSET_DIR}/sign-up?sponsor=${data?.username}`);
       copy.onTrue();
