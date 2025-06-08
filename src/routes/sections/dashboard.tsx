@@ -103,11 +103,11 @@ export const dashboardRoutes = [
               </SponsorshipWrapper>
             ),
             children: [
-              { index: true, element: <Navigate to="approved" replace /> },
-              { path: 'approved', element: <SponsorshipListPage allowState="approved" /> },
-              { path: 'pending', element: <SponsorshipListPage allowState="pending" /> },
-              { path: 'added', element: <SponsorshipListPage allowState="added" /> },
-              { path: 'graveyard', element: <SponsorshipListPage allowState="graveyard" /> },
+              { index: true, element: <Navigate to="APPROVED" replace /> },
+              { path: 'approved', element: <SponsorshipListPage allowState="APPROVED" /> },
+              { path: 'pending', element: <SponsorshipListPage allowState="PENDING" /> },
+              { path: 'added', element: <SponsorshipListPage allowState="ADDED" /> },
+              { path: 'graveyard', element: <SponsorshipListPage allowState="GRAVEYARD" /> },
               { path: 'tree', element: <SponsorshipTreePage /> },
             ],
           },
