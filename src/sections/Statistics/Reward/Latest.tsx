@@ -9,6 +9,7 @@ import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { formatDate } from 'src/utils/format-time';
 
 import { CONFIG } from 'src/config';
@@ -50,10 +51,9 @@ export default function Latest() {
                 <Stack
                   key={item.id}
                   sx={{
+                    py: 1,
                     gap: 1,
                     minWidth: 120,
-                    px: 3,
-                    py: 1,
                     alignItems: 'center',
                   }}
                   direction="row"
@@ -72,10 +72,10 @@ export default function Latest() {
                       <Iconify icon="stash:user-group" width={18} />
                     </Tooltip>
                     <Typography variant="body1" className="tabular-nums">
-                      {item.totalMembers}
+                      {fNumber(item.totalMembers)}
                     </Typography>
                   </Stack>
-                  <Stack width={0.5} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
+                  <Stack width={0.3} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
                     <Tooltip title="TXC Shared" arrow placement="top">
                       <Avatar
                         src={`${CONFIG.ASSET_DIR}/assets/icons/brands/txc.png`}
@@ -83,15 +83,19 @@ export default function Latest() {
                       />
                     </Tooltip>
                     <Typography variant="body1" className="tabular-nums">
-                      {Math.ceil(item.txcShared)}
+                      {fNumber(Math.ceil(item.txcShared))}
                     </Typography>
                   </Stack>
                   <Stack width={0.3} direction="row" columnGap={1} sx={{ alignItems: 'center' }}>
                     <Tooltip title="Issued At" arrow placement="top">
-                      <Iconify icon="stash:data-date-duotone" width={18} />
+                      <Iconify icon="solar:calendar-broken" width={18} />
                     </Tooltip>
-                    <Typography variant="body1" className="tabular-nums">
-                      {formatDate(item.issuedAt)}
+                    <Typography
+                      variant="body1"
+                      className="tabular-nums"
+                      sx={{ whiteSpace: 'nowrap' }}
+                    >
+                      {formatDate(item.issuedAt, 'MMM DD')}
                     </Typography>
                   </Stack>
                 </Stack>

@@ -9,6 +9,7 @@ import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { customizeFullName } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
@@ -84,7 +85,7 @@ export default function Latest() {
                   </Stack>
                   <Stack direction="row" sx={{ alignItems: 'center' }} columnGap={1}>
                     <Typography variant="body1" className="tabular-nums">
-                      {item.totalIntroducers}
+                      {fNumber(item.totalIntroducers)}
                     </Typography>
                   </Stack>
                 </Stack>
