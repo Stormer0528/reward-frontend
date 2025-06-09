@@ -105,7 +105,7 @@ export const dashboardRoutes = [
               </SponsorshipWrapper>
             ),
             children: [
-              { index: true, element: <Navigate to="APPROVED" replace /> },
+              { index: true, element: <Navigate to="approved" replace /> },
               { path: 'approved', element: <SponsorshipListPage allowState="APPROVED" /> },
               { path: 'pending', element: <SponsorshipListPage allowState="PENDING" /> },
               { path: 'added', element: <SponsorshipListPage allowState="ADDED" /> },
