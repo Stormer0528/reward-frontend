@@ -36,7 +36,7 @@ export default function Detail({ open, row }: Props) {
         }}
       >
         <Stack direction="row" justifyContent="space-between" sx={{ p: 2 }}>
-          <Typography variant="h6">{name}</Typography>
+          <Typography variant="subtitle1">{name}</Typography>
           <Stack direction="row" spacing={1}>
             <Typography>
               {status === InvoiceStatusEnum.Paid ? (
@@ -45,7 +45,9 @@ export default function Detail({ open, row }: Props) {
                 <Iconify icon="lets-icons:check-fill" color="yellow" />
               )}
             </Typography>
-            <Typography>{status === InvoiceStatusEnum.Pending ? 'Pending' : 'Paid'}</Typography>
+            <Typography variant="body2">
+              {status === InvoiceStatusEnum.Pending ? 'Pending' : 'Paid'}
+            </Typography>
           </Stack>
         </Stack>
 
@@ -66,11 +68,15 @@ export default function Detail({ open, row }: Props) {
             <Typography variant="body2">{formatDate(createdAt)}</Typography>
           </Stack>
 
-          <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
+          {invoiceFile && (
+            <>
+              <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
-          <Typography variant="subtitle1">Files</Typography>
+              <Typography variant="subtitle1">Files</Typography>
 
-          <FileRecentItem key={invoiceFile?.id!} file={invoiceFile as any} />
+              <FileRecentItem key={invoiceFile?.id} file={invoiceFile as any} />
+            </>
+          )}
         </Stack>
       </ScrollBar>
     </Drawer>
