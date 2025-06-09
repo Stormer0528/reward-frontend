@@ -29,8 +29,10 @@ export function AuthProvider({ children }: Props) {
     // TODO: Redirect to previous page if exists or maybe, AuthGuard can handle this?
   }, []);
 
-  const signIn = useCallback((newToken: string) => {
+  const signIn = useCallback(async (newToken: string) => {
     setSession(newToken);
+    // Hi-jacking the setTimeout to simulate a delay for setting the token
+    await new Promise((res) => setTimeout(res, 100)); // wait 100ms
     setToken(newToken);
   }, []);
 
