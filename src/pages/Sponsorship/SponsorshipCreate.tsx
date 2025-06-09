@@ -1,4 +1,3 @@
-
 import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config';
@@ -20,7 +19,7 @@ export default function SponsorshipCreatePage() {
           { name: 'Add Miner' },
         ]}
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
       />
       <SponsorshipCreateView />

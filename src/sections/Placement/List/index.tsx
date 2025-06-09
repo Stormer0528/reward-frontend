@@ -30,7 +30,7 @@ import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 import ComponentBlock from 'src/components/Component-Block';
 import { LoadingScreen } from 'src/components/LoadingScreen';
-import {  CustomPopover } from 'src/components/CustomPopover';
+import { CustomPopover } from 'src/components/CustomPopover';
 
 import { useFetchPlacementOMembers } from 'src/sections/Profile/useApollo';
 
@@ -400,7 +400,7 @@ function PlacementListView() {
         heading="Placement"
         links={[{ name: 'Placement', href: paths.dashboard.placement.root }, { name: 'List' }]}
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
         action={
           <Stack direction="row" columnGap={1}>

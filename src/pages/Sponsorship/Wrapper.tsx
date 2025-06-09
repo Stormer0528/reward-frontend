@@ -28,7 +28,7 @@ export default function SponsorshipWrapper({ children }: Props) {
           { name: 'List' },
         ]}
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
         action={
           <Button

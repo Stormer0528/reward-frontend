@@ -13,7 +13,7 @@ export default function Communication() {
         heading="Communication"
         links={[{ name: 'List', href: paths.dashboard.communication.root }]}
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
       />
 

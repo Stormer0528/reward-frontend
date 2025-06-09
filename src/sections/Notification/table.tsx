@@ -95,7 +95,7 @@ export default function NotificationTable() {
           { name: 'List' },
         ]}
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
       />
 

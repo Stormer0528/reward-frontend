@@ -18,7 +18,7 @@ export default function RewardWrapper({ children }: Props) {
       <Breadcrumbs
         heading="Reward"
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
       />
 

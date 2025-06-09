@@ -30,7 +30,7 @@ export default function Page() {
       <Breadcrumbs
         heading="Commission"
         sx={{
-          mb: { xs: 1, md: 2 },
+          mb: { xs: 1, md: 3 },
         }}
       />
 
