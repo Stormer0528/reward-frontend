@@ -9,11 +9,10 @@ import type { Invoice } from './type';
 
 import { useMemo, useEffect } from 'react';
 
-import Card from '@mui/material/Card';
-
 import { useQuery as useQueryString } from 'src/routes/hooks';
 
 import { formatDate } from 'src/utils/format-time';
+import { fCurrency } from 'src/utils/formatNumber';
 import { parseFilterModel } from 'src/utils/parseFilter';
 
 import { InvoiceStatusEnum } from 'src/__generated__/graphql';
@@ -74,9 +73,9 @@ export default function InvoiceListView() {
         width: 150,
         resizable: true,
         editable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         cellRenderer: ({ data }: CustomCellRendererProps<Invoice>) =>
-          (data?.amountInCents ?? 0) / 100,
+          fCurrency((data?.amountInCents ?? 0) / 100, { minimumFractionDigits: 2 }),
       },
       {
         field: 'status',
@@ -124,6 +123,7 @@ export default function InvoiceListView() {
         resizable: true,
         editable: false,
         initialSort: 'desc',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<Invoice>) => formatDate(data?.dueDate),
       },
       {
@@ -139,6 +139,7 @@ export default function InvoiceListView() {
         resizable: true,
         editable: false,
         initialSort: 'desc',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<Invoice>) => formatDate(data?.createdAt),
       },
       {
@@ -157,21 +158,12 @@ export default function InvoiceListView() {
   );
 
   return (
-    <Card
-      sx={{
-        flexGrow: 1,
-        display: 'flex',
-        overflow: 'hidden',
-        height: { xs: 'calc(100vh - var(--layout-header-mobile-height) - 20px)', md: 2 },
-      }}
-    >
-      <AgGrid<Invoice>
-        gridKey="invoice-list"
-        loading={loading}
-        rowData={invoices}
-        columnDefs={colDefs}
-        totalRowCount={rowCount}
-      />
-    </Card>
+    <AgGrid<Invoice>
+      gridKey="invoice-list"
+      loading={loading}
+      rowData={invoices}
+      columnDefs={colDefs}
+      totalRowCount={rowCount}
+    />
   );
 }
