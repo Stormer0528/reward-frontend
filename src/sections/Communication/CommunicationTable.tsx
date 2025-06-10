@@ -23,7 +23,8 @@ export default function CommunicationTable() {
       {
         field: 'subject',
         headerName: 'Subject',
-        width: 600,
+        flex: 1,
+        minWidth: 300,
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
@@ -59,6 +60,7 @@ export default function CommunicationTable() {
         } as IDateFilterParams,
         resizable: true,
         editable: false,
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<CampaignMember>) =>
           formatDate(data?.sentTime),
       },
@@ -74,12 +76,13 @@ export default function CommunicationTable() {
         } as IDateFilterParams,
         resizable: true,
         editable: false,
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<CampaignMember>) =>
           data?.openTime ? formatDate(data?.openTime) : 'Not opened yet',
       },
       {
         headerName: 'Status',
-        flex: 1,
+        width: 100,
         filter: false,
         resizable: true,
         editable: false,
@@ -87,7 +90,7 @@ export default function CommunicationTable() {
           <Iconify
             icon={data?.open ? 'akar-icons:double-check' : 'lucide:check'}
             color={data?.sent ? 'green' : '#999999'}
-            mt={0.8}
+            sx={{ mt: 0.8 }}
           />
         ),
       },
