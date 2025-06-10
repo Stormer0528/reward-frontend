@@ -60,6 +60,13 @@ export default function MemberReward() {
         },
       },
     },
+    tooltip: {
+      y: {
+        formatter(val) {
+          return `${val.toFixed(2)}`;
+        },
+      },
+    },
   });
 
   const handleChangeSeries = useCallback((newValue: string) => {
