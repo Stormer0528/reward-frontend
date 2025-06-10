@@ -4,6 +4,16 @@ export const FETCH_ME = gql(/* GraphQL */ `
   query fetchMe {
     memberMe {
       ...MemberFields
+      communications {
+        body
+        open
+        sent
+        email
+        sender
+        subject
+        openTime
+        sentTime
+      }
       createdAt
       updatedAt
       deletedAt
