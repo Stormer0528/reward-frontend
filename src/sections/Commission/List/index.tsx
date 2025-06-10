@@ -55,6 +55,7 @@ export default function Commission({ me }: Props) {
         } as IDateFilterParams,
         resizable: true,
         editable: false,
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<WeeklyCommission>) =>
           formatDate(data?.weekStartDate),
       },
@@ -111,11 +112,11 @@ export default function Commission({ me }: Props) {
       {
         field: 'commission',
         headerName: 'Commission',
-        width: 120,
+        width: 150,
         filter: 'agNumberColumnFilter',
         resizable: true,
         editable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
       },
       {
         field: 'status',
