@@ -184,6 +184,7 @@ export type BasicMember = {
   lastAdminNote?: Maybe<Scalars['String']['output']>;
   mobile: Scalars['String']['output'];
   paymentMade: Scalars['Boolean']['output'];
+  peerETHAddress?: Maybe<Scalars['String']['output']>;
   placementRequested: Scalars['Boolean']['output'];
   primaryAddress: Scalars['String']['output'];
   secondaryAddress?: Maybe<Scalars['String']['output']>;
@@ -2075,8 +2076,9 @@ export type Order = {
 
 export type OrderPaymentSetInput = {
   id: Scalars['ID']['input'];
-  paymentChain: PaymentChain;
-  paymentToken: PaymentToken;
+  isP2P?: InputMaybe<Scalars['Boolean']['input']>;
+  paymentChain?: InputMaybe<PaymentChain>;
+  paymentToken?: InputMaybe<PaymentToken>;
 };
 
 export enum OrderRequestType {
@@ -2183,26 +2185,6 @@ export type Payout = {
 export type PayoutResponse = {
   __typename?: 'PayoutResponse';
   payouts?: Maybe<Array<Payout>>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-export type PeerAcceptableReportMember = {
-  __typename?: 'PeerAcceptableReportMember';
-  ID: Scalars['Int']['output'];
-  assetId?: Maybe<Scalars['String']['output']>;
-  createdAt: Scalars['DateTimeISO']['output'];
-  email: Scalars['String']['output'];
-  fullName: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  mobile: Scalars['String']['output'];
-  peerETHAddress?: Maybe<Scalars['String']['output']>;
-  totalIntroducers: Scalars['Float']['output'];
-  username: Scalars['String']['output'];
-};
-
-export type PeerReportMemberResponse = {
-  __typename?: 'PeerReportMemberResponse';
-  members?: Maybe<Array<PeerAcceptableReportMember>>;
   total?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -2398,7 +2380,6 @@ export type Query = {
   packages: PackageResponse;
   paymentMethods: PaymentMethodResponse;
   payouts: PayoutResponse;
-  peerAcceptableMembers: PeerReportMemberResponse;
   placementMembers: Array<PlacementMember>;
   placementMembersForWeek: Array<WeekPlacementMember>;
   placementTempMembers: Array<PlacementTempMember>;
@@ -2733,13 +2714,6 @@ export type QueryPaymentMethodsArgs = {
 
 
 export type QueryPayoutsArgs = {
-  filter?: InputMaybe<Scalars['JSONObject']['input']>;
-  page?: InputMaybe<Scalars['String']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryPeerAcceptableMembersArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
