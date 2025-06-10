@@ -39,6 +39,7 @@ export default function StatisticsTable() {
         editable: false,
         sortable: false,
         initialSort: 'desc',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<BasicStatistics>) =>
           formatDate(data?.issuedAt),
       },
@@ -49,7 +50,7 @@ export default function StatisticsTable() {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
       },
       {
         field: 'totalHashPower',
@@ -58,7 +59,7 @@ export default function StatisticsTable() {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
       },
       {
         field: 'totalMembers',
@@ -67,7 +68,7 @@ export default function StatisticsTable() {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
       },
       {
         field: 'txcShared',
@@ -76,7 +77,7 @@ export default function StatisticsTable() {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         cellRenderer: ({ data }: CustomCellRendererProps<BasicStatistics>) =>
           Number(data?.txcShared) / 10 ** 8,
       },
@@ -86,7 +87,7 @@ export default function StatisticsTable() {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         cellRenderer: ({ data }: CustomCellRendererProps<Statistics>) =>
           (data?.memberStatistics?.reduce((prev, save) => prev + Number(save.txcShared), 0) ?? 0) /
           10 ** 8,

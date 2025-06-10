@@ -48,7 +48,7 @@ export default function Wallets() {
         resizable: true,
         editable: false,
         sortable: false,
-        cellClass: 'tabular-nums',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         cellRenderer: ({ data }: CustomCellRendererProps<RewardByWallet>) =>
           Number(data?.txc) / 10 ** 8,
       },
