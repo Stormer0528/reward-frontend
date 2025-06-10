@@ -51,6 +51,13 @@ const payments: PAYMENT_METHOD_TYPE[] = [
     backgroundColor: '#ffffff',
     disable: false,
   },
+  {
+    value: 'PEER',
+    label: 'PEER',
+    chain: PaymentChain.Eth,
+    backgroundColor: '#ffffff',
+    disable: false,
+  },
 ];
 
 interface Props {
@@ -91,7 +98,15 @@ export default function Payment({ paymentType, setPaymentType }: Props) {
           }}
         >
           <Stack direction="row" spacing={2} alignItems="center">
-            <Avatar src={payment.icon} />
+            {payment.value === 'PEER' ? (
+              <Iconify
+                icon="iconoir:peerlist-solid"
+                width={42}
+                color={theme.palette.primary.main}
+              />
+            ) : (
+              <Avatar src={payment.icon} />
+            )}
             <Typography>{payment.label}</Typography>
           </Stack>
 

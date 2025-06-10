@@ -21,8 +21,6 @@ import Payment from './Payment';
 import PaymentStatus from './PaymentStatus';
 import { useCancelOrder, useFetchOrderById, useSetOrderPayment } from './useApollo';
 
-import type { PAYMENT_TYPE } from './type';
-
 export default function Order() {
   const theme = useTheme();
   const router = useRouter();
@@ -32,7 +30,7 @@ export default function Order() {
   const [step, setStep] = useState<number>(0);
   const [status, setStatus] = useState<OrderStatus>(OrderStatus.New);
   const [timeLeft, setTimeLeft] = useState<number>(-1);
-  const [payment, setPayment] = useState<PAYMENT_TYPE>();
+  const [payment, setPayment] = useState<any>();
 
   const { cancelOrder } = useCancelOrder();
   const { loading, order, fetchOrderById } = useFetchOrderById();
@@ -44,14 +42,25 @@ export default function Order() {
         variables: {
           data: {
             id: id!,
-            paymentChain: payment?.paymentChain!,
-            paymentToken: payment?.paymentToken!,
+            ...(payment?.paymentToken === 'PEER'
+              ? {
+                  isP2P: true,
+                }
+              : {
+                  paymentChain: payment?.paymentChain!,
+                  paymentToken: payment?.paymentToken!,
+                }),
           },
         },
       });
 
       if (data) {
-        setStep((prev) => prev + 1);
+        if (payment.paymentToken === 'PEER') {
+          setStep(2);
+          setStatus(OrderStatus.Completed);
+        } else {
+          setStep((prev) => prev + 1);
+        }
       }
     } catch (error) {
       toast.error(error.message);
@@ -180,14 +189,12 @@ export default function Order() {
             color="primary"
             loading={setLoading}
             onClick={async () => {
-              if (step === 0 && !payment) {
+              if (!payment) {
                 toast.error('Payment is required');
                 return;
               }
 
-              if (step === 0) {
-                await handleSetPayment();
-              }
+              await handleSetPayment();
             }}
           >
             Next

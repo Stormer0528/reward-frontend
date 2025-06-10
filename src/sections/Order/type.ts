@@ -1,10 +1,12 @@
 import type { PaymentChain, PaymentToken } from 'src/__generated__/graphql';
 
+export type BasicPaymentToken = PaymentToken | 'PEER';
+
 export type PAYMENT_METHOD_TYPE = {
-  value: PaymentToken;
+  value: BasicPaymentToken;
   chain: PaymentChain;
   label: string;
-  icon: string;
+  icon?: string;
   backgroundColor: string;
   disable: boolean;
 };
