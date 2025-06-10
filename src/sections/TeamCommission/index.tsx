@@ -9,11 +9,11 @@ import Report from './report';
 import Contact from './contact';
 
 interface Props {
-  contact: boolean;
-  teamReport: TeamReportSection;
+  isContact?: boolean;
+  teamReport?: TeamReportSection;
 }
 
-export default function TeamCommissionListView({ contact, teamReport }: Props) {
+export default function TeamCommissionListView({ isContact, teamReport }: Props) {
   const { user } = useAuthContext();
 
   return (
@@ -29,7 +29,7 @@ export default function TeamCommissionListView({ contact, teamReport }: Props) {
             height: { xs: 'calc(100vh - var(--layout-header-mobile-height) - 20px)', md: 2 },
           }}
         >
-          {contact ? <Contact /> : <Report teamReport={teamReport} />}
+          {isContact ? <Contact /> : <Report teamReport={teamReport!} />}
         </Card>
       ) : (
         <Typography variant="subtitle1" textAlign="center">

@@ -5,12 +5,10 @@ import TeamCommission from 'src/sections/TeamCommission';
 // ----------------------------------------------------------------------
 
 interface Props {
-  contact?: boolean;
+  isContact?: boolean;
   teamReport?: TeamReportSection;
 }
 
-export default function TeamCommissionPage({ contact, teamReport }: Props) {
-  return (
-    <TeamCommission contact={contact as boolean} teamReport={teamReport as TeamReportSection} />
-  );
+export default function TeamCommissionPage({ isContact, teamReport }: Props) {
+  return <TeamCommission isContact={isContact} teamReport={teamReport} />;
 }

@@ -202,7 +202,7 @@ export const dashboardRoutes = [
               },
               {
                 path: 'contact',
-                element: <TeamCommissionListPage contact />,
+                element: <TeamCommissionListPage isContact />,
               },
             ],
           },
