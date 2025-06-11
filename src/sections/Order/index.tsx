@@ -43,8 +43,8 @@ export default function Order() {
         variables: {
           data: {
             id: id!,
-            paymentChain: payment?.paymentChain!,
-            paymentToken: payment?.paymentToken!,
+            paymentChain: payment!.paymentChain,
+            paymentToken: payment!.paymentToken,
           },
         },
       });
