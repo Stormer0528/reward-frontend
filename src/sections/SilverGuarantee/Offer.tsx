@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
+import { themeConfig } from 'src/theme';
 
 interface BackgroundProps {
   path: string;
@@ -15,60 +15,57 @@ export default function Offer() {
     <Background path={`${CONFIG.ASSET_DIR}/assets/images/texit-background.png`}>
       <Container sx={{ p: 10 }}>
         <Box sx={{ px: { md: 12, xs: 2 } }}>
-          <Wrapper>
-            <Title fontSize={{ md: '3.75rem', xs: '2rem' }}>The Offer:</Title>
-            <Paper sx={{ px: { md: 30, xs: 2 } }}>
-              <Title fontSize={{ md: '1.875rem', xs: '1.2rem' }}>
+          <Box sx={{ p: 3, background: themeConfig.palette.common.white }}>
+            <Title variant="h1" fontWeight={500}>
+              The Offer:
+            </Title>
+            <Box sx={{ px: { md: 30, xs: 2 } }}>
+              <Title variant="h3" fontWeight={400}>
                 SEND A KILO OF SILVER & MINE <Texitcoin>TEXITCOIN</Texitcoin> WITH US.
               </Title>
-            </Paper>
-            <Paper sx={{ px: { md: 14, xs: 2 } }}>
-              <Typography fontSize="1.125rem">
-                {`We'll send you a TXC Cold Storage Coin, linked to your mining output. Monitor your
-                progress. If, anytime you are not satisfied with the results for 2 months from the
-                date of your first TXC transfer, return your coin and we'll send back your exact
-                same kilo of silver.`}
+            </Box>
+            <Box sx={{ px: { md: 14, xs: 2 } }}>
+              <Typography variant="h6" fontWeight={400}>
+                We&apos;ll send you a TXC Cold Storage Coin, linked to your mining output. Monitor
+                your progress. If, anytime you are not satisfied with the results for 2 months from
+                the date of your first TXC transfer, return your coin and we&apos;ll send back your
+                exact same kilo of silver.
               </Typography>
-            </Paper>
-            <Paper sx={{ py: 4 }}>
-              <Text fontSize="1.25rem" fontWeight={700}>
+            </Box>
+            <Box sx={{ py: 4 }}>
+              <Text variant="h5" fontWeight={700}>
                 Tommy did it. Chris did it.
               </Text>
-              <Text fontSize="1.25rem" fontWeight={700}>
+              <Text variant="h5" fontWeight={700}>
                 And now, we invite you to do it too.
               </Text>
-            </Paper>
-          </Wrapper>
+            </Box>
+          </Box>
         </Box>
       </Container>
     </Background>
   );
 }
 
-const Background = styled(Paper)<BackgroundProps>`
-  background: #262262;
-  background-image: url(${(props) => encodeURI(props.path)});
-  background-position: 50% 50%;
-  object-fit: cover;
-  display: block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 0;
-  font-family: 'Josefin Sans';
-  text-align: center;
-`;
+const Background = styled(Box)<BackgroundProps>(({ path }) => ({
+  background: themeConfig.palette.common.texit,
+  backgroundImage: `url(${encodeURI(path)})`,
+  backgroundSize: 'cover',
+  backgroundPosition: '50% 50%',
+  backgroundRepeat: 'no-repeat',
+  objectFit: 'cover',
+  display: 'block',
+  borderRadius: 0,
+  fontFamily: 'Josefin Sans',
+  textAlign: 'center',
+}));
 
-const Wrapper = styled(Paper)`
-  padding: 20px;
-`;
+const Text = styled(Typography)(() => ({
+  color: themeConfig.palette.common.texit,
+}));
 
-const Title = styled(Typography)`
-  color: #262262;
+const Title = styled(Text)`
   margin: 20px 0;
-`;
-
-const Text = styled(Typography)`
-  color: #262262;
 `;
 
 const Texitcoin = styled('strong')`

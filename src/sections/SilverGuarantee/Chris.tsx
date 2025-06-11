@@ -1,16 +1,22 @@
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
+import { themeConfig } from 'src/theme';
 
 import { Image } from 'src/components/Image';
 
+const content = [
+  'Joined MineTXC: April 2024',
+  'Total TXC: 300,000 Total',
+  'Commission Earned: $20,000+',
+];
+
 export default function Chris() {
   return (
-    <Wrapper>
+    <Container sx={{ padding: '80px 60px' }}>
       <Grid container>
         <Grid size={{ md: 6 }}>
           <Image
@@ -19,8 +25,16 @@ export default function Chris() {
           />
         </Grid>
         <Grid size={{ md: 6 }}>
-          <Title fontSize={{ md: '3.75rem', xs: '2rem' }}>Meet Chris...</Title>
-          <Text>
+          <Typography
+            variant="h1"
+            fontWeight={500}
+            fontFamily="Josefin San"
+            color={themeConfig.palette.common.texit}
+            mb={2}
+          >
+            Meet Chris...
+          </Typography>
+          <Typography fontFamily="Josefin San" variant="h6" fontWeight={400}>
             Chris is the President of BEX Engraving & Mint in Fullerton, California. Chris and his
             siblings took over the family business in 1993, and have carried the family legacy for
             more than three decades since then, crafting some of the most highly detailed, quality
@@ -28,46 +42,30 @@ export default function Chris() {
             Bobby and the TXC team in 2009 when they cut the first dies for the Ron Paul Campaign
             for Liberty dies, and have been our go-to source ever since for steel coin manufacturing
             dies.
-          </Text>
-          <Info>
-            <InfoText>Joined MineTXC: April 2024</InfoText>
-            <InfoText>Total TXC: 300,000 Total</InfoText>
-            <InfoText>Commission Earned: $20,000+</InfoText>
-          </Info>
+          </Typography>
+          <Box
+            sx={{
+              marginTop: 3.5,
+              padding: 2.5,
+              display: 'inline-block',
+              borderRadius: '20px 20px 0 0',
+              background: '#00492c',
+            }}
+          >
+            {content.map((item) => (
+              <Typography
+                key={item}
+                variant="h6"
+                fontWeight={400}
+                fontFamily="Josefin San"
+                color={themeConfig.palette.common.white}
+              >
+                {item}
+              </Typography>
+            ))}
+          </Box>
         </Grid>
       </Grid>
-    </Wrapper>
+    </Container>
   );
 }
-
-const Wrapper = styled(Container)`
-  padding: 80px 60px;
-`;
-
-const Title = styled(Typography)`
-  margin-top: 10px;
-  font-family: 'Josefin San';
-  color: #262262;
-  line-height: 1;
-  margin-bottom: 20px;
-`;
-
-const Text = styled(Typography)`
-  font-family: 'Josefin San';
-  font-size: 1.125rem;
-  font-weight: 400;
-`;
-
-const Info = styled(Paper)`
-  margin-top: 30px;
-  display: inline-block;
-  border-radius: 20px 20px 0 0;
-  padding: 20px;
-  background: #00492c;
-`;
-
-const InfoText = styled(Typography)`
-  color: #ffffff;
-  font-size: 1.25rem;
-  font-family: 'Josefin San';
-`;

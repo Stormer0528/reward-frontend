@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
+import { themeConfig } from 'src/theme';
 
 interface BackgroundProps {
   path: string;
@@ -16,12 +17,21 @@ interface BackgroundProps {
 export default function Tale() {
   return (
     <Background path={`${CONFIG.ASSET_DIR}/assets/images/mapa_031.png`}>
-      <Wrapper>
-        <Header fontSize={{ md: '3.75rem', xs: '2rem' }}>A Tale of Two Cities</Header>
+      <Container sx={{ p: '60px 60px 0' }}>
+        <Typography
+          textAlign="center"
+          color={themeConfig.palette.common.white}
+          variant="h1"
+          fontWeight={400}
+        >
+          A Tale of Two Cities
+        </Typography>
         <Grid container spacing={4} justifyContent="center">
           <Grid size={{ md: 6 }} sx={{ margin: { md: '100px 0', xs: '10px 0' } }}>
             <Box>
-              <Title fontSize={{ md: '3rem', xs: '1.5rem' }}>Nashville Bitcoin 2024</Title>
+              <Typography variant="h2" fontWeight={400} color={themeConfig.palette.common.white}>
+                Nashville Bitcoin 2024
+              </Typography>
             </Box>
             <MediaPlayer
               url="https://www.youtube.com/embed/1HHQPD-Lb5o"
@@ -32,7 +42,9 @@ export default function Tale() {
           </Grid>
           <Grid size={{ md: 6 }} sx={{ margin: { md: '100px 0', xs: '10px 0' } }}>
             <Box>
-              <Title fontSize={{ md: '3rem', xs: '1.5rem' }}>Chicago ANA 2024</Title>
+              <Typography variant="h2" fontWeight={400} color={themeConfig.palette.common.white}>
+                Chicago ANA 2024
+              </Typography>
             </Box>
             <MediaPlayer
               url="https://www.youtube.com/embed/UMaJ6b1klDw"
@@ -42,33 +54,19 @@ export default function Tale() {
             />
           </Grid>
         </Grid>
-      </Wrapper>
+      </Container>
     </Background>
   );
 }
 
-const Background = styled(Paper)`
-  background: #262262;
-  background-image: url(${(props) => encodeURI(props.path)});
-  background-position: 50% 50%;
-  object-fit: cover;
-  display: block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 0;
-  font-family: 'Josefin Sans';
-`;
-
-const Wrapper = styled(Container)`
-  padding: 60px 60px 0;
-`;
-
-const Header = styled(Typography)`
-  text-align: center;
-  color: #ffffff;
-`;
-
-const Title = styled(Typography)`
-  color: #ffffff;
-  line-height: 1.1;
-`;
+const Background = styled(Paper)<BackgroundProps>(({ path }) => ({
+  backgroundColor: themeConfig.palette.common.texit,
+  backgroundImage: `url(${encodeURI(path)})`,
+  backgroundPosition: '50% 50%',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  objectFit: 'cover',
+  display: 'block',
+  borderRadius: 0,
+  fontFamily: 'Josefin Sans',
+}));

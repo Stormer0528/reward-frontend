@@ -1,40 +1,27 @@
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { themeConfig } from 'src/theme';
+
 export default function Right() {
   return (
-    <Wrapper>
+    <Box sx={{ background: themeConfig.palette.common.texit, borderRadius: 0 }}>
       <Container>
-        <Description>
-          <Title
-            fontSize={{ md: '3rem', xs: '2rem' }}
-          >{`Who's right? Only time will tell….`}</Title>
-          <Text>{`Whilte many 'bugs are waiting for a doomsday that may never come, some have taken the first step and ventured in to the strange and often scammy world of digital currency. Two of these brave pioneers have even offered to document their journey and share it with us, so that you can learn from their experiences.`}</Text>
-        </Description>
+        <Box sx={{ p: '0 30px' }}>
+          <Typography
+            variant="h2"
+            fontWeight={400}
+            fontFamily="Josefin San"
+            color={themeConfig.palette.common.white}
+            mt={6}
+          >{`Who's right? Only time will tell….`}</Typography>
+          <Typography
+            color={themeConfig.palette.common.white}
+            m="20px 0 50px"
+          >{`While many 'bugs are waiting for a doomsday that may never come, some have taken the first step and ventured in to the strange and often scammy world of digital currency. Two of these brave pioneers have even offered to document their journey and share it with us, so that you can learn from their experiences.`}</Typography>
+        </Box>
       </Container>
-    </Wrapper>
+    </Box>
   );
 }
-
-const Wrapper = styled(Paper)`
-  background: #262262;
-  border-radius: 0;
-`;
-
-const Description = styled(Paper)`
-  background: transparent;
-  padding: 0 30px;
-`;
-
-const Title = styled(Typography)`
-  margin-top: 50px;
-  font-family: Josefin Sans;
-  color: #ffffff;
-`;
-
-const Text = styled(Typography)`
-  color: #ffffff;
-  margin: 20px 0 50px;
-`;

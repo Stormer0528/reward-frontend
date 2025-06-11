@@ -1,88 +1,71 @@
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config';
+import { themeConfig } from 'src/theme';
 
 import { Image } from 'src/components/Image';
+
+const content = [
+  {
+    date: 'June 29th, 2024',
+    title: 'Our first kilo of silver arrives!',
+    description: 'Just when we thought the Postal Service disappeared the package...',
+    image: `${CONFIG.ASSET_DIR}/assets/images/news-1.png`,
+  },
+  {
+    date: 'June 29th, 2024',
+    title: 'Our first kilo of silver arrives!',
+    description: 'Just when we thought the Postal Service disappeared the package...',
+    image: `${CONFIG.ASSET_DIR}/assets/images/news-2.png`,
+  },
+  {
+    date: 'June 29th, 2024',
+    title: 'Our first kilo of silver arrives!',
+    description: 'Just when we thought the Postal Service disappeared the package...',
+    image: `${CONFIG.ASSET_DIR}/assets/images/news-3.png`,
+  },
+];
 
 export default function News() {
   return (
     <Container>
-      <Wrapper>
-        <Typography fontSize={{ md: '3rem', xs: '2rem' }} sx={{ mb: 3 }} textAlign="center">
+      <Box p="60px 0">
+        <Typography variant="h2" textAlign="center" mb={3}>
           News & Updates
         </Typography>
         <Grid container spacing={3}>
           {/* TODO: NEED THIS KIND OF GRID SIZE? */}
-          <Grid size={{ md: 4, lg: 4 }}>
-            <Item>
-              <Image src={`${CONFIG.ASSET_DIR}/assets/images/news-1.png`} />
-              <Description>
-                <Typography>June 29th, 2024</Typography>
-                <Title>Our first kilo of silver arrives!</Title>
-                <Typography sx={{ pb: 3 }}>
-                  Just when we thought the Postal Service disappeared the package...
-                </Typography>
-                <Link>READ MORE</Link>
-              </Description>
-            </Item>
-          </Grid>
-          <Grid size={{ md: 4, lg: 4 }}>
-            <Item>
-              <Image src={`${CONFIG.ASSET_DIR}/assets/images/news-2.png`} />
-              <Description>
-                <Typography>June 29th, 2024</Typography>
-                <Title>Our first kilo of silver arrives!</Title>
-                <Typography sx={{ pb: 3 }}>
-                  Just when we thought the Postal Service disappeared the package...
-                </Typography>
-                <Link>READ MORE</Link>
-              </Description>
-            </Item>
-          </Grid>
-          <Grid size={{ md: 4, lg: 4 }}>
-            <Item>
-              <Image src={`${CONFIG.ASSET_DIR}/assets/images/news-3.png`} />
-              <Description>
-                <Typography>June 29th, 2024</Typography>
-                <Title>Our first kilo of silver arrives!</Title>
-                <Typography sx={{ pb: 3 }}>
-                  Just when we thought the Postal Service disappeared the package...
-                </Typography>
-                <Link>READ MORE</Link>
-              </Description>
-            </Item>
-          </Grid>
+          {content.map(({ date, title, description, image }, index) => (
+            <Grid key={index} size={{ md: 4, lg: 4 }}>
+              <Box border={`1px solid ${themeConfig.palette.common.black}`} borderRadius={0}>
+                <Image src={image} />
+                <Box p={4}>
+                  <Typography>{date}</Typography>
+                  <Typography
+                    variant="h4"
+                    fontWeight={400}
+                    color={themeConfig.palette.common.texit}
+                    m="20px 0"
+                  >
+                    {title}
+                  </Typography>
+                  <Typography sx={{ pb: 3 }}>{description}</Typography>
+                  <Typography
+                    variant="body1"
+                    fontWeight={700}
+                    color={themeConfig.palette.common.texit}
+                  >
+                    READ MORE
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
-      </Wrapper>
+      </Box>
     </Container>
   );
 }
-
-const Wrapper = styled(Paper)`
-  padding: 60px 0;
-`;
-
-const Description = styled(Paper)`
-  padding: 30px;
-`;
-
-const Item = styled(Paper)`
-  border: 1px solid #000000;
-  border-radius: 0;
-`;
-
-const Title = styled(Typography)`
-  color: #262262;
-  font-size: 1.5rem;
-  margin: 20px 0;
-`;
-
-const Link = styled('a')`
-  color: #262262;
-  font-size: 1rem;
-  font-weight: 700;
-`;

@@ -1,6 +1,6 @@
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
@@ -19,10 +19,10 @@ export default function Header() {
       sx={{ minHeight: { lg: '616px', md: '490px', xs: '273px' } }}
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Container>
+        <Box width="100%" p={3}>
           <Grid container alignItems="center">
             <Grid size={{ lg: 4 }} offset={{ lg: 3 }}>
-              <Paper sx={{ background: 'transparent' }}>
+              <Box sx={{ background: 'transparent' }}>
                 <Title fontWeight={400} fontSize={{ lg: '6rem', md: '4.5rem', xs: '1.625rem' }}>
                   The
                 </Title>
@@ -32,7 +32,7 @@ export default function Header() {
                 <Title fontWeight={400} fontSize={{ lg: '6rem', md: '4.5rem', xs: '1.625rem' }}>
                   Guarantee
                 </Title>
-              </Paper>
+              </Box>
             </Grid>
             <Grid size={{ lg: 3 }} offset={{ lg: 1 }}>
               <Image
@@ -41,14 +41,18 @@ export default function Header() {
               />
             </Grid>
             <Grid size={{ lg: 5 }} offset={{ lg: 3 }}>
-              <TextPaper>
-                <Text
+              <Box p={1}>
+                <Typography
+                  fontFamily="Josefin Sans"
                   fontSize={{ lg: '1.25rem', md: '1.125rem', xs: '0.625rem' }}
-                >{`It's time for the precious metals community to get off the bench and into the exciting world of digital currencies. Get started with our low-risk offer today!`}</Text>
-              </TextPaper>
+                >
+                  It&apos;s time for the precious metals community to get off the bench and into the
+                  exciting world of digital currencies. Get started with our low-risk offer today!
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
-        </Container>
+        </Box>
         <Image
           src={`${CONFIG.ASSET_DIR}/assets/images/gorilla_041.png`}
           sx={{ height: { lg: '616px', md: '492px', xs: '273px' } }}
@@ -58,29 +62,15 @@ export default function Header() {
   );
 }
 
-const Background = styled(Paper)`
-  background-image: url(${(props) => encodeURI(props.path)});
-  background-position: 50% 50%;
-  object-fit: cover;
-  display: block;
-  background-size: cover;
-  background-repeat: no-repeat;
-`;
+const Background = styled(Box)<BackgroundProps>(({ path }) => ({
+  display: 'block',
+  objectFit: 'cover',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: '50% 50%',
+  backgroundImage: `url(${encodeURI(path)})`,
+}));
 
-const Container = styled(Paper)`
-  width: 100%;
-  padding: 20px;
-  background: transparent;
-`;
-
-const TextPaper = styled(Paper)`
-  background: transparent;
-  padding: 10px;
-`;
-
-const Text = styled(Typography)`
-  font-family: 'Josefin Sans';
-`;
 const Title = styled(Typography)`
   line-height: 1;
 `;
