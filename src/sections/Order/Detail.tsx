@@ -2,7 +2,7 @@ import type { PAYMENT_TYPE } from './type';
 import type { IconifyName } from 'src/components/Iconify';
 
 import QRCode from 'react-qr-code';
-import { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -22,19 +22,19 @@ import { useCheckOrder } from './useApollo';
 interface Props {
   order: Order;
   timeLeft: number;
-  setStep: Function;
-  setStatus: Function;
-  setTimeLeft: Function;
   paymentType: PAYMENT_TYPE;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  setTimeLeft: React.Dispatch<React.SetStateAction<number>>;
+  setStatus: React.Dispatch<React.SetStateAction<OrderStatus>>;
 }
 
 export default function Detail({
   order: current,
+  timeLeft,
+  paymentType,
   setStep,
   setStatus,
-  timeLeft,
   setTimeLeft,
-  paymentType,
 }: Props) {
   const theme = useTheme();
 
