@@ -32,7 +32,7 @@ type Props = {
   empty: boolean;
   loading: boolean;
   renderLabel: (id: string) => IMailLabel;
-  handleMoveTrash: Function;
+  handleMoveTrash: (id: string) => void;
 };
 
 export function SentDetails({ mail, renderLabel, handleMoveTrash, empty, loading }: Props) {
