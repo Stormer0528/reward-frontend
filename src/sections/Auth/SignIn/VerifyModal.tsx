@@ -35,10 +35,10 @@ export default function VerifyModal({ open }: Props) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await verify2FAAndToken(data);
+      const { data: result } = await verify2FAAndToken(data);
 
-      if (response) {
-        signIn(response?.verify2FAToken?.accessToken ?? '');
+      if (result) {
+        signIn(result.verify2FAToken.accessToken);
       }
     } catch (error) {
       if (error instanceof Error) {

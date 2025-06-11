@@ -22,7 +22,7 @@ import { FileThumbnail } from 'src/components/FileThumbnail';
 
 type Props = PaperProps & {
   file: IFileManager;
-  onDelete?: Function;
+  onDelete?: (fileId: string) => void;
 };
 
 export function FileRecentItem({ file, onDelete, sx, ...other }: Props) {

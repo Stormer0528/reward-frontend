@@ -30,7 +30,7 @@ interface Props {
   open: UseBooleanReturn;
 }
 
-export default function VerifyModal({ tabs, open, event }: Props) {
+export function VerifyModal({ tabs, open, event }: Props) {
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export default function VerifyModal({ tabs, open, event }: Props) {
       }
 
       const { data } = await memberExChangeLogin({
-        variables: { data: { email: user?.email!, password } },
+        variables: { data: { email: user!.email, password } },
       });
 
       if (data?.memberExchangeLogin.passwordExpired) {
