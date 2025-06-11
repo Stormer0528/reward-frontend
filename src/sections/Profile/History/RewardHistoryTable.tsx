@@ -7,8 +7,8 @@ import type {
 } from '@ag-grid-community/core';
 import type { MemberStatistics } from 'src/sections/MemberStatistics/List/type';
 
+import { useMemo } from 'react';
 import { useParams } from 'react-router';
-import { useMemo, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 
@@ -23,14 +23,18 @@ import { useFetchMemberStatistics } from 'src/sections/Reward/useApollo';
 
 export function RewardHistoryTable() {
   const { id: memberId } = useParams();
-  const [{ page = '1,10', sort = 'createdAt', filter }, { setPageSize }] = useQueryString();
+  const [{ page = '1,10', sort = 'createdAt', filter }] = useQueryString();
 
   const graphQueryFilter = useMemo(
     () => parseFilterModel({ memberId }, filter),
     [filter, memberId]
   );
 
-  const { loading, rowCount, memberStatistics, fetchMemberStatistics } = useFetchMemberStatistics();
+  const { loading, rowCount, memberStatistics } = useFetchMemberStatistics({
+    filter: graphQueryFilter,
+    page,
+    sort,
+  });
 
   const colDefs = useMemo<ColDef<MemberStatistics>[]>(
     () => [
@@ -96,16 +100,6 @@ export function RewardHistoryTable() {
 
     []
   );
-
-  useEffect(() => {
-    setPageSize(10);
-  }, [setPageSize]);
-
-  useEffect(() => {
-    fetchMemberStatistics({
-      variables: { filter: graphQueryFilter, page, sort },
-    });
-  }, [graphQueryFilter, page, sort, fetchMemberStatistics]);
 
   return (
     <Card

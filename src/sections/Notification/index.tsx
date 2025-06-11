@@ -7,8 +7,6 @@ import Drawer from '@mui/material/Drawer';
 import SvgIcon from '@mui/material/SvgIcon';
 import IconButton from '@mui/material/IconButton';
 
-import { varHover } from 'src/components/animate';
-
 import { Content } from './content';
 import { useNewNotifications, useFetchNotifications } from './useApollo';
 
@@ -26,13 +24,7 @@ export default function NotificationsDrawer() {
 
   return (
     <>
-      <IconButton
-        component={m.button}
-        whileTap="tap"
-        whileHover="hover"
-        variants={varHover(1.05)}
-        onClick={drawer.onTrue}
-      >
+      <IconButton component={m.button} whileTap="tap" whileHover="hover" onClick={drawer.onTrue}>
         <Badge badgeContent={totalUnRead} color="error">
           <SvgIcon>
             {/* https://icon-sets.iconify.design/solar/bell-bing-bold-duotone/ */}
