@@ -1,5 +1,7 @@
 import type { PAYMENT_TYPE, PAYMENT_METHOD_TYPE } from './type';
 
+import React from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -54,7 +56,7 @@ const payments: PAYMENT_METHOD_TYPE[] = [
 
 interface Props {
   paymentType: PAYMENT_TYPE;
-  setPaymentType: Function;
+  setPaymentType: React.Dispatch<React.SetStateAction<PAYMENT_TYPE | undefined>>;
 }
 
 export default function Payment({ paymentType, setPaymentType }: Props) {
@@ -82,7 +84,7 @@ export default function Payment({ paymentType, setPaymentType }: Props) {
           alignItems="center"
           justifyContent="space-between"
           onClick={() => {
-            if (!payment.disable) {
+            if (!payment.disable && setPaymentType) {
               setPaymentType({ paymentToken: payment.value, paymentChain: payment.chain });
             } else {
               toast.info('This payment is currently unavailable');
