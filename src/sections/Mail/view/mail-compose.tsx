@@ -190,7 +190,7 @@ export function MailCompose({ onCloseCompose }: Props) {
             onChange={handleChangeMessage}
             placeholder="Type a message"
             slotProps={{
-              wrap: {
+              wrapper: {
                 ...(fullScreen.value && { minHeight: 0, flex: '1 1 auto' }),
               },
             }}
