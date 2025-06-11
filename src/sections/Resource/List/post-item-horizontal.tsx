@@ -1,3 +1,5 @@
+import type { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder';
+
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
@@ -16,7 +18,8 @@ import { Image } from 'src/components/Image';
 
 type Props = {
   post: any;
-  urlFor: Function;
+  // urlFor: Function;
+  urlFor: (source: any) => ImageUrlBuilder;
 };
 
 export function PostItemHorizontal({ post, urlFor }: Props) {
