@@ -18,6 +18,7 @@ export function UploadAvatar({
   sx,
   error,
   value,
+  current,
   disabled,
   helperText,
   className,

@@ -12,12 +12,13 @@ import { Upload, UploadBox, UploadAvatar } from '../Upload';
 
 export type RHFUploadProps = UploadProps & {
   name: string;
+  current?: string;
   slotProps?: {
     wrapper?: BoxProps;
   };
 };
 
-export function RHFUploadAvatar({ name, slotProps, ...other }: RHFUploadProps) {
+export function RHFUploadAvatar({ name, current, slotProps, ...other }: RHFUploadProps) {
   const { control, setValue } = useFormContext();
 
   return (
@@ -33,7 +34,13 @@ export function RHFUploadAvatar({ name, slotProps, ...other }: RHFUploadProps) {
 
         return (
           <Box {...slotProps?.wrapper}>
-            <UploadAvatar value={field.value} error={!!error} onDrop={onDrop} {...other} />
+            <UploadAvatar
+              value={field.value}
+              error={!!error}
+              current={current}
+              onDrop={onDrop}
+              {...other}
+            />
 
             <HelperText errorMessage={error?.message} sx={{ textAlign: 'center' }} />
           </Box>
