@@ -99,7 +99,7 @@ export function VerifyEmailView() {
   return (
     <>
       {called && !loading
-        ? data?.verifyEmailToken.result === 'success'
+        ? data?.emailVerify.result === 'success'
           ? renderSuccess()
           : renderFail()
         : renderLoading()}
