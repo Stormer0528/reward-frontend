@@ -23,7 +23,7 @@ import { fData } from 'src/utils/formatNumber';
 
 import { CONFIG } from 'src/config';
 import { CONTACT } from 'src/consts';
-import { type Member, TeamStrategy, CommissionDefaultEnum } from 'src/__generated__/graphql';
+import { TeamStrategy, CommissionDefaultEnum } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
@@ -37,25 +37,19 @@ import { Schema, type SchemaType } from './schema';
 import { getWallets, hasDuplicates } from './helper';
 import { useFetchMe, useDisable2FA, useUpdateMember } from '../useApollo';
 
-// ----------------------------------------------------------------------
-
-type Props = {
-  me: Member;
-};
-
-export function ProfileEditView({ me }: Props) {
+export function ProfileEditView() {
   const open = useBoolean();
   const router = useRouter();
 
   const { user } = useAuthContext();
 
-  const [txcWallets, otherWallets] = getWallets(me.memberWallets);
+  const [txcWallets, otherWallets] = getWallets(user!.memberWallets);
 
   const [avatar, setAvatar] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [avatarUrl, setAvatarUrl] = useState<File | string | null>(null);
-  const [lastName, setLastName] = useState<string>(me.fullName.split(' ')[1]);
-  const [firstName, setFirstName] = useState<string>(me.fullName.split(' ')[0]);
+  const [lastName, setLastName] = useState<string>(user!.fullName.split(' ')[1]);
+  const [firstName, setFirstName] = useState<string>(user!.fullName.split(' ')[0]);
 
   const [email, setEmail] = useState<string>();
 
@@ -64,13 +58,13 @@ export function ProfileEditView({ me }: Props) {
   const { loading: disableLoading, disable2FA } = useDisable2FA();
 
   const defaultValues = useMemo(() => {
-    const { fullName } = me;
-    const { data } = Schema.safeParse({ ...me, txcWallets, otherWallets });
+    const { fullName } = user!;
+    const { data } = Schema.safeParse({ ...user!, txcWallets, otherWallets });
 
     return data
       ? { ...data, firstName: fullName.split(' ')[0], lastName: fullName.split(' ')[1] }
       : ({} as SchemaType);
-  }, [me, txcWallets, otherWallets]);
+  }, [user, txcWallets, otherWallets]);
 
   const methods = useForm<SchemaType>({
     resolver: zodResolver(Schema),
@@ -105,15 +99,15 @@ export function ProfileEditView({ me }: Props) {
         await updateMember({
           variables: {
             data: {
-              id: me.id,
-              avatar: avatar ?? me?.avatar,
+              id: user!.id,
+              avatar: avatar ?? user!.avatar,
               username: newMember.username,
               email: newMember.email,
               fullName: `${firstName} ${lastName}`,
               mobile: newMember.mobile,
               primaryAddress: newMember.primaryAddress,
               secondaryAddress: newMember.secondaryAddress,
-              sponsorId: me.sponsor?.id,
+              sponsorId: user!.sponsor?.id,
               assetId: newMember.assetId,
               ethAssetId: newMember.ethAssetId,
               city: newMember.city,
@@ -208,7 +202,7 @@ export function ProfileEditView({ me }: Props) {
                 <Field.UploadAvatar
                   name="avatar"
                   value={avatarUrl}
-                  current={me?.avatar ?? ''}
+                  current={user?.avatar ?? ''}
                   validator={(fileData) => {
                     if (fileData.size > 1000000) {
                       return {
@@ -239,14 +233,14 @@ export function ProfileEditView({ me }: Props) {
                 <Field.Text
                   name="email"
                   label="Email"
-                  defaultValue={me.email}
+                  defaultValue={user!.email}
                   value={email}
                   onChange={(event: React.ChangeEvent) => {
                     setEmail(event.target.value);
                   }}
                 />
                 <Field.Phone name="mobile" label="Mobile" />
-                <TextField value={me!.sponsor?.username} disabled />
+                <TextField value={user!.sponsor?.username} disabled />
                 <Field.Text name="primaryAddress" label="Address" />
                 <Field.Text name="secondaryAddress" label="Address Line 2" />
                 <Autocomplete
@@ -254,7 +248,7 @@ export function ProfileEditView({ me }: Props) {
                   fullWidth
                   options={countries.getNames()}
                   getOptionLabel={(option: any) => option}
-                  value={country ?? me.country}
+                  value={country ?? user!.country}
                   renderInput={(params) => (
                     <TextField {...params} name="country" label="Country" margin="none" />
                   )}
@@ -288,8 +282,8 @@ export function ProfileEditView({ me }: Props) {
                 </Field.Select>
                 <Field.Select name="commissionDefault" label="Commission Default">
                   {Object.values(
-                    me.groupSetting?.commissionDefaults.length
-                      ? me.groupSetting.commissionDefaults
+                    user!.groupSetting?.commissionDefaults.length
+                      ? user!.groupSetting.commissionDefaults
                       : CommissionDefaultEnum
                   ).map((option) => (
                     <MenuItem key={option} value={option}>
@@ -307,23 +301,19 @@ export function ProfileEditView({ me }: Props) {
         </Grid>
 
         <Stack direction="row" justifyContent="flex-start" spacing={2} sx={{ mt: 2 }}>
-          {me?.id === user?.id && (
-            <>
-              {me.OTPEnabled ? (
-                <Button
-                  type="button"
-                  variant="contained"
-                  loading={disableLoading}
-                  onClick={handleDisable}
-                >
-                  Disable 2FA
-                </Button>
-              ) : (
-                <Button type="button" variant="contained" onClick={open.onTrue}>
-                  2FA Settings
-                </Button>
-              )}
-            </>
+          {user!.OTPEnabled ? (
+            <Button
+              type="button"
+              variant="contained"
+              loading={disableLoading}
+              onClick={handleDisable}
+            >
+              Disable 2FA
+            </Button>
+          ) : (
+            <Button type="button" variant="contained" onClick={open.onTrue}>
+              2FA Settings
+            </Button>
           )}
           <Button type="submit" variant="contained" loading={loading}>
             Save Changes
