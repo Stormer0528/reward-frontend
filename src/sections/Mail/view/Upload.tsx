@@ -15,7 +15,7 @@ type Props = {
   id?: string;
   preview?: boolean;
   folderName?: string;
-  handleUpdate: Function;
+  handleUpdate: (data: any) => void;
   onCreate?: () => void;
   onUpdate?: () => void;
   onChangeFolderName?: (event: React.ChangeEvent<HTMLInputElement>) => void;
