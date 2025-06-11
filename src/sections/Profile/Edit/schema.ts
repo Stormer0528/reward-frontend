@@ -21,14 +21,14 @@ export const Schema = zod.object({
   ethAssetId: zod.string().optional().nullable(),
   preferredContact: zod.string().optional().nullable(),
   preferredContactDetail: zod.string().optional().nullable(),
-  syncWithSendy: zod.boolean().default(true),
+  syncWithSendy: zod.boolean(),
   txcWallets: zod.array(
     zod.object({
       payoutId: zod.string({ required_error: 'Payout is required' }),
       address: zod.string({ required_error: 'Address is required' }),
       note: zod.string().optional().nullable(),
       percent: zod.number({ required_error: 'Percent is required' }),
-      isDefault: zod.boolean().default(false),
+      isDefault: zod.boolean(),
     })
   ),
   otherWallets: zod.array(
@@ -36,7 +36,7 @@ export const Schema = zod.object({
       payoutId: zod.string(),
       address: zod.string().regex(/^0x[a-fA-F0-9]{40}$/, { message: 'Invalid Ethereum address' }),
       note: zod.string().optional().nullable(),
-      percent: zod.number().default(0),
+      percent: zod.number(),
     })
   ),
 });
