@@ -2,6 +2,8 @@ export * from './upload';
 
 export * from './upload-box';
 
+export * from './customUpload';
+
 export * from './upload-avatar';
 
 export * from './components/rejection-files';
