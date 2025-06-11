@@ -1,6 +1,6 @@
 import type { Member } from 'src/__generated__/graphql';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -12,7 +12,7 @@ import { Iconify } from '../Iconify';
 interface Props {
   filter?: any;
   label?: string;
-  setMemberId?: Function;
+  setMemberId?: React.Dispatch<React.SetStateAction<string>>;
   currentMember?: Member | null;
 }
 
@@ -46,7 +46,7 @@ export default function SearchMiner({
 
   useEffect(() => {
     if (setMemberId) {
-      setMemberId(members.find((member) => member.username === username?.split(' (')[0])?.id);
+      setMemberId(members.find((member) => member.username === username?.split(' (')[0])?.id ?? '');
     }
 
     const handler = setTimeout(() => {

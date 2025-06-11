@@ -23,7 +23,7 @@ export const ActionRender = memo(
           </IconButton>
         </Tooltip>
 
-        <Detail open={open} subject={data?.subject!} body={data?.body} />
+        <Detail open={open} subject={data?.subject ?? ''} body={data?.body} />
       </>
     );
   },
