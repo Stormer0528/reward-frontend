@@ -4,7 +4,7 @@ import { CONFIG } from 'src/config';
 
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
-import StatisticsDetail from 'src/sections/Reward/Statistics/Detail';
+// import StatisticsDetail from 'src/sections/Reward/Statistics/Detail';
 
 // ----------------------------------------------------------------------
 const metadata = { title: `${CONFIG.APP_NAME} - Statistics` };
@@ -13,7 +13,6 @@ export default function Page() {
   return (
     <>
       <title>{metadata.title}</title>
-
       <Breadcrumbs
         heading="Statistics"
         links={[{ name: 'Reward', href: paths.dashboard.reward.root }, { name: 'Statistics' }]}
@@ -21,8 +20,8 @@ export default function Page() {
           mb: { xs: 2, md: 3 },
         }}
       />
-
-      <StatisticsDetail />
+      Statistics Detail
+      {/* <StatisticsDetail /> */}
     </>
   );
 }
