@@ -1,4 +1,4 @@
-import { useMutation, useLazyQuery } from '@apollo/client';
+import { useMutation, useLazyQuery, useSuspenseQuery } from '@apollo/client';
 
 import {
   CANCEL_ORDER,
@@ -9,10 +9,12 @@ import {
   CREATE_SIGNUP_ORDER,
 } from './query';
 
-export function useFetchOrderById() {
-  const [fetchOrderById, { loading, data, error }] = useLazyQuery(FETCH_ORDER_BY_ID);
+export function useFetchOrderById({ id }: { id: string }) {
+  const { data, error } = useSuspenseQuery(FETCH_ORDER_BY_ID, {
+    variables: { data: { id } },
+  });
 
-  return { loading, order: data?.orderById, error, fetchOrderById };
+  return { order: data?.orderById, error };
 }
 
 export function useCheckOrder() {

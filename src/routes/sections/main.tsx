@@ -1,8 +1,12 @@
 import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, type RouteObject } from 'react-router';
 
+import { Skeleton } from '@mui/material';
+
 import { MainLayout } from 'src/layouts/main';
+import { OrderStatus } from 'src/__generated__/graphql';
 import { AuthCenteredLayout } from 'src/layouts/auth-centered';
+import { OrderProvider } from 'src/libs/Order/Context/OrderProvider';
 
 import { LoadingScreen } from 'src/components/LoadingScreen';
 
@@ -81,10 +85,26 @@ export const mainRoutes: RouteObject[] = [
   },
   {
     path: `${paths.pages.order.root}/:id`,
-    element: (
-      <AuthCenteredLayout>
-        <OrderPage />
-      </AuthCenteredLayout>
-    ),
+    children: [
+      {
+        element: (
+          <AuthCenteredLayout>
+            <Suspense fallback={<Skeleton />}>
+              <OrderProvider>
+                <Outlet />
+              </OrderProvider>
+            </Suspense>
+          </AuthCenteredLayout>
+        ),
+        children: [
+          { index: true, element: <OrderPage status={OrderStatus.New} /> },
+          { path: 'paid', element: <OrderPage status={OrderStatus.Paid} /> },
+          { path: 'expired', element: <OrderPage status={OrderStatus.Expired} /> },
+          { path: 'pending', element: <OrderPage status={OrderStatus.Pending} /> },
+          { path: 'canceled', element: <OrderPage status={OrderStatus.Canceled} /> },
+          { path: 'completed', element: <OrderPage status={OrderStatus.Completed} /> },
+        ],
+      },
+    ],
   },
 ];
