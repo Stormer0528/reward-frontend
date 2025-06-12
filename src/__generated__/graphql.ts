@@ -227,6 +227,7 @@ export type BasicOrder = {
   expiredAt: Scalars['DateTimeISO']['output'];
   fullName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isP2P: Scalars['Boolean']['output'];
   memberId: Scalars['String']['output'];
   paidAt?: Maybe<Scalars['DateTimeISO']['output']>;
   paidBalance: Scalars['BigInt']['output'];
@@ -762,6 +763,12 @@ export type DailyStats = {
   __typename?: 'DailyStats';
   count: Scalars['Int']['output'];
   field: Scalars['String']['output'];
+};
+
+export type DuplicateMember2 = {
+  assetId1: Scalars['String']['input'];
+  assetId2: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 };
 
 export type Email = {
@@ -1316,6 +1323,7 @@ export type Mutation = {
   createStatisticsSale: StatisticsSale;
   disable2FA: AccessTokenResponse;
   duplicateMember: Member;
+  duplicateMember2: SuccessResponse;
   emailVerify: EmailVerifyResult;
   emailVerifyCode: AccessTokenResponse;
   forceMemberLogout: SuccessResponse;
@@ -1594,6 +1602,11 @@ export type MutationCreateStatisticsSaleArgs = {
 
 export type MutationDuplicateMemberArgs = {
   data: IdInput;
+};
+
+
+export type MutationDuplicateMember2Args = {
+  data: DuplicateMember2;
 };
 
 
@@ -2061,6 +2074,7 @@ export type Order = {
   expiredAt: Scalars['DateTimeISO']['output'];
   frontActions?: Maybe<Array<FrontAction>>;
   id: Scalars['ID']['output'];
+  isP2P: Scalars['Boolean']['output'];
   member?: Maybe<Member>;
   paidAt?: Maybe<Scalars['DateTimeISO']['output']>;
   paidBalance: Scalars['BigInt']['output'];
