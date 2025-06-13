@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -10,12 +12,11 @@ import { OrderStatus } from 'src/__generated__/graphql';
 
 import { Iconify } from 'src/components/Iconify';
 
-interface Props {
-  status: OrderStatus;
-}
-
-export default function PaymentStatus({ status }: Props) {
+export default function PaymentStatus() {
   const router = useRouter();
+  const {
+    state: { status },
+  } = useLocation();
 
   const handleClose = () => {
     router.push(paths.dashboard.root);

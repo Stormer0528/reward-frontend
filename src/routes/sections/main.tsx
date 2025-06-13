@@ -4,7 +4,6 @@ import { Outlet, Navigate, type RouteObject } from 'react-router';
 import { Skeleton } from '@mui/material';
 
 import { MainLayout } from 'src/layouts/main';
-import { OrderStatus } from 'src/__generated__/graphql';
 import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 import { OrderProvider } from 'src/libs/Order/Context/OrderProvider';
 
@@ -13,7 +12,9 @@ import { LoadingScreen } from 'src/components/LoadingScreen';
 import { paths } from '../paths';
 
 // ----------------------------------------------------------------------
-const OrderPage = lazy(() => import('src/pages/Order'));
+const PaymentStatus = lazy(() => import('src/pages/Order/PaymentStatus'));
+const PaymentWaiting = lazy(() => import('src/pages/Order/PaymentWaiting'));
+const PaymentSelector = lazy(() => import('src/pages/Order/PaymentSelector'));
 const ContactPage = lazy(() => import('src/pages/Contact'));
 const StatisticsPage = lazy(() => import('src/pages/Statistics'));
 const ActionPage = lazy(() => import('src/pages/Commission/Action'));
@@ -97,12 +98,9 @@ export const mainRoutes: RouteObject[] = [
           </AuthCenteredLayout>
         ),
         children: [
-          { index: true, element: <OrderPage status={OrderStatus.New} /> },
-          { path: 'paid', element: <OrderPage status={OrderStatus.Paid} /> },
-          { path: 'expired', element: <OrderPage status={OrderStatus.Expired} /> },
-          { path: 'pending', element: <OrderPage status={OrderStatus.Pending} /> },
-          { path: 'canceled', element: <OrderPage status={OrderStatus.Canceled} /> },
-          { path: 'completed', element: <OrderPage status={OrderStatus.Completed} /> },
+          { index: true, element: <PaymentSelector /> },
+          { path: 'waiting', element: <PaymentWaiting /> },
+          { path: 'status', element: <PaymentStatus /> },
         ],
       },
     ],

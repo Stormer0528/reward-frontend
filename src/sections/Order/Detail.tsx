@@ -27,11 +27,12 @@ import { Iconify } from 'src/components/Iconify';
 import { useCheckOrder, useCancelOrder } from './useApollo';
 
 export default function Detail() {
-  const [timeLeft, setTimeLeft] = useState<number>(0);
   const theme = useTheme();
   const router = useRouter();
 
   const { order: current } = useOrderContext();
+
+  const [timeLeft, setTimeLeft] = useState<number>(-dayjs().diff(current?.expiredAt, 'seconds'));
 
   const [copy, setCopy] = useState<string>();
 
@@ -46,10 +47,6 @@ export default function Detail() {
       setCopy('');
     }, 2000);
   };
-
-  useEffect(() => {
-    setTimeLeft(-dayjs().diff(current?.expiredAt, 'seconds'));
-  }, [current]);
 
   const ITEMS = useMemo(
     () => [
@@ -71,13 +68,31 @@ export default function Detail() {
     [current]
   );
 
+  const handleCancel = async () => {
+    try {
+      const { data } = await cancelOrder({ variables: { data: { id: current!.id } } });
+
+      if (data) {
+        router.push(`${paths.pages.order.root}/${current!.id}/status`, {
+          state: { status: OrderStatus.Canceled },
+        });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       if (current && timeLeft % 10 === 0) {
         checkOrder({ variables: { data: { id: current.id } } });
 
         if (order?.status && order?.status !== OrderStatus.Pending) {
-          router.push(`${paths.pages.order.root}/${current.id}/${order.status.toLowerCase()}`);
+          router.push(`${paths.pages.order.root}/${current.id}/status`, {
+            state: { status: order?.status },
+          });
         }
       }
 
@@ -93,7 +108,7 @@ export default function Detail() {
 
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, current]);
+  }, [order, current, timeLeft]);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -101,20 +116,6 @@ export default function Detail() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
-
-  const handleCancel = async () => {
-    try {
-      const { data } = await cancelOrder({ variables: { data: { id: current!.id } } });
-
-      if (data) {
-        router.push(`${paths.pages.order.root}/${current!.id}/canceled`);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
-    }
-  };
 
   return (
     <>

@@ -13,8 +13,8 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config';
-import { PaymentChain, PaymentToken } from 'src/__generated__/graphql';
 import { useOrderContext } from 'src/libs/Order/Context/useOrderContext';
+import { OrderStatus, PaymentChain, PaymentToken } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
@@ -97,9 +97,9 @@ export default function Payment() {
 
       if (data) {
         if (paymentType.paymentToken === 'PEER') {
-          router.push('completed');
+          router.push('status', { state: { status: OrderStatus.Completed } });
         } else {
-          router.push('pending');
+          router.push('waiting');
         }
       }
     } catch (error) {
@@ -114,7 +114,9 @@ export default function Payment() {
       const { data } = await cancelOrder({ variables: { data: { id: order!.id } } });
 
       if (data) {
-        router.push(`${paths.pages.order.root}/${order!.id}/canceled`);
+        router.push(`${paths.pages.order.root}/${order!.id}/status`, {
+          state: { status: OrderStatus.Canceled },
+        });
       }
     } catch (error) {
       if (error instanceof Error) {
