@@ -939,4 +939,10 @@ export default {
   'iconoir:peerlist-solid': {
     body: '<path fill="currentColor" fill-rule="evenodd" d="M15.13 21.75a6.75 6.75 0 0 0 6.708-6.005l.211-1.895a16.8 16.8 0 0 0 0-3.7l-.21-1.895a6.75 6.75 0 0 0-6.71-6.005H8.87a6.75 6.75 0 0 0-6.709 6.005l-.21 1.895a16.8 16.8 0 0 0 0 3.7l.21 1.895a6.75 6.75 0 0 0 6.71 6.005zM8.25 17a.75.75 0 0 0 1.5 0v-3.25H13a3.75 3.75 0 0 0 0-7.5H9a.75.75 0 0 0-.75.75zM13 12.25H9.75v-4.5H13a2.25 2.25 0 0 1 0 4.5" clip-rule="evenodd" stroke-width="0.5" stroke="currentColor"/>',
   },
+  'entypo:wallet': {
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 20 20"><path fill="currentColor" d="M16 6H3.5v-.5l11-.88v.88H16V4c0-1.1-.891-1.872-1.979-1.717L3.98 3.717C2.891 3.873 2 4.9 2 6v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m-1.5 7.006a1.5 1.5 0 1 1 .001-3.001a1.5 1.5 0 0 1-.001 3.001" stroke-width="0.5" stroke="currentColor"/></svg>',
+  },
+  'lsicon:amount-dollar-filled': {
+    body: '<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1m-.5 3.5v1C6.674 5.5 6 6.174 6 7s.674 1.5 1.5 1.5h1c.274 0 .5.226.5.5s-.226.5-.5.5H6v1h1.5v1h1v-1c.826 0 1.5-.674 1.5-1.5s-.674-1.5-1.5-1.5h-1A.503.503 0 0 1 7 7c0-.274.226-.5.5-.5H10v-1H8.5v-1z" clip-rule="evenodd" stroke-width="0.5" stroke="currentColor"/></svg>',
+  },
 };
