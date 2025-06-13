@@ -24,5 +24,5 @@ export function OrderProvider({ children }: Props) {
     return <Navigate to={paths.notFound} />;
   }
 
-  return <OrderContext.Provider value={memoizedValue}>{children}</OrderContext.Provider>;
+  return <OrderContext value={memoizedValue}>{children}</OrderContext>;
 }
