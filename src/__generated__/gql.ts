@@ -46,7 +46,7 @@ type Documents = {
     "\n  query CheckOrder($data: IDInput!) {\n    orderById(data: $data) {\n      status\n    }\n  }\n": typeof types.CheckOrderDocument,
     "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n    }\n  }\n": typeof types.CreateOrderDocument,
     "\n  mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {\n    createSignUpOrder(data: $data) {\n      id\n    }\n  }\n": typeof types.CreateSignUpOrderDocument,
-    "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      message\n      result\n    }\n  }\n": typeof types.CancelOrderDocument,
+    "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      id\n      status\n    }\n  }\n": typeof types.CancelOrderDocument,
     "\n  mutation SetOrderPayment($data: OrderPaymentSetInput!) {\n    setOrderPayment(data: $data) {\n      id\n      status\n      paymentToken\n      paymentAddress\n      requiredBalance\n    }\n  }\n": typeof types.SetOrderPaymentDocument,
     "\n  query Packages($sort: String, $filter: JSONObject) {\n    packages(sort: $sort, filter: $filter) {\n      packages {\n        id\n        date\n        token\n        point\n        amount\n        status\n        createdAt\n        updatedAt\n        deletedAt\n        productName\n        orderVisibility\n        enrollVisibility\n      }\n    }\n  }\n": typeof types.PackagesDocument,
     "\n  query PaymentMethods($sort: String, $page: String, $filter: JSONObject) {\n    paymentMethods(sort: $sort, page: $page, filter: $filter) {\n      paymentMethods {\n        id\n        name\n        visible\n        createdAt\n      }\n      total\n    }\n  }\n": typeof types.PaymentMethodsDocument,
@@ -138,7 +138,7 @@ const documents: Documents = {
     "\n  query CheckOrder($data: IDInput!) {\n    orderById(data: $data) {\n      status\n    }\n  }\n": types.CheckOrderDocument,
     "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateOrderDocument,
     "\n  mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {\n    createSignUpOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateSignUpOrderDocument,
-    "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      message\n      result\n    }\n  }\n": types.CancelOrderDocument,
+    "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      id\n      status\n    }\n  }\n": types.CancelOrderDocument,
     "\n  mutation SetOrderPayment($data: OrderPaymentSetInput!) {\n    setOrderPayment(data: $data) {\n      id\n      status\n      paymentToken\n      paymentAddress\n      requiredBalance\n    }\n  }\n": types.SetOrderPaymentDocument,
     "\n  query Packages($sort: String, $filter: JSONObject) {\n    packages(sort: $sort, filter: $filter) {\n      packages {\n        id\n        date\n        token\n        point\n        amount\n        status\n        createdAt\n        updatedAt\n        deletedAt\n        productName\n        orderVisibility\n        enrollVisibility\n      }\n    }\n  }\n": types.PackagesDocument,
     "\n  query PaymentMethods($sort: String, $page: String, $filter: JSONObject) {\n    paymentMethods(sort: $sort, page: $page, filter: $filter) {\n      paymentMethods {\n        id\n        name\n        visible\n        createdAt\n      }\n      total\n    }\n  }\n": types.PaymentMethodsDocument,
@@ -343,7 +343,7 @@ export function gql(source: "\n  mutation CreateSignUpOrder($data: CreateSignUpO
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      message\n      result\n    }\n  }\n"): (typeof documents)["\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      message\n      result\n    }\n  }\n"];
+export function gql(source: "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      id\n      status\n    }\n  }\n"): (typeof documents)["\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      id\n      status\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
