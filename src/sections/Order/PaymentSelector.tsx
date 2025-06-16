@@ -9,7 +9,6 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/config';
@@ -99,8 +98,6 @@ export default function PaymentSelector() {
       if (data) {
         if (paymentType.paymentToken === 'PEER') {
           router.push('status', { state: { status: OrderStatus.Completed } });
-        } else {
-          router.push('waiting');
         }
       }
     } catch (error) {
@@ -112,13 +109,7 @@ export default function PaymentSelector() {
 
   const handleCancel = async () => {
     try {
-      const { data } = await cancelOrder({ variables: { data: { id: order!.id } } });
-
-      if (data) {
-        router.push(`${paths.pages.order.root}/${order.id}/status`, {
-          state: { status: OrderStatus.Canceled },
-        });
-      }
+      await cancelOrder({ variables: { data: { id: order!.id } } });
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);

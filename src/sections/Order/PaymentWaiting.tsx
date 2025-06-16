@@ -18,8 +18,8 @@ import { truncateMiddle } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
 import { PAYMENT_METHOD } from 'src/consts';
+import { type PaymentToken } from 'src/__generated__/graphql';
 import { useOrderContext } from 'src/libs/Order/Context/useOrderContext';
-import { OrderStatus, type PaymentToken } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
@@ -70,13 +70,7 @@ export default function PaymentWaiting() {
 
   const handleCancel = async () => {
     try {
-      const { data } = await cancelOrder({ variables: { data: { id: current!.id } } });
-
-      if (data) {
-        router.push(`${paths.pages.order.root}/${current.id}/status`, {
-          state: { status: OrderStatus.Canceled },
-        });
-      }
+      await cancelOrder({ variables: { data: { id: current!.id } } });
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -88,12 +82,6 @@ export default function PaymentWaiting() {
     const timer = setInterval(() => {
       if (current && timeLeft % 10 === 0) {
         checkOrder({ variables: { data: { id: current.id } } });
-
-        if (order?.status && order?.status !== OrderStatus.Pending) {
-          router.push(`${paths.pages.order.root}/${current.id}/status`, {
-            state: { status: order?.status },
-          });
-        }
       }
 
       setTimeLeft((prev: number) => {
@@ -112,7 +100,7 @@ export default function PaymentWaiting() {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      router.push(`${paths.pages.order.root}/${current?.id}/expired`);
+      router.push(`${paths.pages.order.root}/${current?.id}/status`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
