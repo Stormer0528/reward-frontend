@@ -1,8 +1,7 @@
 import type { IconifyName } from 'src/components/Iconify';
 
-import dayjs from 'dayjs';
 import QRCode from 'react-qr-code';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -10,9 +9,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 
 import { truncateMiddle } from 'src/utils/helper';
 
@@ -24,19 +20,15 @@ import { useOrderContext } from 'src/libs/Order/Context/useOrderContext';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-import { useCheckOrder, useCancelOrder } from './useApollo';
+import { Timer } from './Timer';
+import { useCancelOrder } from './useApollo';
 
 export default function PaymentWaiting() {
   const theme = useTheme();
-  const router = useRouter();
 
   const { order: current } = useOrderContext();
 
-  const [timeLeft, setTimeLeft] = useState<number>(-dayjs().diff(current?.expiredAt, 'seconds'));
-
   const [copy, setCopy] = useState<string>();
-
-  const { order, checkOrder } = useCheckOrder();
   const { cancelOrder } = useCancelOrder();
 
   const handleCopy = async (value: any) => {
@@ -78,33 +70,6 @@ export default function PaymentWaiting() {
     }
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (current && timeLeft % 10 === 0) {
-        checkOrder({ variables: { data: { id: current.id } } });
-      }
-
-      setTimeLeft((prev: number) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order, current, timeLeft]);
-
-  useEffect(() => {
-    if (timeLeft === 0) {
-      router.push(`${paths.pages.order.root}/${current?.id}/status`);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft]);
-
   return (
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
@@ -115,9 +80,7 @@ export default function PaymentWaiting() {
           borderRadius={0.5}
           p={1}
         >
-          <Typography>
-            {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
-          </Typography>
+          <Timer />
         </Box>
       </Stack>
       <Box>
