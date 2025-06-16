@@ -1,5 +1,5 @@
-import Payment from 'src/sections/Order/Payment';
+import PaymentSelector from 'src/sections/Order/PaymentSelector';
 
-export default function PaymentSelector() {
-  return <Payment />;
+export default function PaymentSelectorPage() {
+  return <PaymentSelector />;
 }

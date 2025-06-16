@@ -26,7 +26,7 @@ import { Iconify } from 'src/components/Iconify';
 
 import { useCheckOrder, useCancelOrder } from './useApollo';
 
-export default function Detail() {
+export default function PaymentWaiting() {
   const theme = useTheme();
   const router = useRouter();
 
@@ -73,7 +73,7 @@ export default function Detail() {
       const { data } = await cancelOrder({ variables: { data: { id: current!.id } } });
 
       if (data) {
-        router.push(`${paths.pages.order.root}/${current!.id}/status`, {
+        router.push(`${paths.pages.order.root}/${current.id}/status`, {
           state: { status: OrderStatus.Canceled },
         });
       }

@@ -1,5 +1,5 @@
-import Detail from 'src/sections/Order/Detail';
+import PaymentWaiting from 'src/sections/Order/PaymentWaiting';
 
-export default function PaymentWaiting() {
-  return <Detail />;
+export default function PaymentWaitingPage() {
+  return <PaymentWaiting />;
 }

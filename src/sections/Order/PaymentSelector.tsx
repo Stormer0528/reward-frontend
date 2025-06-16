@@ -1,6 +1,6 @@
 import type { PAYMENT_METHOD_TYPE } from './type';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -22,13 +22,14 @@ import { Iconify } from 'src/components/Iconify';
 import { useCancelOrder, useSetOrderPayment } from './useApollo';
 
 const payments: PAYMENT_METHOD_TYPE[] = [
-  // {
-  //   value: PaymentToken.Txc,
-  //   label: 'Texitcoin',
-  //   icon: `${CONFIG.ASSET_DIR}/assets/TXC.png`,
-  //   backgroundColor: '#eeeeee',
-  //   disable: true,
-  // },
+  {
+    value: PaymentToken.Txc,
+    label: 'Texitcoin',
+    chain: PaymentChain.Txc,
+    icon: `${CONFIG.ASSET_DIR}/assets/TXC.png`,
+    backgroundColor: '#ffffff',
+    disable: false,
+  },
   // {
   //   value: PaymentToken.Eth,
   //   label: 'Ethereum',
@@ -68,7 +69,7 @@ const payments: PAYMENT_METHOD_TYPE[] = [
   },
 ];
 
-export default function Payment() {
+export default function PaymentSelector() {
   const [paymentType, setPaymentType] = useState<any>();
   const theme = useTheme();
 
@@ -114,7 +115,7 @@ export default function Payment() {
       const { data } = await cancelOrder({ variables: { data: { id: order!.id } } });
 
       if (data) {
-        router.push(`${paths.pages.order.root}/${order!.id}/status`, {
+        router.push(`${paths.pages.order.root}/${order.id}/status`, {
           state: { status: OrderStatus.Canceled },
         });
       }
