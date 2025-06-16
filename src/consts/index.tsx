@@ -154,5 +154,14 @@ export const CHAIN_UNIT = {
   POLYGON: 9,
 };
 
+export const ORDER_STATUS = {
+  NEW: '',
+  PENDING: 'waiting',
+  PAID: 'status',
+  EXPIRED: 'status',
+  COMPLETED: 'status',
+  CANCELED: 'status',
+};
+
 export const HELP_MINETXC_URL = 'https://help.minetxc.com/';
 export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';

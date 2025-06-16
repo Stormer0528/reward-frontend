@@ -4,6 +4,7 @@ import { Outlet, Navigate, type RouteObject } from 'react-router';
 import { Skeleton } from '@mui/material';
 
 import { MainLayout } from 'src/layouts/main';
+import OrderWrapper from 'src/pages/Order/Wrapper';
 import { AuthCenteredLayout } from 'src/layouts/auth-centered';
 import { OrderProvider } from 'src/libs/Order/Context/OrderProvider';
 
@@ -92,7 +93,9 @@ export const mainRoutes: RouteObject[] = [
           <AuthCenteredLayout>
             <Suspense fallback={<Skeleton />}>
               <OrderProvider>
-                <Outlet />
+                <OrderWrapper>
+                  <Outlet />
+                </OrderWrapper>
               </OrderProvider>
             </Suspense>
           </AuthCenteredLayout>
