@@ -41,8 +41,8 @@ export const CREATE_SIGNUP_ORDER = gql(/* GraphQL */ `
 export const CANCEL_ORDER = gql(/* GraphQL */ `
   mutation CancelOrder($data: IDInput!) {
     cancelOrder(data: $data) {
-      message
-      result
+      id
+      status
     }
   }
 `);
