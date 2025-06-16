@@ -51,6 +51,10 @@ export const SET_ORDER_PAYMENT = gql(/* GraphQL */ `
   mutation SetOrderPayment($data: OrderPaymentSetInput!) {
     setOrderPayment(data: $data) {
       id
+      status
+      paymentToken
+      paymentAddress
+      requiredBalance
     }
   }
 `);
