@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from 'react-router';
+import { Navigate, useMatch } from 'react-router';
 
 import { paths } from 'src/routes/paths';
 
@@ -12,13 +12,13 @@ interface Props {
 
 export default function OrderWrapper({ children }: Props) {
   const { order } = useOrderContext();
+  const match = useMatch(`${paths.pages.order.root}/:orderId/:status`);
 
-  const { pathname } = useLocation();
-  const status = pathname.split('/')[3];
+  const status = match?.params.status ?? '';
 
   const orderRoot = `${paths.pages.order.root}/${order.id}`;
 
-  if (Object.keys(ORDER_STATUS).includes(order.status) && status !== ORDER_STATUS[order.status]) {
+  if (status !== ORDER_STATUS[order.status]) {
     return (
       <Navigate
         to={`${orderRoot}/${ORDER_STATUS[order.status]}`}
