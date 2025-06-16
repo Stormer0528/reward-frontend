@@ -180,6 +180,7 @@ export type BasicMember = {
   email: Scalars['String']['output'];
   emailVerified: Scalars['Boolean']['output'];
   fullName: Scalars['String']['output'];
+  groupSettingId?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   lastAdminNote?: Maybe<Scalars['String']['output']>;
   mobile: Scalars['String']['output'];
@@ -393,6 +394,7 @@ export enum CampaignListType {
   Custom = 'CUSTOM',
   Group = 'GROUP',
   PendingManualCommission = 'PENDING_MANUAL_COMMISSION',
+  PendingUsdcCommission = 'PENDING_USDC_COMMISSION',
   WeeklySponsor = 'WEEKLY_SPONSOR'
 }
 
@@ -1292,7 +1294,7 @@ export type Mutation = {
   calculateCommissions: SuccessResponse;
   calculatePreviewCommissions: SuccessResponse;
   cancelOrder: SuccessResponse;
-  checkSaleRefDuplication: SuccessResponse;
+  checkSaleRefDuplication: RefLinkDuplicationResponse;
   confirmStatistics: Statistics;
   createAddMemberOrder: Order;
   createAdmin: Admin;
@@ -2932,6 +2934,11 @@ export type RefLink = {
   __typename?: 'RefLink';
   link: Scalars['String']['output'];
   linkType: Scalars['String']['output'];
+};
+
+export type RefLinkDuplicationResponse = {
+  __typename?: 'RefLinkDuplicationResponse';
+  duplicated: Array<Scalars['String']['output']>;
 };
 
 export type ReferenceLink = {
