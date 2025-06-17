@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useBoolean } from 'minimal-shared/hooks';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -7,13 +8,11 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import { useSearchParams } from 'src/routes/hooks';
 
-import { useBoolean } from 'src/hooks/useBoolean';
-
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
-import { LoadingScreen } from 'src/components/loading-screen';
+import { LoadingScreen } from 'src/components/LoadingScreen';
 
-import { useVerifyEmail } from './useApollo';
+import { useVerifyEmail } from '../Auth/VerifyEmail/useApollo';
 
 export default function AmplifyVerifyView() {
   const loading = useBoolean();
@@ -52,12 +51,12 @@ export default function AmplifyVerifyView() {
   useEffect(() => {
     async function handleVerify() {
       try {
-        const { data } = await verifyEmail({ variables: { data: { token: token ?? '' } } });
+        const { data } = await verifyEmail({ token: token ?? '' });
 
         if (data) {
           loading.onTrue();
         }
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.message);
       }
     }
