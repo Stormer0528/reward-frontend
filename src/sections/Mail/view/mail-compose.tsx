@@ -52,11 +52,15 @@ export function MailCompose({ onCloseCompose }: Props) {
     setMessage(value);
   };
 
-  const handleChangeTo = async (event: React.ChangeEvent) => {
+  const handleChangeTo = async (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     setTo(event.target.value);
   };
 
-  const handleChangeSubject = async (event: React.ChangeEvent) => {
+  const handleChangeSubject = async (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
     setSubject(event.target.value);
   };
 

@@ -235,7 +235,7 @@ export function ProfileEditView() {
                   label="Email"
                   defaultValue={user!.email}
                   value={email}
-                  onChange={(event: React.ChangeEvent) => {
+                  onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
                     setEmail(event.target.value);
                   }}
                 />
