@@ -4,10 +4,10 @@ export const getWallets = (memberWallets: any) => {
   if (!Array.isArray(memberWallets)) return [[], []];
 
   const txcWallets: any[] = memberWallets
-    .filter((mw) => TXC_WALLET.findIndex((TXCWALLET) => TXCWALLET.id === mw.payout.id) !== -1)
+    .filter((mw) => TXC_WALLET.findIndex((item) => item.id === mw.payoutId) !== -1)
     .map((mw) => ({
       id: mw.id,
-      payoutId: mw.payout.id,
+      payoutId: mw.payoutId,
       address: mw.address,
       note: mw.note,
       percent: mw.percent,
@@ -15,10 +15,10 @@ export const getWallets = (memberWallets: any) => {
     }));
 
   const otherWallets: any = memberWallets
-    .filter((mw) => OTHER_WALLET.findIndex((TXCWALLET) => TXCWALLET.id === mw.payout.id) !== -1)
+    .filter((mw) => OTHER_WALLET.findIndex((item) => item.id === mw.payoutId) !== -1)
     .map((mw) => ({
       id: mw.id,
-      payoutId: mw.payout.id,
+      payoutId: mw.payoutId,
       address: mw.address,
       note: mw.note,
       percent: mw.percent,
