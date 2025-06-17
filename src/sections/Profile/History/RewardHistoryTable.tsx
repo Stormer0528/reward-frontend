@@ -14,6 +14,7 @@ import Card from '@mui/material/Card';
 
 import { useQuery as useQueryString } from 'src/routes/hooks';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { formatDate } from 'src/utils/format-time';
 import { parseFilterModel } from 'src/utils/parseFilter';
 
@@ -51,6 +52,7 @@ export function RewardHistoryTable() {
         resizable: true,
         editable: false,
         initialSort: 'desc',
+        cellClass: 'tabular-nums',
         cellRenderer: ({ data }: CustomCellRendererProps<MemberStatistics>) =>
           formatDate(data?.issuedAt),
       },
@@ -74,17 +76,22 @@ export function RewardHistoryTable() {
         resizable: true,
         editable: false,
         sortable: false,
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         filterParams: { buttons: ['reset'] } as INumberFilterParams,
       },
       {
         field: 'txcShared',
         headerName: 'Rewarded TXC',
-        width: 150,
+        width: 200,
         resizable: true,
         editable: false,
         sortable: false,
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         cellRenderer: ({ data }: CustomCellRendererProps<MemberStatistics>) =>
-          Number(data?.txcShared ?? 0) / 10 ** 8,
+          fNumber(Number(data?.txcShared ?? 0) / 10 ** 8, {
+            minimumFractionDigits: 8,
+            maximumFractionDigits: 8,
+          }),
       },
       {
         field: 'percent',
@@ -93,8 +100,9 @@ export function RewardHistoryTable() {
         resizable: true,
         editable: false,
         sortable: false,
+        cellClass: 'tabular-nums ag-right-aligned-cell',
         cellRenderer: ({ data }: CustomCellRendererProps<MemberStatistics>) =>
-          `${Number(data?.percent ?? 0) / 100} %`,
+          `${fNumber(Number(data?.percent ?? 0) / 100, { minimumFractionDigits: 2 })} %`,
       },
     ],
 
