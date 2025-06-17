@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -9,14 +7,13 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { OrderStatus } from 'src/__generated__/graphql';
+import { useOrderContext } from 'src/libs/Order/Context/useOrderContext';
 
 import { Iconify } from 'src/components/Iconify';
 
 export default function PaymentStatus() {
   const router = useRouter();
-  const {
-    state: { status },
-  } = useLocation();
+  const { order } = useOrderContext();
 
   const handleClose = () => {
     router.push(paths.dashboard.root);
@@ -25,14 +22,14 @@ export default function PaymentStatus() {
   return (
     <>
       <Box textAlign="center">
-        {status === OrderStatus.Paid && (
+        {order.status === OrderStatus.Paid && (
           <>
             <Iconify icon="fluent-emoji-flat:thumbs-up" width={80} height={80} />
             <Typography variant="h6">Thanks for your payment</Typography>
           </>
         )}
 
-        {status === OrderStatus.Canceled && (
+        {order.status === OrderStatus.Canceled && (
           <>
             <Iconify icon="ix:namur-failure-filled" width={80} height={80} color="red" />
             <Typography variant="h6">
@@ -41,14 +38,14 @@ export default function PaymentStatus() {
           </>
         )}
 
-        {status === OrderStatus.Expired && (
+        {order.status === OrderStatus.Expired && (
           <>
             <Iconify icon="flat-color-icons:expired" width={80} height={80} />
             <Typography variant="h6">Your session has expired</Typography>
           </>
         )}
 
-        {status === OrderStatus.Completed && (
+        {order.status === OrderStatus.Completed && (
           <>
             <Iconify icon="nrk:media-completed" width={80} height={80} color="#00a873" />
             <Typography variant="h6">Your payment has been completed</Typography>
