@@ -11,13 +11,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useParams, useRouter } from 'src/routes/hooks';
 
-import { OrderStatus, type Order as OrderType } from 'src/__generated__/graphql';
+import { OrderStatus, PaymentToken, type Order as OrderType } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
 import { LoadingScreen } from 'src/components/loading-screen';
 
 import Detail from './Detail';
-import Payment from './Payment';
+import { Token } from './Token';
+import { Chain } from './Chain';
 import PaymentStatus from './PaymentStatus';
 import { useCancelOrder, useFetchOrderById, useSetOrderPayment } from './useApollo';
 
@@ -27,10 +28,10 @@ export default function Order() {
 
   const { id } = useParams();
 
-  const [step, setStep] = useState<number>(0);
-  const [status, setStatus] = useState<OrderStatus>(OrderStatus.New);
-  const [timeLeft, setTimeLeft] = useState<number>(-1);
+  const [step, setStep] = useState<number>(-1);
   const [payment, setPayment] = useState<any>();
+  const [timeLeft, setTimeLeft] = useState<number>(-1);
+  const [status, setStatus] = useState<OrderStatus>(OrderStatus.New);
 
   const { cancelOrder } = useCancelOrder();
   const { loading, order, fetchOrderById } = useFetchOrderById();
@@ -133,7 +134,7 @@ export default function Order() {
         )}
         {step === 1 && (
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">Detail</Typography>
+            <Typography variant="h6">{payment.paymentChain}</Typography>
             <Box
               width={105}
               border={`2px solid ${theme.palette.success.main}`}
@@ -157,7 +158,9 @@ export default function Order() {
         )}
       </Box>
 
-      {step === 0 && <Payment paymentType={payment!} setPaymentType={setPayment} />}
+      {step === -1 && <Token paymentType={payment} setPaymentType={setPayment} />}
+      {step === 0 && <Chain paymentType={payment} setPaymentType={setPayment} />}
+
       {step === 1 && (
         <Detail
           order={order as OrderType}
@@ -183,22 +186,43 @@ export default function Order() {
           </Button>
         )}
 
-        {step === 0 && (
-          <LoadingButton
+        {step === -1 && (
+          <Button
             variant="contained"
             color="primary"
-            loading={setLoading}
             onClick={async () => {
-              if (!payment) {
-                toast.error('Payment is required');
-                return;
+              if (payment.paymentToken === 'PEER' || payment.paymentToken === PaymentToken.Txc) {
+                await handleSetPayment();
+              } else {
+                setStep(0);
               }
-
-              await handleSetPayment();
             }}
           >
             Next
-          </LoadingButton>
+          </Button>
+        )}
+
+        {step === 0 && (
+          <>
+            <Button variant="outlined" onClick={() => setStep(-1)}>
+              Back
+            </Button>
+            <LoadingButton
+              variant="contained"
+              color="primary"
+              loading={setLoading}
+              onClick={async () => {
+                if (!payment) {
+                  toast.error('Payment is required');
+                  return;
+                }
+
+                await handleSetPayment();
+              }}
+            >
+              Next
+            </LoadingButton>
+          </>
         )}
       </Stack>
     </>

@@ -10,51 +10,40 @@ import { PaymentChain, PaymentToken } from 'src/__generated__/graphql';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-import type { PAYMENT_TYPE, PAYMENT_METHOD_TYPE } from './type';
+import type { TOKEN_TYPE, PAYMENT_TYPE } from './type';
 
-const payments: PAYMENT_METHOD_TYPE[] = [
+const payments: TOKEN_TYPE[] = [
   {
-    value: PaymentToken.Txc,
+    token: PaymentToken.Txc,
     label: 'Texitcoin',
-    chain: PaymentChain.Txc,
     icon: `${CONFIG.site.basePath}/assets/TXC.png`,
     backgroundColor: '#ffffff',
     disable: false,
   },
-  // {
-  //   value: PaymentToken.Eth,
-  //   label: 'Ethereum',
-  //   icon: `${CONFIG.site.basePath}/assets/ETH.png`,
-  //   backgroundColor: '#ffffff',
-  // },
   {
-    value: PaymentToken.Usdc,
-    label: 'USDC (ETH)',
-    chain: PaymentChain.Eth,
+    token: PaymentToken.Usdc,
+    label: 'USDC',
     icon: `${CONFIG.site.basePath}/assets/USDC.png`,
     backgroundColor: '#ffffff',
     disable: false,
   },
   {
-    value: PaymentToken.Usdt,
-    label: 'USDT (ETH)',
-    chain: PaymentChain.Eth,
+    token: PaymentToken.Usdt,
+    label: 'USDT',
     icon: `${CONFIG.site.basePath}/assets/USDT.png`,
     backgroundColor: '#ffffff',
     disable: false,
   },
   {
-    value: PaymentToken.Pyusd,
-    label: 'PYUSD (ETH)',
-    chain: PaymentChain.Eth,
+    token: PaymentToken.Pyusd,
+    label: 'PYUSD',
     icon: `${CONFIG.site.basePath}/assets/PYUSD.png`,
     backgroundColor: '#ffffff',
     disable: false,
   },
   {
-    value: 'PEER',
+    token: 'PEER',
     label: 'PEER',
-    chain: PaymentChain.Eth,
     backgroundColor: '#ffffff',
     disable: false,
   },
@@ -65,18 +54,18 @@ interface Props {
   setPaymentType: Function;
 }
 
-export default function Payment({ paymentType, setPaymentType }: Props) {
+export function Token({ paymentType, setPaymentType }: Props) {
   const theme = useTheme();
 
   return (
     <Box sx={{ backgroundColor: 'background.neutral', borderRadius: 1, px: 2 }}>
       {payments.map((payment) => (
         <Box
-          key={payment.value}
+          key={payment.token}
           sx={{
             p: 1,
             my: 2,
-            ...(paymentType?.paymentToken === payment.value
+            ...(paymentType?.paymentToken === payment.token
               ? {
                   border: `1px solid ${theme.palette.success.main}`,
                 }
@@ -91,14 +80,18 @@ export default function Payment({ paymentType, setPaymentType }: Props) {
           justifyContent="space-between"
           onClick={() => {
             if (!payment.disable) {
-              setPaymentType({ paymentToken: payment.value, paymentChain: payment.chain });
+              if (payment.token === PaymentToken.Txc) {
+                setPaymentType({ paymentToken: payment.token, paymentChain: PaymentChain.Txc });
+              } else {
+                setPaymentType({ paymentToken: payment.token });
+              }
             } else {
               toast.info('This payment is currently unavailable');
             }
           }}
         >
           <Stack direction="row" spacing={2} alignItems="center">
-            {payment.value === 'PEER' ? (
+            {payment.token === 'PEER' ? (
               <Iconify
                 icon="iconoir:peerlist-solid"
                 width={42}
@@ -107,14 +100,14 @@ export default function Payment({ paymentType, setPaymentType }: Props) {
             ) : (
               <Avatar src={payment.icon} />
             )}
-            <Typography>{payment.label}</Typography>
+            <Typography fontWeight={500}>{payment.label}</Typography>
           </Stack>
 
           <Iconify
             icon="uim:check-circle"
             color={theme.palette.success.main}
             sx={{
-              ...(paymentType?.paymentToken !== payment.value && {
+              ...(paymentType?.paymentToken !== payment.token && {
                 opacity: 0,
               }),
               transition: 'opacity 0.2s ease 0.1s',
