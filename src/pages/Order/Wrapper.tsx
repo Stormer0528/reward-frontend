@@ -14,18 +14,12 @@ export default function OrderWrapper({ children }: Props) {
   const { order } = useOrderContext();
   const match = useMatch(`${paths.pages.order.root}/:orderId/:status`);
 
-  const status = match?.params.status ?? '';
+  const status = match?.params.status ?? ORDER_STATUS.NEW;
 
   const orderRoot = `${paths.pages.order.root}/${order.id}`;
 
   if (status !== ORDER_STATUS[order.status]) {
-    return (
-      <Navigate
-        to={`${orderRoot}/${ORDER_STATUS[order.status]}`}
-        state={{ status: order.status }}
-        replace
-      />
-    );
+    return <Navigate to={`${orderRoot}/${ORDER_STATUS[order.status]}`} replace />;
   }
 
   return (
