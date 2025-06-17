@@ -23,7 +23,7 @@ import { useFetchMemberStatistics } from 'src/sections/Reward/useApollo';
 
 export function RewardHistoryTable() {
   const { id: memberId } = useParams();
-  const [{ page = '1,10', sort = 'createdAt', filter }] = useQueryString();
+  const [{ page = '1,50', sort = 'createdAt', filter }] = useQueryString();
 
   const graphQueryFilter = useMemo(
     () => parseFilterModel({ memberId }, filter),
@@ -107,7 +107,7 @@ export function RewardHistoryTable() {
         flexGrow: 1,
         display: 'flex',
         overflow: 'hidden',
-        height: 'calc(100vh - 400px)',
+        height: '100%',
       }}
     >
       <AgGrid<MemberStatistics>

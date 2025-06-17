@@ -335,22 +335,26 @@ export function ProfileDetailView() {
           </Stack>
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
+        {user?.memberWallets && (
+          <>
+            <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
-        {/* Wallet info */}
-        <Stack sx={{ mt: 2 }}>
-          {user!.memberWallets?.map((item) => (
-            <Stack sx={{ pb: 1 }}>
-              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                {item?.payout?.method}
-              </Typography>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography variant="body2">{item?.address}</Typography>
-                <Typography variant="body2">{item.percent / 100} %</Typography>
-              </Stack>
+            {/* Wallet info */}
+            <Stack sx={{ mt: 2 }}>
+              {user.memberWallets.map((item) => (
+                <Stack sx={{ pb: 1 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                    {item?.payout?.method}
+                  </Typography>
+                  <Stack direction="row" justifyContent="space-between">
+                    <Typography variant="body2">{item?.address}</Typography>
+                    <Typography variant="body2">{item.percent / 100} %</Typography>
+                  </Stack>
+                </Stack>
+              ))}
             </Stack>
-          ))}
-        </Stack>
+          </>
+        )}
 
         <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
 
