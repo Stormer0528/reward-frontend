@@ -127,9 +127,14 @@ export default function Order() {
   return (
     <>
       <Box mb={4}>
+        {step === -1 && (
+          <Typography variant="h6" mb={4}>
+            Select Currency
+          </Typography>
+        )}
         {step === 0 && (
           <Typography variant="h6" mb={4}>
-            Select Payment Method
+            Select Chain
           </Typography>
         )}
         {step === 1 && (
