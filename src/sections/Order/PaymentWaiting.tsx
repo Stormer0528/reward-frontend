@@ -93,12 +93,7 @@ export default function PaymentWaiting() {
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography variant="h6">Detail</Typography>
-        <Box
-          width={105}
-          border={`2px solid ${theme.palette.success.main}`}
-          borderRadius={0.5}
-          p={1}
-        >
+        <Box border={`2px solid ${theme.palette.success.main}`} borderRadius={0.5} p={1}>
           <Timer />
         </Box>
       </Stack>

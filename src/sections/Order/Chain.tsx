@@ -24,7 +24,7 @@ const payments: CHAIN_TYPE = {
     {
       chain: PaymentChain.Base,
       label: 'Base',
-      icon: `${CONFIG.ASSET_DIR}/assets/BASE.jpg`,
+      icon: `${CONFIG.ASSET_DIR}/assets/BASE.png`,
       backgroundColor: '#ffffff',
       disable: false,
     },

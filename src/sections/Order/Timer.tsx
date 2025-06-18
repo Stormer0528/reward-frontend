@@ -47,7 +47,11 @@ export function Timer() {
 
   return (
     <Typography>
-      {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
+      {dayjs.duration(timeLeft, 'seconds').hours() > 0
+        ? `${dayjs.duration(timeLeft, 'seconds').hours()} hr `
+        : ''}
+      {dayjs.duration(timeLeft, 'seconds').minutes()} min{' '}
+      {dayjs.duration(timeLeft, 'seconds').seconds()}s
     </Typography>
   );
 }
