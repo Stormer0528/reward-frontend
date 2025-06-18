@@ -6,6 +6,7 @@ export type OrderContextValue = {
     id: string;
     expiredAt: any;
     status: OrderStatus;
+    paidBalance: number;
     paymentAddress?: string | null;
     requiredBalance?: number | null;
     paymentToken?: PaymentToken | null;

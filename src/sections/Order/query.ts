@@ -6,6 +6,7 @@ export const FETCH_ORDER_BY_ID = gql(/* GraphQL */ `
       id
       status
       expiredAt
+      paidBalance
       paymentToken
       paymentChain
       paymentAddress
