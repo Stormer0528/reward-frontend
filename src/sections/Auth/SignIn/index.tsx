@@ -64,10 +64,10 @@ export function SignInView() {
         toast.warning('Your Password Token has expired. Please reset your password');
         router.replace(paths.auth.updatePassword, { state: { token } });
       } else if (response.data?.memberLogin.status === 'success') {
-        signIn(token);
+        await signIn(token);
         toast.success(`Welcome to ${CONFIG.APP_NAME}`);
         const returnTo = searchParams.get('returnTo') || paths.dashboard.root;
-        router.push(returnTo);
+        router.replace(returnTo);
       } else {
         localStorage.setItem(CONFIG.STORAGE_TOKEN_KEY, token);
         open.onTrue();
