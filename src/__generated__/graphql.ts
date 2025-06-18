@@ -2204,6 +2204,26 @@ export type PayoutResponse = {
   total?: Maybe<Scalars['Int']['output']>;
 };
 
+export type PeerAcceptableReportMember = {
+  __typename?: 'PeerAcceptableReportMember';
+  ID: Scalars['Int']['output'];
+  assetId?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTimeISO']['output'];
+  email: Scalars['String']['output'];
+  fullName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  mobile: Scalars['String']['output'];
+  peerETHAddress?: Maybe<Scalars['String']['output']>;
+  totalIntroducers: Scalars['Float']['output'];
+  username: Scalars['String']['output'];
+};
+
+export type PeerReportMemberResponse = {
+  __typename?: 'PeerReportMemberResponse';
+  members?: Maybe<Array<PeerAcceptableReportMember>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
 export type PeriodStatsArgs = {
   type: Scalars['String']['input'];
 };
@@ -2396,6 +2416,10 @@ export type Query = {
   packages: PackageResponse;
   paymentMethods: PaymentMethodResponse;
   payouts: PayoutResponse;
+<<<<<<< HEAD
+=======
+  peerAcceptableMembers: PeerReportMemberResponse;
+>>>>>>> 680f1b66 (Add assetid in add sponsor editform)
   placementMembers: Array<PlacementMember>;
   placementMembersForWeek: Array<WeekPlacementMember>;
   placementTempMembers: Array<PlacementTempMember>;
