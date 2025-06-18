@@ -17,8 +17,6 @@ import { useRouter } from 'src/routes/hooks';
 
 import { removeSpecialCharacters } from 'src/utils/helper';
 
-import { PlacementPosition } from 'src/__generated__/graphql';
-
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
 // TODO: Move this to section
@@ -192,11 +190,12 @@ export function SponsorshipCreateView() {
         <PlacementSelector />
 
         <Field.Select name="placementPosition" label="Placement Position">
-          {Object.values(PlacementPosition).map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
+          <MenuItem key="LEFT" value="LEFT">
+            LEFT
+          </MenuItem>
+          <MenuItem key="RIGHT" value="RIGHT">
+            RIGHT
+          </MenuItem>
         </Field.Select>
       </Box>
 
