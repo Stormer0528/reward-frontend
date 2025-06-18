@@ -2,6 +2,7 @@ import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router';
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -35,6 +36,8 @@ export function SponsorshipCreateView() {
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [sponsorId, setSponsorId] = useState<string>('');
+
+  const location = useLocation();
 
   const defaultValues = useMemo(
     () => ({
@@ -172,9 +175,7 @@ export function SponsorshipCreateView() {
           name="packageId"
           label="Package"
           fullWidth
-          // inputProps={{ sx: { width: 'auto', minWidth: '100%' } }}
-          // value={location.state?.packageId ?? packageId}
-          // onChange={(event) => handlePackageChange(event.target.value)}
+          value={location?.state?.packageId}
           required
         >
           {packages.map((option) => (
