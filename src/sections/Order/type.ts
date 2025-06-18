@@ -15,3 +15,22 @@ export type PAYMENT_TYPE = {
   paymentChain: PaymentChain;
   paymentToken: PaymentToken;
 };
+
+export type TOKEN_TYPE = {
+  label: string;
+  icon?: string;
+  disable: boolean;
+  backgroundColor: string;
+  token: BasicPaymentToken;
+};
+
+export type CHAIN_TYPE = Record<
+  string,
+  {
+    label: string;
+    icon?: string;
+    disable: boolean;
+    chain: PaymentChain;
+    backgroundColor: string;
+  }[]
+>;
