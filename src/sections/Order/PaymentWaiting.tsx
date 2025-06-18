@@ -10,11 +10,11 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { truncateMiddle } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
-import { PAYMENT_METHOD } from 'src/consts';
-import { type PaymentToken } from 'src/__generated__/graphql';
+import { CHAIN_UNIT, PAYMENT_METHOD } from 'src/consts';
 import { useOrderContext } from 'src/libs/Order/Context/useOrderContext';
 
 import { toast } from 'src/components/SnackBar';
@@ -40,25 +40,44 @@ export default function PaymentWaiting() {
     }, 2000);
   };
 
-  const ITEMS = useMemo(
-    () => [
+  const ITEMS = useMemo(() => {
+    if (!current || !current?.paymentToken) return [];
+
+    const balanceUnit = PAYMENT_METHOD[current?.paymentToken]?.balance || 0;
+    const fractionDigits = CHAIN_UNIT[current?.paymentToken];
+
+    const items = [
       {
         label: truncateMiddle(current?.paymentAddress ?? '', 30),
         value: current?.paymentAddress,
         icon: 'entypo:wallet',
+        copy: true,
       },
       {
-        label:
-          (current?.requiredBalance ?? 0) /
-          (PAYMENT_METHOD[current?.paymentToken as PaymentToken]?.balance ?? 1),
-        value:
-          (current?.requiredBalance ?? 0) /
-          PAYMENT_METHOD[current?.paymentToken as PaymentToken]?.balance,
+        label: fNumber((current?.requiredBalance ?? 0) / balanceUnit, {
+          minimumFractionDigits: fractionDigits,
+          maximumFractionDigits: fractionDigits,
+        }),
+        value: (current?.requiredBalance ?? 0) / balanceUnit,
         icon: `${CONFIG.ASSET_DIR}/assets/${current?.paymentToken}.png`,
+        copy: true,
       },
-    ],
-    [current]
-  );
+    ];
+
+    if (current?.paidBalance) {
+      items.push({
+        label: fNumber((current?.paidBalance ?? 0) / balanceUnit, {
+          minimumFractionDigits: fractionDigits,
+          maximumFractionDigits: fractionDigits,
+        }),
+        value: (current?.paidBalance ?? 0) / balanceUnit,
+        icon: `${CONFIG.ASSET_DIR}/assets/${current?.paymentToken}.png`,
+        copy: false,
+      });
+    }
+
+    return items;
+  }, [current]);
 
   const handleCancel = async () => {
     try {
@@ -104,7 +123,7 @@ export default function PaymentWaiting() {
           </Box>
         </Box>
 
-        {ITEMS.map((item) => (
+        {ITEMS.map((item, index) => (
           <Box
             sx={{
               mb: 1,
@@ -125,23 +144,40 @@ export default function PaymentWaiting() {
                 background: theme.palette.primary.main,
               }}
             >
-              <Iconify
-                icon={item.icon as IconifyName}
-                color="#ffffff"
-                sx={{ display: 'block', margin: 'auto' }}
-              />
+              {index === 0 ? (
+                <Iconify
+                  icon={item.icon as IconifyName}
+                  color="#ffffff"
+                  sx={{ display: 'block', margin: 'auto' }}
+                />
+              ) : (
+                <Box
+                  sx={{
+                    background: theme.palette.background.paper,
+                    borderRadius: '50%',
+                    padding: 0.25,
+                    margin: 'auto',
+                  }}
+                >
+                  <Avatar src={item.icon} sx={{ width: 20, height: 20 }} />
+                </Box>
+              )}
             </Box>
 
             <Box sx={{ width: '100%' }}>
               <Typography>{item?.label}</Typography>
             </Box>
 
-            <Iconify
-              icon={copy === item.value ? 'line-md:check-all' : 'bxs:copy'}
-              color="#00A76F"
-              sx={{ cursor: 'pointer' }}
-              onClick={() => handleCopy(item.value)}
-            />
+            {item.copy ? (
+              <Iconify
+                icon={copy === item.value ? 'line-md:check-all' : 'bxs:copy'}
+                color={theme.palette.primary.main}
+                sx={{ cursor: 'pointer' }}
+                onClick={() => handleCopy(item.value)}
+              />
+            ) : (
+              <Typography fontWeight={500}>Paid</Typography>
+            )}
           </Box>
         ))}
       </Box>
