@@ -146,7 +146,7 @@ export const CHAIN_UNIT = {
   USDC: 6,
   USDT: 6,
   PYUSD: 6,
-  BASE: 10,
+  BASE: 18,
   POLYGON: 9,
 };
 
