@@ -6,6 +6,7 @@ export const FETCH_ME = gql(/* GraphQL */ `
       ...MemberFields
       memberWallets {
         id
+        memberId
         note
         address
         percent
