@@ -1,4 +1,4 @@
-import type { UseTabsReturn, UseBooleanReturn } from 'minimal-shared/hooks';
+import type { UseBooleanReturn } from 'minimal-shared/hooks';
 
 import { useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
@@ -26,7 +26,8 @@ import { useMemberExchangeLogin } from '../useApollo';
 
 interface Props {
   event: any;
-  tabs: UseTabsReturn;
+  //TODO: Replace `any` with the actual type of `event`
+  tabs: any; // UseTabsReturn;
   open: UseBooleanReturn;
 }
 
