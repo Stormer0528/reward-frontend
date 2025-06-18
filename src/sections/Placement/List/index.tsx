@@ -10,6 +10,7 @@ import {
   type FitViewOptions,
 } from '@xyflow/react';
 
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,7 +18,6 @@ import IconButton from '@mui/material/IconButton';
 
 import { paths } from 'src/routes/paths';
 
-import { DashboardContent } from 'src/layouts/dashboard';
 import { type Member, PlacementPosition, type PlacementMember } from 'src/__generated__/graphql';
 import {
   PLACEMENT_TREE_NODE_WIDTH,
@@ -395,7 +395,7 @@ function PlacementListView() {
   }, [fetchPlacementMembers, exSetVisibleMap, fitView, user]);
 
   return (
-    <DashboardContent sx={{ overflowX: 'hidden' }}>
+    <Box sx={{ overflowX: 'hidden' }}>
       <Breadcrumbs
         heading="Placement"
         links={[{ name: 'Placement', href: paths.dashboard.placement.root }, { name: 'List' }]}
@@ -455,7 +455,7 @@ function PlacementListView() {
           </MenuItem>
         </MenuList>
       </CustomPopover>
-    </DashboardContent>
+    </Box>
   );
 }
 

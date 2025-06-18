@@ -1,11 +1,12 @@
-import type { UsePopoverReturn } from 'src/components/custom-popover';
+import type { UsePopoverReturn } from 'minimal-shared/hooks';
 
 import MenuItem from '@mui/material/MenuItem';
 
-import { useBoolean } from 'src/hooks/useBoolean';
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 import { Iconify } from 'src/components/Iconify';
-import { CustomPopover } from 'src/components/custom-popover';
+import { CustomPopover } from 'src/components/CustomPopover';
 
 interface Props {
   id: string;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export default function ActionRender({ id, popover, expandAll, collapseAll }: Props) {
-  const open = useBoolean();
+  const router = useRouter();
 
   return (
     <CustomPopover
@@ -42,7 +43,13 @@ export default function ActionRender({ id, popover, expandAll, collapseAll }: Pr
         <Iconify icon="fluent:arrow-collapse-all-16-filled" />
         Collapse All
       </MenuItem>
-      <MenuItem onClick={open.onTrue}>
+      <MenuItem
+        onClick={() => {
+          router.push(`${paths.dashboard.sponsorships.root}/new`, {
+            state: { placementParentId: id },
+          });
+        }}
+      >
         <Iconify icon="gridicons:user-add" />
         Add Miner
       </MenuItem>
