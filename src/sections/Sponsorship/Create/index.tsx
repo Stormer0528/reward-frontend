@@ -168,7 +168,7 @@ export function SponsorshipCreateView() {
         <Field.Text name="uname" label="Affiliate ID" placeholder="5 characters or more" required />
 
         {user?.isTexitRanger && (
-          <SearchMiner label="Sponsor" setMemberId={setSponsorId} currentMember={user?.sponsor} />
+          <SearchMiner label="Sponsor" setMemberId={setSponsorId} currentMember={user} />
         )}
 
         <Field.Select
