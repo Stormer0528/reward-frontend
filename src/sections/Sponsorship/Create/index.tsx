@@ -2,7 +2,6 @@ import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useMemo, useState } from 'react';
-import { useLocation } from 'react-router';
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -37,8 +36,6 @@ export function SponsorshipCreateView() {
   const [state, setState] = useState<string>();
   const [country, setCountry] = useState<string>();
   const [sponsorId, setSponsorId] = useState<string>('');
-
-  const location = useLocation();
 
   const defaultValues = useMemo(
     () => ({
@@ -82,7 +79,6 @@ export function SponsorshipCreateView() {
             username: removeSpecialCharacters(uname),
             state,
             country,
-            // packageId,
             fullName: `${firstName} ${lastName}`,
             ...(user?.isTexitRanger && { sponsorId }),
           },
@@ -173,13 +169,7 @@ export function SponsorshipCreateView() {
           <SearchMiner label="Sponsor" setMemberId={setSponsorId} currentMember={user} />
         )}
 
-        <Field.Select
-          name="packageId"
-          label="Package"
-          fullWidth
-          value={location?.state?.packageId}
-          required
-        >
+        <Field.Select name="packageId" label="Package" fullWidth required>
           {packages.map((option) => (
             <MenuItem key={option?.id} value={option?.id}>
               {`$${option?.amount} @ ${option?.productName}`}
