@@ -2,6 +2,7 @@ import states from 'states-us';
 import countries from 'country-list';
 import { useForm } from 'react-hook-form';
 import { useMemo, useState } from 'react';
+import { useLocation } from 'react-router';
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -31,6 +32,7 @@ import { SponsorshipCreateSchema, type SponsorshipCreateSchemaType } from './sch
 
 export function SponsorshipCreateView() {
   const router = useRouter();
+  const location = useLocation();
   const { user } = useAuthContext();
 
   const [state, setState] = useState<string>();
@@ -79,6 +81,7 @@ export function SponsorshipCreateView() {
             username: removeSpecialCharacters(uname),
             state,
             country,
+            placementParentId: rest.placementParentId ?? location?.state?.placementParentId,
             fullName: `${firstName} ${lastName}`,
             ...(user?.isTexitRanger && { sponsorId }),
           },
@@ -177,7 +180,7 @@ export function SponsorshipCreateView() {
           ))}
         </Field.Select>
 
-        <PlacementSelector />
+        <PlacementSelector current={location?.state?.placementParentId} />
 
         <Field.Select name="placementPosition" label="Placement Position">
           <MenuItem key="LEFT" value="LEFT">
