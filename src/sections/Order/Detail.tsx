@@ -6,7 +6,8 @@ import Avatar from '@mui/material/Avatar';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { makeDecimal, truncateMiddle } from 'src/utils/helper';
+import { fNumber } from 'src/utils/formatNumber';
+import { truncateMiddle } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
 import { CHAIN_UNIT, PAYMENT_METHOD } from 'src/consts';
@@ -50,27 +51,44 @@ export default function Detail({
     }, 2000);
   };
 
-  const ITEMS = useMemo(
-    () => [
+  const ITEMS = useMemo(() => {
+    if (!current || !paymentType?.paymentToken) return [];
+
+    const balanceUnit = PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0;
+    const fractionDigits = CHAIN_UNIT[paymentType.paymentToken];
+
+    const items = [
       {
-        label: truncateMiddle(current?.paymentAddress ?? '', 30),
-        value: current?.paymentAddress,
+        label: truncateMiddle(current.paymentAddress ?? '', 30),
+        value: current.paymentAddress,
         icon: 'entypo:wallet',
+        copy: true,
       },
       {
-        label: makeDecimal(
-          (current?.requiredBalance ?? 0) /
-            (PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0),
-          CHAIN_UNIT[paymentType.paymentChain]
-        ),
-        value:
-          (current?.requiredBalance ?? 0) /
-          (PAYMENT_METHOD[paymentType.paymentToken]?.balance || 0),
+        label: fNumber((current.requiredBalance ?? 0) / balanceUnit, {
+          minimumFractionDigits: fractionDigits,
+          maximumFractionDigits: fractionDigits,
+        }),
+        value: (current.requiredBalance ?? 0) / balanceUnit,
         icon: `${CONFIG.site.basePath}/assets/${paymentType.paymentToken}.png`,
+        copy: true,
       },
-    ],
-    [current, paymentType]
-  );
+    ];
+
+    if (current?.paidBalance) {
+      items.push({
+        label: fNumber((current.paidBalance ?? 0) / balanceUnit, {
+          minimumFractionDigits: fractionDigits,
+          maximumFractionDigits: fractionDigits,
+        }),
+        value: (current.paidBalance ?? 0) / balanceUnit,
+        icon: `${CONFIG.site.basePath}/assets/${paymentType.paymentToken}.png`,
+        copy: false,
+      });
+    }
+
+    return items;
+  }, [current, paymentType]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -160,12 +178,16 @@ export default function Detail({
             <Typography>{item?.label}</Typography>
           </Box>
 
-          <Iconify
-            icon={copy === item.value ? 'line-md:check-all' : 'bxs:copy'}
-            color={theme.palette.primary.main}
-            sx={{ cursor: 'pointer' }}
-            onClick={() => handleCopy(item.value)}
-          />
+          {item.copy ? (
+            <Iconify
+              icon={copy === item.value ? 'line-md:check-all' : 'bxs:copy'}
+              color={theme.palette.primary.main}
+              sx={{ cursor: 'pointer' }}
+              onClick={() => handleCopy(item.value)}
+            />
+          ) : (
+            <Typography fontWeight={500}>Paid</Typography>
+          )}
         </Box>
       ))}
     </Box>

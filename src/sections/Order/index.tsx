@@ -140,17 +140,16 @@ export default function Order() {
         {step === 1 && (
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Typography variant="h6">{payment.paymentChain}</Typography>
-            <Box
-              width={105}
-              border={`2px solid ${theme.palette.success.main}`}
-              borderRadius={0.5}
-              p={1}
-            >
+            <Box border={`2px solid ${theme.palette.success.main}`} borderRadius={0.5} p={1}>
               {loading || setLoading ? (
                 <Skeleton />
               ) : (
                 <Typography>
-                  {Math.floor(timeLeft / 60)} min {timeLeft % 60}s
+                  {dayjs.duration(timeLeft, 'seconds').hours() > 0
+                    ? `${dayjs.duration(timeLeft, 'seconds').hours()} hr `
+                    : ''}
+                  {dayjs.duration(timeLeft, 'seconds').minutes()} min{' '}
+                  {dayjs.duration(timeLeft, 'seconds').seconds()}s
                 </Typography>
               )}
             </Box>
