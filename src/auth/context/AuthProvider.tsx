@@ -1,5 +1,6 @@
 import type { AuthContextValue } from '../types';
 
+import { useApolloClient } from '@apollo/client';
 import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
 import { toast } from 'src/components/SnackBar';
@@ -19,6 +20,7 @@ export function AuthProvider({ children }: Props) {
   const [token, setToken] = useState<string | undefined | null>(initialToken);
   const timeToLive = useMemo(() => getTimeToLive(token), [token]);
   const timerId = useRef<NodeJS.Timeout | undefined>(undefined);
+  const client = useApolloClient();
 
   const { fetchMe, user, loading, error } = useFetchMe();
 
@@ -29,12 +31,14 @@ export function AuthProvider({ children }: Props) {
     // TODO: Redirect to previous page if exists or maybe, AuthGuard can handle this?
   }, []);
 
-  const signIn = useCallback(async (newToken: string) => {
-    setSession(newToken);
-    // Hi-jacking the setTimeout to simulate a delay for setting the token
-    await new Promise((res) => setTimeout(res, 100)); // wait 100ms
-    setToken(newToken);
-  }, []);
+  const signIn = useCallback(
+    async (newToken: string) => {
+      setSession(newToken);
+      await client.resetStore();
+      setToken(newToken);
+    },
+    [client]
+  );
 
   const signOut = useCallback(() => {
     setSession(null);
