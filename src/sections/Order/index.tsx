@@ -11,6 +11,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useParams, useRouter } from 'src/routes/hooks';
 
+import { formatID } from 'src/utils/helper';
+
 import { OrderStatus, PaymentToken, type Order as OrderType } from 'src/__generated__/graphql';
 
 import { toast } from 'src/components/SnackBar';
@@ -126,17 +128,10 @@ export default function Order() {
 
   return (
     <>
-      <Box mb={4}>
-        {step === -1 && (
-          <Typography variant="h6" mb={4}>
-            Select Currency
-          </Typography>
-        )}
-        {step === 0 && (
-          <Typography variant="h6" mb={4}>
-            Select Chain
-          </Typography>
-        )}
+      <Box mb={3}>
+        <Typography variant="subtitle1">{formatID(order?.ID ?? '', 'O')}</Typography>
+        {step === -1 && <Typography variant="h6">Select Currency</Typography>}
+        {step === 0 && <Typography variant="h6">Select Chain</Typography>}
         {step === 1 && (
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Typography variant="h6">{payment.paymentChain}</Typography>
@@ -154,11 +149,6 @@ export default function Order() {
               )}
             </Box>
           </Stack>
-        )}
-        {step === 2 && (
-          <Typography variant="h6" mb={4}>
-            Status
-          </Typography>
         )}
       </Box>
 

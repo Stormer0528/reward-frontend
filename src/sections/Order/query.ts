@@ -4,6 +4,7 @@ export const FETCH_ORDER_BY_ID = gql(/* GraphQL */ `
   query OrderById($data: IDInput!) {
     orderById(data: $data) {
       id
+      ID
       status
       expiredAt
       paymentToken
