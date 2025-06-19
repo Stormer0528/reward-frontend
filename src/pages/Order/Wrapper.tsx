@@ -1,6 +1,10 @@
 import { Navigate, useMatch } from 'react-router';
 
+import Typography from '@mui/material/Typography';
+
 import { paths } from 'src/routes/paths';
+
+import { formatID } from 'src/utils/helper';
 
 import { CONFIG } from 'src/config';
 import { ORDER_STATUS } from 'src/consts';
@@ -25,6 +29,8 @@ export default function OrderWrapper({ children }: Props) {
   return (
     <>
       <title>{`${CONFIG.APP_NAME} - Order`}</title>
+
+      <Typography variant="subtitle1">{formatID(order.ID, 'O')}</Typography>
 
       {children}
     </>

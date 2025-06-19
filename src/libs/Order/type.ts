@@ -4,6 +4,7 @@ export type OrderContextValue = {
   order: {
     __typename?: 'Order';
     id: string;
+    ID: number;
     expiredAt: any;
     status: OrderStatus;
     paidBalance: number;
