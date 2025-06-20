@@ -9,8 +9,12 @@ import type {
 import { useMemo } from 'react';
 
 import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
+
+import { useCopyToClipboard } from 'src/hooks/use-copy-to-clipboard';
 
 import { formatID } from 'src/utils/helper';
 import { fNumber } from 'src/utils/formatNumber';
@@ -21,6 +25,8 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { TxcRequestStatus } from 'src/__generated__/graphql';
 
 import { AgGrid } from 'src/components/AgGrid';
+import { toast } from 'src/components/SnackBar';
+import { Iconify } from 'src/components/Iconify';
 import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { parseType } from './parseType';
@@ -30,6 +36,15 @@ import type { BasicTXCRequest } from './type';
 
 export default function TXCRequestList() {
   const { loading, rowCount, txcRequests } = useFetchTXCRequestList();
+
+  const { copy } = useCopyToClipboard();
+
+  const onCopy = (value: string) => {
+    if (value) {
+      copy(value);
+      toast.success('Copied');
+    }
+  };
 
   const colDefs = useMemo<ColDef<BasicTXCRequest>[]>(
     () => [
@@ -48,11 +63,21 @@ export default function TXCRequestList() {
         field: 'walletAddress',
         headerName: 'Wallet Address',
         flex: 1,
-        minWidth: 300,
+        minWidth: 500,
         filter: 'agTextColumnFilter',
         resizable: true,
         editable: false,
         filterParams: { buttons: ['reset'] } as ITextFilterParams,
+        cellRenderer: ({ data }: CustomCellRendererProps<BasicTXCRequest>) => (
+          <Stack direction="row" spacing={2} alignItems="center" mt={0.5}>
+            <Typography variant="body1">{data?.walletAddress}</Typography>
+            <Iconify
+              icon="stash:copy-light"
+              sx={{ cursor: 'pointer' }}
+              onClick={() => onCopy(data?.walletAddress ?? '')}
+            />
+          </Stack>
+        ),
       },
       {
         field: 'amount',
@@ -96,6 +121,7 @@ export default function TXCRequestList() {
           formatDate(data?.createdAt),
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
