@@ -52,6 +52,11 @@ const CommunicationPage = lazy(() => import('src/pages/Communication'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const TXCRequestPage = lazy(() => import('src/pages/TXCRequest/List'));
+const TXCRequestCreatePage = lazy(() => import('src/pages/TXCRequest/Create'));
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
 const SponsorListPage = lazy(() => import('src/pages/Sponsor/List'));
 const SponsorWrapper = lazy(() => import('src/pages/Sponsor'));
 const SponsorTreePage = lazy(() => import('src/pages/Sponsor/Tree'));
@@ -157,6 +162,13 @@ export const dashboardRoutes = [
       { path: 'team', element: <TeamCommissionListPage /> },
       { path: 'mail', element: <MailPage /> },
       { path: 'communication', element: <CommunicationPage /> },
+      {
+        path: 'txc-request',
+        children: [
+          { index: true, element: <TXCRequestPage /> },
+          { path: 'new', element: <TXCRequestCreatePage /> },
+        ],
+      },
       {
         path: 'calculator',
         element: (
