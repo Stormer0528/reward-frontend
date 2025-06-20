@@ -34,7 +34,7 @@ export default function OverView({ me }: Props) {
         </Stack>
 
         <Stack width={0.8}>
-          {fNumber(Math.max(overview?.cashCommissionPotential ?? 0, 0))}
+          {fNumber(overview?.cashCommissionPotential ?? 0)}
           <Stack direction="row" justifyContent="space-around" alignItems="center">
             <Box component="span" sx={{ color: 'text.secondary', typography: 'body2' }}>
               Cash Potential
