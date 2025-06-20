@@ -37,7 +37,7 @@ const documents = {
     "\n  subscription NewNotification {\n    newNotification {\n      id\n      level\n      message\n      createdAt\n      updatedAt\n    }\n  }\n": types.NewNotificationDocument,
     "\n  query OrderById($data: IDInput!) {\n    orderById(data: $data) {\n      id\n      ID\n      status\n      expiredAt\n      paymentToken\n      paymentChain\n      paymentAddress\n      requiredBalance\n    }\n  }\n": types.OrderByIdDocument,
     "\n  query CheckOrder($data: IDInput!) {\n    orderById(data: $data) {\n      status\n    }\n  }\n": types.CheckOrderDocument,
-    "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateOrderDocument,
+    "\n  mutation CreateAddHashOrder($data: CreateOrderInput!) {\n    createAddHashOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateAddHashOrderDocument,
     "\n  mutation CreateSignUpOrder($data: CreateSignUpOrderInput!) {\n    createSignUpOrder(data: $data) {\n      id\n    }\n  }\n": types.CreateSignUpOrderDocument,
     "\n  mutation CancelOrder($data: IDInput!) {\n    cancelOrder(data: $data) {\n      id\n      status\n    }\n  }\n": types.CancelOrderDocument,
     "\n  mutation SetOrderPayment($data: OrderPaymentSetInput!) {\n    setOrderPayment(data: $data) {\n      id\n    }\n  }\n": types.SetOrderPaymentDocument,
@@ -219,7 +219,7 @@ export function gql(source: "\n  query CheckOrder($data: IDInput!) {\n    orderB
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateOrder($data: CreateOrderInput!) {\n    createOrder(data: $data) {\n      id\n    }\n  }\n"];
+export function gql(source: "\n  mutation CreateAddHashOrder($data: CreateOrderInput!) {\n    createAddHashOrder(data: $data) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateAddHashOrder($data: CreateOrderInput!) {\n    createAddHashOrder(data: $data) {\n      id\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

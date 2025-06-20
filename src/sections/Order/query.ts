@@ -24,8 +24,8 @@ export const CHECK_ORDER_STATUS = gql(/* GraphQL */ `
 `);
 
 export const CREATE_ORDER = gql(/* GraphQL */ `
-  mutation CreateOrder($data: CreateOrderInput!) {
-    createOrder(data: $data) {
+  mutation CreateAddHashOrder($data: CreateOrderInput!) {
+    createAddHashOrder(data: $data) {
       id
     }
   }
