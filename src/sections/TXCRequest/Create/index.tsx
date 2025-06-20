@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 import { ApolloError } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
+
+import { CONFIG } from 'src/config';
 
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
@@ -23,6 +27,8 @@ import { useCreateBuyTXCOrder } from '../useApollo';
 export default function TXCRequest() {
   const router = useRouter();
   const { user } = useAuthContext();
+
+  const [price, setPrice] = useState<number>(0);
   const [walletAddress, setWalletAddress] = useState<string>();
 
   const { createBuyTXCOrder } = useCreateBuyTXCOrder();
@@ -69,6 +75,22 @@ export default function TXCRequest() {
     }
   });
 
+  useEffect(() => {
+    async function getPrice() {
+      try {
+        const { data } = await axios.get(`${CONFIG.SERVER_HOST}/api/explorer/getcurrentprice`, {
+          responseType: 'json',
+        });
+
+        setPrice(data);
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
+    }
+
+    getPrice();
+  }, []);
+
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Box
@@ -104,6 +126,11 @@ export default function TXCRequest() {
         <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
           Submit
         </LoadingButton>
+      </Stack>
+
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Typography variant="subtitle1">TXC Price</Typography>
+        <Typography variant="body1">{price}</Typography>
       </Stack>
     </Form>
   );
