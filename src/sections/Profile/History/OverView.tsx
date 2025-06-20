@@ -38,11 +38,7 @@ export function ProfileHistoryOverView() {
 
         <Stack width={0.8}>
           <Typography variant="h4">
-            {loading ? (
-              <CustomSkeleton />
-            ) : (
-              fNumber(Math.max(overview?.cashCommissionPotential ?? 0, 0))
-            )}
+            {loading ? <CustomSkeleton /> : fNumber(overview?.cashCommissionPotential ?? 0)}
           </Typography>
 
           <Stack direction="row" justifyContent="space-around" alignItems="center">
@@ -74,7 +70,7 @@ export function ProfileHistoryOverView() {
   );
 }
 
-const CustomSkeleton = styled(Skeleton)(({ theme }) => ({
+const CustomSkeleton = styled(Skeleton)(() => ({
   width: '60%',
   margin: '0 auto',
 }));
