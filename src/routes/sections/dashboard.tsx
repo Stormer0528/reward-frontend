@@ -87,14 +87,8 @@ export const dashboardRoutes = [
       </AuthGuard>
     ),
     children: [
-      {
-        path: 'overview',
-        children: [{ index: true, element: <OverviewPage /> }],
-      },
-      {
-        path: 'orders',
-        children: [{ index: true, element: <SaleListPage /> }],
-      },
+      { path: 'overview', element: <OverviewPage /> },
+      { path: 'orders', element: <SaleListPage /> },
       {
         path: 'sponsorships',
         children: [
@@ -133,14 +127,8 @@ export const dashboardRoutes = [
           },
         ],
       },
-      {
-        path: 'placement',
-        children: [{ index: true, element: <PlacementListPage /> }],
-      },
-      {
-        path: 'commission',
-        children: [{ index: true, element: <CommissionListPage /> }],
-      },
+      { path: 'placement', element: <PlacementListPage /> },
+      { path: 'commission', element: <CommissionListPage /> },
       {
         path: 'resource',
         children: [
@@ -167,16 +155,12 @@ export const dashboardRoutes = [
         element: (
           <AuthGuard>
             <Suspense fallback={<LoadingScreen />}>
-              <Outlet />
+              <NotificationListPage />
             </Suspense>
           </AuthGuard>
         ),
-        children: [{ index: true, element: <NotificationListPage /> }],
       },
-      {
-        path: 'invoices',
-        element: <InvoiceListPage />,
-      },
+      { path: 'invoices', element: <InvoiceListPage /> },
       {
         path: 'team',
         children: [
@@ -215,11 +199,10 @@ export const dashboardRoutes = [
         element: (
           <AuthGuard>
             <Suspense fallback={<LoadingScreen />}>
-              <Outlet />
+              <CalculatorPage />
             </Suspense>
           </AuthGuard>
         ),
-        children: [{ index: true, element: <CalculatorPage /> }],
       },
     ],
   },
