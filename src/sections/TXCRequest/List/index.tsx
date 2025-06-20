@@ -10,9 +10,11 @@ import { useMemo } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 import { useCopyToClipboard } from 'src/hooks/use-copy-to-clipboard';
 
@@ -133,6 +135,17 @@ export default function TXCRequestList() {
         sx={{
           mb: { xs: 1, md: 2 },
         }}
+        action={
+          <Button
+            component={RouterLink}
+            variant="contained"
+            color="primary"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+            href="new"
+          >
+            New
+          </Button>
+        }
       />
 
       <Card

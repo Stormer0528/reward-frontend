@@ -5,6 +5,7 @@ import type { ColDef, IDateFilterParams, ITextFilterParams } from '@ag-grid-comm
 import { useMemo } from 'react';
 
 import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 import { paths } from 'src/routes/paths';
@@ -125,15 +126,25 @@ export default function SaleListView() {
           mb: { xs: 1, md: 2 },
         }}
         action={
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Iconify icon="mingcute:add-line" />}
-            onClick={open.onTrue}
-            disabled={available === 0}
-          >
-            Add Hash
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Iconify icon="mingcute:add-line" />}
+              href={paths.dashboard.txcRequest.new}
+            >
+              Buy TXC
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Iconify icon="mingcute:add-line" />}
+              onClick={open.onTrue}
+              disabled={available === 0}
+            >
+              Add Hash
+            </Button>
+          </Stack>
         }
       />
 
