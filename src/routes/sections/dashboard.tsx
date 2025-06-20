@@ -59,6 +59,8 @@ const SponsorshipWrapper = lazy(() => import('src/pages/Sponsorship/Wrapper'));
 const SponsorshipListPage = lazy(() => import('src/pages/Sponsorship/SponsorshipList'));
 const SponsorshipTreePage = lazy(() => import('src/pages/Sponsorship/SponsorshipTree'));
 const SponsorshipCreatePage = lazy(() => import('src/pages/Sponsorship/SponsorshipCreate'));
+const TXCRequestPage = lazy(() => import('src/pages/TXCRequest/List'));
+const TXCRequestCreatePage = lazy(() => import('src/pages/TXCRequest/Create'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -194,6 +196,13 @@ export const dashboardRoutes = [
       },
       { path: 'mail', element: <MailPage /> },
       { path: 'communication', element: <CommunicationPage /> },
+      {
+        path: 'txc-request',
+        children: [
+          { index: true, element: <TXCRequestPage /> },
+          { path: 'new', element: <TXCRequestCreatePage /> },
+        ],
+      },
       {
         path: 'calculator',
         element: (
