@@ -5,14 +5,17 @@ import type {
   IDateFilterParams,
   ITextFilterParams,
 } from '@ag-grid-community/core';
+import type { BasicTXCRequest } from './type';
 
 import { useMemo } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 import { useCopyToClipboard } from 'src/hooks/use-copy-to-clipboard';
 
@@ -31,8 +34,6 @@ import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { parseType } from './parseType';
 import { useFetchTXCRequestList } from '../useApollo';
-
-import type { BasicTXCRequest } from './type';
 
 export default function TXCRequestList() {
   const { loading, rowCount, txcRequests } = useFetchTXCRequestList();
@@ -129,10 +130,21 @@ export default function TXCRequestList() {
     <DashboardContent>
       <Breadcrumbs
         heading="TXC Request"
-        links={[{ name: 'TXC Request', href: paths.dashboard.sponsor.root }, { name: 'list' }]}
+        links={[{ name: 'TXC Request', href: paths.dashboard.txcRequest.root }, { name: 'list' }]}
         sx={{
           mb: { xs: 1, md: 2 },
         }}
+        action={
+          <Button
+            component={RouterLink}
+            variant="contained"
+            color="primary"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+            href="new"
+          >
+            New
+          </Button>
+        }
       />
 
       <Card
