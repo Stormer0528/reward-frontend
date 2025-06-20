@@ -30,6 +30,7 @@ const ROOTS = {
   TEAM: '/team',
   MAIL: '/mail',
   INVOICE: '/invoices',
+  TXC_REQUEST: 'txc-request',
   COMMUNICATION: '/communication',
   SILVER_GUARANTEE: '/silverbugs',
   NOTIFICATIONS: '/notifications',
@@ -119,6 +120,7 @@ export const paths = {
       root: ROOTS.MAIL,
     },
     calculator: { root: ROOTS.CALCULATOR },
+    txcRequest: { root: ROOTS.TXC_REQUEST, new: `${ROOTS.TXC_REQUEST}/new` },
   },
   notFound: '/404',
 };

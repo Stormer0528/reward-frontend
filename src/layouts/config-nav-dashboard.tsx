@@ -43,8 +43,9 @@ const ICONS = {
   sale: icon('ic_sale'),
   send: icon('ic_send'),
   school: icon('ic_school'),
-  tour: icon('ic_tour'),
   team: icon('ic_team'),
+  tour: icon('ic_tour'),
+  txc_buy: icon('ic_txc_buy'),
   user: icon('ic_user'),
 };
 
@@ -69,6 +70,7 @@ export const navData = [
       { title: 'Team', path: paths.dashboard.team.root, icon: ICONS.team },
       { title: 'Mail', path: paths.dashboard.mail.root, icon: ICONS.mail },
       { title: 'Communication', path: paths.dashboard.communication.root, icon: ICONS.send },
+      { title: 'TXC Request', path: paths.dashboard.txcRequest.root, icon: ICONS.txc_buy },
       { title: 'Profile', path: paths.dashboard.profile.root, icon: ICONS.user },
     ],
   },
