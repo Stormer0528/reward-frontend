@@ -128,9 +128,7 @@ export function SignUpView() {
             });
 
             if (order) {
-              window.open(`${paths.pages.order.detail(order.createSignUpOrder.id)}`);
-
-              router.push(`${paths.auth.verifyResult}?${searchParams}`);
+              router.push(paths.pages.order.detail(order.createSignUpOrder.id));
             }
           } else {
             router.push(`${paths.auth.verifyResult}?${searchParams}`);

@@ -2130,6 +2130,7 @@ export type OrderPaymentSetInput = {
 export enum OrderRequestType {
   AddHash = 'ADD_HASH',
   AddMember = 'ADD_MEMBER',
+  BuyTxc = 'BUY_TXC',
   Signup = 'SIGNUP'
 }
 
@@ -3580,8 +3581,11 @@ export type UpdateStatisticsInput = {
 };
 
 export type UpdateTxcRequestInput = {
+  fileIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   id: Scalars['ID']['input'];
-  status: TxcRequestStatus;
+  note?: InputMaybe<Scalars['String']['input']>;
+  reflinks?: InputMaybe<Array<LinkInput>>;
+  status?: InputMaybe<TxcRequestStatus>;
 };
 
 export type UpsertEmailInput = {
