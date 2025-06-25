@@ -1313,6 +1313,7 @@ export type Mutation = {
   calculatePreviewCommissions: SuccessResponse;
   cancelOrder: Order;
   checkSaleRefDuplication: RefLinkDuplicationResponse;
+  completeOrder: Order;
   confirmStatistics: Statistics;
   createAddHashOrder: Order;
   createAddMemberOrder: Order;
@@ -1479,6 +1480,11 @@ export type MutationCancelOrderArgs = {
 
 export type MutationCheckSaleRefDuplicationArgs = {
   data: SaleRefDuplicationInput;
+};
+
+
+export type MutationCompleteOrderArgs = {
+  data: IdInput;
 };
 
 
@@ -2108,6 +2114,7 @@ export type Order = {
   id: Scalars['ID']['output'];
   isP2P: Scalars['Boolean']['output'];
   member?: Maybe<Member>;
+  orderRequest: OrderRequest;
   paidAt?: Maybe<Scalars['DateTimeISO']['output']>;
   paidBalance: Scalars['BigInt']['output'];
   paymentAddress?: Maybe<Scalars['String']['output']>;
@@ -2125,6 +2132,12 @@ export type OrderPaymentSetInput = {
   isP2P?: InputMaybe<Scalars['Boolean']['input']>;
   paymentChain?: InputMaybe<PaymentChain>;
   paymentToken?: InputMaybe<PaymentToken>;
+};
+
+export type OrderRequest = {
+  __typename?: 'OrderRequest';
+  orderType: OrderRequestType;
+  payload?: Maybe<Scalars['JSONObject']['output']>;
 };
 
 export enum OrderRequestType {
@@ -2425,6 +2438,7 @@ export type Query = {
   orderAvailablePoint: Scalars['Int']['output'];
   orderById: Order;
   orders: BasicOrderResponse;
+  packageById: Package;
   packages: PackageResponse;
   paymentMethods: PaymentMethodResponse;
   payouts: PayoutResponse;
@@ -2746,6 +2760,11 @@ export type QueryOrdersArgs = {
   filter?: InputMaybe<Scalars['JSONObject']['input']>;
   page?: InputMaybe<Scalars['String']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPackageByIdArgs = {
+  data: IdInput;
 };
 
 
