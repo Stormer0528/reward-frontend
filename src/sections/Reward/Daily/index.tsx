@@ -3,14 +3,16 @@ import type { CustomCellRendererProps } from '@ag-grid-community/react';
 import type { Statistics } from 'src/sections/Statistics/type';
 
 import dayjs from 'dayjs';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import { Stack } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
+import { useQuery } from 'src/routes/hooks';
+
 import { fNumber } from 'src/utils/formatNumber';
-import { fDateTime, formatDate, customizeDate } from 'src/utils/format-time';
+import { fDate, formatDate, customizeDate } from 'src/utils/format-time';
 
 import { AgGrid } from 'src/components/AgGrid';
 
@@ -20,13 +22,17 @@ import { useFetchStatistics } from '../useApollo';
 type BasicStatistics = Omit<Statistics, 'memberStatistics'>;
 
 export default function StatisticsTable() {
-  const [from, setFrom] = useState<any>(dayjs('2024-04-01'));
+  const [from, setFrom] = useState<any>();
   const [to, setTo] = useState<any>(dayjs());
+
+  const [query, { setFilter }] = useQuery();
+
+  const { page = '1,50', sort = 'issuedAt', filter } = query;
 
   const { loading, rowCount, statistics } = useFetchStatistics({
     filter: { issuedAt: { gte: customizeDate(from), lte: customizeDate(to) } },
-    page: '1,50',
-    sort: 'issuedAt',
+    page,
+    sort,
   });
 
   const colDefs = useMemo<ColDef<BasicStatistics>[]>(
@@ -34,8 +40,7 @@ export default function StatisticsTable() {
       {
         field: 'newBlocks',
         headerName: 'New Blocks',
-        headerClass: 'ag-right-aligned-header',
-        width: 250,
+        width: 150,
         resizable: true,
         editable: false,
         sortable: false,
@@ -118,6 +123,21 @@ export default function StatisticsTable() {
     []
   );
 
+  const onChangeFrom = (newValue: any) => {
+    setFrom(fDate(newValue));
+    setFilter({ ...filter, from: fDate(newValue) });
+  };
+
+  const onChangeTo = (newValue: any) => {
+    setTo(fDate(newValue));
+    setFilter({ ...filter, to: fDate(newValue) });
+  };
+
+  useEffect(() => {
+    setFrom(filter?.from ?? '2024-04-01');
+    setTo(filter?.to);
+  }, [filter]);
+
   return (
     <>
       <Card sx={{ p: 2, borderRadius: '16px 16px 0 0' }}>
@@ -126,18 +146,18 @@ export default function StatisticsTable() {
             label="Start Date"
             format="YYYY-MM-DD"
             minDate={dayjs('2024-04-01')}
-            defaultValue={dayjs('2024-04-01')}
+            value={dayjs(from)}
             slotProps={{ textField: { fullWidth: true } }}
-            onChange={(newValue) => setFrom(fDateTime(newValue))}
+            onChange={onChangeFrom}
             sx={{ width: 300 }}
           />
           <DesktopDatePicker
             label="End Date"
             format="YYYY-MM-DD"
             minDate={dayjs('2024-04-01')}
-            defaultValue={dayjs()}
+            value={dayjs(to)}
             slotProps={{ textField: { fullWidth: true } }}
-            onChange={(newValue) => setTo(fDateTime(newValue))}
+            onChange={onChangeTo}
             sx={{ width: 300 }}
           />
         </Stack>
