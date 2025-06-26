@@ -17,6 +17,7 @@ const ROOTS = {
   RAPIDREWARDS: '/rapid-rewards',
   CONTACT: '/contact',
   ORDER: '/order',
+  MAINTENANCE: '/maintenance',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -122,5 +123,7 @@ export const paths = {
     calculator: { root: ROOTS.CALCULATOR },
     txcRequest: { root: ROOTS.TXC_REQUEST, new: `${ROOTS.TXC_REQUEST}/new` },
   },
+  page403: '/403',
   notFound: '/404',
+  maintenance: ROOTS.MAINTENANCE,
 };

@@ -6,7 +6,9 @@ import { SplashScreen } from 'src/components/loading-screen';
 // ----------------------------------------------------------------------
 
 // Error
+const Page403 = lazy(() => import('src/pages/error/403'));
 const Page404 = lazy(() => import('src/pages/error/404'));
+const MaintenancePage = lazy(() => import('src/pages/Maintenance'));
 
 // ----------------------------------------------------------------------
 
@@ -17,6 +19,13 @@ export const mainRoutes = [
         <Outlet />
       </Suspense>
     ),
-    children: [{ path: '404', element: <Page404 /> }],
+    children: [
+      { path: '403', element: <Page403 /> },
+      { path: '404', element: <Page404 /> },
+      {
+        path: 'maintenance',
+        element: <MaintenancePage />,
+      },
+    ],
   },
 ];
