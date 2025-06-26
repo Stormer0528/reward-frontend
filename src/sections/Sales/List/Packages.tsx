@@ -50,7 +50,7 @@ export default function Packages({ open, available }: Props) {
 
       if (data) {
         open.onFalse();
-        router.push(paths.pages.order.detail(data.createOrder.id));
+        router.push(paths.pages.order.detail(data.createAddHashOrder.id));
       }
     } catch (err) {
       if (err instanceof ApolloError) {
