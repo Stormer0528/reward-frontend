@@ -23,6 +23,12 @@ const IntroductionPage = lazy(() => import('src/pages/Introduction'));
 const RapidRewardsPage = lazy(() => import('src/pages/RapidRewards'));
 const SilverGuaranteePage = lazy(() => import('src/pages/SilverGuarantee'));
 // const RewardDetailPage = lazy(() => import('src/pages/MemberStatistics/List'));
+
+// Error
+const Page403 = lazy(() => import('src/pages/error/403'));
+const Page404 = lazy(() => import('src/pages/error/404'));
+const MaintenancePage = lazy(() => import('src/pages/Maintenance'));
+
 // ----------------------------------------------------------------------
 
 export const mainRoutes: RouteObject[] = [
@@ -107,5 +113,11 @@ export const mainRoutes: RouteObject[] = [
         ],
       },
     ],
+  },
+  { path: '403', element: <Page403 /> },
+  { path: '404', element: <Page404 /> },
+  {
+    path: 'maintenance',
+    element: <MaintenancePage />,
   },
 ];

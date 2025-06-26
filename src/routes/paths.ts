@@ -20,6 +20,7 @@ const ROOTS = {
   CONTACT: '/contact',
   ORDER: '/order',
   SILVER_GUARANTEE: '/silver-bugs',
+  MAINTENANCE: '/maintenance',
 
   // Dashboard
   DASHBOARD: '/dashboard',
@@ -121,5 +122,7 @@ export const paths = {
     calculator: { root: ROOTS.CALCULATOR },
     txcRequest: { root: ROOTS.TXC_REQUEST, new: `${ROOTS.TXC_REQUEST}/new` },
   },
+  page403: '/403',
   notFound: '/404',
+  maintenance: ROOTS.MAINTENANCE,
 };
