@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { SimpleLayout } from 'src/layouts/simple';
@@ -34,7 +35,13 @@ export function View403() {
           <ForbiddenIllustration sx={{ my: { xs: 5, sm: 10 } }} />
         </m.div>
 
-        <Button component={RouterLink} href="/" size="large" variant="contained">
+        <Button
+          component={RouterLink}
+          href={paths.auth.signIn}
+          size="large"
+          variant="contained"
+          color="primary"
+        >
           Go to home
         </Button>
       </Container>
