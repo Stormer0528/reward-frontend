@@ -163,5 +163,11 @@ export const ORDER_STATUS = {
   CANCELED: 'status',
 };
 
+export const TXC_REQUEST_STATUS = {
+  SENT: 'Sent',
+  PENDING: 'Pending',
+  DECLINED: 'Declined',
+};
+
 export const HELP_MINETXC_URL = 'https://help.minetxc.com/';
 export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';
