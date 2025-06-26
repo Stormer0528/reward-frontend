@@ -9,6 +9,7 @@ import Card from '@mui/material/Card';
 import { Stack } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
+import { fNumber } from 'src/utils/formatNumber';
 import { fDateTime, formatDate, customizeDate } from 'src/utils/format-time';
 
 import { AgGrid } from 'src/components/AgGrid';
@@ -31,22 +32,10 @@ export default function StatisticsTable() {
   const colDefs = useMemo<ColDef<BasicStatistics>[]>(
     () => [
       {
-        field: 'issuedAt',
-        headerName: 'Date',
-        flex: 1,
-        minWidth: 200,
-        resizable: true,
-        editable: false,
-        sortable: false,
-        initialSort: 'desc',
-        cellClass: 'tabular-nums',
-        cellRenderer: ({ data }: CustomCellRendererProps<BasicStatistics>) =>
-          formatDate(data?.issuedAt),
-      },
-      {
         field: 'newBlocks',
         headerName: 'New Blocks',
-        width: 220,
+        headerClass: 'ag-right-aligned-header',
+        width: 250,
         resizable: true,
         editable: false,
         sortable: false,
@@ -55,25 +44,32 @@ export default function StatisticsTable() {
       {
         field: 'totalHashPower',
         headerName: 'Total Hash',
-        width: 220,
+        headerClass: 'ag-right-aligned-header',
+        width: 250,
         resizable: true,
         editable: false,
         sortable: false,
         cellClass: 'tabular-nums ag-right-aligned-cell',
+        cellRenderer: ({ data }: CustomCellRendererProps<BasicStatistics>) =>
+          fNumber(data?.totalHashPower),
       },
       {
         field: 'totalMembers',
         headerName: 'Total Members',
-        width: 220,
+        headerClass: 'ag-right-aligned-header',
+        width: 250,
         resizable: true,
         editable: false,
         sortable: false,
         cellClass: 'tabular-nums ag-right-aligned-cell',
+        cellRenderer: ({ data }: CustomCellRendererProps<BasicStatistics>) =>
+          fNumber(data?.totalMembers),
       },
       {
         field: 'txcShared',
         headerName: 'TXC Shared',
-        width: 220,
+        headerClass: 'ag-right-aligned-header',
+        width: 250,
         resizable: true,
         editable: false,
         sortable: false,
@@ -83,7 +79,8 @@ export default function StatisticsTable() {
       },
       {
         headerName: 'Your Reward',
-        width: 220,
+        headerClass: 'ag-right-aligned-header',
+        width: 250,
         resizable: true,
         editable: false,
         sortable: false,
@@ -91,6 +88,20 @@ export default function StatisticsTable() {
         cellRenderer: ({ data }: CustomCellRendererProps<Statistics>) =>
           (data?.memberStatistics?.reduce((prev, save) => prev + Number(save.txcShared), 0) ?? 0) /
           10 ** 8,
+      },
+      {
+        field: 'issuedAt',
+        headerName: 'Date',
+        headerClass: 'ag-right-aligned-header',
+        flex: 1,
+        minWidth: 200,
+        resizable: true,
+        editable: false,
+        sortable: false,
+        initialSort: 'desc',
+        cellClass: 'tabular-nums ag-right-aligned-cell',
+        cellRenderer: ({ data }: CustomCellRendererProps<BasicStatistics>) =>
+          formatDate(data?.issuedAt),
       },
       {
         colId: 'action',
