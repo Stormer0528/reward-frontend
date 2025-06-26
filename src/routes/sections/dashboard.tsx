@@ -44,10 +44,6 @@ const TeamCommissionListPage = lazy(() => import('src/pages/TeamCommission'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-const MailPage = lazy(() => import('src/pages/Mail'));
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
 const CommunicationPage = lazy(() => import('src/pages/Communication'));
 // ----------------------------------------------------------------------
 
@@ -160,7 +156,6 @@ export const dashboardRoutes = [
         element: <InvoiceListPage />,
       },
       { path: 'team', element: <TeamCommissionListPage /> },
-      { path: 'mail', element: <MailPage /> },
       { path: 'communication', element: <CommunicationPage /> },
       {
         path: 'txc-request',
