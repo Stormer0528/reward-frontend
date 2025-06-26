@@ -12,11 +12,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
-import { Breadcrumbs } from 'src/components/Breadcrumbs';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -73,51 +70,41 @@ export default function TXCRequest() {
   });
 
   return (
-    <DashboardContent>
-      <Breadcrumbs
-        heading="TXC Request"
-        links={[{ name: 'TXC Request', href: paths.dashboard.txcRequest.root }]}
-        sx={{
-          mb: { xs: 1, md: 2 },
+    <Form methods={methods} onSubmit={onSubmit}>
+      <Box
+        rowGap={2}
+        columnGap={2}
+        display="grid"
+        gridTemplateColumns={{
+          xs: 'repeat(1, 1fr)',
+          sm: 'repeat(2, 1fr)',
         }}
-      />
+      >
+        <Field.Text type="number" name="amount" label="Amount" required />
 
-      <Form methods={methods} onSubmit={onSubmit}>
-        <Box
-          rowGap={2}
-          columnGap={2}
-          display="grid"
-          gridTemplateColumns={{
-            xs: 'repeat(1, 1fr)',
-            sm: 'repeat(2, 1fr)',
-          }}
-        >
-          <Field.Text type="number" name="amount" label="Amount" required />
+        <Autocomplete
+          freeSolo
+          fullWidth
+          options={user?.memberWallets ?? []}
+          getOptionLabel={(option: any) => option.address}
+          renderInput={(params) => (
+            <TextField {...params} name="walletAddress" label="Wallet Address" margin="none" />
+          )}
+          renderOption={(props, option) => (
+            <li {...props} key={option!.address}>
+              {option.address}
+            </li>
+          )}
+          onChange={(_, value: any) => setWalletAddress(value.address)}
+          onInputChange={(_, value: any) => setWalletAddress(value)}
+        />
+      </Box>
 
-          <Autocomplete
-            freeSolo
-            fullWidth
-            options={user?.memberWallets ?? []}
-            getOptionLabel={(option: any) => option.address}
-            renderInput={(params) => (
-              <TextField {...params} name="walletAddress" label="Wallet Address" margin="none" />
-            )}
-            renderOption={(props, option) => (
-              <li {...props} key={option!.address}>
-                {option.address}
-              </li>
-            )}
-            onChange={(_, value: any) => setWalletAddress(value.address)}
-            onInputChange={(_, value: any) => setWalletAddress(value)}
-          />
-        </Box>
-
-        <Stack direction="row" justifyContent="flex-end" mt={2}>
-          <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-            Submit
-          </LoadingButton>
-        </Stack>
-      </Form>
-    </DashboardContent>
+      <Stack direction="row" justifyContent="flex-end" mt={2}>
+        <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+          Submit
+        </LoadingButton>
+      </Stack>
+    </Form>
   );
 }
