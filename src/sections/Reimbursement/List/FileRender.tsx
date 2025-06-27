@@ -13,7 +13,7 @@ export const FileRenderer = memo(
     <Stack direction="row">
       {data?.attachments?.map((item) => (
         <FileThumbnail
-          file="png"
+          file={item.mimeType.split('/')[1]}
           sx={{ width: 24, cursor: 'pointer' }}
           onClick={() => window.open(item.url)}
         />
