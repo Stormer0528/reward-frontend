@@ -110,7 +110,7 @@ export function HeaderBase({
                 settings && (
                   <>
                     <LoadingButton
-                      color="inherit"
+                      color="primary"
                       size="medium"
                       type="submit"
                       onClick={() => router.push(paths.auth.signIn)}
@@ -120,9 +120,9 @@ export function HeaderBase({
                       Sign In
                     </LoadingButton>
                     <JoinNowButton
-                      color="inherit"
+                      color="primary"
                       sx={{
-                        bgcolor: (themeConfig) => themeConfig.palette.grey[800],
+                        bgcolor: (themeConfig) => themeConfig.palette.primary.main,
                         fontWeight: 700,
                         px: 2,
                         py: 0.9,
