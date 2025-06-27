@@ -32,6 +32,7 @@ const ROOTS = {
   INVOICE: '/invoices',
   TXC_REQUEST: 'txc-request',
   COMMUNICATION: '/communication',
+  REIMBURSEMENT: '/reimbursement',
   SILVER_GUARANTEE: '/silverbugs',
   NOTIFICATIONS: '/notifications',
 };
@@ -118,6 +119,7 @@ export const paths = {
     invoice: { root: ROOTS.INVOICE },
     calculator: { root: ROOTS.CALCULATOR },
     txcRequest: { root: ROOTS.TXC_REQUEST, new: `${ROOTS.TXC_REQUEST}/new` },
+    reimbursement: { root: ROOTS.REIMBURSEMENT, new: `${ROOTS.REIMBURSEMENT}/new` },
   },
   page403: '/403',
   notFound: '/404',
