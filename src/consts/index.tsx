@@ -156,5 +156,11 @@ export const TXC_REQUEST_STATUS = {
   DECLINED: 'Declined',
 };
 
+export const REIMBURSEMENT_STATUS = {
+  APPROVED: 'Approved',
+  PENDING: 'Pending',
+  DECLINED: 'Declined',
+};
+
 export const HELP_MINETXC = 'https://help.minetxc.com/';
 export const CASH_POTENTIAL_URL = 'https://help.minetxc.com/understanding-cash-potential/';
