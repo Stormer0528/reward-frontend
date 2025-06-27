@@ -99,7 +99,7 @@ export default function TXCRequest() {
     <DashboardContent>
       <Breadcrumbs
         heading="TXC Request"
-        links={[{ name: 'TXC Request', href: paths.dashboard.sponsor.root }]}
+        links={[{ name: 'TXC Request', href: paths.dashboard.txcRequest.root }]}
         sx={{
           mb: { xs: 1, md: 2 },
         }}
