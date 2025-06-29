@@ -61,6 +61,8 @@ export default function Order() {
         if (payment.paymentToken === 'PEER') {
           setStep(2);
           setStatus(OrderStatus.Completed);
+        } else if (payment.paymentToken === PaymentToken.Txc) {
+          setStep(1);
         } else {
           setStep((prev) => prev + 1);
         }
