@@ -17,34 +17,29 @@ const payments: TOKEN_TYPE[] = [
     token: PaymentToken.Txc,
     label: 'Texitcoin',
     icon: `${CONFIG.site.basePath}/assets/TXC.png`,
-    backgroundColor: '#ffffff',
     disable: false,
   },
   {
     token: PaymentToken.Usdc,
     label: 'USDC',
     icon: `${CONFIG.site.basePath}/assets/USDC.png`,
-    backgroundColor: '#ffffff',
     disable: false,
   },
   {
     token: PaymentToken.Usdt,
     label: 'USDT',
     icon: `${CONFIG.site.basePath}/assets/USDT.png`,
-    backgroundColor: '#ffffff',
     disable: false,
   },
   {
     token: PaymentToken.Pyusd,
     label: 'PYUSD',
     icon: `${CONFIG.site.basePath}/assets/PYUSD.png`,
-    backgroundColor: '#ffffff',
     disable: false,
   },
   {
     token: 'PEER',
     label: 'PEER',
-    backgroundColor: '#ffffff',
     disable: false,
   },
 ];
@@ -69,9 +64,9 @@ export function Token({ paymentType, setPaymentType }: Props) {
               ? {
                   border: `1px solid ${theme.palette.success.main}`,
                 }
-              : { border: `1px solid ${payment.backgroundColor}` }),
+              : { border: `1px solid ${theme.palette.background.default}` }),
             borderRadius: 1,
-            backgroundColor: payment.backgroundColor,
+            backgroundColor: theme.palette.background.default,
             cursor: 'pointer',
             transition: 'border 0.2s ease 0.1s',
           }}
