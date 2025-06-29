@@ -149,14 +149,14 @@ export function SignInView() {
 
       <LoadingButton
         fullWidth
-        color="inherit"
+        color="primary"
         size="large"
         type="submit"
         variant="contained"
         loading={isSubmitting}
         loadingIndicator="Sign in..."
       >
-        Sign in
+        Sign In
       </LoadingButton>
     </Stack>
   );

@@ -6,7 +6,7 @@ import { SignInView } from 'src/sections/SignIn';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `${CONFIG.site.name} / Sign in` };
+const metadata = { title: `${CONFIG.site.name} / Sign In` };
 
 export default function Page() {
   return (
