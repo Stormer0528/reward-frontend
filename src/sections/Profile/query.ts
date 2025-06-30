@@ -223,29 +223,6 @@ export const FETCH_PLACEMENT_MEMBERS_QUERY = gql(/* GraphQL */ `
   }
 `);
 
-export const FETCH_PLACEMENT_MEMBERS_O_QUERY = gql(/* GraphQL */ `
-  query PlacementMembers {
-    placementMembers {
-      id
-      status
-      username
-      fullName
-      createdAt
-      teamStrategy
-      placementStatus
-      placementPosition
-      placementParentId
-      cmnCalculatedWeeks
-      commission {
-        begL
-        begR
-        newL
-        newR
-      }
-    }
-  }
-`);
-
 export const UPDATE_MEMBER = gql(/* GraphQL */ `
   mutation UpdateMember($data: UpdateMemberInput!) {
     updateMember(data: $data) {

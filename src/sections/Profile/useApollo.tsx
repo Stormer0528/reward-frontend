@@ -18,7 +18,6 @@ import {
   FETCH_MEMBER_STATS_QUERY,
   FETCH_MEMBER_SEARCH_QUERY,
   FETCH_PLACEMENT_MEMBERS_QUERY,
-  FETCH_PLACEMENT_MEMBERS_O_QUERY,
 } from './query';
 
 export function useFetchMe() {
@@ -31,19 +30,6 @@ export function useFetchMemberSearch() {
   const [fetchMemberSearch, { loading, data, error }] = useLazyQuery(FETCH_MEMBER_SEARCH_QUERY);
 
   return { loading, members: data?.searchMembers.members ?? [], error, fetchMemberSearch };
-}
-
-export function useFetchPlacementOMembers() {
-  const [fetchPlacementMembers, { loading, data, called }] = useLazyQuery(
-    FETCH_PLACEMENT_MEMBERS_O_QUERY
-  );
-
-  return {
-    called,
-    loading,
-    members: data?.placementMembers ?? [],
-    fetchPlacementMembers,
-  };
 }
 
 export function useFetchPlacementMembers() {
