@@ -59,7 +59,7 @@ export function SignUpView() {
   const calculator = useBoolean();
 
   const defaultValues = {
-    sponsorUserId: refID,
+    sponsorUsername: refID,
     email: '',
     assetId: null,
     note: '',
@@ -91,12 +91,12 @@ export function SignUpView() {
   const { sendVerificationLink } = useSendEmailVerificationLink();
 
   const onSubmit = handleSubmit(
-    async ({ confirmPassword, firstName, lastName, sponsorUserId, uname, ...rest }) => {
+    async ({ confirmPassword, firstName, lastName, sponsorUsername, uname, ...rest }) => {
       try {
         if (user) {
           await handleSignOut();
         }
-        localStorage.setItem('payout_reference', refID || sponsorUserId);
+        localStorage.setItem('payout_reference', refID || sponsorUsername);
 
         if (!packageId) {
           toast.error('PackageId is required');
@@ -111,7 +111,7 @@ export function SignUpView() {
               state,
               country,
               fullName: `${firstName} ${lastName}`,
-              sponsorUserId,
+              sponsorUsername,
               packageId,
             },
           },
@@ -312,7 +312,7 @@ export function SignUpView() {
         </Stack>
         <Stack width={1}>
           <Field.Text
-            name="sponsorUserId"
+            name="sponsorUsername"
             label="Sponsor ID"
             InputLabelProps={{ shrink: true }}
             placeholder="name or ID of the person"
