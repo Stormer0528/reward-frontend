@@ -24,7 +24,7 @@ import { Form, Field } from 'src/components/Form';
 import SearchMiner from 'src/components/SearchMiner';
 
 import { useFetchPackages } from 'src/sections/Sales/useApollo';
-import PlacementSelector from 'src/sections/Placement/components/placementSelector';
+import PlacementSelector from 'src/sections/Sponsor/Create/placementSelector';
 
 import { useAuthContext } from 'src/auth/hooks';
 
