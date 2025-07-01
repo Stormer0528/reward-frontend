@@ -69,8 +69,7 @@ export default function Profile() {
 
       <DashboardContent>
         <Breadcrumbs
-          heading={user?.username}
-          links={[{ name: 'Profile', href: '#' }, { name: user?.username }]}
+          heading="My account"
           sx={{
             mb: { xs: 2, md: 3 },
           }}
