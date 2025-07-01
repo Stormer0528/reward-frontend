@@ -109,7 +109,7 @@ export const dashboardRoutes = [
         ],
       },
       {
-        path: 'sponsor',
+        path: 'sponsorships',
         children: [
           {
             element: (
@@ -144,7 +144,7 @@ export const dashboardRoutes = [
           { path: ':slug', children: [{ index: true, element: <ResourceDetailPage /> }] },
         ],
       },
-      { path: 'profile', element: <ProfilePage /> },
+      { path: 'my-account', element: <ProfilePage /> },
       {
         path: 'notifications',
         element: (

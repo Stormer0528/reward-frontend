@@ -14,7 +14,7 @@ export default function Page({ allowState }: Props) {
   return (
     <>
       <Helmet>
-        <title>{`${CONFIG.site.name} / Sponsor`}</title>
+        <title>{`${CONFIG.site.name} / Sponsorships`}</title>
       </Helmet>
 
       <SponsorList filter={{ allowState }} />

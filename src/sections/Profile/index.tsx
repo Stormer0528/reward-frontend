@@ -64,7 +64,7 @@ export default function Profile() {
   return (
     <>
       <Helmet>
-        <title>{`${CONFIG.site.name}: ${user?.username}`}</title>
+        <title>{`${CONFIG.site.name}: My account`}</title>
       </Helmet>
 
       <DashboardContent>

@@ -77,7 +77,7 @@ export const _account = [
   },
   {
     label: 'Profile',
-    href: '/profile',
+    href: '/my-account',
     icon: <Iconify icon="heroicons:user" />,
   },
 ];

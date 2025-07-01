@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <Helmet>
-        <title>{`${CONFIG.site.name} / Sponsor`}</title>
+        <title>{`${CONFIG.site.name} / Sponsorships`}</title>
       </Helmet>
 
       <SponsorNew />

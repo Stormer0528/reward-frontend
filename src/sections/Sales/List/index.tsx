@@ -120,8 +120,7 @@ export default function SaleListView() {
   return (
     <DashboardContent>
       <Breadcrumbs
-        heading="Sale"
-        links={[{ name: 'Sale', href: paths.dashboard.sales.root }, { name: 'List' }]}
+        heading="Order"
         sx={{
           mb: { xs: 1, md: 2 },
         }}

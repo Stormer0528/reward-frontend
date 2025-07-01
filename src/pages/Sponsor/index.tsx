@@ -42,8 +42,7 @@ export default function Sponsor({ children }: Props) {
   return (
     <DashboardContent>
       <Breadcrumbs
-        heading="Sponsor"
-        links={[{ name: 'Sponsor', href: paths.dashboard.sponsor.root }, { name: 'List' }]}
+        heading="Sponsorships"
         sx={{
           mb: { xs: 1, md: 2 },
         }}

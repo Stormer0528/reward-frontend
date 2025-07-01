@@ -1,7 +1,5 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 import type { BreadcrumbsProps } from '@mui/material/Breadcrumbs';
-import type { MoreLinksProps } from './MoreLinks';
-import type { BreadcrumbsLinkProps } from './BreadcrumbLink';
 
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
@@ -15,6 +13,9 @@ import {
   BreadcrumbsContainer,
   BreadcrumbsSeparator,
 } from './styles';
+
+import type { MoreLinksProps } from './MoreLinks';
+import type { BreadcrumbsLinkProps } from './BreadcrumbLink';
 
 // ----------------------------------------------------------------------
 

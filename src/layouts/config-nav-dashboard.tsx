@@ -60,8 +60,8 @@ export const navData = [
     subheader: 'mineTXC Administration',
     items: [
       { title: 'Dashboard', path: paths.dashboard.history.root, icon: ICONS.analytics },
-      { title: 'Sale', path: paths.dashboard.sales.root, icon: ICONS.sale },
-      { title: 'Sponsor', path: paths.dashboard.sponsor.root, icon: ICONS.sponsor },
+      { title: 'Order', path: paths.dashboard.sales.root, icon: ICONS.sale },
+      { title: 'Sponsorships', path: paths.dashboard.sponsor.root, icon: ICONS.sponsor },
       { title: 'Placement', path: paths.dashboard.placement.root, icon: ICONS.diagram },
       { title: 'Commission', path: paths.dashboard.commission.root, icon: ICONS.commission },
       { title: 'Invoice', path: paths.dashboard.invoice.root, icon: ICONS.invoice },
