@@ -29,12 +29,10 @@ export const SEND_EMAIL_VERIFICATION_LINK = gql(/* GraphQL */ `
 `);
 
 export const VERIFY_EMAIL = gql(/* GraphQL */ `
-  mutation EmailVerify($data: TokenInput!) {
-    emailVerify(data: $data) {
+  mutation VerifyEmailToken($data: TokenInput!) {
+    verifyEmailToken(data: $data) {
       result
       message
-      packageID
-      paymentMethod
     }
   }
 `);
