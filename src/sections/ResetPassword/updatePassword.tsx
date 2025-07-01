@@ -155,6 +155,7 @@ export function UpdatePasswordView() {
         size="large"
         type="submit"
         variant="contained"
+        color="primary"
         loading={loading}
         loadingIndicator="Update password..."
       >

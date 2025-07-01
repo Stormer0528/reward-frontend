@@ -84,6 +84,7 @@ export function ForgotPasswordView() {
         size="large"
         type="submit"
         variant="contained"
+        color="primary"
         loading={loading}
         loadingIndicator="Send request..."
       >

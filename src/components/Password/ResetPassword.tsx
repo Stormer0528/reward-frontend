@@ -135,7 +135,13 @@ export default function ResetPassword({ open }: Props) {
           />
         </Box>
 
-        <LoadingButton type="submit" variant="contained" loading={isSubmitting} sx={{ ml: 'auto' }}>
+        <LoadingButton
+          type="submit"
+          variant="contained"
+          color="primary"
+          loading={isSubmitting}
+          sx={{ ml: 'auto' }}
+        >
           Save changes
         </LoadingButton>
       </Form>

@@ -132,6 +132,7 @@ export function ResetPasswordView({ token }: Props) {
         size="large"
         type="submit"
         variant="contained"
+        color="primary"
         loading={loading}
         loadingIndicator="Update password..."
       >
