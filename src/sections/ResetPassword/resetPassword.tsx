@@ -1,6 +1,5 @@
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
@@ -21,7 +20,7 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
-import { RESET_PASSWORD_TOKEN } from './query';
+import { useResetPasswordByToken } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -46,7 +45,7 @@ interface Props {
   token: string;
 }
 
-export function SplitUpdatePasswordView({ token }: Props) {
+export function ResetPasswordView({ token }: Props) {
   const confirm = useBoolean();
 
   const defaultValues = {
@@ -63,11 +62,11 @@ export function SplitUpdatePasswordView({ token }: Props) {
 
   const { handleSubmit } = methods;
 
-  const [updatePassword, { loading }] = useMutation(RESET_PASSWORD_TOKEN);
+  const { loading, resetPasswordByToken } = useResetPasswordByToken();
 
   const onSubmit = handleSubmit(async ({ password }) => {
     try {
-      const { data } = await updatePassword({ variables: { data: { password, token } } });
+      const { data } = await resetPasswordByToken({ password, token });
 
       if (data?.resetPasswordByToken.result === 'success') {
         toast.success('Successfully changed!');

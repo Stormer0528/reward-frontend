@@ -55,11 +55,11 @@ export default function VerificationCode({ setSuccess }: Props) {
     try {
       const { data } = await emailVerifyCode({ variables: { data: { verificationCode: code } } });
 
-      if (data?.emailVerifyCode.accessToken) {
+      if (data?.verifyEmailCode.accessToken) {
         setCode(code);
         setSuccess(true);
 
-        localStorage.setItem(CONFIG.storageTokenKey, data?.emailVerifyCode.accessToken);
+        localStorage.setItem(CONFIG.storageTokenKey, data?.verifyEmailCode.accessToken);
       } else {
         toast.error('Failed to verify code');
       }

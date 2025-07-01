@@ -1,6 +1,5 @@
 import { z as zod } from 'zod';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
@@ -17,7 +16,7 @@ import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 import { Form, Field } from 'src/components/Form';
 
-import { RESET_PASSWORD_REQUEST } from './query';
+import { useResetPasswordRequest } from './useApollo';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +31,7 @@ export const ResetPasswordSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export function SplitResetPasswordView() {
+export function ForgotPasswordView() {
   const defaultValues = { email: '' };
 
   const methods = useForm<ResetPasswordSchemaType>({
@@ -40,15 +39,15 @@ export function SplitResetPasswordView() {
     defaultValues,
   });
 
-  const [resetPassword, { loading }] = useMutation(RESET_PASSWORD_REQUEST);
+  const { loading, resetPasswordRequest } = useResetPasswordRequest();
 
   const { handleSubmit } = methods;
 
   const onSubmit = handleSubmit(async ({ email }) => {
     try {
-      const { data } = await resetPassword({ variables: { data: { email } } });
+      const { data } = await resetPasswordRequest({ email });
 
-      if (data?.resetPasswordRequest.result === 'success') {
+      if (data?.requestResetPassword.result === 'success') {
         toast.success('Successfully sent!');
       }
     } catch (error) {

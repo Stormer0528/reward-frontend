@@ -1,24 +1,17 @@
 import { useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
-import { useMutation } from '@apollo/client';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { paths } from 'src/routes/paths';
 
-import { CONFIG } from 'src/config-global';
+import { CONFIG } from 'src/config';
 
 import { toast } from 'src/components/SnackBar';
 
-import { SplitUpdatePasswordView } from 'src/sections/ResetPassword/resetPassoword';
-
-import { RESET_TOKEN_VERIFY } from './query';
-
-// ----------------------------------------------------------------------
-
-const metadata = { title: `Reset password | Layout split - ${CONFIG.site.name}` };
+import { ResetPasswordView } from 'src/sections/ResetPassword/resetPassword';
+import { useVerifyResetPasswordToken } from 'src/sections/ResetPassword/useApollo';
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -27,11 +20,12 @@ export default function Page() {
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get('token');
 
-  const [tokenVerify, { loading, data, error }] = useMutation(RESET_TOKEN_VERIFY);
+  // const [tokenVerify, { loading, data, error }] = useMutation(VERIFY_RESET_PASSWORD_TOKEN);
+  const { loading, data, error, verifyResetPasswordToken } = useVerifyResetPasswordToken();
 
   useEffect(() => {
     if (token) {
-      tokenVerify({ variables: { data: { token } } });
+      verifyResetPasswordToken({ token });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,12 +45,10 @@ export default function Page() {
 
   return (
     <>
-      <Helmet>
-        <title> {metadata.title}</title>
-      </Helmet>
+      <title> {`${CONFIG.site.name} - Reset Password`}</title>
 
       {isOpen ? (
-        <SplitUpdatePasswordView token={data?.resetTokenVerify.token!} />
+        <ResetPasswordView token={data?.verifyResetPasswordToken.token!} />
       ) : (
         <LoadingButton loading size="large" loadingIndicator={<CircularProgress />} />
       )}
