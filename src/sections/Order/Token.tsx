@@ -1,3 +1,7 @@
+import type { Order } from 'src/__generated__/graphql';
+
+import { useMemo } from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -10,47 +14,32 @@ import { PaymentChain, PaymentToken } from 'src/__generated__/graphql';
 import { toast } from 'src/components/SnackBar';
 import { Iconify } from 'src/components/Iconify';
 
-import type { TOKEN_TYPE, PAYMENT_TYPE } from './type';
-
-const payments: TOKEN_TYPE[] = [
-  {
-    token: PaymentToken.Txc,
-    label: 'Texitcoin',
-    icon: `${CONFIG.site.basePath}/assets/TXC.png`,
-    disable: false,
-  },
-  {
-    token: PaymentToken.Usdc,
-    label: 'USDC',
-    icon: `${CONFIG.site.basePath}/assets/USDC.png`,
-    disable: false,
-  },
-  {
-    token: PaymentToken.Usdt,
-    label: 'USDT',
-    icon: `${CONFIG.site.basePath}/assets/USDT.png`,
-    disable: false,
-  },
-  {
-    token: PaymentToken.Pyusd,
-    label: 'PYUSD',
-    icon: `${CONFIG.site.basePath}/assets/PYUSD.png`,
-    disable: false,
-  },
-  {
-    token: 'PEER',
-    label: 'PEER',
-    disable: false,
-  },
-];
+import type { TOKEN_TYPE, PAYMENT_TYPE, BasicPaymentToken } from './type';
 
 interface Props {
+  order: Order;
   paymentType: PAYMENT_TYPE;
   setPaymentType: Function;
 }
 
-export function Token({ paymentType, setPaymentType }: Props) {
+export function Token({ order, paymentType, setPaymentType }: Props) {
   const theme = useTheme();
+
+  const paymentTokens = useMemo(
+    () => [
+      ...new Set(
+        order?.availablePaymentMethods.map((item) => (item.isP2P ? 'PEER' : item.paymentToken))
+      ),
+    ],
+    [order]
+  );
+
+  const payments: TOKEN_TYPE[] = paymentTokens?.map((token) => ({
+    token: token as BasicPaymentToken,
+    label: `${token}`,
+    icon: `${CONFIG.site.basePath}/assets/${token}.png`,
+    disable: false,
+  }));
 
   return (
     <Box sx={{ backgroundColor: 'background.neutral', borderRadius: 1, px: 2 }}>

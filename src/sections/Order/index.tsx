@@ -154,7 +154,9 @@ export default function Order() {
         )}
       </Box>
 
-      {step === -1 && <Token paymentType={payment} setPaymentType={setPayment} />}
+      {step === -1 && (
+        <Token order={order as OrderType} paymentType={payment} setPaymentType={setPayment} />
+      )}
       {step === 0 && <Chain paymentType={payment} setPaymentType={setPayment} />}
 
       {step === 1 && (

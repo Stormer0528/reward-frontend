@@ -11,6 +11,11 @@ export const FETCH_ORDER_BY_ID = gql(/* GraphQL */ `
       paymentChain
       paymentAddress
       requiredBalance
+      availablePaymentMethods {
+        paymentChain
+        paymentToken
+        isP2P
+      }
     }
   }
 `);
