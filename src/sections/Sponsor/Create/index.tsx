@@ -226,7 +226,7 @@ export default function AddMiner() {
 
       <Box display="flex" justifyContent="flex-end" gap={2} alignItems="center" mt={2}>
         <LoadingButton
-          color="inherit"
+          color="primary"
           size="large"
           type="submit"
           variant="contained"

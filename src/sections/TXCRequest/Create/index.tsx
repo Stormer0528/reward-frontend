@@ -141,7 +141,7 @@ export default function TXCRequest() {
         </Box>
 
         <Stack direction="row" justifyContent="flex-end" mt={2}>
-          <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+          <LoadingButton type="submit" variant="contained" color="primary" loading={isSubmitting}>
             Submit
           </LoadingButton>
         </Stack>
