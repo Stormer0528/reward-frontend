@@ -1,28 +1,26 @@
-import { useMemo, useEffect } from 'react';
+import type { PlacementSearchMember } from 'src/__generated__/graphql';
+
+import { useMemo } from 'react';
 
 import { Skeleton } from '@mui/material';
 
-import { PlacementStatus, type PlacementMember } from 'src/__generated__/graphql';
+import { PlacementStatus } from 'src/__generated__/graphql';
 
 import { Iconify } from 'src/components/Iconify';
 import { RHFAutocomplete } from 'src/components/Form';
 
-// import { useFetchPlacementOMembers } from 'src/sections/Profile/useApollo';
-import { useFetchPlacementWithLevel } from 'src/sections/Placement/useApollo';
+import { useFetchPlacementSearchMembers } from 'src/sections/Placement/useApollo';
 
 interface Props {
   current?: string;
 }
 
 export default function PlacementSelector({ current }: Props) {
-  const { loading, members, fetchPlacementMembers } = useFetchPlacementWithLevel();
+  const { loading, members } = useFetchPlacementSearchMembers();
 
-  useEffect(() => {
-    fetchPlacementMembers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filterParentsWithMoreThanTwoChildren = (data: PlacementMember[]): PlacementMember[] => {
+  const filterParentsWithMoreThanTwoChildren = (
+    data: PlacementSearchMember[]
+  ): PlacementSearchMember[] => {
     const parentCount: Record<string, number> = {};
     data.forEach((m) => {
       if (m.placementParentId) {

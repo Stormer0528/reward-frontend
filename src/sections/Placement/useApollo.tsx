@@ -1,11 +1,8 @@
-import type { PlacementMemberInput } from 'src/__generated__/graphql';
-
-import { useCallback } from 'react';
-import { useMutation, useLazyQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 
 import {
-  ADD_PLACEMENT_CHILD,
   FETCH_PLACEMENT_TO_BOTTOM,
+  FETCH_PLACEMENT_SEARCH_MEMBER,
   FETCH_PLACEMENT_CHILDREN_BY_ID,
   FETCH_PLACEMENT_MEMBERS_WITH_LEVEL,
 } from './query';
@@ -37,13 +34,8 @@ export function useFetchPlacementToBottom() {
   return { loading, members: data?.placementMembersToBottom ?? [], fetchPlacementToBottom };
 }
 
-export function useAddPlacementChild() {
-  const [submit, { loading, data, error }] = useMutation(ADD_PLACEMENT_CHILD);
+export function useFetchPlacementSearchMembers() {
+  const { loading, data, error } = useQuery(FETCH_PLACEMENT_SEARCH_MEMBER);
 
-  const addPlacementChild = useCallback(
-    (newData: PlacementMemberInput) => submit({ variables: { data: newData } }),
-    [submit]
-  );
-
-  return { loading, data, error, addPlacementChild };
+  return { loading, members: data?.placementSearchMembers ?? [], error };
 }

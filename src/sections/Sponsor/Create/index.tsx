@@ -17,8 +17,6 @@ import { useRouter } from 'src/routes/hooks';
 
 import { removeSpecialCharacters } from 'src/utils/helper';
 
-import { PlacementPosition } from 'src/__generated__/graphql';
-
 import { toast } from 'src/components/SnackBar';
 import { Form, Field } from 'src/components/Form';
 import SearchMiner from 'src/components/SearchMiner';
@@ -207,11 +205,12 @@ export default function AddMiner() {
         <PlacementSelector current={location?.state?.placementParentId} />
 
         <Field.Select name="placementPosition" label="Placement Position">
-          {Object.values(PlacementPosition).map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
+          <MenuItem key="left" value="LEFT">
+            Left
+          </MenuItem>
+          <MenuItem key="right" value="RIGHT">
+            Right
+          </MenuItem>
         </Field.Select>
       </Box>
 

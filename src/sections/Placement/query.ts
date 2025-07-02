@@ -69,11 +69,17 @@ export const FETCH_PLACEMENT_TO_BOTTOM = gql(/* GraphQL */ `
   }
 `);
 
-export const ADD_PLACEMENT_CHILD = gql(/* GraphQL */ `
-  mutation AddPlacementChild($data: PlacementMemberInput!) {
-    addPlacementChild(data: $data) {
-      result
-      message
+export const FETCH_PLACEMENT_SEARCH_MEMBER = gql(/* GraphQL */ `
+  query PlacementSearchMembers($sort: String, $page: String, $filter: JSONObject) {
+    placementSearchMembers(sort: $sort, page: $page, filter: $filter) {
+      id
+      username
+      fullName
+      createdAt
+      placementPosition
+      placementParentId
+      status
+      placementStatus
     }
   }
 `);

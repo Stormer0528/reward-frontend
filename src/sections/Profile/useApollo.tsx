@@ -29,7 +29,7 @@ export function useFetchMe() {
 export function useFetchMemberSearch() {
   const [fetchMemberSearch, { loading, data, error }] = useLazyQuery(FETCH_MEMBER_SEARCH_QUERY);
 
-  return { loading, members: data?.searchMembers.members ?? [], error, fetchMemberSearch };
+  return { loading, members: data?.searchMembers ?? [], error, fetchMemberSearch };
 }
 
 export function useFetchPlacementMembers() {
