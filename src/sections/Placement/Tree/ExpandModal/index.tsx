@@ -1,7 +1,7 @@
 import type { UseBooleanReturn } from 'src/hooks/useBoolean';
 import type { PlacementToBottomInput } from 'src/__generated__/graphql';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Radio from '@mui/material/Radio';
 import Button from '@mui/material/Button';
@@ -14,6 +14,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import { PlacementPosition } from 'src/__generated__/graphql';
 
+import NodeContext from '../../Helper/nodeContext';
+
 interface Props {
   id: string;
   open: UseBooleanReturn;
@@ -22,6 +24,8 @@ interface Props {
 
 export default function ExpandModal({ id, open, onExpandBottom }: Props) {
   const [direction, setDirection] = useState<PlacementPosition>(PlacementPosition.Left);
+
+  const { expandIds, setExpandIds } = useContext(NodeContext);
 
   return (
     <Dialog open={open.value} onClose={open.onFalse} fullWidth maxWidth="xs">
@@ -46,6 +50,7 @@ export default function ExpandModal({ id, open, onExpandBottom }: Props) {
           variant="contained"
           color="primary"
           onClick={() => {
+            setExpandIds([...expandIds, id]);
             onExpandBottom({ id, direction });
             open.onFalse();
           }}

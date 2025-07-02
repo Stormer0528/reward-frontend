@@ -13,6 +13,7 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { useAuthContext } from 'src/auth/hooks';
 
+import NodeContext from '../Helper/nodeContext';
 import { ActionButtons } from './ActionButtons';
 import { buildTree, buildPlacementTree } from '../Helper';
 import { nodeTypes, edgeTypes, fitViewOptions } from '../Helper/const';
@@ -27,6 +28,7 @@ export function PlacementTreeBox() {
   const { user } = useAuthContext();
   const { fitView } = useReactFlow();
   const [list, setList] = useState<PlacementMember[]>([]);
+  const [expandIds, setExpandIds] = useState<string[]>([]);
 
   const { fetchPlacementChildrenById } = useFetchPlacementChildrenById();
   const { loading, members, fetchPlacementMembers } = useFetchPlacementWithLevel();
@@ -58,7 +60,11 @@ export function PlacementTreeBox() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onExpandBottom = async (newData: PlacementToBottomInput) => {
     try {
-      await fetchPlacementToBottom({ variables: { data: newData } });
+      const { data } = await fetchPlacementToBottom({ variables: { data: newData } });
+
+      if (data) {
+        setExpandIds(expandIds.filter((item) => item !== newData.id));
+      }
     } catch (error) {
       toast.error(error?.message);
     }
@@ -78,6 +84,8 @@ export function PlacementTreeBox() {
 
             return [...prevList, ...newChildren];
           });
+
+          setExpandIds(expandIds.filter((item) => item !== id));
         } else {
           setList((prev) =>
             prev.map((member) => (id === member.id ? { ...member, visible: 3 } : member))
@@ -179,6 +187,8 @@ export function PlacementTreeBox() {
     }
   }, [bottomMembers, fitView]);
 
+  const contextValue = useMemo(() => ({ expandIds, setExpandIds }), [expandIds, setExpandIds]);
+
   return (
     <>
       {loading ? (
@@ -195,14 +205,16 @@ export function PlacementTreeBox() {
                   position: 'relative',
                 }}
               >
-                <ReactFlow
-                  nodes={nodes}
-                  edges={edges}
-                  fitView
-                  fitViewOptions={fitViewOptions}
-                  nodeTypes={nodeTypes}
-                  edgeTypes={edgeTypes}
-                />
+                <NodeContext.Provider value={contextValue}>
+                  <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    fitView
+                    fitViewOptions={fitViewOptions}
+                    nodeTypes={nodeTypes}
+                    edgeTypes={edgeTypes}
+                  />
+                </NodeContext.Provider>
 
                 <ActionButtons onReset={onReset} onMinerChange={onMinerChange} />
               </Stack>

@@ -1,17 +1,13 @@
 import React from 'react';
 
 interface NodeContextType {
-  visibleMap: { [key: string]: number };
-  expandTree: (id: string) => void;
-  collapseTree: (id: string) => void;
-  expandAll?: (id: string) => Promise<void>;
-  collapseAll?: (id: string) => Promise<void>;
+  expandIds: string[];
+  setExpandIds: (id: string[]) => void;
 }
 
 const NodeContext = React.createContext<NodeContextType>({
-  visibleMap: {},
-  expandTree: () => {},
-  collapseTree: () => {},
+  expandIds: [],
+  setExpandIds: () => {},
 });
 
 export default NodeContext;

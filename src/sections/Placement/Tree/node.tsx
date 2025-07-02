@@ -1,8 +1,10 @@
 import type { NodeProps } from '@xyflow/react';
 import type { PlacementMember, PlacementToBottomInput } from 'src/__generated__/graphql';
 
+import { useContext } from 'react';
 import { Handle, Position } from '@xyflow/react';
 
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
@@ -18,6 +20,7 @@ import { Iconify } from 'src/components/Iconify';
 import { usePopover } from 'src/components/custom-popover';
 
 import { ActionRender } from './ActionRender';
+import NodeContext from '../Helper/nodeContext';
 
 interface Props extends PlacementMember {
   visible: number;
@@ -37,6 +40,8 @@ const labelColor: any = {
 
 export function StandardNode({ data }: NodeProps & { data: Props }) {
   const popover = usePopover();
+
+  const { expandIds, setExpandIds } = useContext(NodeContext);
 
   const {
     id,
@@ -141,9 +146,10 @@ export function StandardNode({ data }: NodeProps & { data: Props }) {
                 sx={{ mt: 0.15, cursor: 'pointer' }}
                 onClick={async () => {
                   if (visible === 1) {
-                    await onExpandNode(id);
+                    setExpandIds([...expandIds, id]);
+                    onExpandNode(id);
                   } else if (visible === 2) {
-                    await onCollapseNode(id);
+                    onCollapseNode(id);
                   }
                 }}
               />
@@ -158,6 +164,12 @@ export function StandardNode({ data }: NodeProps & { data: Props }) {
         visible={visible}
         onExpandBottom={onExpandBottom}
       />
+
+      {expandIds.includes(id) && (
+        <Box sx={{ position: 'absolute', left: '45%', top: '45%' }}>
+          <Iconify icon="eos-icons:bubble-loading" />
+        </Box>
+      )}
     </>
   );
 }
