@@ -24,7 +24,7 @@ export function ActionRender({ visible, popover, data: placementMember, onExpand
   const router = useRouter();
   const isExpand = useBoolean();
 
-  const { id } = placementMember;
+  const { id, username, fullName } = placementMember;
 
   return (
     <>
@@ -48,7 +48,7 @@ export function ActionRender({ visible, popover, data: placementMember, onExpand
             <MenuItem
               onClick={() =>
                 router.push(`${paths.dashboard.sponsor.root}/new`, {
-                  state: { placementParentId: id },
+                  state: { placementParentId: id, username, fullName },
                 })
               }
             >

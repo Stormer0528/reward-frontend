@@ -22,7 +22,7 @@ import { Form, Field } from 'src/components/Form';
 import SearchMiner from 'src/components/SearchMiner';
 
 import { useFetchPackages } from 'src/sections/Sales/useApollo';
-import PlacementSelector from 'src/sections/Sponsor/Create/placementSelector';
+import { PlacementSelector } from 'src/sections/Sponsor/Create/placementSelector';
 
 import { useAuthContext } from 'src/auth/hooks';
 
@@ -202,7 +202,17 @@ export default function AddMiner() {
           ))}
         </Field.Select>
 
-        <PlacementSelector current={location?.state?.placementParentId} />
+        <PlacementSelector
+          currentMember={
+            location?.state
+              ? {
+                  id: location.state?.placementParentId,
+                  username: location.state?.username,
+                  fullName: location.state?.fullName,
+                }
+              : null
+          }
+        />
 
         <Field.Select name="placementPosition" label="Placement Position">
           <MenuItem key="left" value="LEFT">

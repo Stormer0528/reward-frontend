@@ -1,86 +1,67 @@
-import type { PlacementSearchMember } from 'src/__generated__/graphql';
+import { useState, useEffect } from 'react';
 
-import { useMemo, useEffect } from 'react';
-
-import { Skeleton } from '@mui/material';
-
-import { PlacementStatus } from 'src/__generated__/graphql';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 import { Iconify } from 'src/components/Iconify';
-import { RHFAutocomplete } from 'src/components/Form';
 
 import { useFetchPlacementSearchMembers } from 'src/sections/Placement/useApollo';
 
 interface Props {
-  current?: string;
+  currentMember?: { id: string; username: string; fullName: string } | null;
 }
 
-export default function PlacementSelector({ current }: Props) {
+export function PlacementSelector({ currentMember }: Props) {
+  const [username, setUsername] = useState<string>();
+  const [debouncedUsername, setDebouncedUsername] = useState<string>();
+
   const { loading, members, fetchSearchMembers } = useFetchPlacementSearchMembers();
 
   useEffect(() => {
-    fetchSearchMembers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filterParentsWithMoreThanTwoChildren = (
-    data: PlacementSearchMember[]
-  ): PlacementSearchMember[] => {
-    const parentCount: Record<string, number> = {};
-    data.forEach((m) => {
-      if (m.placementParentId) {
-        parentCount[m.placementParentId] = (parentCount[m.placementParentId] || 0) + 1;
-      }
+    // if (debouncedUsername !== undefined) {
+    // }
+    fetchSearchMembers({
+      variables: {
+        filter: {
+          OR: [
+            { username: { contains: debouncedUsername ?? '', mode: 'insensitive' } },
+            { fullName: { contains: debouncedUsername ?? '', mode: 'insensitive' } },
+          ],
+        },
+        page: '1,10',
+      },
     });
+  }, [debouncedUsername, fetchSearchMembers]);
 
-    const parentsToRemove = new Set(
-      Object.entries(parentCount)
-        .filter(([_, count]) => count >= 2)
-        .map(([parentId]) => parentId)
-    );
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedUsername(username);
+    }, 500);
 
-    return data.filter(
-      (m) => !parentsToRemove.has(m.id) && m.placementStatus !== PlacementStatus.Temp
-    );
-  };
-
-  const filtered = useMemo(() => filterParentsWithMoreThanTwoChildren(members), [members]);
-
-  const memberData = useMemo(
-    () =>
-      filtered.reduce<Record<string, { username: string; fullName: string }>>(
-        (prev, save) => ({
-          ...prev,
-          [save.id]: { username: save.username, fullName: save.fullName },
-        }),
-        {}
-      ),
-    [filtered]
-  );
+    return () => {
+      clearTimeout(handler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username]);
 
   return (
-    <>
-      {loading ? (
-        <Skeleton sx={{ fontSize: 48 }} />
-      ) : (
-        <RHFAutocomplete
-          name="placementParentId"
-          label="Placement Member"
-          value={filtered.length && current}
-          freeSolo
-          fullWidth
-          options={filtered.map((member) => member.id)}
-          getOptionLabel={(option: any) =>
-            `${memberData[option]?.username} (${memberData[option]?.fullName})`
-          }
-          loadingText={<Iconify icon="line-md:loading-loop" />}
-          renderOption={(props, option) => (
-            <li {...props} key={option} value={option.split('()')[0]}>
-              {memberData[option]?.username} ({memberData[option]?.fullName})
-            </li>
-          )}
-        />
+    <Autocomplete
+      fullWidth
+      options={members.map((item) => `${item.username} (${item.fullName})`)}
+      isOptionEqualToValue={(option, value) => option === value}
+      value={
+        username ?? (currentMember && `${currentMember?.username} (${currentMember?.fullName})`)
+      }
+      loading={loading}
+      loadingText={<Iconify icon="line-md:loading-loop" />}
+      renderInput={(params) => <TextField {...params} label="Placement Member" margin="none" />}
+      renderOption={(props, option) => (
+        <li {...props} key={option}>
+          {option}
+        </li>
       )}
-    </>
+      onChange={(_, value) => setUsername(value ?? '')}
+      onInputChange={(_, value) => setUsername(value)}
+    />
   );
 }
