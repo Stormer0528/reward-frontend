@@ -1,5 +1,5 @@
 import type { NodeProps } from '@xyflow/react';
-import type { PlacementMember, PlacementToBottomInput } from 'src/__generated__/graphql';
+import type { PlacementMember } from 'src/__generated__/graphql';
 
 import { useContext } from 'react';
 import { Handle, Position } from '@xyflow/react';
@@ -24,9 +24,6 @@ import NodeContext from '../Helper/nodeContext';
 
 interface Props extends PlacementMember {
   visible: number;
-  onExpandNode: (id: string) => void;
-  onCollapseNode: (id: string) => void;
-  onExpandBottom: (newData: PlacementToBottomInput) => void;
 }
 
 // ----------------------------------------------------------------------
@@ -41,7 +38,8 @@ const labelColor: any = {
 export function StandardNode({ data }: NodeProps & { data: Props }) {
   const popover = usePopover();
 
-  const { expandIds, setExpandIds } = useContext(NodeContext);
+  const { expandIds, setExpandIds, onExpandNode, onCollapseNode, onExpandBottom } =
+    useContext(NodeContext);
 
   const {
     id,
@@ -52,9 +50,6 @@ export function StandardNode({ data }: NodeProps & { data: Props }) {
     placementStatus,
     teamStrategy: tStrategy,
     visible,
-    onExpandNode,
-    onCollapseNode,
-    onExpandBottom,
   } = data;
 
   return (

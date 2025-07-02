@@ -1,5 +1,5 @@
 import type { Node } from '@xyflow/react';
-import type { PlacementMember, PlacementToBottomInput } from 'src/__generated__/graphql';
+import type { PlacementMember } from 'src/__generated__/graphql';
 
 import { PlacementPosition } from 'src/__generated__/graphql';
 import {
@@ -52,12 +52,9 @@ export function buildPlacementTree({ members, memberId }: PlacementTreeProps) {
 
 interface Props {
   root: PlacementTreeNode;
-  onExpandNode: (id: string) => void;
-  onCollapseNode: (id: string) => void;
-  onExpandBottom: (newData: PlacementToBottomInput) => void;
 }
 
-export function buildTree({ root, onExpandNode, onCollapseNode, onExpandBottom }: Props) {
+export function buildTree({ root }: Props) {
   const resultNodes: Node[] = [];
   const depthHeights: number[] = [];
 
@@ -91,7 +88,7 @@ export function buildTree({ root, onExpandNode, onCollapseNode, onExpandBottom }
     const element: Node = {
       id: node.id,
       position: { x: positionX, y: positionY },
-      data: { ...node, onExpandNode, onCollapseNode, onExpandBottom },
+      data: node,
       style: {
         width: PLACEMENT_TREE_NODE_WIDTH,
         height: PLACEMENT_TREE_NODE_HEIGHT,

@@ -128,8 +128,8 @@ export function PlacementTreeBox() {
 
     if (!placementTree) return [];
 
-    return buildTree({ root: placementTree, onExpandNode, onCollapseNode, onExpandBottom });
-  }, [list, user, onExpandNode, onCollapseNode, onExpandBottom]);
+    return buildTree({ root: placementTree });
+  }, [list, user]);
 
   const edges: Edge[] = useMemo(
     () =>
@@ -187,7 +187,10 @@ export function PlacementTreeBox() {
     }
   }, [bottomMembers, fitView]);
 
-  const contextValue = useMemo(() => ({ expandIds, setExpandIds }), [expandIds, setExpandIds]);
+  const contextValue = useMemo(
+    () => ({ expandIds, setExpandIds, onExpandNode, onCollapseNode, onExpandBottom }),
+    [expandIds, setExpandIds, onExpandNode, onCollapseNode, onExpandBottom]
+  );
 
   return (
     <>
