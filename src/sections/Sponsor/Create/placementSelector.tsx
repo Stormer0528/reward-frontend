@@ -1,6 +1,6 @@
 import type { PlacementSearchMember } from 'src/__generated__/graphql';
 
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 
 import { Skeleton } from '@mui/material';
 
@@ -16,7 +16,12 @@ interface Props {
 }
 
 export default function PlacementSelector({ current }: Props) {
-  const { loading, members } = useFetchPlacementSearchMembers();
+  const { loading, members, fetchSearchMembers } = useFetchPlacementSearchMembers();
+
+  useEffect(() => {
+    fetchSearchMembers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filterParentsWithMoreThanTwoChildren = (
     data: PlacementSearchMember[]

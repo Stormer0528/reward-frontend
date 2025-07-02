@@ -1,7 +1,8 @@
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import {
   FETCH_PLACEMENT_TO_BOTTOM,
+  FETCH_PLACEMENT_TO_MEMBERS,
   FETCH_PLACEMENT_SEARCH_MEMBER,
   FETCH_PLACEMENT_CHILDREN_BY_ID,
   FETCH_PLACEMENT_MEMBERS_WITH_LEVEL,
@@ -28,6 +29,12 @@ export function useFetchPlacementChildrenById() {
   return { loading, children: data?.placementChildrenById ?? [], fetchPlacementChildrenById };
 }
 
+export function useFetchPlacementToMembers() {
+  const [fetchPlacementToMembers, { loading, data }] = useLazyQuery(FETCH_PLACEMENT_TO_MEMBERS);
+
+  return { loading, members: data?.placementMembersToMember ?? [], fetchPlacementToMembers };
+}
+
 export function useFetchPlacementToBottom() {
   const [fetchPlacementToBottom, { loading, data }] = useLazyQuery(FETCH_PLACEMENT_TO_BOTTOM);
 
@@ -35,7 +42,9 @@ export function useFetchPlacementToBottom() {
 }
 
 export function useFetchPlacementSearchMembers() {
-  const { loading, data, error } = useQuery(FETCH_PLACEMENT_SEARCH_MEMBER);
+  const [fetchSearchMembers, { loading, data, error }] = useLazyQuery(
+    FETCH_PLACEMENT_SEARCH_MEMBER
+  );
 
-  return { loading, members: data?.placementSearchMembers ?? [], error };
+  return { loading, members: data?.placementSearchMembers ?? [], error, fetchSearchMembers };
 }

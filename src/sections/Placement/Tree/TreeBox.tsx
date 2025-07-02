@@ -19,6 +19,7 @@ import { nodeTypes, edgeTypes, fitViewOptions } from '../Helper/const';
 import {
   useFetchPlacementToBottom,
   useFetchPlacementWithLevel,
+  useFetchPlacementToMembers,
   useFetchPlacementChildrenById,
 } from '../useApollo';
 
@@ -30,6 +31,7 @@ export function PlacementTreeBox() {
   const { fetchPlacementChildrenById } = useFetchPlacementChildrenById();
   const { loading, members, fetchPlacementMembers } = useFetchPlacementWithLevel();
   const { members: bottomMembers, fetchPlacementToBottom } = useFetchPlacementToBottom();
+  const { members: searchMembers, fetchPlacementToMembers } = useFetchPlacementToMembers();
 
   const onReset = async () => {
     const { data } = await fetchPlacementMembers({ variables: { data: { level: 4 } } });
@@ -39,6 +41,18 @@ export function PlacementTreeBox() {
       () => fitView({ ...fitViewOptions, nodes: members.map((member) => ({ id: member.id })) }),
       100
     );
+  };
+
+  const onMinerChange = async (id: string) => {
+    try {
+      await fetchPlacementToMembers({ variables: { data: { id } } });
+
+      setTimeout(() => {
+        fitView({ ...fitViewOptions, nodes: [{ id }] });
+      }, 100);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,6 +148,20 @@ export function PlacementTreeBox() {
   }, [members]);
 
   useEffect(() => {
+    if (searchMembers && searchMembers.length) {
+      setList((prevList) => {
+        const existingIds = new Set(prevList.map((member) => member.id));
+        const newSearchMembers = searchMembers.filter((member) => !existingIds.has(member.id));
+        if (newSearchMembers.length) {
+          return [...prevList, ...newSearchMembers];
+        }
+
+        return prevList;
+      });
+    }
+  }, [searchMembers]);
+
+  useEffect(() => {
     if (bottomMembers && bottomMembers.length) {
       setList((prevList) => {
         const existingIds = new Set(prevList.map((member) => member.id));
@@ -176,7 +204,7 @@ export function PlacementTreeBox() {
                   edgeTypes={edgeTypes}
                 />
 
-                <ActionButtons onReset={onReset} />
+                <ActionButtons onReset={onReset} onMinerChange={onMinerChange} />
               </Stack>
             </ComponentBlock>
           ) : (

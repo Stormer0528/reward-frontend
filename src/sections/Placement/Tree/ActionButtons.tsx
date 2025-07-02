@@ -5,13 +5,17 @@ import Fab from '@mui/material/Fab';
 
 import { Iconify } from 'src/components/Iconify';
 
+import { SearchMiner } from './searchMiner';
+
 interface Props {
   onReset: () => void;
+  onMinerChange: (id: string) => void;
 }
 
-export function ActionButtons({ onReset }: Props) {
+export function ActionButtons({ onReset, onMinerChange }: Props) {
   return (
     <Box py={2} position="absolute">
+      <SearchMiner onMinerChange={onMinerChange} sx={{ position: 'absolute', left: 16 }} />
       <Fab
         component={m.button}
         variant="softExtended"
@@ -19,6 +23,7 @@ export function ActionButtons({ onReset }: Props) {
         onClick={onReset}
         sx={(theme) => ({
           position: 'absolute',
+          top: theme.spacing(11),
           left: theme.spacing(2),
         })}
       >

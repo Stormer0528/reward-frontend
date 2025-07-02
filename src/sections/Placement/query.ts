@@ -46,6 +46,29 @@ export const FETCH_PLACEMENT_CHILDREN_BY_ID = gql(/* GraphQL */ `
   }
 `);
 
+export const FETCH_PLACEMENT_TO_MEMBERS = gql(/* GraphQL */ `
+  query PlacementMembersToMember($data: IDInput!) {
+    placementMembersToMember(data: $data) {
+      id
+      status
+      username
+      fullName
+      createdAt
+      teamStrategy
+      placementStatus
+      placementPosition
+      placementParentId
+      cmnCalculatedWeeks
+      commission {
+        begL
+        begR
+        newL
+        newR
+      }
+    }
+  }
+`);
+
 export const FETCH_PLACEMENT_TO_BOTTOM = gql(/* GraphQL */ `
   query PlacementMembersToBottom($data: PlacementToBottomInput!) {
     placementMembersToBottom(data: $data) {
