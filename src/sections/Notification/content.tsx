@@ -24,14 +24,11 @@ interface Props {
 }
 
 export function Content({ drawer, notifications, totalUnRead }: Props) {
-  const { readAllNotifications } = useReadAllNotifications();
+  const { loading, readAllNotifications } = useReadAllNotifications();
 
   const handleMarkAllAsRead = async () => {
     try {
-      await readAllNotifications({
-        awaitRefetchQueries: true,
-        refetchQueries: ['Notifications'],
-      });
+      await readAllNotifications();
     } catch (error) {
       console.log('error => ', error);
     }
@@ -47,7 +44,7 @@ export function Content({ drawer, notifications, totalUnRead }: Props) {
         {!!totalUnRead && (
           <Tooltip title="Mark all as read">
             <IconButton color="primary" onClick={handleMarkAllAsRead}>
-              <Iconify icon="eva:done-all-fill" />
+              <Iconify icon={loading ? 'eos-icons:bubble-loading' : 'eva:done-all-fill'} />
             </IconButton>
           </Tooltip>
         )}

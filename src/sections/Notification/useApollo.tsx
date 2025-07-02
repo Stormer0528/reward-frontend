@@ -43,7 +43,10 @@ export function useReadNotifications() {
 }
 
 export function useReadAllNotifications() {
-  const [readAllNotifications, { loading, data }] = useMutation(READ_ALL_NOTIFICATIONS);
+  const [readAllNotifications, { loading, data }] = useMutation(READ_ALL_NOTIFICATIONS, {
+    awaitRefetchQueries: true,
+    refetchQueries: ['Notifications'],
+  });
 
   return { loading, data, readAllNotifications };
 }
