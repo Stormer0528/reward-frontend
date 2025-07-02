@@ -54,7 +54,7 @@ export function ActionRender({ visible, popover, data: placementMember, onExpand
               }}
             >
               <Iconify icon="mdi:plus-circle-outline" />
-              Add
+              Add child
             </MenuItem>
           )}
         </MenuList>

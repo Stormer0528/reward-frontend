@@ -128,7 +128,9 @@ export function PlacementTreeBox() {
   }, []);
 
   useEffect(() => {
-    setList(members);
+    if (members && members.length) {
+      setList(members);
+    }
   }, [members]);
 
   useEffect(() => {
@@ -142,8 +144,12 @@ export function PlacementTreeBox() {
 
         return prevList;
       });
+
+      setTimeout(() => {
+        fitView({ ...fitViewOptions, nodes: bottomMembers.map((member) => ({ id: member.id })) });
+      }, 100);
     }
-  }, [bottomMembers]);
+  }, [bottomMembers, fitView]);
 
   return (
     <>

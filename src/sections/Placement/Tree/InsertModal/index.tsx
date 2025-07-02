@@ -61,7 +61,15 @@ export function InsertModal({ id, open }: Props) {
   });
 
   return (
-    <Dialog open={open.value} onClose={open.onFalse} fullWidth maxWidth="xs">
+    <Dialog
+      open={open.value}
+      onClose={() => {
+        open.onFalse();
+        reset();
+      }}
+      fullWidth
+      maxWidth="xs"
+    >
       <DialogTitle>Add Child</DialogTitle>
       <DialogContent>
         <Form methods={methods} onSubmit={onSubmit}>
