@@ -37,6 +37,7 @@ export default function AddMiner() {
   const [country, setCountry] = useState<string>();
   const [packageId, setPackageId] = useState<string>();
   const [sponsorId, setSponsorId] = useState<string>('');
+  const [placementParentId, setPlacementParentId] = useState<string>('');
 
   const location = useLocation();
 
@@ -69,7 +70,7 @@ export default function AddMiner() {
   const onSubmit = handleSubmit(async ({ firstName, lastName, uname, ...rest }) => {
     try {
       if (!packageId) {
-        toast.error('PackageId is required');
+        toast.error('Package is required');
         return;
       }
 
@@ -81,7 +82,7 @@ export default function AddMiner() {
             state,
             country,
             packageId,
-            placementParentId: rest.placementParentId ?? location?.state?.placementParentId,
+            placementParentId,
             fullName: `${firstName} ${lastName}`,
             ...(user?.isTexitRanger && { sponsorId }),
           },
@@ -212,6 +213,7 @@ export default function AddMiner() {
                 }
               : null
           }
+          setMemberId={setPlacementParentId}
         />
 
         <Field.Select name="placementPosition" label="Placement Position">
