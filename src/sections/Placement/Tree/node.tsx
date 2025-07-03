@@ -160,7 +160,7 @@ export function StandardNode({ data }: NodeProps & { data: Props }) {
         onExpandBottom={onExpandBottom}
       />
 
-      {expandIds.includes(id) && (
+      {expandIds.includes(id) && visible !== 3 && (
         <Box sx={{ position: 'absolute', left: '45%', top: '45%' }}>
           <Iconify icon="eos-icons:bubble-loading" />
         </Box>
