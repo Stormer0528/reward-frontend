@@ -44,7 +44,7 @@ export function ActionRender({ visible, popover, data: placementMember, onExpand
             <Iconify icon="fluent:arrow-expand-all-16-filled" />
             Expand Bottom
           </MenuItem>
-          {visible === 3 && (
+          {(visible === 3 || visible === 4) && (
             <MenuItem
               onClick={() =>
                 router.push(`${paths.dashboard.sponsor.root}/new`, {

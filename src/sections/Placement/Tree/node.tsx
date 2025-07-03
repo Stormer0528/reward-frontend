@@ -143,7 +143,7 @@ export function StandardNode({ data }: NodeProps & { data: Props }) {
                   if (visible === 1) {
                     setExpandIds([...expandIds, id]);
                     onExpandNode(id);
-                  } else if (visible === 2) {
+                  } else if (visible === 2 || visible === 4) {
                     onCollapseNode(id);
                   }
                 }}

@@ -41,6 +41,8 @@ export function buildPlacementTree({ members, memberId }: PlacementTreeProps) {
     if (member.visible !== 3) {
       if (member.children.length === 0) {
         member.visible = 1;
+      } else if (member.children.length === 1) {
+        member.visible = 4;
       } else {
         member.visible = 2;
       }
