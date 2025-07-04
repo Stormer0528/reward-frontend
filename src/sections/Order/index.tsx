@@ -11,6 +11,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useParams, useRouter } from 'src/routes/hooks';
 
+import { useBoolean } from 'src/hooks/useBoolean';
+
 import { formatID } from 'src/utils/helper';
 
 import { OrderStatus, PaymentToken, type Order as OrderType } from 'src/__generated__/graphql';
@@ -22,11 +24,13 @@ import Detail from './Detail';
 import { Token } from './Token';
 import { Chain } from './Chain';
 import PaymentStatus from './PaymentStatus';
-import { useCancelOrder, useFetchOrderById, useSetOrderPayment } from './useApollo';
+import { ConfirmCancel } from './ConfirmCancel';
+import { useFetchOrderById, useSetOrderPayment } from './useApollo';
 
 export default function Order() {
   const theme = useTheme();
   const router = useRouter();
+  const isCancel = useBoolean();
 
   const { id } = useParams();
 
@@ -35,7 +39,6 @@ export default function Order() {
   const [timeLeft, setTimeLeft] = useState<number>(-1);
   const [status, setStatus] = useState<OrderStatus>(OrderStatus.New);
 
-  const { cancelOrder } = useCancelOrder();
   const { loading, order, fetchOrderById } = useFetchOrderById();
   const { loading: setLoading, setOrderPayment } = useSetOrderPayment();
 
@@ -66,19 +69,6 @@ export default function Order() {
         } else {
           setStep((prev) => prev + 1);
         }
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const handleCancel = async () => {
-    try {
-      const { data } = await cancelOrder({ variables: { data: { id: id! } } });
-
-      if (data) {
-        setStep(2);
-        setStatus(OrderStatus.Canceled);
       }
     } catch (error) {
       toast.error(error.message);
@@ -179,7 +169,7 @@ export default function Order() {
         )}
 
         {step !== 2 && (
-          <Button variant="outlined" onClick={handleCancel}>
+          <Button variant="outlined" onClick={isCancel.onTrue}>
             Cancel
           </Button>
         )}
@@ -223,6 +213,8 @@ export default function Order() {
           </>
         )}
       </Stack>
+
+      <ConfirmCancel id={id!} open={isCancel} setStep={setStep} setStatus={setStatus} />
     </>
   );
 }

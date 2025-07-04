@@ -435,6 +435,7 @@ export enum CampaignListType {
   Group = 'GROUP',
   PendingManualCommission = 'PENDING_MANUAL_COMMISSION',
   PendingUsdcCommission = 'PENDING_USDC_COMMISSION',
+  TexasMember = 'TEXAS_MEMBER',
   WeeklySponsor = 'WEEKLY_SPONSOR'
 }
 
@@ -926,9 +927,9 @@ export type FrontActionCreate12FreeBonusSale = {
 };
 
 export enum FrontActionEnum {
-  Create12Freebonussale = 'CREATE12FREEBONUSSALE',
-  Remove12Freebonussale = 'REMOVE12FREEBONUSSALE',
-  Update12Freebonussale = 'UPDATE12FREEBONUSSALE'
+  Create_1_2FreeBonusSale = 'CREATE_1_2_FREE_BONUS_SALE',
+  Remove_1_2FreeBonusSale = 'REMOVE_1_2_FREE_BONUS_SALE',
+  Update_1_2FreeBonusSale = 'UPDATE_1_2_FREE_BONUS_SALE'
 }
 
 export type FrontActionExtra = FrontActionCreate12FreeBonusSale | FrontActionRemove12FreeBonusSale | FrontActionUpdate12FreeBonusSale;
